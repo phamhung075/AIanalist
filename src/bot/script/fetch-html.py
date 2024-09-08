@@ -2,6 +2,9 @@ import re
 import os
 import sys
 import time
+import json
+from bs4 import BeautifulSoup
+
 from urllib.parse import urlparse
 from datetime import datetime
 from selenium import webdriver
@@ -11,6 +14,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait  # Import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC  # Import Expected Conditions
 from selenium.webdriver.common.action_chains import ActionChains
+
+
+MAX_DAY = 2
+MAX_HOUR = 48
 
 # Check if the URL is provided as a command-line argument
 if len(sys.argv) < 2:
@@ -60,9 +67,11 @@ def fetch_html_with_selenium(site_url):
 
 
 
-def extract_list_content_selenium(driver):
+
+
+def extract_list_content_html_selenium(driver):
     """
-    Extract content from the specific element using Selenium and stop fetching if data is older than 40 hours or 2 days.
+    Extract HTML content from the specific element using Selenium and stop fetching if data is older than 40 hours or 2 days.
     """
     try:
         # Wait until the element with the specified XPath is present (up to 10 seconds)
@@ -70,36 +79,97 @@ def extract_list_content_selenium(driver):
             EC.presence_of_element_located((By.XPATH, '//*[@id="stream"]'))
         )
         
-        # Extract text content
-        content = ul_element.text
-        
-        # Split the content into individual items
-        items = content.split('\n')
+        # Extract the list of <li> elements
+        list_items = ul_element.find_elements(By.TAG_NAME, 'li')
 
-        # Filter out data older than 40 hours or 2 days
         valid_data = []
-        for item in items:
-            hours_match = re.search(r'(\d+)\s+hours?\s+ago', item)
-            days_match = re.search(r'(\d+)\s+days?\s+ago', item)
-            
-            if hours_match:
-                hours_ago = int(hours_match.group(1))
-                if hours_ago > 24:
-                    print("Data is older than 40 hours, stopping fetch.")
-                    break
-            elif days_match:
-                days_ago = int(days_match.group(1))
-                if days_ago >= 1:
-                    print("Data is older than 2 days, stopping fetch.")
-                    break
-            
-            valid_data.append(item)
 
-        return '\n'.join(valid_data)
+        for item in list_items:
+            try:
+                # Find the <small> tag that contains the time information
+                time_element = item.find_element(By.TAG_NAME, 'small')
+                time_text = time_element.text.strip()
+
+                # Match hours or days from the <small> tag text
+                hours_match = re.search(r'(\d+)\s+hours?\s+ago', time_text)
+                days_match = re.search(r'(\d+)\s+days?\s+ago', time_text)
+
+                # Filter out data older than 40 hours or 2 days
+                if hours_match:
+                    hours_ago = int(hours_match.group(1))
+                    if hours_ago > MAX_HOUR:
+                        print(f"Data is older than 40 hours ({hours_ago} hours ago), stopping fetch.")
+                        break
+                elif days_match:
+                    days_ago = int(days_match.group(1))
+                    if days_ago >= MAX_DAY:
+                        print(f"Data is older than 2 days ({days_ago} days ago), stopping fetch.")
+                        break
+
+                # If the data is valid, append the entire HTML content of the list item
+                valid_data.append(item.get_attribute('outerHTML'))
+
+            except Exception as e:
+                print(f"Error processing item: {e}")
+                continue
+
+        return '\n\n\n'.join(valid_data)
 
     except Exception as e:
         print(f"Could not find the element: {e}")
         return None
+
+    
+
+
+def extract_data_as_json(html_content):
+    """
+    Extract the data from the HTML content using BeautifulSoup and return it as a list of dictionaries to be exported as JSON.
+    """
+    try:
+        # Parse the HTML content using BeautifulSoup
+        soup = BeautifulSoup(html_content, 'html.parser')
+        
+        # Find all the <li> elements within the parsed HTML
+        list_items = soup.find_all('li', class_='te-stream-item')
+        
+        data_list = []
+        
+        for li in list_items:
+            try:
+                # Extract the title
+                title_element = li.select_one('div.te-stream-title-div a.te-stream-title, a.te-stream-title-2')
+                title = title_element.get_text(strip=True) if title_element else ''
+                
+                # Extract the link
+                link = title_element['href'] if title_element else ''
+                
+                # Extract the time (like "13 hours ago" or "2 days ago")
+                time_element = li.find('small')
+                time_text = time_element.get_text(strip=True) if time_element else ''
+                
+                # Extract the content, excluding the time
+                content = li.get_text(separator=' ').split(time_text)[0].strip() if time_text else li.get_text(separator=' ').strip()
+                
+                # Add the structured data to the list
+                data_list.append({
+                    "title": title,
+                    "link": link,
+                    "time": time_text,
+                    "content": content
+                })
+            
+            except Exception as e:
+                print(f"Error processing list item: {e}")
+                continue
+        
+        # Return the data as a JSON string
+        return json.dumps(data_list, indent=4)
+
+    except Exception as e:
+        print(f"Could not process the HTML content: {e}")
+        return None
+    
 
 def export_to_file(data, site_url, file_name):
     """
@@ -133,7 +203,7 @@ if __name__ == "__main__":
     driver = fetch_html_with_selenium(site_url)
 
     # Extract content from the specific list element
-    list_content = extract_list_content_selenium(driver)
+    list_content = extract_data_as_json(extract_list_content_html_selenium(driver))
     
     if list_content:
         # Save the extracted content to a file

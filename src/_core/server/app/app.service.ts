@@ -8,6 +8,7 @@ import dotenv from 'dotenv';
 import { SimpleLogger } from '../../utils/logger';  // Assuming SimpleLogger is used for logging
 import { initializeApp } from 'firebase-admin/app';  // Firebase initialization
 import routes from './../routes/routes';  // Correctly import default export from routes.ts
+import { logRoutes } from '../../utils/utils';
 
 
 // Load environment variables based on the environment
@@ -43,27 +44,30 @@ export class AppService {
 
 	// Load cloud modules dynamically (keeping the original function)
 	private async loadCloudModules(app: express.Express): Promise<void> {
-		const isDevMode = env === 'development';
+		// Load the environment variables if not already done
+		const isDevMode = process.env.NODE_ENV === 'development';
 		const fileExtension = isDevMode ? 'ts' : 'js';
 
 		// Adjust the base path depending on environment
 		const baseDir = isDevMode
 			? path.resolve(__dirname, '../../../..')
-			: '/var/www/offel-win-backend';
-
+			: '/var/www/aianalist-backend';
 		const modulesDir = isDevMode
-			? path.join(baseDir, 'modules')
-			: path.join(baseDir, 'dist', 'modules');
+			? path.join(baseDir, 'src/modules')
+			: path.join(baseDir, 'dist', 'src/modules');
 
-		// List of modules to load
+		// List of modules to load		
+		console.log(`Loading modules from ${baseDir}`);
+		
 		const modules = [
-			'_core/info',
+			'./info',
 			'trading-economics-new',
 			//... other modules
 		];
 
 		const loadModule = async (moduleDir: string) => {
 			const cloudFilePath = path.join(modulesDir, moduleDir, `cloud.${fileExtension}`);
+			console.log(`Loading module ${moduleDir} from ${cloudFilePath}`);
 			if (fs.existsSync(cloudFilePath)) {
 				try {
 					const moduleImport = await import(cloudFilePath);
@@ -104,7 +108,6 @@ export class AppService {
 		this.app.use(routes);  // External routes
 		this.app.use(this.showRequestUrl);
 		await this.loadCloudModules(this.app);  // Load cloud modules
-		// logRoutes(this.app);  // Log routes after everything is set up
 
 		// Error handling middleware can be added here if needed
 	}
@@ -165,6 +168,8 @@ export class AppService {
 		try {
 			await this.init();
 			const server = await this.createServer();
+			logRoutes(this.app);  // Log routes after everything is set up
+
 			this.logger.info('Server is now listening for connections');
 			return server;
 		} catch (error) {

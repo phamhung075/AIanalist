@@ -1,32 +1,41 @@
-import { configService } from "../server/config";
 import * as fs from "fs";
 import path = require('path');
 
-/**
- * Service permettant de récupérer des informations sur le serveur
- */
+import dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
+
 export class InfoService {
 
 	/**
-	 * Retourne les informations du serveur sous forme de chaîne humainement lisible
-	 * @returns Informations du serveur
+	 * Returns server information as a human-readable string
+	 * @returns Server information
 	 */
 	async fetchDisplayableServerInfo(): Promise<string> {
 		let msg: string[] = [];
-		if (configService.getEnvProperty('main.mode') === 'dev') {
+		const mode = process.env.NODE_ENV || 'production';
+		const appName = process.env.PARSE_APP_NAME || 'Unknown App';
+		const appVersion = process.env.APP_VERSION || '1.0.0';
+		const dbUri = process.env.DATABASE_URI || '';
+		const serverType = dbUri.substr(0, dbUri.indexOf(':'));
+
+		if (mode === 'development') {
+			const devHost = process.env.DEV_PARSE_HOST || 'localhost';
+			const devPort = process.env.DEV_PARSE_PORT || '3000';
+
 			msg = [
-				`Le serveur ${configService.getEnvProperty('parse.app_name')} v${configService.getEnvProperty('main.app_version')}` +
-				` tourne en mode "${configService.getEnvProperty('main.mode')}" sur http://${configService.getEnvProperty('dev.parse_host')}:${configService.getEnvProperty('dev.parse_port')}.`
+				`Le serveur ${appName} v${appVersion} tourne en mode "${mode}" sur http://${devHost}:${devPort}.`,
 			];
-			const serverType = configService.getEnvProperty('database.uri').substr(0, configService.getEnvProperty('database.uri').indexOf(':'));
-			msg.push(`Le serveur ${serverType} est : ${configService.getEnvProperty('database.uri')}.`);
+			msg.push(`Le serveur ${serverType} est : ${dbUri}.`);
 		} else {
+			const prodHost = process.env.PARSE_HOST || 'localhost';
+			const prodPort = process.env.PARSE_PORT || '443';
+
 			msg = [
-				`Le serveur ${configService.getEnvProperty('parse.app_name')} v${configService.getEnvProperty('main.app_version')}` +
-				` tourne en mode "${configService.getEnvProperty('main.mode')}" sur https://${configService.getEnvProperty('parse.host')}:${configService.getEnvProperty('parse.port')}.`
+				`Le serveur ${appName} v${appVersion} tourne en mode "${mode}" sur https://${prodHost}:${prodPort}.`,
 			];
-			const serverType = configService.getEnvProperty('database.uri').substr(0, configService.getEnvProperty('database.uri').indexOf(':'));
-			msg.push(`Le serveur ${serverType} est : ${configService.getEnvProperty('database.uri')}.`);
+			msg.push(`Le serveur ${serverType} est : ${dbUri}.`);
 		}
 		return msg.join('\r\n');
 	}

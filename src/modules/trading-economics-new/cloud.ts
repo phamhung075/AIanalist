@@ -8,13 +8,13 @@ import { withUserContextAndPermissions } from '../../_core/guard/handle-permissi
 const router = express.Router();
 
 const cloudFunctions = {
-	"New-create": tradingEconomicsNewCloudService.create,
+	"TradingEconomicsNew-test": tradingEconomicsNewCloudService.test,
 };
 
 // Convertir chaque fonction en une route Express
 Object.entries(cloudFunctions).forEach(([functionName, functionHandler]) => {
 	router.post(
-		`/functions/${functionName}`,
+		`/api_v1/${functionName}`,
 		// authenticateToken, // Add the authentication middleware here
 		asyncHandlerFn(
 			withUserContextAndPermissions(

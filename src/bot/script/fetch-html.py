@@ -38,6 +38,10 @@ def fetch_html_with_selenium(site_url):
     Fetch the HTML content using Selenium for JavaScript-rendered content.
     """
     options = webdriver.ChromeOptions()
+    
+    # Add the argument to disable the search engine choice popup
+    options.add_argument("--disable-search-engine-choice-screen")
+
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
     # Load the website
@@ -47,7 +51,7 @@ def fetch_html_with_selenium(site_url):
     scroll_to_bottom(driver)
 
     # Wait for the specific element that signals the content is loaded
-    WebDriverWait(driver, 40).until(
+    WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.ID, "stream"))  # Adjust as per the page structure
     )
 
@@ -60,8 +64,8 @@ def extract_list_content_selenium(driver):
     Extract content from the specific element using Selenium.
     """
     try:
-        # Wait until the element with the specified XPath is present (up to 30 seconds)
-        ul_element = WebDriverWait(driver, 30).until(
+        # Wait until the element with the specified XPath is present (up to 10 seconds)
+        ul_element = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.XPATH, '//*[@id="stream"]'))
         )
         return ul_element.text

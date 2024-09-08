@@ -1,0 +1,29 @@
+{
+	"name": "aianalist",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"build": "tsc",
+		"start": "NODE_ENV=production node dist/_core/server/server.js",
+		"dev": "nodemon --watch src/**/*.ts --exec ts-node src/_core/server/server.ts",
+		"version": "standard-version"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"aianalist": "file:",
+		"dotenv": "^16.4.5",
+		"express": "^4.19.2"
+	},
+	"devDependencies": {
+		"@types/express": "^4.17.21",
+		"@types/node": "^22.5.4",
+		"husky": "^9.1.5",
+		"nodemon": "^3.1.4",
+		"standard-version": "^9.5.0",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.5.4"
+	}
+}

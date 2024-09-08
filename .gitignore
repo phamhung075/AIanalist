@@ -1,0 +1,30 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules/
+bower_components/
+
+# Build directories
+dist/
+build/
+tmp/
+
+# TypeScript
+*.tsbuildinfo
+
+# Angular
+.angular/
+.angular-cache/
+src/environment/.env.development
+src/environment/.env.production
+
+# IDE files
+.vscode/
+.idea/
+.DS_Store
+
+# Operating system files
+Thumbs.db

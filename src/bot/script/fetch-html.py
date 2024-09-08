@@ -1,3 +1,4 @@
+import re
 import os
 import sys
 import time
@@ -61,14 +62,41 @@ def fetch_html_with_selenium(site_url):
 
 def extract_list_content_selenium(driver):
     """
-    Extract content from the specific element using Selenium.
+    Extract content from the specific element using Selenium and stop fetching if data is older than 40 hours or 2 days.
     """
     try:
         # Wait until the element with the specified XPath is present (up to 10 seconds)
         ul_element = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.XPATH, '//*[@id="stream"]'))
         )
-        return ul_element.text
+        
+        # Extract text content
+        content = ul_element.text
+        
+        # Split the content into individual items
+        items = content.split('\n')
+
+        # Filter out data older than 40 hours or 2 days
+        valid_data = []
+        for item in items:
+            hours_match = re.search(r'(\d+)\s+hours?\s+ago', item)
+            days_match = re.search(r'(\d+)\s+days?\s+ago', item)
+            
+            if hours_match:
+                hours_ago = int(hours_match.group(1))
+                if hours_ago > 24:
+                    print("Data is older than 40 hours, stopping fetch.")
+                    break
+            elif days_match:
+                days_ago = int(days_match.group(1))
+                if days_ago >= 1:
+                    print("Data is older than 2 days, stopping fetch.")
+                    break
+            
+            valid_data.append(item)
+
+        return '\n'.join(valid_data)
+
     except Exception as e:
         print(f"Could not find the element: {e}")
         return None

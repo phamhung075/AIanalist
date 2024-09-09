@@ -6,17 +6,17 @@ import * as https from "https";
 import express from 'express';
 import dotenv from 'dotenv';
 import { SimpleLogger } from '../../utils/logger';  // Assuming SimpleLogger is used for logging
-import { initializeApp } from 'firebase-admin/app';  // Firebase initialization
-import routes from './../routes/routes';  // Correctly import default export from routes.ts
 import { logRoutes } from '../../utils/utils';
 import { isEmpty } from 'lodash';
+import { checkSystemOverload } from '../../helper/check-system-overload/check-system-overload';
 
-// Load environment variables based on the environment
+// Determine the environment and load the corresponding .env file
 const env = process.env.NODE_ENV || 'development';
-dotenv.config({ path: `src/environment/.env.${env}` });
+const envFile = path.resolve(__dirname, `../../../../environment/.env.${env}`);
+dotenv.config({ path: envFile });
+// console.log('All environment variables:', process.env);
+console.log(`All environment variables is ${process.env.TEST_VAR} on mode ${process.env.NODE_ENV}`);
 
-// Firebase initialization
-initializeApp();
 
 /**
  * Service class for managing the server application
@@ -42,56 +42,21 @@ export class AppService {
 		return AppService.instance;
 	}
 
-	// Load cloud modules dynamically (keeping the original function)
-	private async loadCloudModules(app: express.Express): Promise<void> {
-		// Load the environment variables if not already done
-		const isDevMode = process.env.NODE_ENV === 'development';
-		const fileExtension = isDevMode ? 'ts' : 'js';
-
-		// Adjust the base path depending on environment
-		const baseDir = isDevMode
-			? path.resolve(__dirname, '../../../..')
-			: '/var/www/aianalist-backend';
-		const modulesDir = isDevMode
-			? path.join(baseDir, 'src/modules')
-			: path.join(baseDir, 'dist', 'src/modules');
-
-		// List of modules to load		
-		console.log(`Loading modules from ${baseDir}`);
+	/**
+	 * Initialize middleware and settings
+	 */
+	private async init(): Promise<void> {
+		this.setupCors();
+		this.app.use(express.json({ limit: '50mb' }));
+		this.app.use(express.urlencoded({ limit: '50mb', extended: true }));
+		this.app.use(this.showRequestUrl);
 		
-		const modules = [
-			'./info',
-			'trading-economics-new',
-			//... other modules
-		];
-
-		const loadModule = async (moduleDir: string) => {
-			const cloudFilePath = path.join(modulesDir, moduleDir, `cloud.${fileExtension}`);
-			console.log(`Loading module ${moduleDir} from ${cloudFilePath}`);
-			if (fs.existsSync(cloudFilePath)) {
-				try {
-					const moduleImport = await import(cloudFilePath);
-					const moduleRouter = moduleImport.default || moduleImport;
-
-					if (moduleRouter && typeof moduleRouter === 'function') {
-						app.use(moduleRouter);
-						console.log(`Module ${moduleDir} loaded and routes attached.`);
-					} else {
-						console.warn(`Module ${moduleDir} does not export a valid router function.`);
-					}
-				} catch (error) {
-					console.error(`Error loading module ${moduleDir}:`, error);
-				}
-			} else {
-				console.warn(`Cloud file not found for module ${moduleDir}: ${cloudFilePath}`);
-			}
-		};
-
-		await Promise.all(modules.map(loadModule));
 	}
 
-	// Method to initialize the app and middleware
-	private async init(): Promise<void> {
+	/**
+	 * Setup CORS based on environment
+	 */
+	private setupCors(): void {
 		const devOrigin = ['http://localhost:3333'];
 		const prodOrigin = ['http://localhost:3333'];
 
@@ -103,18 +68,70 @@ export class AppService {
 		};
 
 		this.app.use(cors(corsOptions));
-		this.app.use(express.json({ limit: '50mb' }));
-		this.app.use(express.urlencoded({ limit: '50mb', extended: true }));
-		this.app.use(this.showRequestUrl);
-		// this.app.use(logResponseMiddleware);
-		this.app.use(routes);  // Load External routes		
-		await this.loadCloudModules(this.app);  // Load cloud modules
-
-		// Error handling middleware can be added here if needed
 	}
 
-	// Create and configure the server
-	// Create and configure the server
+	/**
+	 * Load cloud modules dynamically
+	 * 
+	 * @param app - Express application instance
+	 */
+	private async loadCloudModules(_app: express.Express): Promise<void> {
+		const isDevMode = process.env.NODE_ENV === 'development';
+		const fileExtension = isDevMode ? 'ts' : 'js';
+
+		// Adjust the base path depending on environment
+		const baseDir = isDevMode
+			? path.resolve(__dirname, '../../../..')
+			: '/var/www/aianalist-backend';
+		const modulesDir = isDevMode
+			? path.join(baseDir, 'src/modules')
+			: path.join(baseDir, 'dist', 'src/modules');
+
+		const modules = [
+			'./../_core/server/routes',
+			'./info',
+			'trading-economics-new',
+			//... other modules
+		];
+		
+		console.log(`Loading modules from ${baseDir}`);
+		await Promise.all(modules.map(moduleDir => this.loadModule(moduleDir, modulesDir, fileExtension)));
+
+	}
+
+	/**
+	 * Helper function to load a single cloud module
+	 * 
+	 * @param moduleDir - Directory of the module
+	 * @param modulesDir - Base directory where modules are located
+	 * @param fileExtension - File extension based on environment
+	 */
+	private async loadModule(moduleDir: string, modulesDir: string, fileExtension: string): Promise<void> {
+		const cloudFilePath = path.join(modulesDir, moduleDir, `cloud.${fileExtension}`);
+		console.log(`Loading module ${moduleDir} from ${cloudFilePath}`);
+
+		if (fs.existsSync(cloudFilePath)) {
+			try {
+				const moduleImport = await import(cloudFilePath);
+				const moduleRouter = moduleImport.default || moduleImport;
+
+				if (moduleRouter && typeof moduleRouter === 'function') {
+					this.app.use(moduleRouter);
+					console.log(`Module ${moduleDir} loaded and routes attached.`);
+				} else {
+					console.warn(`Module ${moduleDir} does not export a valid router function.`);
+				}
+			} catch (error) {
+				console.error(`Error loading module ${moduleDir}:`, error);
+			}
+		} else {
+			console.warn(`Cloud file not found for module ${moduleDir}: ${cloudFilePath}`);
+		}
+	}
+
+	/**
+	 * Create and configure the server (HTTP or HTTPS)
+	 */
 	private async createServer(): Promise<http.Server | https.Server> {
 		let server: http.Server | https.Server;
 
@@ -139,16 +156,19 @@ export class AppService {
 				this.logger.info(`Server started on port ${this.port} in ${env} mode`);
 			})
 			.on('error', (error: NodeJS.ErrnoException) => {
-				if (error.code === 'EADDRINUSE') {
-					this.logger.error(`Port ${this.port} is already in use. Retrying on another port...`, error);
-					// Retry with a random port
-					server.listen(0);  // 0 means it will assign an available random port
-				} else {
-					this.logger.error('Error occurred while starting the server:', error);
-					throw error;
-				}
+				this.handleServerError(error, server);
 			});
-		// Global error handlers
+
+		this.setupGlobalErrorHandlers();
+
+		this.logger.info('Global error handlers configured');
+		return server;
+	}
+
+	/**
+	 * Setup global error handlers for uncaught exceptions and rejections
+	 */
+	private setupGlobalErrorHandlers(): void {
 		process.on('uncaughtException', (error) => {
 			this.logger.error('Uncaught Exception', error);
 			process.exit(1);
@@ -158,20 +178,35 @@ export class AppService {
 			const error = reason instanceof Error ? reason : new Error(String(reason));
 			this.logger.error('Unhandled Rejection', error);
 		});
-
-		this.logger.info('Global error handlers configured');
-		return server;
 	}
 
+	/**
+	 * Handle server errors such as 'EADDRINUSE'
+	 */
+	private handleServerError(error: NodeJS.ErrnoException, server: http.Server | https.Server): void {
+		if (error.code === 'EADDRINUSE') {
+			this.logger.error(`Port ${this.port} is already in use. Retrying on another port...`, error);
+			// Retry with a random port
+			server.listen(0);  // 0 means it will assign an available random port
+		} else {
+			this.logger.error('Error occurred while starting the server:', error);
+			throw error;
+		}
+	}
 
-	// Start listening for connections
+	/**
+	 * Start listening for connections
+	 */
 	async listen(): Promise<http.Server | https.Server> {
 		try {
 			await this.init();
+			await this.loadCloudModules(this.app);  // Load cloud modules
+
 			const server = await this.createServer();
 			logRoutes(this.app);  // Log routes after everything is set up
+			console.log('Server is now listening for connections');
+			checkSystemOverload();
 
-			this.logger.info('Server is now listening for connections');
 			return server;
 		} catch (error) {
 			this.logger.error('Failed to start server', error as Error);
@@ -179,8 +214,11 @@ export class AppService {
 		}
 	}
 
-	// Log request details for debugging
+	/**
+	 * Log request details for debugging
+	 */
 	private showRequestUrl(req: express.Request, _: express.Response, next: express.NextFunction): void {
+		console.log('\n--------------------------------------------------------------------------------------------------------------');
 		if (!isEmpty(req.originalUrl)) console.log('Request URL:', `${req.headers.host}${req.originalUrl}`);
 		if (!isEmpty(req.method)) console.log('Method:', req.method);
 		if (!isEmpty(req.body)) console.log('Body:', JSON.stringify(req.body, null, 2));
@@ -189,10 +227,15 @@ export class AppService {
 		next();
 	}
 
+	/**
+	 * Log and handle the response
+	 */
+	
+
+
 }
 
 // Initialize the AppService and start the server
-const appService = new AppService();
+const appService = AppService.getInstance();
 
 export { appService };
-

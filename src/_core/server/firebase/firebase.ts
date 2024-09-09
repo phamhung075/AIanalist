@@ -2,7 +2,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
-import { getFirestore } from 'firebase/firestore';  // For Firestore
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { getDatabase } from 'firebase/database'; // Import for Realtime Database
 
 import { getAuth } from 'firebase/auth';  // For Authentication
@@ -20,12 +20,32 @@ const firebaseConfig = {
 	measurementId: "G-4H4KL2LSJ5"
 };
 
+
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 console.log ("firebase initialized");
 // export const analytics = getAnalytics(app);
 
 // Initialize Firebase services
-export const database = getDatabase(app);
-export const firestore = getFirestore(app);
-export const auth = getAuth(app);
+const database = getDatabase(app);
+const firestore = getFirestore(app);
+const auth = getAuth(app);
+
+const testFirestoreAccess = async () => {
+	try {
+		const docsSnapshot = await getDocs(collection(firestore, 'news'));
+		console.log(`Number of documents: ${docsSnapshot.size}`);
+	} catch (error) {
+		console.error('Error accessing Firestore:', error);
+	}
+};
+
+// testFirestoreAccess();
+export {
+	app,
+	database,
+	firestore,
+	auth,
+	testFirestoreAccess
+};

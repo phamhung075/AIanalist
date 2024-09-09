@@ -72,7 +72,6 @@ export const asyncHandlerFn = (fn: (req: ExtendedFunctionRequest, res: Response,
 
                 // Exécution de la fonction de route
                 const result = await fn(extendedReq, res, next);
-
                 // Envoi de la réponse si elle n'a pas déjà été envoyée
                 if (!res.headersSent) {
                     res.json({ result });

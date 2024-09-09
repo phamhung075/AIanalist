@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { asyncHandlerFn } from '../asyncHandler/asyncHandler';
+import { asyncHandlerFn } from '../async-handler/async-handler';
 
 export const handleNonAuthRoutes = (fn: (req: Request, res: Response, next: NextFunction) => Promise<any>) => {
 	return asyncHandlerFn(async (req: Request, res: Response, next: NextFunction) => {

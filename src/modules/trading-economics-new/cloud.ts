@@ -17,12 +17,11 @@ Object.entries(cloudFunctions_v1).forEach(([functionName, functionHandler]) => {
 	router.post(
 		`/api_v1/${functionName}`,
 		// authenticateToken, // Add the authentication middleware here
-		logResponseMiddleware(
-			asyncHandlerFn(
-				withUserContextAndPermissions(
-					functionHandler.bind(tradingEconomicsNewCloudService)
-				)
+		asyncHandlerFn(
+			withUserContextAndPermissions(
+				functionHandler.bind(tradingEconomicsNewCloudService)
 			)
+
 		));
 });
 export default router;

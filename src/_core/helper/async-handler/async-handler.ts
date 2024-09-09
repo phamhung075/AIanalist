@@ -1,7 +1,8 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import { ErrorResponse } from './error/error.response';
 import { HttpStatusCode } from './common/httpStatusCode';
 import { ExtendedFunctionRequest } from '../../guard/handle-permission/user-context.interface';
+import { logResponseMiddleware } from '../log-response-middleware/log-response-middleware';
 const { StatusCodes, ReasonPhrases } = HttpStatusCode
 
 
@@ -11,7 +12,7 @@ const { StatusCodes, ReasonPhrases } = HttpStatusCode
 export const asyncHandlerFn = (
 	fn: (req: ExtendedFunctionRequest, res: Response, next: NextFunction) => Promise<any>
 ) => {
-	return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+	return logResponseMiddleware(async (req: ExtendedFunctionRequest, res: Response, next: NextFunction): Promise<void> => {
 		try {
 			// Execute the route handler function
 			const result = await fn(req, res, next);
@@ -61,5 +62,5 @@ export const asyncHandlerFn = (
 			// Pass the error to the next middleware
 			next(error);
 		}
-	};
+	});
 };

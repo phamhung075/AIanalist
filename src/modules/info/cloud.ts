@@ -17,11 +17,10 @@ Object.entries(cloudFunctions_v1_get).forEach(([functionName, functionHandler]) 
 	router.get(
 		`/${functionName}`,
 		// authenticateToken, // Add the authentication middleware here
-		logResponseMiddleware(
-			asyncHandlerFn(
-				functionHandler.bind(infoCloudService)
-			)
+		asyncHandlerFn(
+			functionHandler.bind(infoCloudService)
 		)
+
 	)
 });
 

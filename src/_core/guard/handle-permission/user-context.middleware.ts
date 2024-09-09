@@ -69,9 +69,7 @@ export function withUserContextAndPermissions(originalFunction: (req: ExtendedUs
             const result = await originalFunction(req);
             res.json({ result });  // Utilisation du format de réponse unifié
         } catch (error: any) {
-            console.error("Error:", error);
-            res.status(error.message === EnumErrors.INVALID_TOKEN ? 403 : 500)
-                .json({ error: error.message });
+            throw error;
         }
     };
 }

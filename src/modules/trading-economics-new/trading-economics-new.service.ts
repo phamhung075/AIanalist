@@ -2,6 +2,7 @@
 import { BaseRepositoryService } from "../_base/crud/baseRepository.service.abstract";
 import { TradingEconomicsNew } from "../../models/TradingEconomicsNew.model";
 import { FireBaseUtilsService } from "../../utils/firebase-utils.service";
+import { _ERROR } from "../../_core/helper/async-handler/error/error.response";
 
 export class TradingEconomicsNewService extends BaseRepositoryService<TradingEconomicsNew> {
 	constructor(FireBaseUtilsService: FireBaseUtilsService) {
@@ -9,14 +10,7 @@ export class TradingEconomicsNewService extends BaseRepositoryService<TradingEco
     }
 
     async test(): Promise<any[]> {
-		const data = [] as  any[];
-        try {
-
-            return data ?? [];
-        } catch (error) {
-            console.error('Error while fetching AdresseStockage', error);
-            throw error;
-        }
+		throw new _ERROR.RequestTooLongError() 
     }
 
 }

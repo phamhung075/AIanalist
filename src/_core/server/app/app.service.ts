@@ -9,7 +9,7 @@ import { SimpleLogger } from '../../utils/logger';  // Assuming SimpleLogger is 
 import { initializeApp } from 'firebase-admin/app';  // Firebase initialization
 import routes from './../routes/routes';  // Correctly import default export from routes.ts
 import { logRoutes } from '../../utils/utils';
-
+import { isEmpty } from 'lodash';
 
 // Load environment variables based on the environment
 const env = process.env.NODE_ENV || 'development';
@@ -105,8 +105,9 @@ export class AppService {
 		this.app.use(cors(corsOptions));
 		this.app.use(express.json({ limit: '50mb' }));
 		this.app.use(express.urlencoded({ limit: '50mb', extended: true }));
-		this.app.use(routes);  // External routes
 		this.app.use(this.showRequestUrl);
+		// this.app.use(logResponseMiddleware);
+		this.app.use(routes);  // Load External routes		
 		await this.loadCloudModules(this.app);  // Load cloud modules
 
 		// Error handling middleware can be added here if needed
@@ -180,11 +181,11 @@ export class AppService {
 
 	// Log request details for debugging
 	private showRequestUrl(req: express.Request, _: express.Response, next: express.NextFunction): void {
-		console.log('Request URL:', `${req.headers.host}${req.originalUrl}`);
-		console.log('Method:', req.method);
-		console.log('Body:', JSON.stringify(req.body, null, 2));
-		console.log('Params:', JSON.stringify(req.params, null, 2));
-		console.log('Query:', JSON.stringify(req.query, null, 2));
+		if (!isEmpty(req.originalUrl)) console.log('Request URL:', `${req.headers.host}${req.originalUrl}`);
+		if (!isEmpty(req.method)) console.log('Method:', req.method);
+		if (!isEmpty(req.body)) console.log('Body:', JSON.stringify(req.body, null, 2));
+		if (!isEmpty(req.params)) console.log('Params:', JSON.stringify(req.params, null, 2));
+		if (!isEmpty(req.query)) console.log('Query:', JSON.stringify(req.query, null, 2));
 		next();
 	}
 

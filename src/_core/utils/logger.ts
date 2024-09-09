@@ -6,6 +6,7 @@ export class SimpleLogger {
 
     constructor() {
         const logDir = path.join(__dirname, '../../../logs');
+		console.log('logDir: ' + logDir);
         if (!fs.existsSync(logDir)) {
             fs.mkdirSync(logDir, { recursive: true });
         }

@@ -41,45 +41,47 @@ export class InfoService {
 	}
 }
 
+
+
 export const logResponseMiddleware = (req: any, res: any, next: any) => {
-	const oldJson = res.json;
+	console.log('logResponseMiddleware - Middleware has been hit');
 
-	// Get the current date and time
+	// Log request details
+	console.log(`Method: ${req.method}`);
+	console.log(`URL: ${req.originalUrl}`);
+	console.log(`Headers: ${JSON.stringify(req.headers, null, 2)}`);
+	console.log(`Body: ${JSON.stringify(req.body, null, 2)}`);
+
+	// Save the original res.json method
+	const oldJson = res.json.bind(res);
+
+	// Get the current date and time for logging
 	const now = new Date();
-	const date = now.toISOString().split('T')[0]; // e.g., '2024-09-06'
-	const hour = now.getHours(); // e.g., 0, 1, ..., 23
+	const date = now.toISOString().split('T')[0];
+	const hour = now.getHours().toString();
 
-	// Define log directory structure for errors
-	const logDir = path.join(__dirname, '../../../../logs', 'error', date!, hour.toString());
+	// Define log directory and error log file path
+	const logDir = path.join(__dirname, '../../../../logs', 'error', date, hour);
 	const errorLogFilePath = path.join(logDir, 'error-log.txt');
 
 	// Ensure the log directory exists
 	fs.mkdirSync(logDir, { recursive: true });
 
-	// Helper function to log errors to a file
 	const logError = (message: string) => {
 		fs.appendFileSync(errorLogFilePath, message + '\n', 'utf8');
 	};
 
-	res.status = function (code: number) {
-		res.statusCode = code;
-		return res;
-	}
-
+	// Override res.json to log the response and forward it correctly
 	res.json = function (data: any) {
-		// Log response to the console as before
-		console.warn("\n\n_________________ RESULT _________________");
+		console.log("\n\n_________________ RESULT _________________");
 		console.log(`API Response for ${req.method} ${req.originalUrl}:`);
-		console.log(`Request URL: ${req.originalUrl}`);
 		console.log(`Status Code: ${res.statusCode}`);
 		console.log("Response Body:", JSON.stringify(data, null, 2));
-		console.warn("___________________________________________________\n\n");
+		console.log("__________________________________________\n\n");
 
-		// If an error occurred (status code >= 400), log it to the file
+		// If there's an error (status code >= 400), log it
 		if (res.statusCode >= 400) {
-			// Ensure the request body is a valid object before logging it
 			const requestBody = req.body && typeof req.body === 'object' ? JSON.stringify(req.body, null, 2) : req.body;
-
 			const errorMessage = `
 ${new Date().toISOString()}
 _________________ ERROR _________________
@@ -91,15 +93,15 @@ ${requestBody}
 Status Code: ${res.statusCode}
 Response Body: 
 ${JSON.stringify(data, null, 2)}
-___________________________________________________\n\n`;
+__________________________________________\n\n`;
 
 			// Log the error to a file
 			logError(errorMessage);
 		}
 
-		oldJson.apply(res, arguments);
+		// Call the original res.json method to send the response to the client
+		return oldJson(data);  // Ensure the response is forwarded correctly
 	};
 
-	next();
+	next();  // Call the next middleware or route handler
 };
-

@@ -4,23 +4,27 @@ import { BaseRepositoryController } from "../_base/crud/baseRepository.controlle
 import { TradingEconomicsNewService } from "./trading-economics-new.service";
 
 export class TradingEconomicsNewCloudService extends BaseRepositoryController<TradingEconomicsNew> {
-	constructor(
+    constructor(
 		private readonly tradingEconomicsNewService: TradingEconomicsNewService,
-	) {
+    ) {
 		super(TradingEconomicsNew);
-	}
+    }
 
 	baseRepositoryService(): TradingEconomicsNewService {
 		return this.tradingEconomicsNewService; // Assuming this is instantiated elsewhere
-	}
+    }
 
 
 
-	async test(_req: ExtendedUserContextRequest): Promise<any> {
+	async test(_req: ExtendedUserContextRequest): Promise<any[]> {
 
+        try {
 			const result = await this.tradingEconomicsNewService.test();
-			console.log(result);
-			return result;
-	}
+            return result;
+        } catch (error) {
+            console.error(`Error getting ${this.getClassName()}`, error);
+            throw error;
+        }
+    }
 
 }

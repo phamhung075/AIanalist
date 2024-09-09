@@ -9,7 +9,7 @@ import { SimpleLogger } from '../../utils/logger';  // Assuming SimpleLogger is 
 import { logRoutes } from '../../utils/utils';
 import { isEmpty } from 'lodash';
 import { checkSystemOverload } from '../../helper/check-system-overload/check-system-overload';
-
+import { modules } from  '../../../main';
 // Determine the environment and load the corresponding .env file
 const env = process.env.NODE_ENV || 'development';
 const envFile = path.resolve(__dirname, `../../../../environment/.env.${env}`);
@@ -86,13 +86,7 @@ export class AppService {
 		const modulesDir = isDevMode
 			? path.join(baseDir, 'src/modules')
 			: path.join(baseDir, 'dist', 'src/modules');
-
-		const modules = [
-			'./../_core/server/routes',
-			'./info',
-			'trading-economics-new',
-			//... other modules
-		];
+		
 		
 		console.log(`Loading modules from ${baseDir}`);
 		await Promise.all(modules.map(moduleDir => this.loadModule(moduleDir, modulesDir, fileExtension)));

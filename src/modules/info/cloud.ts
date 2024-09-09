@@ -1,6 +1,5 @@
 import * as express from 'express';
 import { infoCloudService } from ".";
-import { logResponseMiddleware } from '../../_core/helper/log-response-middleware/log-response-middleware';
 import { asyncHandlerFn } from '../../_core/helper/async-handler/async-handler';
 
 // Créer un routeur Express

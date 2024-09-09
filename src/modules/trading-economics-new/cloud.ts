@@ -2,7 +2,6 @@ import * as express from 'express';
 import { tradingEconomicsNewCloudService } from ".";
 import { asyncHandlerFn } from '../../_core/helper/async-handler/async-handler';
 import { withUserContextAndPermissions } from '../../_core/guard/handle-permission/user-context.middleware';
-import { logResponseMiddleware } from '../../_core/helper/log-response-middleware/log-response-middleware';
 
 
 // Créer un routeur Express

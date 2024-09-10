@@ -62,6 +62,7 @@ export class ErrorTestService {
 	}
 
 	async RequestUriTooLongError(message?: string): Promise<Error> {
+		
 		throw new _ERROR.RequestUriTooLongError(message);
 	}
 

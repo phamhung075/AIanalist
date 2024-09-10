@@ -4,6 +4,7 @@ const { StatusCodes, ReasonPhrases } = HttpStatusCode
 
 export class ErrorResponse extends Error {
 	status: number
+	stack?: string | undefined;
 	constructor(message : string, status : number) {
 		super(message);
 		this.status = status;

@@ -1,10 +1,9 @@
-import { Response, NextFunction } from 'express';
+import { NextFunction, Response } from 'express';
 import * as fs from "fs";
 import * as path from "path";
 import { ExtendedFunctionRequest } from '../../guard/handle-permission/user-context.interface';
 
-import { HttpStatusCode } from "./../../helper/async-handler/common/httpStatusCode"
-const { StatusCodes, ReasonPhrases } = HttpStatusCode
+
 // Middleware function to log responses
 export function logResponseMiddleware(fn: (req: ExtendedFunctionRequest, res: Response, next: NextFunction) => Promise<any>) {
 	return async (req: ExtendedFunctionRequest, res: Response, next: NextFunction) => {

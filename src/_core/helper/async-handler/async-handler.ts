@@ -27,17 +27,17 @@ export const asyncHandlerFn = (
 			if (!res.headersSent) {
 				let status = StatusCodes.INTERNAL_SERVER_ERROR;
 				let message = ReasonPhrases.INTERNAL_SERVER_ERROR;
-
+				const statusCodeKey = Object.keys(StatusCodes).find(
+					(key) => StatusCodes[key as keyof typeof StatusCodes] === error.status
+				);
 				// Check if the error is an instance of your custom ErrorResponse class
 				if (error instanceof ErrorResponse) {
 					// Use the custom error's status and message
 					status = error.status || StatusCodes.INTERNAL_SERVER_ERROR;
-					message = error.message || ReasonPhrases.INTERNAL_SERVER_ERROR;
+					message = `${ReasonPhrases[statusCodeKey as keyof typeof ReasonPhrases]}${error.message ? ", " + error.message : ""}` || ReasonPhrases.INTERNAL_SERVER_ERROR;
 				} else if (typeof error.status === 'number') {
 					// Get the property name (key) that matches the status code number
-					const statusCodeKey = Object.keys(StatusCodes).find(
-						(key) => StatusCodes[key as keyof typeof StatusCodes] === error.status
-					);
+
 
 					// Set the status and message if the key is found
 					if (statusCodeKey) {
@@ -56,7 +56,13 @@ export const asyncHandlerFn = (
 				console.log(`Sending response with status ${status} and message ${message}`);
 
 				// Send the response with the status and reason phrase
-				res.status(status).json({ error: message });
+				res.status(status).json(
+					{
+						error: true,
+						code: status,
+						type: statusCodeKey,
+						message: message
+					});
 			}
 
 			// Pass the error to the next middleware
@@ -64,3 +70,5 @@ export const asyncHandlerFn = (
 		}
 	});
 };
+
+

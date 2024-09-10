@@ -4,112 +4,141 @@ import { NextFunction, Response } from 'express';
 import { ErrorResponse } from './error/error.response';
 import { HttpStatusCode } from './common/httpStatusCode';
 import { ExtendedFunctionRequest } from '../../guard/handle-permission/user-context.interface';
-import { logResponseMiddleware } from '../log-response-middleware/log-response-middleware';
-const { StatusCodes, ReasonPhrases } = HttpStatusCode
+const { StatusCodes, ReasonPhrases } = HttpStatusCode;
 
+// Middleware function to log responses and errors
+export function logResponseMiddleware(
+	fn: (req: ExtendedFunctionRequest, res: Response, next: NextFunction) => Promise<any>
+) {
+	return async (req: ExtendedFunctionRequest, res: Response, next: NextFunction) => {
+		const oldJson = res.json.bind(res); // Save the original res.json method
+		const logDir = createLogDir(); // Create log directory
 
-// Création d'un AsyncLocalStorage pour stocker le contexte de la requête
+		// Helper function to log messages to a file
+		const logMessage = (message: string, fileName: string = 'error-log.txt') => {
+			try {
+				fs.appendFileSync(path.join(logDir, fileName), message + '\n', 'utf8');
+			} catch (err) {
+				console.error('Error writing to log file:', err);
+			}
+		};
 
+		// Override res.json to log responses and errors
+		res.json = function (data: any) {
+			logResponse(req, res, data, logMessage);
+			return oldJson(data);
+		};
 
+		try {
+			await fn(req, res, next); // Execute the original function
+		} catch (error: any) {
+			handleError(req, res, error, logMessage);
+			next(error);
+		}
+	};
+}
+
+// Async handler function that logs responses and errors
 export const asyncHandlerFn = (
 	fn: (req: ExtendedFunctionRequest, res: Response, next: NextFunction) => Promise<any>
-) => {
-	return logResponseMiddleware(async (req: ExtendedFunctionRequest, res: Response, next: NextFunction): Promise<void> => {
-		try {
-			// Execute the route handler function
-			const result = await fn(req, res, next);
+) => logResponseMiddleware(async (req: ExtendedFunctionRequest, res: Response, next: NextFunction) => {
+	try {
+		const result = await fn(req, res, next); // Execute route handler
 
-			// Send the response if it hasn't been sent yet
-			if (!res.headersSent) {
-				res.json({ result });
+		// Send the response if it hasn't been sent yet
+		if (!res.headersSent) {
+			res.json({ result });
+		}
+	} catch (error: any) {
+		const logDir = createLogDir();
+
+		// Re-declare logMessage inside asyncHandlerFn
+		const logMessage = (message: string) => {
+			try {
+				fs.appendFileSync(path.join(logDir, 'error-log.txt'), message + '\n', 'utf8');
+			} catch (err) {
+				console.error('Error writing to log file:', err);
 			}
-		} catch (error: any) {
-			// console.error('Caught error:', error);
-			const logDir = createLogDir();
+		};
 
-			// Helper function to log errors to a file
-			const logError = (message: string) => {
-				try {
-					fs.appendFileSync(path.join(logDir, 'error-log.txt'), message + '\n', 'utf8');
-				} catch (err) {
-					console.error('Error writing to log file:', err);
-				}
-			};
-			// console.error('Caught error in logResponseMiddleware:', error);
+		handleError(req, res, error, logMessage);
+		next(error);
+	}
+});
 
-			// Log caught errors
-			const errorMessage = `
+// Function to log responses and errors
+function logResponse(req: ExtendedFunctionRequest, res: Response, data: any, logMessage: (msg: string) => void) {
+	console.log("\n\n_________________ RESULT _________________");
+	console.log(`API Response for ${req.method} ${req.originalUrl}:`);
+	console.log(`Status Code: ${res.statusCode}`);
+	console.log("Response Body:", JSON.stringify(data, null, 2));
+	console.log("__________________________________________\n\n");
+
+	if (res.statusCode >= 400) {
+		const errorMessage = `
 ${new Date().toISOString()}
-_________________ ERROR (Caught) _________________
-Error occurred during ${req.method} ${req.originalUrl}:
+_________________ ERROR _________________
+Error during ${req.method} ${req.originalUrl}:
+Status Code: ${res.statusCode}
+Response Body: ${JSON.stringify(data, null, 2)}
+__________________________________________\n\n`;
+
+		logMessage(errorMessage);
+	}
+}
+
+// Function to handle and log errors
+function handleError(req: ExtendedFunctionRequest, res: Response, error: any, logMessage: (msg: string) => void) {
+	const errorMessage = `
+${new Date().toISOString()}
+_________________ ERROR _________________
+Error during ${req.method} ${req.originalUrl}:
 Error: ${error instanceof Error ? error.message : String(error)}
 Stack Trace: ${error instanceof Error ? error.stack : 'No stack trace available'}
 __________________________________________\n\n`;
 
-			// Log the caught error to the log file
-			logError(errorMessage);
-			if (!res.headersSent) {
-				let status = StatusCodes.INTERNAL_SERVER_ERROR;
-				let message = ReasonPhrases.INTERNAL_SERVER_ERROR;
-				const statusCodeKey = Object.keys(StatusCodes).find(
-					(key) => StatusCodes[key as keyof typeof StatusCodes] === error.status
-				);
-				// Check if the error is an instance of your custom ErrorResponse class
-				if (error instanceof ErrorResponse) {
-					// Use the custom error's status and message
-					status = error.status || StatusCodes.INTERNAL_SERVER_ERROR;
-					message = `${ReasonPhrases[statusCodeKey as keyof typeof ReasonPhrases]}${error.message ? ", " + error.message : ""}` || ReasonPhrases.INTERNAL_SERVER_ERROR;
-				} else if (typeof error.status === 'number') {
-					// Get the property name (key) that matches the status code number
+	logMessage(errorMessage);
 
+	if (!res.headersSent) {
+		const { status, message } = getErrorResponse(error);
+		res.status(status).json({
+			error: true,
+			code: status,
+			message
+		});
+	}
+}
 
-					// Set the status and message if the key is found
-					if (statusCodeKey) {
-						status = error.status;
-						message = ReasonPhrases[statusCodeKey as keyof typeof ReasonPhrases]
-							|| ReasonPhrases.INTERNAL_SERVER_ERROR;
-					} else {
-						console.error(`Status code ${error.status} not found in StatusCodes`);
-					}
-				} else {
-					// Log if no valid status code was found
-					console.error(`Error status not valid: ${error.status}`);
-				}
+// Get proper status and message for error response
+function getErrorResponse(error: any) {
+	let status = StatusCodes.INTERNAL_SERVER_ERROR;
+	let message = ReasonPhrases.INTERNAL_SERVER_ERROR;
 
-				// Log the final status and message before sending the response
-				console.log(`Sending response with status ${status} and message ${message}`);
-
-				// Send the response with the status and reason phrase
-				res.status(status).json(
-					{
-						error: true,
-						code: status,
-						type: statusCodeKey,
-						message: message
-					});
-			}
-
-			// Pass the error to the next middleware
-			next(error);
+	if (error instanceof ErrorResponse) {
+		status = error.status || StatusCodes.INTERNAL_SERVER_ERROR;
+		const statusCodeKey = Object.keys(StatusCodes).find(
+			(key) => StatusCodes[key as keyof typeof StatusCodes] === status
+		);
+		message = `${ReasonPhrases[statusCodeKey as keyof typeof ReasonPhrases]}${error.message ? ", " + error.message : ""}`;
+	} else if (typeof error.status === 'number') {
+		const statusCodeKey = Object.keys(StatusCodes).find(
+			(key) => StatusCodes[key as keyof typeof StatusCodes] === error.status
+		);
+		if (statusCodeKey) {
+			status = error.status;
+			message = ReasonPhrases[statusCodeKey as keyof typeof ReasonPhrases];
 		}
-	});
-};
+	}
+	return { status, message };
+}
 
-/**
- * Create the log directory based on the current UTC date and hour
- */
-export function createLogDir(): string {
+// Create the log directory based on the current UTC date and hour
+function createLogDir(): string {
 	const now = new Date();
-
-	// Get the UTC date and time components
 	const date = now.toISOString().split('T')[0]; // Date in UTC
 	const hour = now.getUTCHours().toString().padStart(2, '0'); // Hour in UTC
-
-	// Construct the log directory path using the UTC date and hour
 	const logDir = path.join(__dirname, '../../../../logs', 'error', date, hour);
 
-	// Create the directory if it doesn't exist
-	fs.mkdirSync(logDir, { recursive: true });
-
+	fs.mkdirSync(logDir, { recursive: true }); // Create the directory if it doesn't exist
 	return logDir;
 }

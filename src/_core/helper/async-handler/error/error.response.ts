@@ -273,4 +273,4 @@ const _ERROR = {
 	NetworkAuthenticationRequiredError // 511
 };
 
-export { _ERROR };
+export default _ERROR ;

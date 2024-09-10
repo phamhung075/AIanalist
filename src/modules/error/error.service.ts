@@ -1,5 +1,5 @@
 
-import { _ERROR } from "../../_core/helper/async-handler/error/error.response";
+import _ERROR from "../../_core/helper/async-handler/error/error.response";
 
 
 export class ErrorTestService {

@@ -74,6 +74,17 @@ export const StatusCodes = {
      *
      * The request has more than one possible responses. User-agent or user should choose one of them. There is no standardized way to choose one of the responses.
      */
+	ALREADY_REPORTED: 208,
+	/**
+	 * https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/208
+	 * 
+	 * The HTTP 208 Already Reported successful response status code is used in a 207 Multi-Status response to save space and avoid conflicts. This response is used exclusively in the context of Web Distributed Authoring and Versioning (WebDAV).
+	 *
+	 * If the same resource is requested several times (for example, as part of a collection) with different paths, only the first one is reported with 200. Responses for all other bindings will report with this 208 status code, so no conflicts are created and the response stays shorter.
+	 *
+	 * Note: The ability to bind a resource to several paths is an extension to the WebDAV protocol (it may be received by web applications accessing a WebDAV server). Browsers accessing web pages will never encounter this status code.
+	 * 
+	 * */
     MULTIPLE_CHOICES: 300,
     /**
      * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.4.2

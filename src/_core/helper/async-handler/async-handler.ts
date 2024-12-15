@@ -91,7 +91,7 @@ __________________________________________\n\n`;
 function handleError(req: ExtendedFunctionRequest, res: Response, error: any, logMessage: (msg: string) => void) {
 	const errorMessage = `
 ${new Date().toISOString()}
-_________________ ERROR _________________
+_________________ ERRORstack _________________
 Error during ${req.method} ${req.originalUrl}:
 Error: ${error instanceof Error ? error.message : String(error)}
 Stack Trace: ${error instanceof Error ? error.stack : 'No stack trace available'}

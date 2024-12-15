@@ -242,7 +242,7 @@ def ask_chatgpt(content):
                 {"role": "user", "content": prompt}
             ],
             max_tokens=500,
-            temperature=0.7
+            temperature=0.4
         )
         english_analysis = response.choices[0].message.content.strip()
         vietnamese_analysis = translate_to_vietnamese(english_analysis)

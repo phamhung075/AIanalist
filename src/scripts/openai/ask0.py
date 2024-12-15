@@ -1,3 +1,6 @@
+import sys
+import json
+from datetime import datetime
 import firebase_admin
 from firebase_admin import credentials, db
 from openai import OpenAI
@@ -6,21 +9,70 @@ import re
 from dotenv import load_dotenv
 import pathlib
 from deep_translator import GoogleTranslator
+import spacy #library for NER, which is well-suited for extracting geographical entities.
 
-# Load environment variables from the .env file
+# Suppress print statements or redirect them to stderr for debugging
+import sys
+import logging
+
+nlp = spacy.load("en_core_web_sm")
+# List of all countries (you can extend this list)
+COUNTRIES = {
+    "vietnam", "brazil", "usa", "united states", "china", "japan", "germany",
+    "france", "india", "russia", "canada", "australia", "uk", "united kingdom",
+    "south korea", "italy", "mexico", "indonesia", "saudi arabia", "south africa",
+    "argentina", "turkey", "spain", "netherlands", "switzerland"
+}
+
+
+def detect_country(content):
+    """
+    Detect the relevant country from the content.
+    Returns the detected country or 'global' if no country is identified.
+    """
+    # Run NER to identify geopolitical entities
+    doc = nlp(content)
+    
+    detected_countries = set()
+    
+    # Extract geopolitical entities (GPE)
+    for ent in doc.ents:
+        if ent.label_ == "GPE" and ent.text.lower() in COUNTRIES:
+            detected_countries.add(ent.text.lower())
+    
+    if detected_countries:
+        # If multiple countries are detected, return the first one (or customize as needed)
+        return list(detected_countries)[0]
+    
+    # Fallback to 'global' if no country is identified
+    return "global"
+
+class Logger:
+    def __init__(self, filename="debug.log"):
+        self.terminal = sys.stderr
+        self.log = open(filename, "a")
+
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)
+
+    def flush(self):
+        pass
+
+sys.stdout = Logger()
+
+# Your existing initialization code
 load_dotenv()
-
-# Get the current script's directory
 current_dir = pathlib.Path(__file__).parent.absolute()
 key_path = os.path.join(current_dir, "config", "aianalist-firebase-adminsdk-8gwkb-09a794ac72.json")
 
-# Initialize Firebase Admin SDK with the correct path
-cred = credentials.Certificate(key_path)
-firebase_admin.initialize_app(cred, {
-    'databaseURL': os.getenv('FIREBASE_DATABASE_URL')
-})
+# Initialize Firebase
+if not firebase_admin._apps:
+    cred = credentials.Certificate(key_path)
+    firebase_admin.initialize_app(cred, {
+        'databaseURL': os.getenv('FIREBASE_DATABASE_URL')
+    })
 
-# Initialize OpenAI client
 client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 if not os.getenv('OPENAI_API_KEY'):
     raise ValueError("OpenAI API Key not found in .env file.")
@@ -43,46 +95,85 @@ def get_latest_data_from_firebase():
     return None, None
 
 def simple_market_analysis(content):
-    """Fallback analysis when OpenAI API is unavailable"""
-    # Count positive and negative indicators
-    positive_words = ['surge', 'gain', 'gains', 'increased', 'exceeding', 'boost', 'strong', 'record high']
-    negative_words = ['dropped', 'losing', 'losses', 'decline', 'drop', 'uncertainty', 'concerns']
+    """Fallback analysis for Vietnam's market impact when OpenAI API fails."""
+    # Define positive and negative keywords for Vietnam's market
+    positive_words = [
+        'growth', 'expansion', 'surge', 'increase', 'boost', 'record high', 'recovery', 'resilient', 'strong'
+    ]
+    negative_words = [
+        'decline', 'drop', 'losses', 'downturn', 'uncertainty', 'inflation', 'depreciation', 'concerns', 'weak'
+    ]
+    
+    # Define Vietnam-specific sectors and messages
+    keywords_actions = [
+        {
+            "keywords": ["vn-index", "ho chi minh stock exchange", "hnx", "upcom"],
+            "message": "Movements in Vietnam's stock market indices reflect investor sentiment and overall economic conditions."
+        },
+        {
+            "keywords": ["manufacturing", "exports", "supply chain", "industrial output"],
+            "message": "The manufacturing sector is a key driver of Vietnam's economic performance and reflects global trade trends."
+        },
+        {
+            "keywords": ["agriculture", "rice exports", "coffee exports", "fisheries"],
+            "message": "Agricultural exports, including rice and coffee, play a crucial role in Vietnam's trade balance."
+        },
+        {
+            "keywords": ["foreign investment", "fdi", "inward investment", "foreign capital"],
+            "message": "Foreign direct investment strengthens Vietnam's industrial base and economic growth."
+        },
+        {
+            "keywords": ["tourism", "hospitality", "travel sector", "tourist arrivals"],
+            "message": "Growth in tourism supports Vietnam's service sector and benefits local businesses."
+        },
+        {
+            "keywords": ["vietnamese dong", "vnd", "currency exchange", "forex", "exchange rate"],
+            "message": "Fluctuations in the Vietnamese Dong impact trade dynamics and investor confidence."
+        },
+        {
+            "keywords": ["renewable energy", "solar", "wind", "hydropower"],
+            "message": "Vietnam's push for renewable energy projects aligns with sustainability and energy independence goals."
+        },
+        {
+            "keywords": ["cptpp", "rcep", "trade agreement", "fta"],
+            "message": "Participation in trade agreements like CPTPP and RCEP boosts Vietnam's export opportunities."
+        },
+        {
+            "keywords": ["inflation", "interest rates", "monetary policy"],
+            "message": "Changes in inflation and interest rates affect consumer spending and investment in Vietnam."
+        },
+        {
+            "keywords": ["real estate", "property market", "housing"],
+            "message": "Vietnam's growing property market indicates robust urban development and domestic demand."
+        }
+    ]
     
     content_lower = content.lower()
-    positive_count = sum(content_lower.count(word.lower()) for word in positive_words)
-    negative_count = sum(content_lower.count(word.lower()) for word in negative_words)
+    positive_count = sum(content_lower.count(word) for word in positive_words)
+    negative_count = sum(content_lower.count(word) for word in negative_words)
     
-    # Extract percentage changes
-    percentages = re.findall(r'([+-]?\d+\.?\d*)%', content)
-    percentage_changes = [float(p) for p in percentages]
-    
-    # Analyze the overall sentiment
     sentiment = "neutral"
-    analysis = []
-    
     if positive_count > negative_count:
         sentiment = "potentially positive"
     elif negative_count > positive_count:
         sentiment = "potentially negative"
     
-    # Create analysis summary
-    analysis.append(f"Market sentiment appears {sentiment} for Vietnam's economy.")
+    analysis = [f"Market sentiment appears {sentiment} for Vietnam's economy."]
     
-    if 'AI' in content or 'artificial intelligence' in content_lower:
-        analysis.append("Growth in AI sector could present opportunities for Vietnam's technology sector.")
+    for entry in keywords_actions:
+        matched_keywords = [kw for kw in entry["keywords"] if kw in content_lower]
+        if matched_keywords:
+            logging.info(f"Matched keywords: {matched_keywords}")
+            analysis.append(entry["message"])
     
-    if 'semiconductor' in content_lower:
-        analysis.append("Semiconductor industry developments may affect Vietnam's electronics manufacturing sector.")
-    
-    if 'Federal Reserve' in content:
-        analysis.append("US Federal Reserve policies may impact Vietnam's export market and currency exchange rates.")
-        
-    return " ".join(analysis)
-def process_news_by_id(news_id):
-    from datetime import datetime
+    vietnamese_analysis = translate_to_vietnamese(" ".join(analysis))
+    return {
+        "english": " ".join(analysis),
+        "vietnamese": vietnamese_analysis
+    }
 
+def process_news_by_id(news_id):
     try:
-        # Get news item by ID
         ref = db.reference(f'news/{news_id}')
         news_data = ref.get()
         
@@ -92,7 +183,6 @@ def process_news_by_id(news_id):
                 "message": f"News with ID {news_id} not found"
             }
             
-        # Check if analysis already exists
         if news_data.get('analysis') and news_data['analysis'].get('status') == 'completed':
             return {
                 "status": "skip",
@@ -100,7 +190,6 @@ def process_news_by_id(news_id):
                 "data": news_data['analysis']
             }
             
-        # If no analysis exists, process the content
         content = news_data.get('content')
         if not content:
             return {
@@ -108,11 +197,9 @@ def process_news_by_id(news_id):
                 "message": "News content not found"
             }
             
-        # Get analysis in both languages
         analysis = ask_chatgpt(content)
         
         if analysis:
-            # Save analysis to Firebase
             update_data = {
                 'analysis': {
                     'en': analysis["english"],
@@ -141,36 +228,35 @@ def process_news_by_id(news_id):
         }
         
 def ask_chatgpt(content):
-    prompt = f"Is the following news good or bad for the economy of Vietnam? Provide a detailed analysis.\n\nNews: {content}"
     
+    """Use OpenAI API to analyze the impact on the Vietnamese market."""
+    prompt = f"""
+    Analyze the following news and determine its impact on Vietnam's economy. Focus on key sectors like manufacturing, agriculture, tourism, foreign investment, and currency stability. Provide a detailed analysis.\n\nNews: {content}
+    """
     try:
         # First try OpenAI
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": "You are an expert economic analyst who evaluates news impact on Vietnam's economy. Provide clear, concise analysis."},
+                {"role": "system", "content": "You are an expert economic analyst who evaluates news impact on Vietnam's economy."},
                 {"role": "user", "content": prompt}
             ],
-            max_tokens=250,
+            max_tokens=500,
             temperature=0.7
         )
         english_analysis = response.choices[0].message.content.strip()
         vietnamese_analysis = translate_to_vietnamese(english_analysis)
         
+        logging.info("OpenAI API call successful.")
         return {
             "english": english_analysis,
             "vietnamese": vietnamese_analysis
         }
     except Exception as e:
-        print(f"OpenAI API error: {e}")
-        print("Falling back to simple analysis...")
+        logging.error(f"OpenAI API error: {e}")
+        logging.info("Falling back to simple analysis...")
         # Fallback to simple analysis
-        english_analysis = simple_market_analysis(content)
-        vietnamese_analysis = translate_to_vietnamese(english_analysis)
-        return {
-            "english": english_analysis,
-            "vietnamese": vietnamese_analysis
-        }
+        return simple_market_analysis(content)
 
 def main():
     from datetime import datetime

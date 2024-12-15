@@ -4,7 +4,7 @@ import { ref, set, serverTimestamp } from 'firebase/database'; // Firebase Realt
 import { database } from '../firebase/firebase';  // Import Firebase configuration
 import { packageJson } from '../../utils/utils';  // Utility to load package.json
 import { postDataToFirebase } from '../../../utils/post-data';
-import { exec } from 'child_process';
+import { exec, spawn } from 'child_process';
 import { getAllFiles } from '../../../utils/get-all-files';
 import { getAllContentFromFirebase, getContentById } from '../../../utils/get-data';
 import { cleanFirebaseData } from '../../../utils/clean-doublon';
@@ -84,6 +84,80 @@ router.get(base + '/get-by-new-id', async (req, res) => {
     }
 });
 
+
+router.post(base + '/analyze-news', async (req, res) => {
+    const newsId = req.body.newsId;
+    
+    if (!newsId) {
+        return res.status(400).json({ 
+            status: 'error', 
+            message: 'News ID is required' 
+        });
+    }
+
+    try {
+        const scriptPath = path.join(process.cwd(), 'src', 'scripts', "openai", 'analyze_news.py');
+        
+        const pythonProcess = spawn('python', [scriptPath, newsId]);
+        
+        let result = '';
+        let error = '';
+
+        pythonProcess.stdout.on('data', (data) => {
+            result += data.toString();
+        });
+
+        pythonProcess.stderr.on('data', (data) => {
+            error += data.toString();
+        });
+
+        pythonProcess.on('close', (code) => {
+            if (code !== 0) {
+                return res.status(500).json({
+                    status: 'error',
+                    message: 'Analysis process failed',
+                    error: error
+                });
+            }
+
+            try {
+                const analysisResult = JSON.parse(result);
+                
+                if (analysisResult.status === 'skip') {
+                    return res.json({
+                        status: 'success',
+                        message: 'Analysis already exists',
+                        data: analysisResult.data
+                    });
+                }
+                
+                if (analysisResult.status === 'success') {
+                    return res.json({
+                        status: 'success',
+                        message: 'Analysis completed successfully',
+                        data: analysisResult.data
+                    });
+                }
+                
+                return res.status(400).json(analysisResult);
+                
+            } catch (e : any) {
+                return res.status(500).json({
+                    status: 'error',
+                    message: 'Failed to parse analysis result',
+                    error: e.message
+                });
+            }
+        });
+
+    } catch (error: any) {
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to start analysis process',
+            error: error.message
+        });
+    }
+});
 
 router.post(base + '/clean-news-data', async (_req, res) => {
     try {

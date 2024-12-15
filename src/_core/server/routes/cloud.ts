@@ -6,6 +6,8 @@ import { packageJson } from '../../utils/utils';  // Utility to load package.jso
 import { postDataToFirebase } from '../../../utils/post-data';
 import { exec } from 'child_process';
 import { getAllFiles } from '../../../utils/get-all-files';
+import { getAllContentFromFirebase, getContentById } from '../../../utils/get-data';
+import { cleanFirebaseData } from '../../../utils/clean-doublon';
 const fs = require('fs').promises;
 
 const path = require('path');
@@ -52,15 +54,45 @@ router.post(base + '/post-news-data', async (_req, res) => {
 	}
 });
 
-router.post(base + '/post-news-data', async (_req, res) => {
-	try {
-		await postDataToFirebase();
-		res.status(200).json({ message: 'News data posted to Firebase successfully!' });
-	} catch (error) {
-		res.status(500).json({ error: (error as Error).message });
-	}
+// Route to retrieve all news data
+router.get(base + '/get-all-news-data', async (_req, res) => {
+    try {
+        // Fetch all news data from Firebase
+        const newsData = await getAllContentFromFirebase();
+        
+        // Return the data as a JSON response
+        res.status(200).json({ message: 'News data retrieved successfully!', data: newsData });
+    } catch (error) {
+        res.status(500).json({ error: (error as Error).message });
+    }
 });
 
+
+router.get(base + '/get-by-new-id', async (req, res) => {
+    try {
+        const id = req.query.id as string;
+        if (!id) {
+            return res.status(400).json({ error: 'ID is required' });
+        }
+        const content = await getContentById(id);
+        if (!content) {
+            return res.status(404).json({ error: 'Content not found' });
+        }
+        res.status(200).json({ data: content });
+    } catch (error) {
+        res.status(500).json({ error: (error as Error).message });
+    }
+});
+
+
+router.post(base + '/clean-news-data', async (_req, res) => {
+    try {
+        await cleanFirebaseData();
+        res.status(200).json({ message: 'Firebase news data cleaned successfully!' });
+    } catch (error) {
+        res.status(500).json({ error: (error as Error).message });
+    }
+});
 
 
 router.post(base + '/start-fetch', async (_req, res) => {

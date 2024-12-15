@@ -1,10 +1,10 @@
-import { SuccessTestCloudService } from './success-cloud.service';
+import { SuccessTestCloudService } from './success-controller.service';
 import { SuccessTestService } from './success.service';
 
-const errorTestService = new SuccessTestService();
-const errorTestCloudService = new SuccessTestCloudService(errorTestService);
+const successTestService = new SuccessTestService();
+const successTestCloudService = new SuccessTestCloudService(successTestService);
 
 export {
-	errorTestService,
-	errorTestCloudService
+	successTestService,
+	successTestCloudService
 }

@@ -14,7 +14,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait  # Import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC  # Import Expected Conditions
 from selenium.webdriver.common.action_chains import ActionChains
-
+import logging
+logging.basicConfig(level=logging.DEBUG)
 
 MAX_DAY = 2
 MAX_HOUR = 48

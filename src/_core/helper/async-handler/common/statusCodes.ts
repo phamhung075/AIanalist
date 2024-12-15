@@ -85,6 +85,11 @@ export const StatusCodes = {
 	 * Note: The ability to bind a resource to several paths is an extension to the WebDAV protocol (it may be received by web applications accessing a WebDAV server). Browsers accessing web pages will never encounter this status code.
 	 * 
 	 * */
+	IM_USED: 226,
+	/**	
+	 * https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/226
+	 * 
+	 * */
     MULTIPLE_CHOICES: 300,
     /**
      * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.4.2

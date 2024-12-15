@@ -1,21 +1,19 @@
 import { HttpStatusCode } from "../common/httpStatusCode"
 const { StatusCodes, ReasonPhrases } = HttpStatusCode
 
-import { HttpStatusCode } from "./../common/httpStatusCode";
-const { StatusCodes, ReasonPhrases } = HttpStatusCode;
-
 class SuccessResponse {
 	message: string;
 	status: number;
 	metadata: any;
-
-	constructor({ message, statusCode = StatusCodes.OK, reasonPhrase = ReasonPhrases.OK, metadata = {} }: { message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any }) {
+	options: any;
+	constructor({ message, statusCode = StatusCodes.OK, reasonPhrase = ReasonPhrases.OK, metadata = {}, options = {} }: { message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any, options?: any }) {
 		this.message = !message ? reasonPhrase : message;
 		this.status = statusCode;
 		this.metadata = metadata;
+		this.options = options;
 	}
 
-	send(res: any, header: any = {}) {
+	send(res: any, _header: any = {}) {
 		return res.status(this.status).json(this);
 	}
 }
@@ -37,14 +35,16 @@ class CreatedResponse extends SuccessResponse { // 201
 }
 
 class AcceptedResponse extends SuccessResponse { // 202
-	constructor({ message, statusCode = StatusCodes.ACCEPTED, reasonPhrase = ReasonPhrases.ACCEPTED, metadata }: { message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any }) {
+	constructor({ options = {}, message, statusCode = StatusCodes.ACCEPTED, reasonPhrase = ReasonPhrases.ACCEPTED, metadata }: { options?: any; message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any }) {
 		super({ message, statusCode, reasonPhrase, metadata });
+		this.options = options;
 	}
 }
 
 class NonAuthoritativeInformationResponse extends SuccessResponse { // 203
-	constructor({ message, statusCode = StatusCodes.NON_AUTHORITATIVE_INFORMATION, reasonPhrase = ReasonPhrases.NON_AUTHORITATIVE_INFORMATION, metadata }: { message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any }) {
+	constructor({ options = {}, message, statusCode = StatusCodes.NON_AUTHORITATIVE_INFORMATION, reasonPhrase = ReasonPhrases.NON_AUTHORITATIVE_INFORMATION, metadata }: { options?: any; message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any }) {
 		super({ message, statusCode, reasonPhrase, metadata });
+		this.options = options;
 	}
 }
 
@@ -61,8 +61,10 @@ class ResetContentResponse extends SuccessResponse { // 205
 }
 
 class PartialContentResponse extends SuccessResponse { // 206
-	constructor({ message, statusCode = StatusCodes.PARTIAL_CONTENT, reasonPhrase = ReasonPhrases.PARTIAL_CONTENT, metadata }: { message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any }) {
+	constructor({ options = {}, message, statusCode = StatusCodes.PARTIAL_CONTENT, reasonPhrase = ReasonPhrases.PARTIAL_CONTENT, metadata }: { options?: any; message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any }) {
 		super({ message, statusCode, reasonPhrase, metadata });
+		this.options = options;
+
 	}
 }
 
@@ -73,14 +75,16 @@ class MultiStatusResponse extends SuccessResponse { // 207
 }
 
 class AlreadyReportedResponse extends SuccessResponse { // 208
-	constructor({ message, statusCode = StatusCodes., reasonPhrase = ReasonPhrases.ALREADY_REPORTED, metadata }: { message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any }) {
+	constructor({ message, statusCode = StatusCodes.ALREADY_REPORTED, reasonPhrase = ReasonPhrases.ALREADY_REPORTED, metadata }: { message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any }) {
 		super({ message, statusCode, reasonPhrase, metadata });
 	}
 }
 
 class IMUsedResponse extends SuccessResponse { // 226
-	constructor({ message, statusCode = StatusCodes.IM_USED, reasonPhrase = ReasonPhrases.IM_USED, metadata }: { message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any }) {
+	constructor({ options = {}, message, statusCode = StatusCodes.IM_USED, reasonPhrase = ReasonPhrases.IM_USED, metadata }: { options?: any; message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any }) {
 		super({ message, statusCode, reasonPhrase, metadata });
+		this.options = options;
+
 	}
 }
 
@@ -99,4 +103,4 @@ const _SUCCESS = {
 	SuccessResponse
 };
 
-export default _SUCCESS;
+export  {_SUCCESS, SuccessResponse};

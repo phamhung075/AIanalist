@@ -1,0 +1,80 @@
+[
+    {
+        "title": "Saudi Arabia Wholesale Inflation Eases to 13-Month Low",
+        "link": "/saudi-arabia/producer-prices-change",
+        "time": "14 hours ago",
+        "content": "Saudi Arabia Wholesale Inflation Eases to 13-Month Low Saudi Arabia \u00a0 Producer Prices Change The annual wholesale price inflation in Saudi Arabia slowed to 1.4% in November 2024, down from 2.4% in the previous month. This marks the lowest reading since October 2023, as prices sharply moderated for most transportable goods, except for metal products, machinery, and equipment (2.7% vs. 5.4% in October) and metal products, machinery, and equipment (0.2% vs. 0.5%). Additionally, prices dropped faster for ores and minerals (-3.0% vs. -2.7%) and food products, beverages, tobacco, and textiles (-0.4% vs. -0.1%). Meanwhile, prices accelerated for agricultural and fishery products (3.3% vs. 0.8%). On a monthly basis, wholesale prices rose by 0.2%, recovering from a 0.2% decline in October."
+    },
+    {
+        "title": "Saudi Arabia Inflation Rate Hits 15-Month High",
+        "link": "/saudi-arabia/inflation-cpi",
+        "time": "15 hours ago",
+        "content": "Saudi Arabia Inflation Rate Hits 15-Month High Saudi Arabia \u00a0 Inflation Rate The annual inflation rate in Saudi Arabia accelerated for the fourth consecutive month, reaching 2.0% in November 2024. This was higher than both October's and market expectations of a 1.9% rise. It marked the highest reading since August 2023, with food and beverage prices rising 0.3% in November after being flat in October, while prices for miscellaneous personal goods accelerated (2.7% vs 2.3%). Prices continued to rise for housing and utilities (9.1% vs 9.6% in October), driven by higher rents for housing (10.8% vs 11.6%), and for restaurants & hotels (1.5% vs 1.9%). At the same time, transport prices fell, but at a slower pace (-2.5% vs -3.1%). On a monthly basis, the CPI rose by 0.3%, above market forecasts of a 0.2% gain. This maintained the same pace as the previous month and remained at the highest level in six months."
+    },
+    {
+        "title": "China to Cut Rates Next Year",
+        "link": "/china/interest-rate",
+        "time": "15 hours ago",
+        "content": "China to Cut Rates Next Year  China \u00a0 Interest Rate China will cut interest rates and reserve requirements next year, the People\u2019s Bank of China research bureau director Wang Xin said at an event on Saturday, as reported by Bloomberg, citing the 21st Century Business Herald. Wang said there is room to further reduce the RRR from the current average level of 6.6%. Friday's data showed that China\u2019s banks extended CNY 580 billion in new yuan loans in November 2024, well below the market expectation of CNY 950 billion, and less than half of the CNY 1.170 trillion from the corresponding period of the previous year, highlighting weak credit demand in the mainland. Last Thursday, China said it would raise the budget deficit, issue more debt, and loosen monetary policy to maintain a stable economic growth rate. As Reuters reported, China's economy is expected to grow by about 5% this year, citing Han Wenxiu, the deputy director of the country's central Financial and Economic Affairs Commission."
+    },
+    {
+        "title": "India Car Sales Rise 4.3% in November",
+        "link": "/india/total-vehicle-sales",
+        "time": "15 hours ago",
+        "content": "India Car Sales Rise 4.3% in November India \u00a0 Total Vehicle Sales Total passenger vehicle sales in India grew by 4.3% year-over-year to 300,459 units in November 2024, following a 1.1% rise in the previous month, according to data from the Society of Indian Automobile Manufacturers (SIAM). The figures exclude sales from BMW, Mercedes, JLR, and Volvo. This marked the second consecutive month of growth in passenger vehicle sales, driven by major festivals, even though the Diwali festival did not fall in the month of November. \u201cThe demand momentum seen in October during the festive period has continued into November for the industry as a whole,\" said Rajesh Menon, Director General of SIAM. On a monthly basis, car sales plunged by 12.9% in November, reversing a 9.3% jump in the previous month, as the two major festivals, Dussehra and Diwali, both occurred in October."
+    },
+    {
+        "title": "China FDI Contracts 27.9% YoY in Jan-Nov",
+        "link": "/china/foreign-direct-investment-yoy",
+        "time": "41 hours ago",
+        "content": "China FDI Contracts 27.9% YoY in Jan-Nov China \u00a0 Foreign Direct Investment YoY Foreign direct investment (FDI) into China shrank by 27.9% year-on-year to CNY 749.7 billion in the first eleven months of 2024, compared with a 29.8% plunge in the previous period, according to data from the Ministry of Commerce. About 11.0% of the total, or CNY 82.53 billion, went into high-tech manufacturing industries. Despite the persistent weakness in FDI, it soared for medical equipment and instrument manufacturing (53.4%), computer and office equipment (39.1%), and professional technical services (19%). The primary sources of FDI were Germany (10.9%), Singapore (4.8%), and Switzerland (4.0%). In recent years, Beijing has tightened regulations across various industries to enforce government policies, discouraging foreign investment. For November alone, CNY 56.49 billion flowed into the country, up from CNY 52.61 billion in October."
+    },
+    {
+        "title": "Moody's Cuts France Credit Rating to Negative",
+        "link": "/france/rating",
+        "time": "42 hours ago",
+        "content": "Moody's Cuts France Credit Rating to Negative France \u00a0 Credit Rating Moody's Ratings downgraded France's rating to \"Aa3\" from \"Aa2\", citing concerns that the country's public finances will be significantly weakened by political fragmentation which will limit the scope and magnitude of measures to reduce large deficits in the foreseeable future. \"There is now a very low probability that the next government will sustainably reduce the size of fiscal deficits beyond next year,\" Moody's said in a statement. \"As a result, we forecast that France's public finances will be materially weaker over the next three years compared to our October 2024 baseline scenario.\" Additionally, France's sovereign outlook has been changed to stable from negative. Standard & Poor's credit rating for France stands at AA- with stable outlook. DBRS' credit rating for France was last reported at AA (high) with stable outlook."
+    },
+    {
+        "title": "Agricultural Commodities Updates: Cocoa Spikes by 6.91%",
+        "link": "/commodities",
+        "time": "46 hours ago",
+        "content": "Agricultural Commodities Updates: Cocoa Spikes by 6.91% Commodity Top commodity gainers are  Cocoa  ( 6.91% ),  Orange Juice  ( 1.86% ) and  Rapeseed  ( 1.74% ). Biggest losers are  Cheese  ( -5.87% ),  Lumber  ( -1.84% ) and  Wheat  ( -1.16% )."
+    },
+    {
+        "title": "Metals Commodities Updates: Steel Rebar Falls by 1.85%",
+        "link": "/commodities",
+        "time": "46 hours ago",
+        "content": "Metals Commodities Updates: Steel Rebar Falls by 1.85% Commodity Top commodity losers are  Steel Rebar  ( -1.85% ),  Platinum  ( -1.47% ),  Silver  ( -1.39% ) and  Gold  ( -1.25% )."
+    },
+    {
+        "title": "Energy Commodities Updates: Natural gas Plunges by 5.41%",
+        "link": "/commodities",
+        "time": "46 hours ago",
+        "content": "Energy Commodities Updates: Natural gas Plunges by 5.41% Commodity Top commodity losers are  Natural gas  ( -5.41% ),  Natural Gas EU Dutch TTF  ( -3.32% ) and  Natural Gas UK GBP  ( -2.17% ). Gains are led by  Crude Oil WTI  ( 1.53% ),  Heating Oil  ( 1.41% ),  Ethanol  ( 1.27% ) and  Brent Crude Oil  ( 1.27% )."
+    },
+    {
+        "title": "FX Updates:  Brazilian Real Depreciates by 0.92%",
+        "link": "/currencies",
+        "time": "47 hours ago",
+        "content": "FX Updates:  Brazilian Real Depreciates by 0.92% Currency Top currency losers are  Brazilian Real  ( -0.92% ),  Japanese Yen  ( -0.64% ),  British Pound  ( -0.46% ) and  Dollar Index  ( -0.01% ). Gains are led by  Polish Zloty  ( 0.72% ),  Swedish Krona  ( 0.41% ),  Mexican Peso  ( 0.40% ) and  Euro  ( 0.32% )."
+    },
+    {
+        "title": "Ibovespa Extends Losses as Rate Outlook Weighs on Sentiment",
+        "link": "/brazil/stock-market",
+        "time": "48 hours ago",
+        "content": "Ibovespa Extends Losses as Rate Outlook Weighs on Sentiment Brazil \u00a0 Stock Market The Ibovespa fell 1.1% to close at 124,612 on Friday, extending the sharp downturn from the previous session as investors adjusted positions to a higher interest rate outlook following the latest Copom decision. Despite stronger-than-expected economic activity at the start of Q4, evidenced by the 0.1% growth in the IBC-Br index for October, concerns persist over Brazil's fiscal outlook and the potential impact of restrictive monetary policy. While economic indicators such as retail and service sectr performance signal resilience, expectations for 2025 point to a slowdown amid tighter monetary and fiscal conditions and a labor market with limited room for further gains. Mega-cap miner Vale shed 1.7%, while big banks Banco Santander, Banco do Brasil, Ita\u00fasa, and Bradesco posted losses ranging from 0.4% to 1.3%. Meanwhile, healthcare leaders Rede D'Or and Raia Drogasil led the decline with sharp losses of 2.9% and 4.1%, respectively. The Ibovespa posted a weekly loss of 1.1%."
+    },
+    {
+        "title": "TSX Falls as Commodities Weigh, Posts Weekly Losses",
+        "link": "/canada/stock-market",
+        "time": "48 hours ago",
+        "content": "TSX Falls as Commodities Weigh, Posts Weekly Losses Canada \u00a0 Stock Market The S&P/TSX Composite Index fell 0.5% to close at 25,274 on Friday, dragging the Toronto exchange to a weekly loss of 1.6% as the resource-heavy index was pressured by commodity producers. Bullion-linked heavyweights Agnico Eagle, Barrick Gold, Wheaton Precious Metals, and Franco-Nevada led declines, with losses ranging from 1.3% to 2.2%, tracking lower gold prices. Oil-linked heavyweights Suncor, Imperial Oil, and Canadian Natural also underperformed, shedding between 0.5% and 1.1%, despite higher oil prices. Earlier in the week, the TSX was weighed down by BoC Governor Tiff Macklem's hawkish remarks, signaling that future rate cuts would be more gradual following the recent 50 bps reduction."
+    },
+    {
+        "title": "Dow Marks 7-Day Losing Streak, The Longest Since 2020",
+        "link": "/united-states/stock-market",
+        "time": "48 hours ago",
+        "content": "Dow Marks 7-Day Losing Streak, The Longest Since 2020 United States \u00a0 Stock Market On Friday, the S&P 500 closed mostly flat, while the Nasdaq gained 0.1%. The Dow, however, dropped 86 points, extending its losing streak to seven sessions, marking its longest stretch since 2020. Losses in major tech stocks like Nvidia (-2.2%), Meta (-1.6%), and Amazon (-0.6%) weighed on the market, while Tesla saw a 4.3% surge, closing record high of $436.23. Broadcom surged 24.4%, hitting a $1 trillion market cap after reporting a 220% increase in AI-related revenue, exceeding expectations. This boost lifted semiconductor stocks, including Marvell (+10.8%) and Taiwan Semiconductor (+5%) which booked strong gains. The broader market showed mixed performance, with concerns over the Federal Reserve\u2019s upcoming policy decision and economic conditions limiting further gains. For the week, the S&P 500 was on track for a 0.7% decline, the Dow for a 1.8% drop, while the Nasdaq managed a 0.3% gain, reflecting broader economic uncertainty."
+    }
+]

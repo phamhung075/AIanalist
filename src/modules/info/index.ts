@@ -1,4 +1,4 @@
-import { InfoCloudService } from './info-cloud.service';
+import { InfoCloudService } from './info-controller.service';
 import { InfoService } from './info.service';
 
 const infoService = new InfoService();

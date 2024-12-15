@@ -231,7 +231,7 @@ def ask_chatgpt(content):
     
     """Use OpenAI API to analyze the impact on the Vietnamese market."""
     prompt = f"""
-    Analyze the following news and determine its impact on Vietnam's economy. Focus on key sectors like manufacturing, agriculture, tourism, foreign investment, and currency stability. Provide a detailed analysis.\n\nNews: {content}
+    Analyze the following news and determine its impact on Vietnam's economy or not. Provide a detailed analysis.\n\nNews: {content}
     """
     try:
         # First try OpenAI

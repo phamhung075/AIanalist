@@ -78,7 +78,68 @@ def simple_market_analysis(content):
         analysis.append("US Federal Reserve policies may impact Vietnam's export market and currency exchange rates.")
         
     return " ".join(analysis)
+def process_news_by_id(news_id):
+    from datetime import datetime
 
+    try:
+        # Get news item by ID
+        ref = db.reference(f'news/{news_id}')
+        news_data = ref.get()
+        
+        if not news_data:
+            return {
+                "status": "error",
+                "message": f"News with ID {news_id} not found"
+            }
+            
+        # Check if analysis already exists
+        if news_data.get('analysis') and news_data['analysis'].get('status') == 'completed':
+            return {
+                "status": "skip",
+                "message": "Analysis already exists",
+                "data": news_data['analysis']
+            }
+            
+        # If no analysis exists, process the content
+        content = news_data.get('content')
+        if not content:
+            return {
+                "status": "error",
+                "message": "News content not found"
+            }
+            
+        # Get analysis in both languages
+        analysis = ask_chatgpt(content)
+        
+        if analysis:
+            # Save analysis to Firebase
+            update_data = {
+                'analysis': {
+                    'en': analysis["english"],
+                    'vi': analysis["vietnamese"],
+                    'timestamp': datetime.now().timestamp(),
+                    'status': 'completed'
+                }
+            }
+            ref.update(update_data)
+            
+            return {
+                "status": "success",
+                "message": "Analysis completed and saved",
+                "data": update_data['analysis']
+            }
+        else:
+            return {
+                "status": "error",
+                "message": "Failed to generate analysis"
+            }
+            
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": f"Error processing news: {str(e)}"
+        }
+        
 def ask_chatgpt(content):
     prompt = f"Is the following news good or bad for the economy of Vietnam? Provide a detailed analysis.\n\nNews: {content}"
     
@@ -112,6 +173,8 @@ def ask_chatgpt(content):
         }
 
 def main():
+    from datetime import datetime
+    
     key, data = get_latest_data_from_firebase()
     if data:
         content = data.get('content')
@@ -129,13 +192,30 @@ def main():
             print("Vietnamese Analysis:")
             print(analysis["vietnamese"])
             
-            # Save both analyses back to Firebase
-            ref = db.reference(f'news/{key}')
-            ref.update({
-                'chatgpt_analysis_en': analysis["english"],
-                'chatgpt_analysis_vi': analysis["vietnamese"]
-            })
-            print(f"\nAnalysis saved to Firebase for item ID {key}")
+            try:
+                # Save both analyses back to Firebase
+                ref = db.reference(f'news/{key}')
+                update_data = {
+                    'analysis': {
+                        'en': analysis["english"],
+                        'vi': analysis["vietnamese"],
+                        'timestamp': datetime.now().timestamp(),
+                        'status': 'completed'
+                    }
+                }
+                
+                ref.update(update_data)
+                print(f"\n✓ Analysis saved to Firebase successfully for item ID: {key}")
+                
+                # Verify the save
+                saved_data = db.reference(f'news/{key}/analysis').get()
+                if saved_data:
+                    print("\nSaved data verification:")
+                    print(f"English saved: {len(saved_data.get('en', ''))} characters")
+                    print(f"Vietnamese saved: {len(saved_data.get('vi', ''))} characters")
+                
+            except Exception as e:
+                print(f"\n [Error] saving to Firebase: {e}")
         else:
             print("Failed to get analysis from ChatGPT.")
     else:

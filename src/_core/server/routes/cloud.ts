@@ -3,10 +3,10 @@ import express from 'express';
 import { ref, set, serverTimestamp } from 'firebase/database'; // Firebase Realtime Database methods
 import { database } from '../firebase/firebase';  // Import Firebase configuration
 import { packageJson } from '../../utils/utils';  // Utility to load package.json
-import { postDataToFirebase } from '../../../utils/post-data';
+import { postDataToFirebase, postUniqueDataToFirebase } from '../../../utils/post-data';
 import { exec, spawn } from 'child_process';
 import { getAllFiles } from '../../../utils/get-all-files';
-import { getAllContentFromFirebase, getContentById } from '../../../utils/get-data';
+import { getAllContentFromFirebase, getContentById, updateNewsTimestamps } from '../../../utils/get-data';
 import { cleanFirebaseData } from '../../../utils/clean-doublon';
 const fs = require('fs').promises;
 
@@ -159,12 +159,43 @@ router.post(base + '/analyze-news', async (req, res) => {
     }
 });
 
+// Route to post new data to Firebase
+router.post(base + '/post-unique-news-data', async (_req, res) => {
+    try {
+        await postUniqueDataToFirebase();
+        res.status(200).json({ 
+            message: 'New data successfully posted to Firebase!',
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        console.error('Error in post-news-data route:', error);
+        res.status(500).json({ 
+            error: (error as Error).message,
+            timestamp: new Date().toISOString()
+        });
+    }
+});
+
 router.post(base + '/clean-news-data', async (_req, res) => {
     try {
         await cleanFirebaseData();
         res.status(200).json({ message: 'Firebase news data cleaned successfully!' });
     } catch (error) {
         res.status(500).json({ error: (error as Error).message });
+    }
+});
+
+
+// Add a route handler for the new function
+router.post(base + '/update-timestamps', async (_req, res) => {
+    try {
+        const result = await updateNewsTimestamps();
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ 
+            error: (error as Error).message,
+            timestamp: new Date().toISOString()
+        });
     }
 });
 

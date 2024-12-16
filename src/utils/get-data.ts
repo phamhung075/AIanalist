@@ -1,4 +1,4 @@
-import { ref, get } from "firebase/database";
+import { ref, get, getDatabase, update } from "firebase/database";
 import { database } from '../_core/server/firebase/firebase';
 
 /**
@@ -120,5 +120,68 @@ export async function getContentById(id: string) {
             data: null,
             error: error.toString()
         };
+    }
+}
+
+
+/**
+ * Update timestamps for all news items in Firebase based on their relative time strings
+ */
+export async function updateNewsTimestamps() {
+    const database = getDatabase();
+    const newsRef = ref(database, 'news/');
+
+    try {
+        const snapshot = await get(newsRef);
+        if (!snapshot.exists()) {
+            console.log("No data available in 'news/' node.");
+            return {
+                message: "No news data to update",
+                updatedCount: 0
+            };
+        }
+
+        const data = snapshot.val();
+        const currentTimestamp = Date.now();
+        const updates: { [key: string]: any } = {};
+        let updatedCount = 0;
+
+        // Process each news item
+        for (const [key, item] of Object.entries(data)) {
+            const newsItem = item as any;
+            if (!newsItem.time) continue;
+
+            // Calculate hours ago
+            const hoursAgo = parseRelativeTime(newsItem.time);
+            if (hoursAgo === Infinity) continue;
+
+            // Calculate new timestamp
+            const newTimestamp = currentTimestamp - (hoursAgo * 60 * 60 * 1000);
+
+            // Prepare update if timestamp has changed
+            if (newsItem.processedTimestamp !== newTimestamp) {
+                updates[`news/${key}/processedTimestamp`] = newTimestamp;
+                updates[`news/${key}/lastUpdated`] = currentTimestamp;
+                updatedCount++;
+            }
+        }
+
+        // Apply updates if there are any
+        if (Object.keys(updates).length > 0) {
+            await update(ref(database), updates);
+            console.log(`Successfully updated ${updatedCount} news items with new timestamps`);
+        } else {
+            console.log("No items needed timestamp updates");
+        }
+
+        return {
+            message: "Timestamp update completed",
+            updatedCount,
+            timestamp: new Date().toISOString()
+        };
+
+    } catch (error: any) {
+        console.error("Error updating timestamps:", error);
+        throw new Error(`Failed to update timestamps: ${error.message}`);
     }
 }

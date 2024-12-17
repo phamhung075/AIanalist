@@ -185,3 +185,37 @@ export async function updateNewsTimestamps() {
         throw new Error(`Failed to update timestamps: ${error.message}`);
     }
 }
+
+
+
+/**
+ * Fetch the last processed data (lastNewTime and lastNewTitle) directly from the "process" table.
+ */
+export async function getLastProcessedData(): Promise<{
+    lastNewTime?: number;
+    lastNewTitle?: string;
+}> {
+    try {
+        // Initialize the database reference to the "process" table
+        const database = getDatabase();
+        const processRef = ref(database, 'process');
+
+        // Fetch the data directly from the "process" table
+        const snapshot = await get(processRef);
+
+        if (snapshot.exists()) {
+            const data = snapshot.val();
+            return {
+                lastNewTime: data.lastNewTime || 0,
+                lastNewTitle: data.lastNewTitle || '',
+            };
+        } else {
+            console.log('No data found in the "process" table.');
+            return { lastNewTime: 0, lastNewTitle: '' };
+        }
+    } catch (error) {
+        console.error('Error fetching last processed data:', error);
+        return { lastNewTime: 0, lastNewTitle: '' };
+    }
+}
+

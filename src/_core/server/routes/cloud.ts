@@ -1,13 +1,14 @@
 // src/_core/server/routes.ts
-import express from 'express';
-import { ref, set, serverTimestamp } from 'firebase/database'; // Firebase Realtime Database methods
-import { database } from '../firebase/firebase';  // Import Firebase configuration
-import { packageJson } from '../../utils/utils';  // Utility to load package.json
-import { postDataToFirebase, postUniqueDataToFirebase } from '../../../utils/post-data';
 import { exec, spawn } from 'child_process';
+import express from 'express';
+import { ref, serverTimestamp, set } from 'firebase/database'; // Firebase Realtime Database methods
+import { cleanFirebaseData } from '../../../utils/clean-doublon';
 import { getAllFiles } from '../../../utils/get-all-files';
 import { getAllContentFromFirebase, getContentById, updateNewsTimestamps } from '../../../utils/get-data';
-import { cleanFirebaseData } from '../../../utils/clean-doublon';
+import { getLatestFile } from '../../../utils/get-latest-file';
+import { postNewsDataToFirebase, previewProcessedData, ProcessedDataPost, updateLastProcessedData, UpdateProcess } from '../../../utils/post-data';
+import { packageJson } from '../../utils/utils'; // Utility to load package.json
+import { database } from '../firebase/firebase'; // Import Firebase configuration
 const fs = require('fs').promises;
 
 const path = require('path');
@@ -45,14 +46,7 @@ router.post(base + '/write-test-data', async (_req, res) => {
 	}
 });
 
-router.post(base + '/post-news-data', async (_req, res) => {
-	try {
-		await postDataToFirebase();
-		res.status(200).json({ message: 'News data posted to Firebase successfully!' });
-	} catch (error) {
-		res.status(500).json({ error: (error as Error).message });
-	}
-});
+
 
 // Route to retrieve all news data
 router.get(base + '/get-all-news-data', async (_req, res) => {
@@ -159,19 +153,56 @@ router.post(base + '/analyze-news', async (req, res) => {
     }
 });
 
+
 // Route to post new data to Firebase
-router.post(base + '/post-unique-news-data', async (_req, res) => {
+router.post(base + '/post-news-data', async (_req, res) => {
     try {
-        await postUniqueDataToFirebase();
+        const postData = await postNewsDataToFirebase() as ProcessedDataPost;
         res.status(200).json({ 
             message: 'New data successfully posted to Firebase!',
-            timestamp: new Date().toISOString()
+            timestamp: new Date().toISOString(),
+            postData: postData
         });
     } catch (error) {
         console.error('Error in post-news-data route:', error);
         res.status(500).json({ 
             error: (error as Error).message,
             timestamp: new Date().toISOString()
+        });
+    }
+});
+
+// Route to post new data to Firebase
+router.get(base + '/preview-process-news-data', async (_req, res) => {
+    try {
+        const postData = await previewProcessedData()  as ProcessedDataPost;
+        res.status(200).json({ 
+            message: 'get New data preview successfully!',
+            timestamp: new Date().toISOString(),
+            postData: postData
+        });
+    } catch (error) {
+        console.error('Error in post-news-data route:', error);
+        res.status(500).json({ 
+            error: (error as Error).message,
+            timestamp: new Date().toISOString()
+        });
+    }
+});
+
+
+// Route to post new data to Firebase
+router.post(base + '/update-process-news-data', async (_req, res) => {
+    try {
+        const process = await updateLastProcessedData() as UpdateProcess;
+        res.status(200).json({ 
+            message: 'get New data preview successfully!',
+            process: process,
+        });
+    } catch (error) {
+        console.error('Error in post-news-data route:', error);
+        res.status(500).json({ 
+            error: (error as Error).message,
         });
     }
 });
@@ -296,7 +327,7 @@ router.get(base + '/fetch-files', async (_req, res) => {
 
 router.get(base + '/fetch-content', async (req, res) => {
     try {
-        const filePath = req.query.path;
+        const filePath = req.query.path ?? getLatestFile();;
         
         if (!filePath) {
             return res.status(400).json({

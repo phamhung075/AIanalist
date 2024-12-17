@@ -1,0 +1,866 @@
+[
+    {
+        "title": "French Stocks on 3-Day Losing Streak",
+        "link": "/france/stock-market",
+        "time": "3 minutes ago",
+        "content": "French Stocks on 3-Day Losing Streak\u00a0 France \u00a0 Stock Market The CAC 40 fell 0.3% to 7,333 on Tuesday, marking its third consecutive session of losses as investors adopted a cautious stance ahead of major central bank monetary policy decisions. The Federal Reserve is set to announce its decision on Wednesday, followed by the Bank of Japan and the Bank of England on Thursday. At the same time, investors continued to weigh Moody's unexpected downgrade of France\u2019s credit rating from Aa2 to Aa3, citing concerns over worsening public finances amid political instability. On the corporate front, ArcelorMittal was the index\u2019s worst performer, with shares dropping 2.1%, while Vivendi, TotalEnergies, Saint-Gobain, and Veolia Environnement also posted notable declines, falling between 1.2% and 1.6%. Conversely, Airbus emerged as the top gainer, rising 1.7% after Deutsche Bank upgraded the stock to \"buy\" from \"hold.\""
+    },
+    {
+        "title": "UK 10-Year Gilt Yield at One-Month High",
+        "link": "/united-kingdom/government-bond-yield",
+        "time": "4 minutes ago",
+        "content": "UK 10-Year Gilt Yield at One-Month High United Kingdom \u00a0 Government Bond 10Y The UK 10-year gilt yield climbed above 4.9%, reaching its highest level in about a month, as recent economic data supported the Bank of England's cautious approach to rate cuts. Regular pay growth, excluding bonuses, rose by 5.2% in the three months to October, driven by private-sector gains and exceeding the 5% forecast. The central bank had projected a 5.1% increase for the three months to December. Key economic indicators, including inflation and retail sales data, are set to be released later this week. Meanwhile, the Bank of England is also scheduled to announce its monetary policy decision on Thursday, with no changes expected to the benchmark interest rate. Investors currently anticipate only three rate cuts in 2025."
+    },
+    {
+        "title": "FX Updates:  Norwegian Krone Drops by 0.42%",
+        "link": "/currencies",
+        "time": "6 minutes ago",
+        "content": "FX Updates:  Norwegian Krone Drops by 0.42% Currency Top currency losers are  Norwegian Krone  ( -0.42% ),  Australian Dollar  ( -0.42% ),  New Zealand Dollar  ( -0.40% ) and  Euro  ( -0.20% ). Gains are led by  Dollar Index  ( 0.12% ),  British Pound  ( 0.09% ) and  Japanese Yen  ( 0.17% )."
+    },
+    {
+        "title": "UK Stocks Down for 3rd Day",
+        "link": "/united-kingdom/stock-market",
+        "time": "15 minutes ago",
+        "content": "UK Stocks Down for 3rd Day United Kingdom \u00a0 Stock Market The FTSE 100 declined for the third consecutive day on Tuesday, falling below 8,200 as it mirrored a global selloff driven by caution ahead of key policy decisions from major central banks, including the Federal Reserve and the Bank of England. In the UK, investors weighed fresh employment data showing the unemployment rate held steady in the three months to October, while pay growth accelerated. On the corporate front, Bunzl led the decliners, sliding nearly 5% after warning that profits are being pressured by unexpectedly persistent price deflation. Oil companies also weighed on the index as BP and Shell fell by 2.2% and 1.5%, respectively, in tandem with falling oil prices."
+    },
+    {
+        "title": "Hong Kong Jobless Rate Steady at 3.1%",
+        "link": "/hong-kong/unemployment-rate",
+        "time": "20 minutes ago",
+        "content": "Hong Kong Jobless Rate Steady at 3.1% Hong Kong \u00a0 Unemployment Rate Hong Kong's seasonal adjusted unemployment rate stood at 3.1% in the three months ending November 2024, unchanged from the previous period. The number of unemployed persons decreased by 1 thousand from a month earlier to 129.7 thousand, while employment increased by 4.8 thousand to 3.712 million. Notable increases in unemployment rates were observed in the decoration, repair and maintenance of the buildings sector, insurance sector, and the postal and courier activities sector. Meanwhile, the youth unemployment rate, measuring job-seekers between 20 to 29 years old, fell to 6.1% from 6.6% in the preceding period. The labor force participation rate ticked lower to 56.9% from 57%."
+    },
+    {
+        "title": "European Shares Extend Losses",
+        "link": "/euro-area/stock-market",
+        "time": "25 minutes ago",
+        "content": "European Shares Extend Losses Euro Area \u00a0 Stock Market The STOXX 50 was down 0.25% and the STOXX 600 declined 0.5% to trade at two-week lows on Tuesday, tracking its Asian peers lower, and extending losses from the previous session. Traders remain cautious ahead of monetary policy decisions from major central banks including the Fed and the BoE. On the data front, the Ifo Business Climate and the ZEW Economic Sentiment for Germany will take center stage today. Energy and healthcare stocks were among the worst performers. SAP (-0.7%), Linde (-1.6%), Saint Gobain (-1.4%), Eni (-1.4%) and Deutsche Post (-1.8%) were lower. In contrast, shares of Airbus rose 1.3% after Deutsche Bank upgraded the stock to \"buy\" from \"hold\"."
+    },
+    {
+        "title": "Hang Seng Closes 0.5% Lower, Slips for 3rd Session",
+        "link": "/hong-kong/stock-market",
+        "time": "38 minutes ago",
+        "content": "Hang Seng Closes 0.5% Lower, Slips for 3rd Session Hong Kong \u00a0 Stock Market The Hang Seng lost 95 points or 0.5% to finish at 19,700 on Tuesday, down for the third straight session amid a steep decline in US futures following a record close on Wall Street Nasdaq, ahead of an anticipated interest rate reduction from the Fed Wednesday. The index hits its lowest level in over a week, weighed by the third session of losses in Chinese markets and growing vigilance before the PBoC's monthly review of key lending rates later this week, after record low levels in November. Further declines were limited by a report from Reuters that China plans a record top budget deficit of 4% in 2025 to support a more proactive fiscal policy. Meanwhile, the country's annual growth rate for 2025 is anticipated to remain around 5%, in line with the 2024 target. Dragging down the index were property, consumers, and tech sectors. Among the top losers were Synagistics Ltd. (-8.2%), Miniso Group (-3.2%), Wuxi Biologics (-2.6%), Techtronic Inds. (-2.2%), and China Hongqiao Group (-1.7%)."
+    },
+    {
+        "title": "Agricultural Commodities Updates: Cheese Plunges by 7.02%",
+        "link": "/commodities",
+        "time": "56 minutes ago",
+        "content": "Agricultural Commodities Updates: Cheese Plunges by 7.02% Commodity Top commodity losers are  Cheese  ( -7.02% ). Gains are led by  Coffee  ( 1.26% ) and  Canola  ( 0.54% )."
+    },
+    {
+        "title": "Metals Commodities Updates: Copper Falls by 0.61%",
+        "link": "/commodities",
+        "time": "61 minutes ago",
+        "content": "Metals Commodities Updates: Copper Falls by 0.61% Commodity Top commodity losers are  Copper  ( -0.61% ) and  Platinum  ( -0.61% ). Gains are led by  Gold  ( 0.06% )."
+    },
+    {
+        "title": "Energy Commodities Updates: Natural Gas EU Dutch TTF Gains by 2.22%",
+        "link": "/commodities",
+        "time": "66 minutes ago",
+        "content": "Energy Commodities Updates: Natural Gas EU Dutch TTF Gains by 2.22% Commodity Today's Energy commodities market is characterized by modest daily movements, with  Natural Gas EU Dutch TTF  standing out as the frontrunner with a  2.22%  increase."
+    },
+    {
+        "title": "Oil Wobbles, Fed Meeting in Focus",
+        "link": "/commodity/crude-oil",
+        "time": "75 minutes ago",
+        "content": "Oil Wobbles, Fed Meeting in Focus Commodity WTI crude oil futures fluctuated around $70 per barrel on Tuesday amid renewed concerns about weakening global demand, while traders prepared for the US Federal Reserve\u2019s upcoming policy meeting. China\u2019s lackluster economic data added to uncertainty over the country\u2019s economic outlook, stoking fears about reduced consumption from the world's largest crude importer. This, combined with expectations of oversupply next year, overshadowed ongoing geopolitical tensions in Russia and the Middle East. Further downward pressure came from weaker-than-expected manufacturing activity in the US and Eurozone, which negatively impacts fuel demand and crude prices. Meanwhile, traders are now focused on the Fed's final rate decision of the year, where a 25bps rate cut is widely anticipated. Such a move could stimulate economic growth and, in turn, boost oil demand."
+    },
+    {
+        "title": "Qatar Trade Surplus Smallest in 3-1/2 Years",
+        "link": "/qatar/balance-of-trade",
+        "time": "79 minutes ago",
+        "content": "Qatar Trade Surplus Smallest in 3-1/2 Years Qatar \u00a0 Balance of Trade The trade surplus in Qatar narrowed to QAR 15.1 billion in October 2024 from QAR 19.0 billion in the corresponding month of the previous year, marking the smallest trade surplus since April 2021. Exports edged down 0.1% year-on-year to a six-month low of QAR 27.5 billion, while imports surged 23% from a year earlier to a nine-month high of QAR 12.4 billion. For the first ten months of the year, the country posted a surplus of QAR 180.60 billion."
+    },
+    {
+        "title": "Pound Strengthens After Higher-Than-Expected Wage Growth",
+        "link": "/united-kingdom/currency",
+        "time": "79 minutes ago",
+        "content": "Pound Strengthens After Higher-Than-Expected Wage Growth United Kingdom \u00a0 Currency The British pound strengthened slightly, trading above $1.27, after UK wage growth surpassed expectations, bolstering the Bank of England's cautious approach to interest rate cuts. Regular pay growth, excluding bonuses, rose by 5.2% in the three months to October, driven by private-sector gains and exceeding the 5% forecast. The central bank had projected a 5.1% increase for the three months to December. Key economic indicators, including inflation and retail sales data, are set to be released later this week. Meanwhile, the Bank of England is also scheduled to announce its monetary policy decision on Thursday, with no changes expected to the benchmark interest rate. Investors currently anticipate only three rate cuts in 2025."
+    },
+    {
+        "title": "UK Employment Defies Forecasts",
+        "link": "/united-kingdom/employment-change",
+        "time": "96 minutes ago",
+        "content": "UK Employment Defies Forecasts United Kingdom \u00a0 Employment Change The number of people employed in the United Kingdom increased by 173 thousand in the three months to October 2024, easing from an upwardly revised 253 thousand advance in the previous period. The reading defied market forecasts of a 12 thousand decrease and marked the seventh consecutive three-month period of job growth. The employment rate for those aged 16 to 64 held steady at 74.9%, unchanged from the prior period. On an annual basis, the number of employed individuals jumped by 409 thousand, driven by an increase in full-time employees and self-employed workers."
+    },
+    {
+        "title": "South Africa Leading Index Rises for 2nd Month",
+        "link": "/south-africa/leading-economic-index",
+        "time": "98 minutes ago",
+        "content": "South Africa Leading Index Rises for 2nd Month South Africa \u00a0 Leading Economic Index The composite leading business cycle indicator in South Africa advanced by 1.1% month-over-month in October 2024, following an upwardly revised 1.4% rise in the previous month, as increases in eight of the ten available component time series outweighed decreases in the remaining two. The most significant positive contributors were an acceleration in the six-month smoothed growth rate of new passenger vehicles sold and job advertisement space. The only negative contributors were a decline in the number of residential building plans approved and a deceleration in the six-month smoothed growth rate in the real M1 money supply."
+    },
+    {
+        "title": "Qatar Inflation Rate Almost Unchanged in October",
+        "link": "/qatar/inflation-cpi",
+        "time": "106 minutes ago",
+        "content": "Qatar Inflation Rate Almost Unchanged in October Qatar \u00a0 Inflation Rate The annual inflation rate in Qatar stood at  0.83% in October 2024, almost unchanged from 0.82% in the previous month. Upward price pressures came from transport (0.97% vs -0.39% in September), clothing & footwear (0.80% vs -1.3%), and recreation & culture costs picked up (18.51% vs 12.6%). On the other hand, prices continued to fall for transport (-0.2% vs -0.3%), food & beverages (-0.46% vs -3.3%), and housing & utilities (-1.09% vs -4.2%). On a monthly basis, consumer prices increased by 1.11%, the most in ten months, following a 0.33% gain in September."
+    },
+    {
+        "title": "UK Wages Rise More Than Expected",
+        "link": "/united-kingdom/average-earnings-excluding-bonus",
+        "time": "112 minutes ago",
+        "content": "UK Wages Rise More Than Expected United Kingdom \u00a0 Average Earnings Excluding Bonus Regular pay in the UK which excludes bonuses, increased 5.2% year-on-year to GBP 656/week in the three months to October 2024, slightly higher than 4.9% in the previous period which was the lowest since June 2022, and above forecasts of 5%. Wage growth accelerated at the private sector (5.4% vs 4.9%%) but continued to slowdown at the public one (4.3% vs 4.7%). The manufacturing sector (6%) saw the largest annual regular wage growth rate, followed by wholesale, retailing, restaurants and hotels (5.4%), construction (5.2%), services (5.1%), and the finance and business services sector (5.1%). Adjusted for inflation, wage growth in real terms was 2.2%, above 1.9% in the previous period."
+    },
+    {
+        "title": "UK Jobless Rate Steady at 4.3% as Expected",
+        "link": "/united-kingdom/unemployment-rate",
+        "time": "2 hours ago",
+        "content": "UK Jobless Rate Steady at 4.3% as Expected United Kingdom \u00a0 Unemployment Rate The United Kingdom\u2019s unemployment rate was 4.3% from August to October 2024, unchanged from the previous period and aligning with expectations. The rate remained at its highest level since the three months ending in May, driven by an over the period increase in individuals unemployed for up to 12 months. Over the year from August to October 2023, the rise in the number of unemployed individuals was due to an increase in those unemployed for over six months. Meanwhile, the number of employed individuals rose by 173 thousand to 33.77 million, with a year-on-year growth recorded in full-time employees and self-employed workers. The number of people with second jobs also increased, now representing 3.7% of all employed individuals. Lastly, the economic activity rate held steady at 21.7%, unchanged from the preceding period."
+    },
+    {
+        "title": "European Markets Set for Lower Open",
+        "link": "/euro-area/stock-market",
+        "time": "2 hours ago",
+        "content": "European Markets Set for Lower Open Euro Area \u00a0 Stock Market European equity markets were poised for a lower open on Tuesday as investors braced for key interest rate decisions from major central banks, including the US Federal Reserve, Bank of England, and Bank of Japan. The Fed is widely expected to reduce borrowing costs by 25 basis points on Wednesday, but could signal fewer rate cuts next year amid concerns about a potential resurgence of inflation. In Germany, Chancellor Olaf Scholz lost his confidence vote as expected, paving the way for a snap election on February 23. In corporate news, European automakers remained under pressure due to weak demand in China and concerns about potential punitive tariffs under incoming US President Donald Trump. In premarket trading, Euro Stoxx 50 and Stoxx 600 futures were both down around 0.3%."
+    },
+    {
+        "title": "China Aims for Record High Budget Deficit in 2025",
+        "link": "/china/government-budget",
+        "time": "2 hours ago",
+        "content": "China Aims for Record High Budget Deficit in 2025 China \u00a0 Indicators China's budget deficit is projected to reach a record peak of 4% of its GDP in 2025, up from the previously forecasted 3% for this year, according to Reuters. Figures were reportedly made during a Politburo meeting and the closed-door Central Economic Work Conference in early December, as Beijing seeks to adopt a more proactive fiscal policy to bolster the sluggish economy. The additional expenditure, approximately CNY 1.3 trillion, will be partially financed through the issuance of off-budget special bonds. Meanwhile, the annual growth rate for 2025 is expected to be maintained at around 5%, aligning with the 2024 target and reflecting a series of stimulus measures implemented since September. Official announcements regarding these targets are anticipated during the annual parliamentary session in March."
+    },
+    {
+        "title": "Japanese Shares Reverse Early Gains",
+        "link": "/japan/stock-market",
+        "time": "2 hours ago",
+        "content": "Japanese Shares Reverse Early Gains Japan \u00a0 Stock Market The Nikkei 225 Index dropped 0.23% to close at 39,365, while the broader Topix Index fell 0.37% to 2,728 on Tuesday, reversing earlier gains as caution set in ahead of the US Federal Reserve\u2019s policy decision later this week. The Fed is widely expected to cut interest rates by 25 basis points, but could signal fewer reductions next year amid concerns over a resurgence of inflation. Domestically, speculation is mounting that the Bank of Japan may hold off on raising interest rates this week as BOJ officials await more time to assess the latest economic data. In corporate news, shares of Advantest tumbled 9.1% following the unveiling of its latest testing solutions for advanced applications. Meanwhile, SoftBank Group saw a 4.3% gain after CEO Masayoshi Son announced plans to invest $100 billion in the US."
+    },
+    {
+        "title": "Silver Holds Decline Ahead of Fed Meeting",
+        "link": "/commodity/silver",
+        "time": "3 hours ago",
+        "content": "Silver Holds Decline Ahead of Fed Meeting Commodity Silver held below $30.5 per ounce on Tuesday after facing heavy selling pressure in recent sessions, weighed down by concerns about a more measured pace of easing from the US Federal Reserve next year.  The Fed is widely expected to implement a 25 basis point interest rate cut this week, but it may signal fewer reductions for 2025 due to concerns about a potential resurgence of inflation. Silver and other metals also faced pressure from ongoing demand uncertainty in China, the world\u2019s largest consumer of metals. Earlier this week, data showed that retail sales growth in China slowed more than expected in November, reflecting weakening consumption. Additionally, new home prices fell for the 17th consecutive month, highlighting ongoing challenges in the property sector. Meanwhile, Beijing's latest stimulus pledges have failed to generate significant investor optimism, largely due to the lack of details regarding the potential size and scope of rescue packages."
+    },
+    {
+        "title": "Copper Prices Fall for Fifth Session",
+        "link": "/commodity/copper",
+        "time": "3 hours ago",
+        "content": "Copper Prices Fall for Fifth Session Commodity Copper futures dropped below $4.13 per pound on Tuesday, marking a fifth consecutive day of losses amid ongoing uncertainty over demand from top consumer China and concerns about a more gradual pace of easing by the US Federal Reserve next year. Earlier this week, data revealed that retail sales growth in China slowed more than expected in November, reflecting weakening consumption. Additionally, new home prices fell for the 17th consecutive month as the property sector continued to face challenges. Meanwhile, Beijing\u2019s recent stimulus pledges have failed to generate significant investor enthusiasm, partly due to the lack of details regarding the potential size of rescue packages. In the US, the Fed is widely expected to implement a 25 basis point interest rate cut this week, but could signal fewer reductions than previously indicated for 2025."
+    },
+    {
+        "title": "India Shares Fall to 2-Week Lows",
+        "link": "/india/stock-market",
+        "time": "4 hours ago",
+        "content": "India Shares Fall to 2-Week Lows India \u00a0 Stock Market The BSE Sensex dropped 817 points or 1.0% to 80,932 in morning trade on Tuesday while hitting its lowest level in two weeks, extending losses from the previous session, mainly weighed by banking sectors, financial services, and oil & gas. Traders remained cautious as they anticipated interest rate decisions from major central banks, including the Fed, this week. Monday's data also pressured sentiment after the Indian trade deficit widened to the highest on record in November of USD 37.8 billion due to a surge in imports. Meanwhile, wholesale inflation eased to 1.89% in November from October's four-month high due to a softer rise in food prices. The Nifty 50 fell 1.0% to below 24,420, with notable losses from Shriram Finance (-3.4), Bajaj Finserve (-1.9%), Bharti Airtel (-1.7%), Grasim (-1.6%), and Power Grid (-1.5%). On corporate news, the British government on Monday approved Indian group Bharti Global's purchase of a 24.5% stake in London-listed BT."
+    },
+    {
+        "title": "FX Updates: Australian Dollar  Depreciates by 0.26%",
+        "link": "/currencies",
+        "time": "4 hours ago",
+        "content": "FX Updates: Australian Dollar  Depreciates by 0.26% Currency Top currency losers are  Australian Dollar  ( -0.26% ),  Euro  ( -0.03% ) and  British Pound  ( -0.03% ). Gains are led by  Dollar Index  ( 0.07% ) and  Japanese Yen  ( 0.05% )."
+    },
+    {
+        "title": "NZX 50 Close Higher for 3rd Session",
+        "link": "/new-zealand/stock-market",
+        "time": "4 hours ago",
+        "content": "NZX 50 Close Higher for 3rd Session New Zealand \u00a0 Stock Market New Zealand\u2019s benchmark S&P/NZX 50 index rose 0.9% to close at 12,914 on Tuesday, erasing earlier losses and advancing for the third consecutive session, supported by near-widespread gains in large-cap stocks. Utility shares such as Contact Energy, Meridian Energy, and Mercury NZ saw gains ranging from 0.2% to 4.7%. Transportation stocks also advanced, with Auckland International Airport up 2.5%, infrastructure investor Infratil rising 1.9%, and port operator Port of Tauranga gaining 0.9%. Meanwhile, investors are bracing for the US Federal Reserve's monetary policy announcement on Wednesday, followed by the domestic Q3 GDP data on Thursday. In economic news, New Zealand's Treasury forecast a larger budget deficit for this year, citing rising unemployment and slower economic growth, delaying a return to surplus for at least five years."
+    },
+    {
+        "title": "Consumer Prices in East Timor Fall for 1st Time in Near 8 Years",
+        "link": "/east-timor/inflation-cpi",
+        "time": "4 hours ago",
+        "content": "Consumer Prices in East Timor Fall for 1st Time in Near 8 Years East Timor \u00a0 Inflation Rate Consumer prices in East Timor declined by 0.2% year-on-year in November 2024, reversing a 0.2% rise in the previous month and marking the first drop since January 2017. There were further declines in the cost of alcohol and tobacco (-3.8% vs -4.6% in October), housing (-1.0% vs -1.0%), furnishings, household equipment, and routine household maintenance (-1.3% vs -1.1%), transport (-2.4% vs -2.2%), and communication (-0.9% vs -0.9%). Meanwhile, food prices increased at the slowest pace in nearly five years (0.5% vs 1.4%) amid stable inflation in health (at 2.3%), recreation & culture (at 1.9%), and education (at 2%). On a monthly basis, consumer prices also fell by 0.2% in November, matching the pace of the prior two months and pointing to the sixth straight month of decline."
+    },
+    {
+        "title": "US 10-Year Yield Holds at 3-Week Highs",
+        "link": "/united-states/government-bond-yield",
+        "time": "5 hours ago",
+        "content": "US 10-Year Yield Holds at 3-Week Highs United States \u00a0 Government Bond 10Y The yield on the 10-year US Treasury note remained steady around 4.4% on Tuesday, staying near its highest levels in three weeks as investors prepared for the Federal Reserve's highly anticipated monetary policy decision. The Fed is widely expected to cut interest rates by 25 basis points on Wednesday, though traders will focus on the updated economic projections, especially the outlook for rate cuts in 2025. Market expectations for further reductions next year have been scaled back due to concerns about a potential resurgence of inflation, particularly with Donald Trump\u2019s imminent return to the White House. On the data front, the S&P Global Flash PMIs indicated unexpectedly strong growth in private sector activity this month, driven by a surge in services, while the manufacturing downturn continued to deepen."
+    },
+    {
+        "title": "Palm Oil Trades at 3-Week Low",
+        "link": "/commodity/palm-oil",
+        "time": "5 hours ago",
+        "content": "Palm Oil Trades at 3-Week Low Commodity Malaysian palm oil futures hovered below MYR 4,720 per tonne, marking the third straight session of losses and hitting their lowest in three weeks. The decline was due to lower export estimates, with cargo surveyors noting that Malaysian palm oil shipments fell between 6.7% and 9.8% during the first 15 days of December. Adding to the bearish mood was a slight fall in palm oil buying from top consumer India last month, coupled with New Delhi's ongoing efforts to ease import dependence and achieve self-reliance in edible oils over the medium to long term. Capping further declines were signs of rising demand from key buyer China ahead of the Lunar New Year festivals at the end of January. On the production front,  challenges from heavy flooding in key Malaysian regions persisted, with the industry regulator projecting a fourth straight monthly decline in output for December. These constraints are likely to further reduce December stocks, which would be a third successive monthly drop."
+    },
+    {
+        "title": "New Zealand Dollar Weakens",
+        "link": "/new-zealand/currency",
+        "time": "6 hours ago",
+        "content": "New Zealand Dollar Weakens New Zealand \u00a0 Currency The New Zealand dollar fell to around $0.578 on Tuesday, reversing gains from the previous session as investors braced for the Federal Reserve's monetary policy announcement and key economic data this week. The US central bank is widely expected to lower rates by 25 bps on Wednesday, but traders are primarily focused on the updated economic projections for next year\u2019s outlook. Domestically, markets are awaiting a series of economic releases, with the focal point being Q3 GDP, which is projected to contract by 0.4% quarter-on-quarter, potentially signaling a return to recession. Subdued data would add to evidence supporting a more aggressive policy stance from the Reserve Bank of New Zealand. Meanwhile, New Zealand's Treasury forecasted a larger budget deficit for this year, citing rising unemployment and slower economic growth, delaying a return to surplus for at least five years."
+    },
+    {
+        "title": "Offshore Yuan Stabilizes Ahead of PBOC Decision",
+        "link": "/china/currency",
+        "time": "6 hours ago",
+        "content": "Offshore Yuan Stabilizes Ahead of PBOC Decision China \u00a0 Currency The offshore yuan stabilized around 7.28 per dollar as traders await the People\u2019s Bank of China\u2019s loan prime rate decisions later this week for clues on future policy moves. Meanwhile, the central bank pledged to stabilize the yuan and manage exchange rate expectations amid economic challenges and looming US trade tensions. Earlier this week, traders digested a slew of economic data, including slower-than-expected retail sales growth in November, reflecting weaker consumption, and new home prices dropping for the 17th consecutive month, signaling ongoing property sector challenges. On a positive note, industrial production growth exceeded forecasts last month. Externally, the yuan found support as the US dollar eased ahead of the Federal Reserve\u2019s monetary policy announcement. The Fed is expected to cut rates by 25 basis points on Wednesday, but traders are focusing on 2025 rate cut forecasts amid inflation concerns linked to Trump\u2019s imminent return to the White House."
+    },
+    {
+        "title": "Yen Holds Decline as Fed Decision Looms",
+        "link": "/japan/currency",
+        "time": "6 hours ago",
+        "content": "Yen Holds Decline as Fed Decision Looms Japan \u00a0 Currency The Japanese yen held its recent decline to around 154 per dollar on Tuesday, hovering near its weakest levels in three weeks as caution prevailed ahead of the latest US Federal Reserve policy decision. The Fed is widely expected to cut interest rates by 25 basis points on Wednesday, though it may signal fewer reductions than previously indicated for 2025. Domestically, Japan's economy minister, Ryosei Akazawa, reaffirmed that the Bank of Japan and the government will collaborate on appropriate monetary policies. Markets are speculating that the BOJ may forgo an interest rate hike when it announces its decision on Thursday. Reports suggested the central bank sees \"little cost\" in delaying further tightening, preferring to wait for more evidence of wage growth before implementing additional policy adjustments."
+    },
+    {
+        "title": "Australian Dollar Remains Under Pressure",
+        "link": "/australia/currency",
+        "time": "6 hours ago",
+        "content": "Australian Dollar Remains Under Pressure Australia \u00a0 Currency The Australian dollar held steady at around $0.637 on Tuesday, hovering near its lowest levels in a year as investors remained cautious ahead of the US Federal Reserve\u2019s upcoming policy decision. The Fed is widely expected to reduce interest rates by 25 basis points on Wednesday, but it may signal fewer cuts than previously indicated for 2025. Domestically, a private survey revealed a decline in Australian consumer confidence in December, as sentiment turned more pessimistic regarding the economic outlook. Additionally, traders are awaiting the Australian government\u2019s update on its budget outlook, which is expected to show larger deficits, partly driven by weakening activity in China, Australia\u2019s largest trading partner."
+    },
+    {
+        "title": "Gold Edges Lower  Ahead of Fed Meeting",
+        "link": "/commodity/gold",
+        "time": "6 hours ago",
+        "content": "Gold Edges Lower  Ahead of Fed Meeting Commodity Gold traded below $2,650 per ounce on Tuesday ahead of the Federal Reserve\u2019s two-day meeting, with investors closely watching the central bank\u2019s 2025 outlook. The Fed is widely expected to implement a 25bps rate cut, but uncertainty remains about the extent of future easing, particularly with the prospect of higher inflation under the incoming Trump administration. Recent data showed that US private sector activity grew at a faster pace in December, suggesting that the Fed may limit rate cuts next year, which could dampen demand for the precious metal. Still, bullion has gained about 29% this year, on track for its largest annual gain since 2010, which has been driven by US policy easing, strong demand for safe-haven assets, and continued purchases by global central banks."
+    },
+    {
+        "title": "China Stocks Struggle Amid Economic Uncertainty",
+        "link": "/china/stock-market",
+        "time": "6 hours ago",
+        "content": "China Stocks Struggle Amid Economic Uncertainty China \u00a0 Stock Market The Shanghai Composite fell 0.73% to close at 3,361, while the Shenzhen Component lost 0.35% to 10,537 on Tuesday, as mainland stocks struggled for traction in the face of ongoing economic uncertainties and the absence of detailed policy measures from Beijing. Earlier this week, data showed that retail sales growth in November slowed more than expected, reflecting weaker consumption. Meanwhile, new home prices dropped for the 17th consecutive month, signaling continued challenges in the property sector. On a more positive note, industrial production growth surpassed forecasts last month. Investors are now looking ahead to the People\u2019s Bank of China\u2019s loan prime rate decisions later this week for potential clues on future policy moves. Among individual stocks, notable losses were seen in Hytera Communication (-6.6%), Guangdong Advance (-6.5%), Offcn Education (-3.3%), Sunwave Commuinication (-10%), and Leyard Optoelectronic (-13.4%)."
+    },
+    {
+        "title": "Shares in Hong Kong Fall for 3rd Session",
+        "link": "/hong-kong/stock-market",
+        "time": "7 hours ago",
+        "content": "Shares in Hong Kong Fall for 3rd Session Hong Kong \u00a0 Stock Market Hong Kong's equities fell 46 points or 0.2% to 19,749, marking the third straight session of losses as most sectors retreated, particularly property, consumers, and tech. Sluggish activity data for November in China continued to weigh on sentiment, with retail sales growth unexpectedly slowing while industrial output rose at a relatively similar pace to October. Markets lingered at their lowest level in over a week, as cautious traders anticipated interest rate decisions from major central banks, including the US Fed, this week. A monthly review of key lending rates in China will also take place in the coming days, following the PBoC's move to retain them at record lows in November. Helping to limit the decline were signs that Beijing will stick with its plan to stimulate consumption next year, despite avoiding massive fiscal stimulus. Early decliners included Techtronic Inds. (-2.7%), JD Logistics (-2.6%), Wuxi Biologics (-2.2%), Sino Land Co. (-1.6%), and Xiaomi Corp. (-1.2%)."
+    },
+    {
+        "title": "Dollar Holds Steady Ahead of Fed Decision",
+        "link": "/united-states/currency",
+        "time": "7 hours ago",
+        "content": "Dollar Holds Steady Ahead of Fed Decision United States \u00a0 Currency The dollar index held steady around 106.8 on Tuesday as investors adopted a cautious stance ahead of the highly anticipated Federal Reserve monetary policy announcement. The central bank is widely expected to cut interest rates by 25 basis points on Wednesday, but traders are primarily focused on the updated economic projections, particularly the outlook for rate cuts in 2025. Market expectations for further rate reductions next year have been scaled back, amid concerns about a potential resurgence of inflation, especially with Donald Trump\u2019s imminent return to the White House. On the economic front, the latest S&P Global Flash PMIs revealed stronger-than-expected growth in private sector activity this month, driven by a surge in services, while the manufacturing sector continued to struggle. In addition, investors are closely monitoring policy decisions from the Bank of England and the Bank of Japan, both of which are set to announce their latest moves this week."
+    },
+    {
+        "title": "Asia FX Updates:  Macanese Pataca Rises by 0.32%",
+        "link": "/currencies",
+        "time": "7 hours ago",
+        "content": "Asia FX Updates:  Macanese Pataca Rises by 0.32% Currency Top currency gainers are  Macanese Pataca  ( 0.32% ) and  South Korean Won  ( 0.25% )."
+    },
+    {
+        "title": "South Korean Shares Extend Losses",
+        "link": "/south-korea/stock-market",
+        "time": "7 hours ago",
+        "content": "South Korean Shares Extend Losses South Korea \u00a0 Stock Market The benchmark KOSPI fell 0.8% to 2,469 on Tuesday, marking its second consecutive session of losses, as battery stocks weighed heavily on the index. LG Energy Solution dropped 3.3%, while its rival Samsung SDI plunged 4.8%. Moreover, tech heavyweight Samsung Electronics came under pressure, with shares falling almost 2%, though SK Hynix bucked the trend, rising 2.6% to its highest level in over a month. Elsewhere, sentiment remained subdued as investors reassessed political uncertainty following the impeachment of President Yoon Suk Yeol over the weekend. Authorities are now moving to summon Yoon for questioning regarding his brief martial law decree, while the Constitutional Court deliberates on his potential removal or reinstatement, further adding to market jitters."
+    },
+    {
+        "title": "Oil Holds Losses Amid Demand Concerns",
+        "link": "/commodity/crude-oil",
+        "time": "7 hours ago",
+        "content": "Oil Holds Losses Amid Demand Concerns Commodity WTI crude oil futures held its recent decline to around $70.6 per barrel on Tuesday, as renewed concerns about weakening global demand weighed on prices. China\u2019s lackluster economic data added to uncertainty over the country\u2019s economic outlook, stoking fears about reduced consumption from the world's largest crude importer. This, combined with expectations of oversupply next year, overshadowed ongoing geopolitical tensions in Russia and the Middle East. Further downward pressure came from weaker-than-expected manufacturing activity in the US and Eurozone, which negatively impacts fuel demand and crude prices. Meanwhile, traders are now focused on the US Federal Reserve\u2019s final rate decision of the year, where a 25bps rate cut is widely anticipated."
+    },
+    {
+        "title": "Japanese Shares Rise on Wall Street Boost",
+        "link": "/japan/stock-market",
+        "time": "8 hours ago",
+        "content": "Japanese Shares Rise on Wall Street Boost Japan \u00a0 Stock Market The Nikkei 225 Index gained 0.6% to around 39,680, while the broader Topix Index rose 0.5% to 2,750 on Tuesday, recovering losses from the previous session. The rally was largely fueled by a strong performance on Wall Street, where technology stocks outperformed. Investors are also bracing for an expected interest rate cut by the US Federal Reserve this week, with much attention on the Fed\u2019s projections for 2025. Domestically, markets are speculating that the Bank of Japan may hold off on raising rates this month. BOJ officials suggested last week that more time is needed to assess the latest economic data. Industrial and consumer stocks led the gains, with notable performances from Mitsubishi Heavy Industries (+2.7%), Kawasaki Heavy Industries (+1.8%), IHI Corp (+3.8%), Sanrio (+5.2%), and Nintendo (+2.5%)."
+    },
+    {
+        "title": "US Futures Hold Steady After Mixed Session",
+        "link": "/united-states/stock-market",
+        "time": "8 hours ago",
+        "content": "US Futures Hold Steady After Mixed Session United States \u00a0 Stock Market US stock futures were little changed on Tuesday, following a mixed session on Wall Street as investors await the latest Federal Reserve policy decision. In Monday's regular trading, the Dow slipped 0.25%, marking its eighth consecutive day of losses, the longest losing streak since 2018. Meanwhile, the S&P 500 rose 0.38%, and the Nasdaq Composite surged 1.24%, hitting new all-time highs. Leading the Nasdaq's gains were Tesla (+6.1%) and Broadcom (+11.2%), with the latter crossing a $1 trillion market valuation last week. Other tech heavyweights also posted strong performances: Apple added 1.2%, and Alphabet climbed 3.5%, both reaching new all-time highs. However, Nvidia saw a 1.7% decline. MicroStrategy edged down 0.04% ahead of its  inclusion in the Nasdaq 100, while SMCI dropped 8.3% as it prepares to exit the index. Looking ahead, the Fed is widely expected to reduce rates by 25 basis points on Wednesday, with much of the market's focus now on the central bank's outlook for 2025."
+    },
+    {
+        "title": "Singapore NODX Unexpectedly Rises in November",
+        "link": "/singapore/domestic-exports-of-non-oil-nodx-pctyoy",
+        "time": "8 hours ago",
+        "content": "Singapore NODX Unexpectedly Rises in November  Singapore \u00a0 Domestic Exports of Non Oil (nodx) (%yoy) Singapore\u2019s non-oil domestic exports (NODX) unexpectedly grew 3.4% yoy in November 2024, recovering from an upwardly revised 4.7% drop in October and beating estimates of a 1.7% fall. It marked the fastest pace in NODX since August, mainly due to a jump in electronic product sales. Electronic product shipments surged by 23.2%, accelerating sharply from a 2.6% gain in October, boosted by integrated circuits (28.9%), disk media products (114.7%), and other computer peripherals (75.3%). Non-electronic shipments fell 1.6%, moderating from a 6.8% gain in October, weighed by paper & paperboard (-89.9%), pharmaceuticals (-63.8%), and petrochemicals (-5.3%). Exports rose mainly to Taiwan (42.7%), Hong Kong (35.3%), and South Korea (32.6%) while declining to the US (-19.1%), Japan (-12.1%), and China (-11.6%). On a monthly basis, NODX jumped 14.7%, the first increase in four months, rebounding sharply from the steepest decline in seven months of an upwardly revised 7.5% plunge in October."
+    },
+    {
+        "title": "Australian Shares Track Wall Street Higher",
+        "link": "/australia/stock-market",
+        "time": "9 hours ago",
+        "content": "Australian Shares Track Wall Street Higher Australia \u00a0 Stock Market The S&P/ASX 200 Index gained 0.78% on Tuesday, closing at 8,314 and snapping a five-day losing streak. The index took cues from Wall Street, where technology stocks delivered strong performance, bolstering investor sentiment. In addition, market participants are bracing for an expected interest rate cut from the US Federal Reserve later this week, with much of the focus shifting to the Fed's outlook for 2025. Domestically, however, Australian consumer confidence showed signs of strain, with December data revealing a decline as consumers turned more pessimistic about the economic outlook. Despite this, heavyweight bank stocks led the market's advance. Commonwealth Bank rose 1.6%, ANZ Group gained 0.8%, National Australia Bank increased 1.5%, and Macquarie Group was up 1%. In contrast, mining and energy stocks were more mixed, reflecting weaker commodity prices amid broader global economic uncertainty."
+    },
+    {
+        "title": "Australia Consumer Confidence Dips Amid Economic Concerns",
+        "link": "/australia/consumer-confidence",
+        "time": "9 hours ago",
+        "content": "Australia Consumer Confidence Dips Amid Economic Concerns Australia \u00a0 Consumer Confidence The Westpac-Melbourne Institute Consumer Sentiment index in Australia fell 2% to 92.8 points in December 2024, reversing two months of positive momentum. This decline reflects a renewed pessimism about the economic outlook, with the sub-index tracking the \"economic outlook for the next 12 months\" plunging 9.6% to 91.2, and the \"economic outlook for the next 5 years\" falling 7.9% to 95.9. Both sub-indexes retraced approximately half of the gains made in the previous two months. Several factors likely contributed to this shift in sentiment, including a disappointing GDP update in Q3, inflationary concerns, and rate cut uncertainties. Despite this overall decline, consumers reported continued improvements in \"current conditions,\" which assess financial well-being compared to a year ago and whether it is a good time to purchase major household items."
+    },
+    {
+        "title": "Sri Lanka Tourist Arrivals Surge 21.6% in November",
+        "link": "/sri-lanka/tourist-arrivals",
+        "time": "9 hours ago",
+        "content": "Sri Lanka Tourist Arrivals Surge 21.6% in November Sri Lanka \u00a0 Tourist Arrivals The number of foreign tourist arrivals in Sri Lanka soared by 21.6% year-on-year to 184,158 in November 2024, following a 24.5% jump in the previous month. Despite a conservative target of 182,693 for November, the latest figures exceeded expectations, showcasing robust demand and a\npositive trend in the sector\u2019s growth this year. Among key markets, India (22.3%) remained the top tourist source market, followed by Russia (15.8%), the UK (7.0%), Germany (6.8%), China (4.5%), Australia (4.3%), France (3.6%), the Netherlands (1.8%), and Bangladesh (1.8%). For the first eleven months of the year, the number of foreign tourists surged by 41.3% compared to the corresponding period of the previous year, reaching 1,804,873. On a monthly basis, foreign tourist arrivals jumped 35.5%."
+    },
+    {
+        "title": "New Zealand Shares Trade Slightly Lower",
+        "link": "/new-zealand/stock-market",
+        "time": "10 hours ago",
+        "content": "New Zealand Shares Trade Slightly Lower New Zealand \u00a0 Stock Market The NZX 50 was down 28 points or 0.2% to 12,769 on Tuesday morning trade, swinging from gains in the prior two sessions mainly due to declines in non-energy minerals, healthcare, and producer manufacturing. Investors responded to local data showing New Zealand's food inflation hit a 9-month peak of 1.3% in November, after remaining steady at 1.2% for two straight months. Caution also built as Q3 GDP readings for the island nation will be due later this week. The economy is projected to shrink by 0.4% qoq, potentially falling back into recession. Meanwhile, retail sales for November in China, a key trading partner, unexpectedly slowed from the robust growth in October, disappointing markets. Still, broad gains on Wall Street Monday capped losses, as traders geared up for interest rate decisions by major central banks this week, including the US Fed. Shares with notable losses included Skellerup Holdings (-2.0%), Fletcher Buildings (-1.8%), A2 Milk Co. (-1.4%), and Ebos Group (-1.1%)."
+    },
+    {
+        "title": "Crypto currencies",
+        "link": "/crypto",
+        "time": "10 hours ago",
+        "content": "Crypto currencies Crypto Bitcoin and Ether are on the rise.  Ether  is leading the charge with a  2.30%  gain."
+    },
+    {
+        "title": "Agricultural Commodities Updates: Cheese Falls by 4.75%",
+        "link": "/commodities",
+        "time": "10 hours ago",
+        "content": "Agricultural Commodities Updates: Cheese Falls by 4.75% Commodity Top commodity losers are  Cheese  ( -4.75% ),  Palm Oil  ( -2.98% ) and  Lumber  ( -1.65% ). Gains are led by  Orange Juice  ( 3.95% ),  Cocoa  ( 3.81% ) and  Coffee  ( 2.24% )."
+    },
+    {
+        "title": "Metals Commodities Updates: Platinum Gains by 1.61%",
+        "link": "/commodities",
+        "time": "11 hours ago",
+        "content": "Metals Commodities Updates: Platinum Gains by 1.61% Commodity Top commodity gainers are  Platinum  ( 1.61% ),  Iron Ore CNY  ( 0.75% ) and  Gold  ( 0.16% ). Biggest losers are  Lithium Carbonate  ( -0.52% )."
+    },
+    {
+        "title": "Energy Commodities Updates: Natural Gas EU Dutch TTF Falls by 4.06%",
+        "link": "/commodities",
+        "time": "11 hours ago",
+        "content": "Energy Commodities Updates: Natural Gas EU Dutch TTF Falls by 4.06% Commodity Top commodity losers are  Natural Gas EU Dutch TTF  ( -4.06% ),  Natural Gas UK GBP  ( -2.52% ),  Natural gas  ( -1.65% ),  Crude Oil WTI  ( -0.90% ) and  Brent Crude Oil  ( -0.83% )."
+    },
+    {
+        "title": "FX Updates:  Brazilian Real Drops by 1.77%",
+        "link": "/currencies",
+        "time": "11 hours ago",
+        "content": "FX Updates:  Brazilian Real Drops by 1.77% Currency Top currency losers are  Brazilian Real  ( -1.77% ),  Indian Rupee  ( -0.34% ),  Japanese Yen  ( -0.27% ) and  Dollar Index  ( -0.08% ). Gains are led by  Swedish Krona  ( 0.83% ),  British Pound  ( 0.45% ),  Polish Zloty  ( 0.39% ) and  Euro  ( 0.09% )."
+    },
+    {
+        "title": "Brazilian Real at Record Low",
+        "link": "/brazil/currency",
+        "time": "12 hours ago",
+        "content": "Brazilian Real at Record Low Brazil \u00a0 Currency The Brazilian real depreciated to a record low of R$6.092 per dollar on Monday, driven by concerns over the country's fiscal outlook, political uncertainty, and rising risk premiums. Investors remain apprehensive about the government's ability to secure congressional approval for spending-cutting measures before the year-end recess, particularly in the absence of President Lula, who is recovering from surgery. Finance Minister Haddad's reassurances were insufficient to stabilize the market, despite significant Central Bank interventions totaling $4.6 billion through spot and line auctions. The interventions briefly eased pressure on the real but failed to counter the overall negative sentiment. Additionally, rising domestic interest rates and President Lula's criticism of the Central Bank's monetary policy further unsettled investors."
+    },
+    {
+        "title": "Ibovespa Drops for the 3rd Consecutive Session",
+        "link": "/brazil/stock-market",
+        "time": "12 hours ago",
+        "content": "Ibovespa Drops for the 3rd Consecutive Session Brazil \u00a0 Stock Market The Ibovespa fell 0.8% to close at 123,560 on Monday, marking its third consecutive session of losses as persistent concerns over Brazil's fiscal and monetary outlook weighed on sentiment. Investors remained skeptical about the government's fiscal credibility and the Central Bank's future stance, particularly with a new board set to take office in January. Lingering doubts over the prioritization of the inflation target were exacerbated by government criticism of recent monetary policy decisions. Additionally, the fiscal package, viewed as insufficient to stabilize public debt, has amplified fears of an unsustainable debt-to-GDP trajectory. Major banks were among the worst performers, with Banco Santander, Banco do Brasil, Ita\u00fasa, and Bradesco falling between 1% and 2%. Other notable decliners included Petrobras (-1%), Ambev (-1.5%), BB Seguridade (-1.3%), and Eletrobras (-1%)."
+    },
+    {
+        "title": "Nasdaq Closes at Record High",
+        "link": "/united-states/stock-market",
+        "time": "12 hours ago",
+        "content": "Nasdaq Closes at Record High United States \u00a0 Stock Market The S&P 500 gained 0.4% on Monday, closing just shy of its record high, while the Nasdaq 100 advanced 1.3%, surpassing the 22,000 mark for the first time as tech stocks propelled the market ahead of a crucial Federal Reserve meeting this week. Leading the gains were Tesla (+6%) and Broadcom, which climbed 11.2% after crossing a $1 trillion market valuation last week. Both Apple (+1.1%) and Alphabet (+3.6%) hit new all-time highs, while Nvidia fell 1.7%. MicroStrategy finished marginally in the red ahead of its inclusion in the Nasdaq 100, whereas Super Micro Computer dropped 8.2% as it prepared to leave the index. However, the Dow Jones slipped 110 points, extending its losing streak to eight sessions, dragged down by UnitedHealth Group (-4.2%) amid growing scrutiny and legislative pressures following the passing of its insurance unit CEO. Attention now shifts to the Federal Reserve, with a 25-basis-point rate cut widely expected on Wednesday."
+    },
+    {
+        "title": "TSX Slips on Freeland's Resignation",
+        "link": "/canada/stock-market",
+        "time": "12 hours ago",
+        "content": "TSX Slips on Freeland's Resignation Canada \u00a0 Stock Market The S&P/TSX Composite Index fell 0.5% to close at 25,147 on Monday, as Finance Minister Chrystia Freeland's abrupt resignation ahead of the fall economic update sparked concerns about fiscal stability, with expectations of a wider-than-anticipated budget deficit. Freeland's remarks denouncing \"costly political gimmicks\" intensified uncertainty, particularly regarding Canada\u2019s response to proposed 25% tariffs from a potential Trump administration. Investor caution deepened ahead of key domestic inflation data and the Federal Reserve's interest rate decision this week, with markets seeking clarity on monetary easing prospects for 2025. Energy stocks led declines amid falling oil prices, with Suncor, Imperial Oil, Canadian Natural, and Cenovus down between 1.4% and 2.4%. In the materials sector, Barrick Gold dropped 2.5% after warning it could suspend operations in Mali due to blocked gold shipments and stalled negotiations over a new mining code."
+    },
+    {
+        "title": "Argentina GDP Shrinks for Sixth Straight Quarter",
+        "link": "/argentina/gdp-growth-annual",
+        "time": "14 hours ago",
+        "content": "Argentina GDP Shrinks for Sixth Straight Quarter Argentina \u00a0 GDP Annual Growth Rate Argentina\u2019s economy contracted by 2.1% year-on-year in the third quarter of 2024, worsening from a 1.7% decline in the previous quarter but outperforming expectations of a 2.6% drop. This marked the sixth consecutive quarter of contraction, driven by a sharp slowdown in the agriculture sector (13.2% vs 80.2% in Q2) as the rebound effects from a historic drought that had severely impacted grain production began to fade. Conversely, declines in manufacturing production (-5.9% vs -17.4% in Q2), construction (-14.9% vs -22.2%), wholesale, retail trade and repairs (-6.1% vs -15.7%), and financial intermediation (-1.8% vs -9.8%) eased. On a quarterly basis, Argentina's GDP rebounded by 3.9%, following a 1.7% decline in the previous period."
+    },
+    {
+        "title": "Nasdaq 100 Breaks Above 22,000 Mark For the First Time",
+        "link": "/united-states/stock-market",
+        "time": "14 hours ago",
+        "content": "Nasdaq 100 Breaks Above 22,000 Mark For the First Time United States \u00a0 Stock Market In afternoon trading, the S&P 500 rose 0.5%, nearing its record high, while the Nasdaq 100 surged 1.4% to a new milestone, breaking above the 22,000 mark as tech stocks drove the market higher ahead of a pivotal Federal Reserve policy meeting later this week. The Dow Jones edged lower, heading for its eighth straight loss, pressured by UnitedHealth Group\u2019s (-3.7%) struggles amid scrutiny and legislative challenges following the death of its insurance unit CEO. Top gainers included Alphabet (+4.4%), Tesla (+5.1%), and Broadcom, which soared 11% after surpassing a $1 trillion market cap last week. Apple and Alphabet reached fresh all-time highs, while Nvidia slid 2%. MicroStrategy climbed 3.5% ahead of its addition to the Nasdaq 100, while Super Micro Computer dropped 7.7% as it prepared to exit the index. Investors now turn their attention to the Federal Reserve\u2019s upcoming decision, with a widely expected 25-basis-point rate cut anticipated on Wednesday."
+    },
+    {
+        "title": "Argentina GDP Shrinks for Sixth Straight Quarter",
+        "link": "/argentina/gdp-growth-annual",
+        "time": "14 hours ago",
+        "content": "Argentina GDP Shrinks for Sixth Straight Quarter Argentina \u00a0 GDP Annual Growth Rate Argentina\u2019s economy contracted by 2.1% year-on-year in the third quarter of 2024, worsening from a 1.7% decline in the previous quarter but outperforming expectations of a 2.6% drop. This marked the sixth consecutive quarter of contraction, driven by a sharp slowdown in the agriculture sector (13.2% vs 80.2% in Q2) as the rebound effects from a historic drought that had severely impacted grain production began to fade. Conversely, declines in manufacturing production (-5.9% vs -17.4% in Q2), construction (-14.9% vs -22.2%), wholesale, retail trade and repairs (-6.1% vs -15.7%), and financial intermediation (-1.8% vs -9.8%) eased. On a quarterly basis, Argentina's GDP rebounded by 3.9%, following a 1.7% decline in the previous period."
+    },
+    {
+        "title": "Nasdaq 100 Breaks Above 22,000 Mark For the First Time",
+        "link": "/united-states/stock-market",
+        "time": "14 hours ago",
+        "content": "Nasdaq 100 Breaks Above 22,000 Mark For the First Time United States \u00a0 Stock Market In afternoon trading, the S&P 500 rose 0.5%, nearing its record high, while the Nasdaq 100 surged 1.4% to a new milestone, breaking above the 22,000 mark as tech stocks drove the market higher ahead of a pivotal Federal Reserve policy meeting later this week. The Dow Jones edged lower, heading for its eighth straight loss, pressured by UnitedHealth Group\u2019s (-3.7%) struggles amid scrutiny and legislative challenges following the death of its insurance unit CEO. Top gainers included Alphabet (+4.4%), Tesla (+5.1%), and Broadcom, which soared 11% after surpassing a $1 trillion market cap last week. Apple and Alphabet reached fresh all-time highs, while Nvidia slid 2%. MicroStrategy climbed 3.5% ahead of its addition to the Nasdaq 100, while Super Micro Computer dropped 7.7% as it prepared to exit the index. Investors now turn their attention to the Federal Reserve\u2019s upcoming decision, with a widely expected 25-basis-point rate cut anticipated on Wednesday."
+    },
+    {
+        "title": "Crypto currencies on demand on Monday",
+        "link": "/crypto",
+        "time": "15 hours ago",
+        "content": "Crypto currencies on demand on Monday Crypto Bitcoin and Ether are on the rise.  Bitcoin  is leading the charge with a  2.90%  gain.   Ether  follows with a  2.45%  increase."
+    },
+    {
+        "title": "Agricultural Commodities Updates: Cheese Falls by 4.74%",
+        "link": "/commodities",
+        "time": "15 hours ago",
+        "content": "Agricultural Commodities Updates: Cheese Falls by 4.74% Commodity Top commodity losers are  Cheese  ( -4.74% ),  Palm Oil  ( -2.98% ) and  Canola  ( -1.32% ). Gains are led by  Orange Juice  ( 3.93% ),  Cocoa  ( 3.82% ) and  Coffee  ( 2.36% )."
+    },
+    {
+        "title": "Metals Commodities Updates: Platinum Gains by 1.57%",
+        "link": "/commodities",
+        "time": "15 hours ago",
+        "content": "Metals Commodities Updates: Platinum Gains by 1.57% Commodity Top commodity gainers are  Platinum  ( 1.57% ),  Iron Ore CNY  ( 0.88% ) and  Gold  ( 0.21% ). Biggest losers are  Lithium Carbonate  ( -0.52% )."
+    },
+    {
+        "title": "Energy Commodities Updates: Natural Gas EU Dutch TTF Falls by 3.97%",
+        "link": "/commodities",
+        "time": "15 hours ago",
+        "content": "Energy Commodities Updates: Natural Gas EU Dutch TTF Falls by 3.97% Commodity Top commodity losers are  Natural Gas EU Dutch TTF  ( -3.97% ),  Natural Gas UK GBP  ( -2.52% ),  Natural gas  ( -1.81% ),  Crude Oil WTI  ( -0.45% ) and  Brent Crude Oil  ( -0.41% )."
+    },
+    {
+        "title": "WTI Crude Falls Below $71",
+        "link": "/commodity/crude-oil",
+        "time": "15 hours ago",
+        "content": "WTI Crude Falls Below $71 Commodity WTI crude oil futures fell to below $71 per barrel on Monday, recouping losses from the session and trimming the 6% jump from the prior week as markets positioned to an outlook of uncertain demand and ample supply. A batch of economic data from China reinforced concerns of weakening aggregate demand from the world\u2019s top oil importer, adding to pessimism that its economy will struggle to gain traction despite pledges of fiscal stimulus from Beijing. The outlook of muted demand from China drove the IEA to forecast that the global oil market will remain in a surplus next year, even though OPEC+ members have agreed to delay production hikes. The UAE was the latest to manifest its reluctance to phase out supply cuts by reducing oil shipments next year. This was also weighed against the IEA\u2019s view that non-OPEC+ members, including the US, Brazil, and Canada, could raise their supply by 1.5 million barrels per day next year."
+    },
+    {
+        "title": "Italian Stocks End Lower",
+        "link": "/italy/stock-market",
+        "time": "16 hours ago",
+        "content": "Italian Stocks End Lower Italy \u00a0 Stock Market The FTSE MIB closed about 0.4% lower at 34,740 on Monday, aligning with other European peers, as traders assessed subdued economic data from Europe and China, while also weighing political developments in Germany and France. Meanwhile, a cautious sentiment prevailed ahead of policy decisions from several central banks, notably the Federal Reserve. Domestically,  Italy's inflation was revised slightly down to 1.3% in November compared to an initial reading of 1.4%, but accelerating from 0.9% in October. Among equities, Telecom Italia (+5.7%) moved to the top of the index on rumors about CVC's aims for a stake. MPS (+2%) and BPM (+1.3%) also saw gains, following reports that an agreement had been reached with unions regarding the 1,600 job cuts outlined in their plans, as well as potential hirings that could exceed 1,100. Conversely, Stellantis (-4.6%) underperformed amid struggles in the European car sector and ahead of a key Mimit meeting."
+    },
+    {
+        "title": "UK Stocks End on Negative Note",
+        "link": "/united-kingdom/stock-market",
+        "time": "16 hours ago",
+        "content": "UK Stocks End on Negative Note United Kingdom \u00a0 Stock Market The FTSE 100 closed about 0.5% down at 8,262 on Monday, its lowest since late November, amid caution ahead of policy decisions from the Federal Reserve, the Bank of England and the Bank of Japan. Meanwhile, traders assessed a batch of economic data from major economies, including PMI surveys. On the domestic front, PMI data showed the UK experienced the fastest decline in private sector employment for nearly four years in December, despite a marginal upturn in output following the payroll tax hike in the new Labour budget. Among individual stocks, Entertain was the biggest loser, falling 6.2% after Australia\u2019s financial crime regulator launched civil penalty proceedings against it. Centrica dropped 3.1% after confirming its chair, Scott Wheway, would step down and be replaced by Kevin O'Byrne. BP, Endeavour Mining, and Croda International also lost ground. Meanwhile, Rolls-Royce, 3I Group PLC, Bunzl, and International Consolidated Airlines Group were among the top performers."
+    },
+    {
+        "title": "CAC 40 Drops on Moody's Downgrade",
+        "link": "/france/stock-market",
+        "time": "16 hours ago",
+        "content": "CAC 40 Drops on Moody's Downgrade France \u00a0 Stock Market The CAC 40 fell 0.7% to 7,357 on Monday, following Moody\u2019s unexpected downgrade of France\u2019s credit rating from Aa2 to Aa3, citing concerns over deteriorating public finances amid political instability. Meanwhile, President Emmanuel Macron appointed Fran\u00e7ois Bayrou as the new prime minister on Friday, following the collapse of Michel Barnier\u2019s government. Economic data showed that France\u2019s private sector contracted for the fourth consecutive month, with manufacturing facing a deeper downturn while services contracted at a slower pace. Stellantis dropped 4.5%, reflecting investor concerns over the leadership vacuum following CEO Carlos Tavares\u2019 sudden resignation. Meanwhile, Vivendi closed at EUR 2.66, compared to EUR 8.30 on Friday when its stock still accounted for multiple subsidiaries that started trading in different European exchanges today. The group spun off Canal+ to London, Havas to Amsterdam, and Louis Hachette Group in Euronext Growth in Paris."
+    },
+    {
+        "title": "European Stocks Close Lower",
+        "link": "/euro-area/stock-market",
+        "time": "16 hours ago",
+        "content": "European Stocks Close Lower Euro Area \u00a0 Stock Market European stocks closed firmly lower on Monday, extending the pullback from the last session as markets assessed the latest economic data ahead of monetary policy decisions from the Fed, BoE, and BoJ. The STOXX 50 dropped 0.4% to 4,948, while the STOXX 600 dropped 0.1% to 516. Flash PMIs for the Eurozone showed that private sector activity continued to contract in December, aligning with concerns of muted growth for next year. Also, Moody\u2019s downgraded France's credit rating to Aa3 from Aa2 over the weekend, citing concerns about weakened public finances amid ongoing political instability. In Germany, Chancellor Olaf Scholz lost his confidence vote, as planned, to confirm an anticipated German election for late February. Heavyweight auto manufacturers led the declines, with Mercedes Benz, BMW, and Stellantis dropping between 5% and 3%, pressured by a poor retail sales report from China and an industrial production that heightened auto competition from the country."
+    },
+    {
+        "title": "German Stocks Hold Losses",
+        "link": "/germany/stock-market",
+        "time": "17 hours ago",
+        "content": "German Stocks Hold Losses Germany \u00a0 Stock Market The German DAX held early losses to close 0.5% down at 20,319 on Monday, extending the trim from the record-high touched on Thursday with pressure from auto giants after Chancellor Olaf Scholz lost his confidence vote, as planned. The German parliament cleared the way for national elections in February with the vote, officializing the anticipated government change that started after the current coalition ended in November. In turn, PMI data showed that domestic economic activity did not contract as much as feared, limiting worries of a sharper underperformance of the German economy next year. Auto giants led the losses on the corporate front, pressured by the ongoing poor performance in domestic manufacturing and the poor outlook for Chinese consumer demand after the country\u2019s retail sales slowed. Porsche, BMW, Mercedes Benz, and Volkswagen dropped between 4% and 2%."
+    },
+    {
+        "title": "Euro Remains Subdued",
+        "link": "/euro-area/currency",
+        "time": "17 hours ago",
+        "content": "Euro Remains Subdued Euro Area \u00a0 Currency The euro hovered around $1.05, near two-year lows of $1.04 reached in late November, as traders weighed the economic, political, and monetary outlook for the Eurozone. Flash PMIs pointed to a slower contraction in private sector activity, driven by a rebound in services, while manufacturing remained subdued. However, the bloc\u2019s largest economies, Germany and France, continued to underperform. Political uncertainty is also pressuring the euro, with German Chancellor losing a confidence vote in Parliament as expected, paving the way for snap elections early next year. In France, the new government faces the challenge of passing the 2025 budget. On the monetary front, the Fed is expected to cut rates by 25bps this week and to signal a slower pace of reductions in 2025. The ECB implemented its fourth 25bps rate cut last week, maintaining a cautious stance on further easing. Still, many analysts believe the ECB may need to accelerate policy loosening to support the fragile Eurozone economy."
+    },
+    {
+        "title": "Colombian Retail Sales Rise for 5th Straight Month",
+        "link": "/colombia/retail-sales-annual",
+        "time": "17 hours ago",
+        "content": "Colombian Retail Sales Rise for 5th Straight Month Colombia \u00a0 Retail Sales YoY Retail sales in Colombia rose by 9% year-on-year in October 2024, marking the fifth consecutive monthly increase after fifteen months of contraction, and accelerating from the 1.5% rise in September. This growth aligns with the Colombian central bank's ongoing interest rate easing cycle. Key drivers included domestic vehicles (33.2%), other vehicles (32.1%), hardware for domestic use (28.6%), appliances and furniture (12.6%), and auto spare parts, components, accessories, and lubricants for vehicles (5.7%)."
+    },
+    {
+        "title": "Aluminum Falls to 1-Month Low",
+        "link": "/commodity/aluminum",
+        "time": "17 hours ago",
+        "content": "Aluminum Falls to 1-Month Low Commodity Aluminum futures fell to $2,570 per tonne in December, their lowest in one month, and in line with the broad pressure for industrial metals in major exchanges this month as ample supply for the metal magnified the impact of uncertain demand. New data showed that the output of primary aluminum in China rose by 3.6% from the previous year in November. This matched stronger supply earlier in the year as rainfall in the production hub of Yunnan supported the creation of hydropower for smelters. In turn, Beijing\u2019s willingness to let the yuan devalue drove prices for base metals with Chinese manufacturing hubs to pull back in dollar-denominated exchanges. This balanced against soaring alumina prices due to supply disruptions and Beijing\u2019s decision to end tax rebates on exports of semi-manufactured aluminum products in December, removing around five million tonnes of supply from the international market, according to market players\u2019 estimates."
+    },
+    {
+        "title": "Oil Prices Cut Some Losses",
+        "link": "/commodity/crude-oil",
+        "time": "18 hours ago",
+        "content": "Oil Prices Cut Some Losses Commodity WTI crude futures trimmed early losses to trade above $71 per barrel on Monday, close to one-month highs, following a nearly 6% rally last week. The initial decline was likely driven by profit-taking and weaker-than-expected economic data from China, including disappointing retail sales figures. However, expectations of tighter supplies, spurred by additional sanctions on major producers Russia and Iran, helped limit losses. Market participants are also looking ahead to the Fed\u2019s policy decision later this week, with another 25bps rate cut anticipated. Such a move could support economic growth and, in turn, boost oil demand. Meanwhile, OPEC+ member UAE announced plans to reduce oil shipments early next year as part of the group's efforts to maintain production discipline."
+    },
+    {
+        "title": "Colombia Industrial Output Rebounds in October",
+        "link": "/colombia/industrial-production",
+        "time": "18 hours ago",
+        "content": "Colombia Industrial Output Rebounds in October Colombia \u00a0 Industrial Production Colombia's manufacturing production rose by 1.1% year-on-year in October 2024, recovering from a 4.1% decline in September and marking the third increase in the past twenty months. The sectors contributing most to this rebound included sugar (31.7%), other transport vehicles (45.4%), personal care products (5.2%), electronic equipment and devices (8.5%), and milling (10.1%)."
+    },
+    {
+        "title": "Canadian Dollar at March 2020 Lows",
+        "link": "/canada/currency",
+        "time": "18 hours ago",
+        "content": "Canadian Dollar at March 2020 Lows Canada \u00a0 Currency The Canadian dollar weakened past 1.42 per USD in December, its lowest level since March 2020, after Canadian Finance Minister Chrystia Freeland resigned from Prime Minister Justin Trudeau's cabinet over differences in how to handle the incoming Trump administration's potential tariffs on Canada. Freeland, a key figure in strategizing Canada\u2019s response, announced her resignation, citing the need to preserve Canada's fiscal strength in preparation for potential trade challenges, including a tariff war. This is the second time in four years that Trudeau has lost a finance minister, following his falling out with Bill Morneau in 2020. Meanwhile, the Bank of Canada recently reduced its key benchmark rate by a hefty 50bps to 3.25%, diminishing the appeal of the loonie by widening the interest rate differential between Canada and the U.S. This decision followed rising unemployment and slower-than-expected economic growth, prompting the Bank of Canada to act in support of the economy."
+    },
+    {
+        "title": "Colombia Industrial Output Rebounds in October",
+        "link": "/colombia/industrial-production",
+        "time": "18 hours ago",
+        "content": "Colombia Industrial Output Rebounds in October Colombia \u00a0 Industrial Production Colombia's manufacturing production rose by 1.1% year-on-year in October 2024, recovering from a 4.1% decline in September and marking the third increase in the past twenty months. The sectors contributing most to this rebound included sugar (31.7%), other transport vehicles (45.4%), personal care products (5.2%), electronic equipment and devices (8.5%), and milling (10.1%)."
+    },
+    {
+        "title": "Canadian Dollar at March 2020 Lows",
+        "link": "/canada/currency",
+        "time": "18 hours ago",
+        "content": "Canadian Dollar at March 2020 Lows Canada \u00a0 Currency The Canadian dollar weakened past 1.42 per USD in December, its lowest level since March 2020, after Canadian Finance Minister Chrystia Freeland resigned from Prime Minister Justin Trudeau's cabinet over differences in how to handle the incoming Trump administration's potential tariffs on Canada. Freeland, a key figure in strategizing Canada\u2019s response, announced her resignation, citing the need to preserve Canada's fiscal strength in preparation for potential trade challenges, including a tariff war. This is the second time in four years that Trudeau has lost a finance minister, following his falling out with Bill Morneau in 2020. Meanwhile, the Bank of Canada recently reduced its key benchmark rate by a hefty 50bps to 3.25%, diminishing the appeal of the loonie by widening the interest rate differential between Canada and the U.S. This decision followed rising unemployment and slower-than-expected economic growth, prompting the Bank of Canada to act in support of the economy."
+    },
+    {
+        "title": "Gold Pares Gains",
+        "link": "/commodity/gold",
+        "time": "18 hours ago",
+        "content": "Gold Pares Gains Commodity Gold was at the $2,650 per ounce mark on Monday, loosely holding the declines from the two prior sessions as evidence of a resilient US economy maintained expectations that the Fed will limit rate cuts next year, pressuring bullion demand. The US services sector expanded at a much faster pace than expected in December, according to data gathered by S&P Global, reducing the magnitude of rate cut expectations for next year. The market is still in consensus over a 25bps slash on the Fed\u2019s upcoming meeting on Wednesday, but only prices two additional cuts for all of next year. Still, gold prices are due to end 2024 nearly 30% higher amid the dovish momentum for other major central banks and bullion buying for key monetary authorities. The ECB, BoC, and SNB cut their rates last week and the BoJ hinted at a cut instead of a hike. Also,the PBoC is due to loosen its monetary policy next year and returned to its gold buying spree after a six-month pause."
+    },
+    {
+        "title": "US Stocks Rise on Monday",
+        "link": "/united-states/stock-market",
+        "time": "18 hours ago",
+        "content": "US Stocks Rise on Monday United States \u00a0 Stock Market US stocks were higher on Monday, with the S&P 500 gaining 0.3%, the Nasdaq adding 0.5% and the Dow Jones rebounding from a tepid open to rise nearly 70 points. Investors are focused on the Fed's policy decision, where another 25bps rate cut is widely anticipated. Markets will also closely watch the updated economic projections, particularly the outlook for interest rate cuts in 2025. On the data front, the S&P Global Flash PMIs showed a surprise strong growth in private sector activity this month led by a surge in services while the manufacturing downturn deepened. On the corporate front, Broadcom shares rose almost 10%, building on a nearly 24% surge on Friday that pushed the chipmaker's market capitalization to $1 trillion. Also, MicroStrategy advanced more than 3% as the company will join the Nasdaq. In addition, Honeywell shares were up 3.2% after the company said it was considering selling its aerospace division. On the other hand, Nvidia was down 1.7% to an 8-week low of $131.8."
+    },
+    {
+        "title": "Dollar Gains Slightly",
+        "link": "/united-states/currency",
+        "time": "18 hours ago",
+        "content": "Dollar Gains Slightly United States \u00a0 Currency The dollar index edged up to above 107 on Monday, reaching a three-week high, as traders awaited the Fed's interest rate decision and assessed key economic data. The Fed is widely expected to cut the federal funds rate by another 25bps, but investors will closely monitor updated economic projections, particularly the outlook for rate cuts in 2025, with markets now pricing in only three reductions. On the data front, the S&P Global Flash PMIs showed a surprise strong growth in private sector activity this month led by a surge in services while the manufacturing downturn deepened. The greenback strengthened the most against the Euro and the yen but was depreciating against the British pound. Both the Bank of England and the Bank of Japan are scheduled to announce their monetary policy decisions this week, with no changes to key interest rates anticipated."
+    },
+    {
+        "title": "US 10-Year Yield Rises to Near 1-Month High",
+        "link": "/united-states/government-bond-yield",
+        "time": "18 hours ago",
+        "content": "US 10-Year Yield Rises to Near 1-Month High United States \u00a0 Government Bond 10Y The yield on the US 10-Year US Treasury erased early losses and rose toward the 4.4% mark on Monday, its highest in nearly one month, as further signs of a strong US economy added to expectations of fewer rate cuts by the Federal Reserve next year. Economic activity gauges compiled by the S&P were sharply higher in December, limiting the case for the central bank to reduce interest rates aggressively. In turn, the latest price data refrained from showing another slowdown in consumer inflation, while factory gate prices accelerated more than expected. The Federal Reserve is still due to deliver a 25bps rate cut this week, but markets are already showing a strong consensus for a pause in January and only two additional 25bps cuts in all of 2025."
+    },
+    {
+        "title": "FX Updates:  Norwegian Krone Drops by 0.37%",
+        "link": "/currencies",
+        "time": "18 hours ago",
+        "content": "FX Updates:  Norwegian Krone Drops by 0.37% Currency Top currency losers are  Norwegian Krone  ( -0.37% ),  Japanese Yen  ( -0.34% ),  Brazilian Real  ( -0.27% ) and  Euro  ( -0.17% ). Gains are led by  Swedish Krona  ( 0.35% ),  British Pound  ( 0.24% ) and  Dollar Index  ( 0.14% )."
+    },
+    {
+        "title": "US Services Sector Surprises on the Upside: S&P Global",
+        "link": "/united-states/services-pmi",
+        "time": "18 hours ago",
+        "content": "US Services Sector Surprises on the Upside: S&P Global United States \u00a0 Services PMI The S&P Global US Services PMI rose to 58.5 in December 2024, from 56.1 in November, while analysts had expected it to fall to 55.7, according to preliminary figures. The reading pointed to the strongest growth in the services sector since October 2021, as new orders for services rose at a rate not seen since March 2022 and employment increased for the first time since July. On the price front, cost growth slowed to a four-and-a-half year low, partly due to weaker wage growth. Service sector confidence was the highest in just over two-and-a-half years, linked to expectations of a more business friendly administration under the Trump Presidency, especially in terms of looser regulation and heightened protectionism."
+    },
+    {
+        "title": "US Private Sector Growth Beats Forecasts",
+        "link": "/united-states/composite-pmi",
+        "time": "18 hours ago",
+        "content": "US Private Sector Growth Beats Forecasts  United States \u00a0 Composite PMI The S&P Global Flash US Composite PMI rose to 56.6 in December 2024 from 54.9 in November, preliminary estimates showed. The reading pointed to the strongest performance of the private sector activity since March 2022, prompted by a surge in services (58.5, the highest since October 2021, vs 56.1) while the manufacturing downturn deepened (48.3, the lowest in three month, vs 49.7). Activity levels were expanded at an increased rate in response to strengthening demand. New orders rose at the sharpest rate since April 2022 and employment increased for the first time in five months. In addition, inflationary pressures cooled further despite a jump in input cost inflation in manufacturing. Finally, firms' expectations of output in the coming year also lifted higher, hitting a two-and-a-half year high, reflecting growing optimism about business conditions under the incoming Trump administration."
+    },
+    {
+        "title": "US Factory Activity Contracts for 6th Month: S&P",
+        "link": "/united-states/manufacturing-pmi",
+        "time": "18 hours ago",
+        "content": "US Factory Activity Contracts for 6th Month: S&P United States \u00a0 Manufacturing PMI The S&P Global US Manufacturing PMI fell to 48.3 in December of 2024 from 49.7 in the previous month, well below market expectations of a slight improvement of 48.9, according to a flash estimate. The result extended the contractionary momentum for US factory activity for the sixth month in a row, a sharp contrast with the resilient services sector. New orders for manufacturers recorded another month of contraction, driving output to sink to its lowest since August of 2009 when excluding the pandemic shock during the second quarter of 2020. In turn, employment rose at a slower pace from the prior month, despite lack of staff being responsible for the lengthening of lead times. On the price front, higher costs for raw materials supported inflation for the sector. Looking forward, factories expressed concern over the ongoing lack of demand and higher input prices, tying the poor outlook to tariff threats from the Trump administration."
+    },
+    {
+        "title": "TSX Slips as Energy Weighs",
+        "link": "/canada/stock-market",
+        "time": "18 hours ago",
+        "content": "TSX Slips as Energy Weighs Canada \u00a0 Stock Market The S&P/TSX Composite Index fell 0.2% to below the 25,240 level on Monday, pressured by commodity producers, as investors awaited key domestic inflation data and the Federal Reserve's interest rate decision later in the week, focusing on clues about the pace of monetary easing next year. Energy producers led the decline, with Suncor, Imperial Oil, Canadian Natural, and Cenovus shedding between 0.7% and 1.9% amid falling oil prices. Meanwhile, mining heavyweight Barrick Gold dropped over 1% after the company warned it may suspend operations in Mali due to blocked gold shipments and stalled negotiations with authorities over a new mining code."
+    },
+    {
+        "title": "S&P and Nasdaq Rise on Monday",
+        "link": "/united-states/stock-market",
+        "time": "18 hours ago",
+        "content": "S&P and Nasdaq Rise on Monday United States \u00a0 Stock Market US stocks opened the week mostly higher, with the S&P 500 gaining 0.2%, the Nasdaq advancing 0.5%, and the Dow Jones hovering near the flatline. Investors are focused on the Fed's policy decision, where another 25bps rate cut is widely anticipated. Markets will also closely watch the updated economic projections, particularly the outlook for interest rate cuts in 2025. Several key economic indicators are also due this week, including the flash S&P Global PMIs, retail sales and the PCE report. On the corporate front, Broadcom shares rose 5.5%, building on a nearly 24% surge on Friday that pushed the chipmaker's market capitalization to $1 trillion for the first time, following strong quarterly results. Also, MicroStrategy advanced more than 2% as the company will join the Nasdaq effective December 23rd. In addition, Honeywell shares were up 1.9% after the company said it was considering selling its aerospace division. On the other hand, Nvidia was down 1.8%."
+    },
+    {
+        "title": "Baltic Dry Index Halts 4-Day Losing Run",
+        "link": "/commodity/baltic",
+        "time": "19 hours ago",
+        "content": "Baltic Dry Index Halts 4-Day Losing Run Commodity The Baltic Exchange's main sea freight index, which tracks rates for ships ferrying dry bulk commodities, snapped its four-day losing streak on Monday, rising about 1.9% to 1,071 points, mainly pushed up by the bigger size segment.  The capesize index, which typically transports 150,000-ton cargoes such as iron ore and coal, rose increased 77 points to 1,340 points. Meanwhile, the panamax index, which usually carries 60,000-70,000 tons of coal or grain cargo, fell 18 points to its lowest since July 2023 at 977 points; and the supramax index eased 4 points to its lowest since August last year at 955 points."
+    },
+    {
+        "title": "S&P and Nasdaq Rise on Monday",
+        "link": "/united-states/stock-market",
+        "time": "18 hours ago",
+        "content": "S&P and Nasdaq Rise on Monday United States \u00a0 Stock Market US stocks opened the week mostly higher, with the S&P 500 gaining 0.2%, the Nasdaq advancing 0.5%, and the Dow Jones hovering near the flatline. Investors are focused on the Fed's policy decision, where another 25bps rate cut is widely anticipated. Markets will also closely watch the updated economic projections, particularly the outlook for interest rate cuts in 2025. Several key economic indicators are also due this week, including the flash S&P Global PMIs, retail sales and the PCE report. On the corporate front, Broadcom shares rose 5.5%, building on a nearly 24% surge on Friday that pushed the chipmaker's market capitalization to $1 trillion for the first time, following strong quarterly results. Also, MicroStrategy advanced more than 2% as the company will join the Nasdaq effective December 23rd. In addition, Honeywell shares were up 1.9% after the company said it was considering selling its aerospace division. On the other hand, Nvidia was down 1.8%."
+    },
+    {
+        "title": "Baltic Dry Index Halts 4-Day Losing Run",
+        "link": "/commodity/baltic",
+        "time": "19 hours ago",
+        "content": "Baltic Dry Index Halts 4-Day Losing Run Commodity The Baltic Exchange's main sea freight index, which tracks rates for ships ferrying dry bulk commodities, snapped its four-day losing streak on Monday, rising about 1.9% to 1,071 points, mainly pushed up by the bigger size segment.  The capesize index, which typically transports 150,000-ton cargoes such as iron ore and coal, rose increased 77 points to 1,340 points. Meanwhile, the panamax index, which usually carries 60,000-70,000 tons of coal or grain cargo, fell 18 points to its lowest since July 2023 at 977 points; and the supramax index eased 4 points to its lowest since August last year at 955 points."
+    },
+    {
+        "title": "Coal Slumps to 7-Month Low",
+        "link": "/commodity/coal",
+        "time": "19 hours ago",
+        "content": "Coal Slumps to 7-Month Low Commodity Newcastle coal futures slumped toward $130 per tonne in December, the lowest since April, as the outlook of slowing demand for thermal coal in China magnified the impact of ample supply. The latest data showed that China\u2019s coal output averaged 14.27 million tons per day in November, the highest on record, accelerating sharply from the 12.28 million tons per day in the previous month to set up another record-breaking year of coal production in 2024 for the world's top producer. The development took place as utilities already deal with record-high coal inventories, with slowing demand driving power-intensive industries to cut back on output. Increasing concerns that stimulus from Beijing will not be able to trigger growth maintained the bearish pressure on thermal coal prices. In turn, demand was further pressured by ample rainfall in key Chinese manufacturing hubs, allowing hydroelectric power to be preferred over coal power."
+    },
+    {
+        "title": "Ibovespa Struggles to Recover",
+        "link": "/brazil/stock-market",
+        "time": "19 hours ago",
+        "content": "Ibovespa Struggles to Recover  Brazil \u00a0 Stock Market The Ibovespa edged slightly higher to 124,700 on Monday after two consecutive declines, driven by gains in B3 and Rede D'Or shares. B3 rose 2.5% after projecting higher disbursements for 2025, reflecting confidence in its growth prospects. Meanwhile Rede D'Or added 2% following the approval of a R$450 million interest on equity payment and a new share buyback program, lifting investor sentiment. However, the upward momentum was limited by persistent concerns over Brazil's fiscal and monetary outlook. Investors remain skeptical about the government's fiscal credibility and the Central Bank's future stance, particularly with a new board set to take office in January. Doubts linger over the prioritization of the inflation target, exacerbated by government criticism of recent monetary policy decisions. The fiscal package, deemed insufficient to stabilize public debt, has further fueled worries of an unsustainable debt-to-GDP trajectory."
+    },
+    {
+        "title": "Dominican Republic Inflation Edges Higher in November",
+        "link": "/dominican-republic/inflation-cpi",
+        "time": "19 hours ago",
+        "content": "Dominican Republic Inflation Edges Higher in November Dominican Republic \u00a0 Inflation Rate The annual inflation rate in the Dominican Republic edged up to 3.18% in November 2024, slightly above 3.16% in the previous month, rebounding from its lowest level since April. The increase was driven by accelerated price growth across most major sectors, including food and non-alcoholic beverages (2.47% vs. 2.45% in October), housing and utilities (1.64% vs. 1.52%), and transport (2.17% vs. 2.08%). Additionally, clothing and footwear costs fell at a slower pace (-1.27% vs. -1.73%). In contrast, price growth decelerated for recreation and culture (5.72% vs. 5.82%) and health (5.17% vs. 5.26%). On a monthly basis, consumer prices rose 0.16% in November, following a 0.09% increase in October."
+    },
+    {
+        "title": "Canada Housing Starts Increase More Than Expected",
+        "link": "/canada/housing-starts",
+        "time": "19 hours ago",
+        "content": "Canada Housing Starts Increase More Than Expected Canada \u00a0 Housing Starts Housing starts in Canada rose by 8.4% month-over-month to 262,400 units in November 2024, the highest level in four months and above market expectations of 248,200 units, according to the Canada Mortgage and Housing Corporation. The seasonally adjusted annual rate (SAAR) of total urban housing starts increased by 9.2% to 245,083 units, driven by a 10.7% rise in multi-unit urban starts to 195,281 units and a 3.8% increase in single-detached urban starts to 49,802 units. The SAAR estimate for rural starts stood at 17,360 units. Year-to-date housing starts from January to November 2024 are up 22% in Montr\u00e9al compared to 2023, reflecting a recovery from historically low levels last year. In contrast, Vancouver and Toronto remain below 2023\u2019s historically high levels, with declines of 14% and 20% year-to-date, respectively."
+    },
+    {
+        "title": "Business Activity in NY Stabilizes",
+        "link": "/united-states/ny-empire-state-manufacturing-index",
+        "time": "19 hours ago",
+        "content": "Business Activity in NY Stabilizes United States \u00a0 NY Empire State Manufacturing Index The NY Empire State Manufacturing Index fell to 0.20 in December 2024 from 31.2 in November which was the highest reading since December 2021, and well below forecasts of 12. The reading showed business activity in the NY state held steady, following a big rise in the previous month. New orders (6.1 vs 28) and shipments (9.4 vs 32.5) increased modestly. Delivery times (-7.4 vs 3.1) shortened somewhat, and supply availability was little changed (-8.4 vs -10.3). Inventories increased at a substantial clip (10.5 vs 1). Labor market indicators pointed to small decline in employment (-5.8 vs 0.9) and a slightly shorter average workweek (-3.9 vs 6.1). Both input (21.1 v 27.8) and selling price increases (4.2 vs 12.4) moderated. In addition, firms remained optimistic about the six-month outlook, though somewhat less so than in November (24.6 vs 33.2). Inventories are expected to continue to grow, and capital spending plans remained modest."
+    },
+    {
+        "title": "Belarus Industrial Output Growth Slows",
+        "link": "/belarus/industrial-production",
+        "time": "20 hours ago",
+        "content": "Belarus Industrial Output Growth Slows Belarus \u00a0 Industrial Production Industrial production in Belarus rose by 5.5% from the corresponding period of the previous year in the first 11 months of 2024, slowing from the 6.2% increase in cumulative year to October. It was the softest cumulative growth pace since January as base effects from the last year\u2019s sharp rebound from 2022\u2019s sanctions wane. Output lagged for mining (4.4%) and the supply and treatment of water (0.2%), while remaining higher for utility generation and supply (6.5%) and manufacturing (5.5%)."
+    },
+    {
+        "title": "Indian 10-Year Bond Yield Set to Close Year Sharply Lower",
+        "link": "/india/government-bond-yield",
+        "time": "20 hours ago",
+        "content": "Indian 10-Year Bond Yield Set to Close Year Sharply Lower India \u00a0 Government Bond 10Y The yield on the 10-year Indian government bond held at the 6.79% mark, above the two-month low of 6.7% touched in early December but still recording an over 40bps decline since the start of the year as evidence of slowing economic growth added to expectations of rate cuts by the RBI next year. The Indian GDP expanded by 5.4% annually in the quarter ending September, the least in seven quarters, prompting the RBI to lower its growth projections for the current financial year to 6.6% from 7.2%. Consequently, markets expect the central bank to commence lowering its key rate by the end of the financial year, supporting G-sec prices. This offset pressure from lower foreign demand for Indian fixed income, pressured by doubts on rupee stability next year and higher credit risk as lower growth limited the previous strength of New Delhi\u2019s fiscal position."
+    },
+    {
+        "title": "Oman Inflation Rate Falls to 0.5%",
+        "link": "/oman/inflation-cpi",
+        "time": "20 hours ago",
+        "content": "Oman Inflation Rate Falls to 0.5% Oman \u00a0 Inflation Rate The annual inflation rate in Oman eased slightly to 0.5% in November 2024 from 0.8% in October. Inflation slowed for food and non-alcoholic beverages (1.9% vs. 3.5%) and recreation and culture (0.7% vs. 0.8%),. Also, inflation steadied for health (3.2%) and clothing and footwear (0.5%), prices for housing and utilities showed no change once again. Transport cost continued to decline (-2.8% vs. -2.6%). On the other hand, prices rose slightly faster for restaurants and hotels (0.7% vs. 0.6%). Compared to the previous month, the CPI edged down 0.1%, after a 0.3% rise in October."
+    },
+    {
+        "title": "Pakistan Cuts Interest Rates For 5th Time",
+        "link": "/pakistan/interest-rate",
+        "time": "20 hours ago",
+        "content": "Pakistan Cuts Interest Rates For 5th Time Pakistan \u00a0 Interest Rate The State Bank of Pakistan reduced its key policy rate by 200bps to 13% during its December 2024 meeting, in line with market expectations. This marks the fifth consecutive rate cut this year, bringing borrowing costs to their lowest level since April 2022. The move is aimed at balancing inflationary and external account pressures while fostering sustainable economic growth. Pakistan's inflation rate fell to 4.9% in November, the lowest since April 2018, driven by a continued decline in food prices and the waning impact of gas tariff hikes from November 2023. However, core inflation remained elevated at 9.7%. Policymakers also noted a modest improvement in the country\u2019s growth outlook."
+    },
+    {
+        "title": "EU Natural Gas Extends Decline",
+        "link": "/commodity/eu-natural-gas",
+        "time": "20 hours ago",
+        "content": "EU Natural Gas Extends Decline Commodity European natural gas futures plummeted below the \u20ac40 per megawatt-hour mark, marking a steep decline from their recent peak near \u20ac50 earlier this December as market concerns over gas supply in Europe eased significantly. Despite sanctions on Gazprombank, Hungary and Bulgaria managed to continue receiving Russian gas by implementing technical payment solutions. Meanwhile, Slovakia announced ongoing negotiations to secure gas supplies post the anticipated halt of Ukrainian flows at the year's end. Concurrently, other European nations intensified efforts to diversify energy sources. Leading German utilities inked LNG agreements with the UAE\u2019s ADNOC, while the UK's record wind power generation enabled electricity exports to the continent. Additionally, milder winter weather forecasts across Europe contributed to the overall downturn in gas prices."
+    },
+    {
+        "title": "Nigeria Inflation Rate Quickens for 3rd Month",
+        "link": "/nigeria/inflation-cpi",
+        "time": "21 hours ago",
+        "content": "Nigeria Inflation Rate Quickens for 3rd Month Nigeria \u00a0 Inflation Rate Nigeria's inflation rate rose for the third straight month in November 2024, soaring to a near 30-year high of 34.6%, up from 33.9% in the prior month. Food inflation surged to 39.93% in November, a sharp increase from 32.84% in November 2023, mainly due to higher prices of staple foods, including yams, water yams, cocoyams, guinea corn, maize, rice, beer, and vegetable oil. The core inflation, which excludes the prices of volatile agricultural products and energy quickened to a fresh all-time high of 28.75% in November, up from 28.37% in the previous month. On a monthly basis, the CPI index rose by 2.64% in November 2024, the same pace as in the prior month."
+    },
+    {
+        "title": "Natural Gas Extends Pullback from 13-Month High",
+        "link": "/commodity/natural-gas",
+        "time": "21 hours ago",
+        "content": "Natural Gas Extends Pullback from 13-Month High Commodity US natural gas futures sank to $3.15 per MMBtu, retreating sharply after testing a 13-month high of $3.5 on December 12th as markets cut their expectations of high demand for stateside gas. Reports from the EU injected a degree of optimism that European countries will be able to find alternative supply of natural gas after Russian flows through Ukraine will be shut down at the end of the year, with major German utilities already securing LNG deals with Middle Eastern producers. This trimmed demand for US LNG exports, adding to ample supply domestically as the average US gas output rose to 102.9 billion cubic feet per day in December, more than 1.4bcf than the average of the prior month. In turn, weather forecasts show mostly warmer-than-normal temperatures across the US through December 28th, but a brief cold spell from December 21st\u201323rd is expected."
+    },
+    {
+        "title": "Sensex Ends in the Red",
+        "link": "/india/stock-market",
+        "time": "21 hours ago",
+        "content": "Sensex Ends in the Red India \u00a0 Stock Market The BSE Sensex closed about 0.5% down at 81,748.6 on Monday, marking the third session of losses, mirroring global peers. Investors remained cautious ahead of significant economic data releases and the upcoming U.S. Federal Reserve meeting. Market sentiment was also influenced by lackluster Chinese economic data, including industrial and retail sales numbers. Domestically, a fresh PMI survey showed India's private sector growth accelerated to a four-month high in December, with manufacturing expanding faster and the services sector recording the largest growth since August. On the corporate front, losses in IT stocks, banks and steel companies weighed in the index."
+    },
+    {
+        "title": "Pakistan Cuts Interest Rates For 5th Time",
+        "link": "/pakistan/interest-rate",
+        "time": "20 hours ago",
+        "content": "Pakistan Cuts Interest Rates For 5th Time Pakistan \u00a0 Interest Rate The State Bank of Pakistan reduced its key policy rate by 200bps to 13% during its December 2024 meeting, in line with market expectations. This marks the fifth consecutive rate cut this year, bringing borrowing costs to their lowest level since April 2022. The move is aimed at balancing inflationary and external account pressures while fostering sustainable economic growth. Pakistan's inflation rate fell to 4.9% in November, the lowest since April 2018, driven by a continued decline in food prices and the waning impact of gas tariff hikes from November 2023. However, core inflation remained elevated at 9.7%. Policymakers also noted a modest improvement in the country\u2019s growth outlook."
+    },
+    {
+        "title": "EU Natural Gas Extends Decline",
+        "link": "/commodity/eu-natural-gas",
+        "time": "20 hours ago",
+        "content": "EU Natural Gas Extends Decline Commodity European natural gas futures plummeted below the \u20ac40 per megawatt-hour mark, marking a steep decline from their recent peak near \u20ac50 earlier this December as market concerns over gas supply in Europe eased significantly. Despite sanctions on Gazprombank, Hungary and Bulgaria managed to continue receiving Russian gas by implementing technical payment solutions. Meanwhile, Slovakia announced ongoing negotiations to secure gas supplies post the anticipated halt of Ukrainian flows at the year's end. Concurrently, other European nations intensified efforts to diversify energy sources. Leading German utilities inked LNG agreements with the UAE\u2019s ADNOC, while the UK's record wind power generation enabled electricity exports to the continent. Additionally, milder winter weather forecasts across Europe contributed to the overall downturn in gas prices."
+    },
+    {
+        "title": "Nigeria Inflation Rate Quickens for 3rd Month",
+        "link": "/nigeria/inflation-cpi",
+        "time": "21 hours ago",
+        "content": "Nigeria Inflation Rate Quickens for 3rd Month Nigeria \u00a0 Inflation Rate Nigeria's inflation rate rose for the third straight month in November 2024, soaring to a near 30-year high of 34.6%, up from 33.9% in the prior month. Food inflation surged to 39.93% in November, a sharp increase from 32.84% in November 2023, mainly due to higher prices of staple foods, including yams, water yams, cocoyams, guinea corn, maize, rice, beer, and vegetable oil. The core inflation, which excludes the prices of volatile agricultural products and energy quickened to a fresh all-time high of 28.75% in November, up from 28.37% in the previous month. On a monthly basis, the CPI index rose by 2.64% in November 2024, the same pace as in the prior month."
+    },
+    {
+        "title": "Natural Gas Extends Pullback from 13-Month High",
+        "link": "/commodity/natural-gas",
+        "time": "21 hours ago",
+        "content": "Natural Gas Extends Pullback from 13-Month High Commodity US natural gas futures sank to $3.15 per MMBtu, retreating sharply after testing a 13-month high of $3.5 on December 12th as markets cut their expectations of high demand for stateside gas. Reports from the EU injected a degree of optimism that European countries will be able to find alternative supply of natural gas after Russian flows through Ukraine will be shut down at the end of the year, with major German utilities already securing LNG deals with Middle Eastern producers. This trimmed demand for US LNG exports, adding to ample supply domestically as the average US gas output rose to 102.9 billion cubic feet per day in December, more than 1.4bcf than the average of the prior month. In turn, weather forecasts show mostly warmer-than-normal temperatures across the US through December 28th, but a brief cold spell from December 21st\u201323rd is expected."
+    },
+    {
+        "title": "Sensex Ends in the Red",
+        "link": "/india/stock-market",
+        "time": "21 hours ago",
+        "content": "Sensex Ends in the Red India \u00a0 Stock Market The BSE Sensex closed about 0.5% down at 81,748.6 on Monday, marking the third session of losses, mirroring global peers. Investors remained cautious ahead of significant economic data releases and the upcoming U.S. Federal Reserve meeting. Market sentiment was also influenced by lackluster Chinese economic data, including industrial and retail sales numbers. Domestically, a fresh PMI survey showed India's private sector growth accelerated to a four-month high in December, with manufacturing expanding faster and the services sector recording the largest growth since August. On the corporate front, losses in IT stocks, banks and steel companies weighed in the index."
+    },
+    {
+        "title": "Germany 10-Year Bond Yield Hovers at 2.2%",
+        "link": "/germany/government-bond-yield",
+        "time": "22 hours ago",
+        "content": "Germany 10-Year Bond Yield Hovers at 2.2% Germany \u00a0 Government Bond 10Y Germany\u2019s 10-year Bund yield held around 2.2%, near its highest level in over three weeks, as traders assessed the economic and political landscape in Europe. Flash PMIs for December indicated an easing in the contraction of Eurozone private sector activity, driven by a rebound in services, while manufacturing remained weak. In Germany, the private sector contracted for a sixth consecutive month, although services showed signs of recovery. Meanwhile, Chancellor Olaf Scholz lost a confidence vote in Parliament as anticipated, setting the stage for snap elections early next year. Globally, the Fed is expected to cut the federal funds rate by 25bps this week, with signals of a slower pace of reductions in 2025. Meanwhile, the ECB delivered its fourth 25bps rate cut last week, adopting a cautious approach to further easing. However, many analysts believe the ECB may need to accelerate policy loosening to bolster the fragile Eurozone economy."
+    },
+    {
+        "title": "Italian Stocks Edge Down",
+        "link": "/italy/stock-market",
+        "time": "22 hours ago",
+        "content": "Italian Stocks Edge Down Italy \u00a0 Stock Market The FTSE MIB weakened to trade near 34,650 on Monday, tracking other European peers, as traders assessed the latest PMI surveys from Europe, which pointed to continued subdued economic conditions across key economies. Meanwhile, ECB President Christine Lagarde highlighted the current restrictive monetary policy and suggested that interest rates could be further reduced if upcoming data supports the economic outlook. In the meantime, investors braced for the US Federal Reserve's policy decision later this week. On the domestic front, Italy's headline inflation was revised slightly down to 1.3% in November compared to an initial reading of 1.4%, accelerating from 0.9% in October. On the corporate front, Stellantis (-4.2%), Iveco Group (-2.1%) and Diasorin (-2%) were the top decliners. Among gainers, Bper Banca led with a 1.9% gain, followed by Banco BPM (+1.7%)."
+    },
+    {
+        "title": "Israel's Q3 GDP Growth Matches Initial Estimates",
+        "link": "/israel/gdp-growth-annualized",
+        "time": "22 hours ago",
+        "content": "Israel's Q3 GDP Growth Matches Initial Estimates Israel \u00a0 GDP Growth Annualized The Israeli economy grew at an annualized rate of 3.8% in the three months to September 2024, as confirmed by second estimates, accelerating from a downwardly revised 0.1% expansion in the previous quarter. Growth was driven by a sharp rise in fixed investments (23.3% vs. 8.5% in Q2) and sustained, though slower, household consumption growth (8.4% vs. 13.1%). In contrast, government spending declined further (-6.8% vs. -0.7%), and net trade weighed on GDP as imports surged (11.1% vs. -8.4%) while exports rose at a softer rate (1.8% vs. -6.9%)."
+    },
+    {
+        "title": "Irish Trade Surplus Widens",
+        "link": "/ireland/balance-of-trade",
+        "time": "22 hours ago",
+        "content": "Irish Trade Surplus Widens Ireland \u00a0 Balance of Trade Ireland\u2019s trade surplus widened to EUR 9.9 billion in October of 2024 from EUR 6 billion in the corresponding period of the previous year amid a surge in exports and a contraction in imports. Sales to foreign markets soared by 21% from the previous year to EUR 21.2 billion, lifted by shipments of medical and pharmaceutical products (49% to EUR 11.1 billion), which accounted for more than half of total exports, in addition to higher sales of electrical machinery, apparatus, and appliances (64% to EUR 1.1 billion). In turn, imports fell by 2% to EUR 11.3 billion, as lower purchases of organic chemicals (-69% to 375 EUR million) offset higher imports for medical and pharmaceutical intakes (53% to EUR 2.1 billion)."
+    },
+    {
+        "title": "France 10-Year Bond Yield Edges Up",
+        "link": "/france/government-bond-yield",
+        "time": "22 hours ago",
+        "content": "France 10-Year Bond Yield Edges Up France \u00a0 Government Bond 10Y The yield on France's 10-year OAT rose to above 3%, the highest in over three weeks, as traders continue to follow the political situation in the country while weighing weak economic data. The French risk premium over German Bunds widened to 80bps, approaching again 2012-highs of 90bps touched in the previous weeks. Moody\u2019s unexpectedly downgraded France's credit rating to Aa3 from Aa2 over the weekend, citing concerns about weakened public finances amid ongoing political instability. Also, flash PMIs showed private-sector business activity in France shrank for a fourth month as the manufacturing downturn deepened. Meanwhile, President Macron named the centrist ally Fran\u00e7ois Bayrou as a new Prime Minister, after a no-confidence motion against Michel Barnier passed in parliament last week, leading to the fall of the government. The new Prime Minister faces the challenging task of securing approval for the 2025 budget, requiring agreement from both left- and right-wing parties."
+    },
+    {
+        "title": "UK Stocks Move Lower",
+        "link": "/united-kingdom/stock-market",
+        "time": "22 hours ago",
+        "content": "UK Stocks Move Lower United Kingdom \u00a0 Stock Market The FTSE 100 fell 0.5% to the 8,260 mark on Monday, pressured by losses for heavyweight stocks in commodity-producing sectors as markets assessed the latest economic data. Rio Tinto, Antofagasta, Glencore, and Anglo American fell between 1.5% and 0.7%, tracking the poor session for ferrous and base metals after Chinese data underscored consumer struggles and an underwhelming reaction to monetary stimulus. In turn, the pullback in oil prices drove Shell and BP to trade firmly in the red. Sectors with a more domestic focus also failed to gain traction, with constructors and fast-moving consumer goods recording losses. New PMI data showed a drop in new orders for British firms, and employment fell the most since 2009 when excluding the pandemic crash to imply a strong reaction to the payroll tax hike implemented in the UK\u2019s new Labour budget. Also, Entertain sank 7% after Australia\u2019s financial crime regulator began civil penalty proceedings against the company."
+    },
+    {
+        "title": "Italian Inflation Rate Revised Slightly Down",
+        "link": "/italy/inflation-cpi",
+        "time": "22 hours ago",
+        "content": "Italian Inflation Rate Revised Slightly Down Italy \u00a0 Inflation Rate The annual inflation rate in Italy quickened to 1.3% in November 2024 from 0.9% in the prior month, though slightly below the initial market expectations of 1.4%. It was the highest reading in four months, largely due to the acceleration in prices of food & non-alcoholic beverages (2.8% vs 2.5%). Prices also increased solidly for other CPI items, including restaurants & hotels (3.4% vs 3.5%); education (2.9% vs 3%); miscellaneous goods & services (2.8% vs 2.6%) and alcoholic beverages & tobacco (2.3%, the same rate as in October). Additionally, prices fell at slower pace for both housing & utilities (-0.6% vs -1.6% in October) and transportation (-0.6% vs -2.3%). On a monthly basis, consumer prices edged down by 0.1% in November, compared to an initial reading of no change and following a flat reading in the prior month."
+    },
+    {
+        "title": "European Stocks Lower",
+        "link": "/euro-area/stock-market",
+        "time": "22 hours ago",
+        "content": "European Stocks Lower Euro Area \u00a0 Stock Market The STOXX 50 fell 0.3%, and the STOXX 600 edged down 0.2% on Monday, as traders prepared for a week dominated by key central bank decisions from the Fed, BoE, and BoJ. Sentiment was further weighed by flash PMIs for the Eurozone, which showed private sector activity remained in contraction, with a significant factory slump while there was an unexpected rebound in the services sector. Adding to the cautious tone, Moody\u2019s downgraded France's credit rating to Aa3 from Aa2 over the weekend, citing concerns about weakened public finances amid ongoing political instability. In Germany, Chancellor Olaf Scholz faced a critical confidence vote on Monday, with a likely defeat potentially paving the way for snap elections early next year. The auto sector was under pressure, with BMW (-2.5%), Mercedes-Benz (-2.4%) and VW (-1.8%) falling. Traders were also keeping a close eye on Vivendi after the company's shareholders approved the separation from Vivendi of Canal+, Havas and Louis Hachette Group."
+    },
+    {
+        "title": "DAX Pulls Back to Start Week",
+        "link": "/germany/stock-market",
+        "time": "22 hours ago",
+        "content": "DAX Pulls Back to Start Week Germany \u00a0 Stock Market The German DAX was 0.4% lower to hover at the 20,330 mark on Monday, extending the trim from the record-high reached on Thursday with pressure from auto giants as markets assessed the latest economic data and awaited Chancellor Scholz's confidence vote. The German Chancellor plans on losing his confidence vote after dismantling the current governing coalition, setting the backdrop for elections by February. In turn, PMI data showed that domestic economic activity did not contract as much as feared, limiting worries of a sharper underperformance of the German economy next year. Auto giants led the losses on the corporate front, pressured by the ongoing poor performance in domestic manufacturing and the poor outlook for Chinese consumer demand after the country\u2019s retail sales slowed. Porsche, BMW, Mercedes Benz, and Volkswagen dropped between 2.5% and 1.7%."
+    },
+    {
+        "title": "India Trade Deficit Surges to Record High",
+        "link": "/india/balance-of-trade",
+        "time": "23 hours ago",
+        "content": "India Trade Deficit Surges to Record High India \u00a0 Balance of Trade The merchandise trade deficit in India was at $37.8 billion in November of 2024, the highest on record, widening sharply from the $20.6 billion shortfall from the corresponding period of the previous year, and well ahead of expectations that centered around a $23 billion deficit. Imports soared by 27% from the previous year to $69.95 billion, also a record high. In turn, exports dropped by 5.3% annually to $32.1 billion, the lowest in two years."
+    },
+    {
+        "title": "Montenegro Inflation Rate Quickens in November",
+        "link": "/montenegro/inflation-cpi",
+        "time": "23 hours ago",
+        "content": "Montenegro Inflation Rate Quickens in November Montenegro \u00a0 Inflation Rate The annual inflation rate in Montenegro rose to 1.7% in November 2024, up from 1.2% in the previous month. This marks the highest reading in three periods, driven by higher inflation in food and non-alcoholic beverages (1% vs. 0.7% in October), furnishings and household maintenance (4.8% vs. 3.5%), and miscellaneous goods and services (3.3% vs. 3.1%). Meanwhile, deflation eased for clothing and footwear (-0.1% vs. -0.6%) and transport (-2.7% vs. -5.5%). On a monthly basis, consumer prices increased by 0.2% after being flat in the previous month. Meanwhile, the harmonized CPI rose 2.3% year-on-year, its highest level in four months, accelerating from 1.7% in October."
+    },
+    {
+        "title": "Euro Area Wage Growth Slows in Q3",
+        "link": "/euro-area/wage-growth",
+        "time": "23 hours ago",
+        "content": "Euro Area Wage Growth Slows in Q3 Euro Area \u00a0 Wage Growth Wages in the Eurozone rose 4.4% year-on-year in Q3 2024, the least so far this year, compared to an upwardly revised 4.9% rise in Q2. Wage growth slowed in industry (4.4% vs 5%), construction (4.6% vs 5.2%) and services (4.3% vs 4.6%). Among the bloc's largest economies, wage growth eased in Germany (4% vs 5.7%) and France (2.7% vs 3.3%) but accelerated in Spain (4.7% vs 3.9%) and Italy (5.2% vs 4.2%)."
+    },
+    {
+        "title": "Croatia Inflation Rate Confirmed at 6-Month High",
+        "link": "/croatia/inflation-cpi",
+        "time": "23 hours ago",
+        "content": "Croatia Inflation Rate Confirmed at 6-Month High Croatia \u00a0 Inflation Rate The annual inflation rate in Croatia was confirmed at 2.8% in November 2024, accelerating from a 2.2% rise in the previous month. This marked the highest reading since May, as prices increased for housing & utilities (2.3% vs 0.2% in September). Moreover, costs declined at a slower rate for clothing & footwear (-0.1% vs -0.3%) and transport (-0.5% vs -2.5%). Meanwhile, inflation eased for furnishings, household equipment and routine household maintenance (0.2% vs 0.9%), recreation & culture (4.7% vs 5.2%), and restaurants & hotels (10.1% vs 10.6%). On a monthly basis, consumer prices rose by 0.4%, following a 1.1% gain in the preceding period."
+    },
+    {
+        "title": "United Kingdom Manufacturing PMI Lowest in 11 Months",
+        "link": "/united-kingdom/manufacturing-pmi",
+        "time": "23 hours ago",
+        "content": "United Kingdom Manufacturing PMI Lowest in 11 Months United Kingdom \u00a0 Manufacturing PMI The S&P Global Flash UK Manufacturing PMI fell to 47.3 in December 2024 from 48 in November, compared to forecasts of 48.2, preliminary estimates showed. The reading pointed to the biggest contraction in the manufacturing sector in eleven months, as production declined for a second straight month and there was a steep and accelerated decrease in new orders. Goods producers often noted customer destocking and the impact of weaker demand from European clients, which led to the fastest reduction in overall export sales since October 2023. Also, backlogs declined and manufacturers recorded the steepest rise in purchasing prices since January 2023."
+    },
+    {
+        "title": "Euro Area Labor Costs Confirmed at Slowdown",
+        "link": "/euro-area/labour-costs",
+        "time": "23 hours ago",
+        "content": "Euro Area Labor Costs Confirmed at Slowdown Euro Area \u00a0 Labour Costs Hourly labor costs in the Euro Area rose by 4.6% from the previous year in the third quarter of 2024, slowing from the upwardly revised 5.2% rise in the previous quarter, and in line with the preliminary estimates. Wages and salaries rose by 4.4%, while the non-wage component of the index rose by a sharper 5.2%. Across the bloc\u2019s key sectors, labor costs were the highest for construction(5%), industry (4.6%), and services (4.5%)."
+    },
+    {
+        "title": "Kyrgyzstan Inflation Accelerates in November",
+        "link": "/kyrgyzstan/inflation-cpi",
+        "time": "23 hours ago",
+        "content": "Kyrgyzstan Inflation Accelerates in November Kyrgyzstan \u00a0 Inflation Rate Annual inflation rate in Kyrgyzstan rose to 5.7% in November 2024, up from 4.8% in the previous month. This marked the highest rate since January, driven by rising costs for food & non-alcoholic beverages (4.1% vs 2.5% in October), alcoholic beverages & tobacco (11.2% vs 10.2%), housing & utilities (9.7% vs 7.3%), and health (7.4% vs 6.8%). Meanwhile, prices softened for restaurants & hotels (5.3% vs 6.6%) and miscellaneous goods & services (1.7% vs 2.7%). On a monthly basis, consumer prices increased by 1.2% in November, following a 0.7% rise in October."
+    },
+    {
+        "title": "UK Private Business Activity Remains in Slight Expansion",
+        "link": "/united-kingdom/composite-pmi",
+        "time": "23 hours ago",
+        "content": "UK Private Business Activity Remains in Slight Expansion United Kingdom \u00a0 Composite PMI The S&P Global UK Composite PMI was at 50.5 in December of 2024, remaining unchanged from the previous month and loosely in line with market expectations of 50.7, according to a flash estimate. While holding the one-year low from the previous month, the result marked the 14th straight month of expansion in the British private-sector activity, with an expansion services providers (51.4 vs 50.4 in November) offsetting another contraction for manufacturers (47.3 vs 48), its highest in nearly one year. Still, total new orders dropped for the first time in 13 months to raise doubts on future spending patterns for key consumers. Additionally, firms cut jobs at the fastest pace since the global financial crisis when excluding the pandemic shock, aligned with concerns of lower employment as the UK's new budget hiked the payroll tax. Higher salaries also supported cost inflation across most sectors. Looking forward, business confidence fell to a two-year low."
+    },
+    {
+        "title": "UK Services Activity Growth Exceeds Forecasts",
+        "link": "/united-kingdom/services-pmi",
+        "time": "23 hours ago",
+        "content": "UK Services Activity Growth Exceeds Forecasts United Kingdom \u00a0 Services PMI The S&P Global UK Services PMI rose to 51.4 in December 2024, up from November\u2019s 13-month low of 50.8 and exceeding expectations of 51, preliminary data showed. The reading signaled a modest acceleration in service sector expansion, driven by rising business activity and reduced backlogs of work amid limited pressure on operations. However, service providers reported a sharp drop in employment at year-end, largely due to the non-replacement of voluntary leavers in response to rising employment costs. Looking ahead, sentiment among service providers remained subdued, with concerns over rising costs from higher National Insurance contributions curbing expansion plans. Competitive pressures, weak export conditions, and sluggish demand in sectors like automotive were also cited as growth headwinds for the coming year."
+    },
+    {
+        "title": "Kyrgyzstan GDP Rises by 9% in January-November 2024",
+        "link": "/kyrgyzstan/monthly-gdp-yoy",
+        "time": "23 hours ago",
+        "content": "Kyrgyzstan GDP Rises by 9% in January-November 2024 Kyrgyzstan \u00a0 Monthly GDP YoY Kyrgyzstan's GDP expanded by 9% from January to November 2024 compared to the corresponding period of the previous year, driven by strong performances from the manufacturing and services sectors and increased net taxes on products. Specifically, manufacturing industries grew by 10.2%, services by 8.1%, and net taxes on products by 9.6% year-over-year. Services made up the largest portion of GDP at 50%, which increased by 0.2 percentage points from last year. Moreover, the share of manufacturing rose by 1.0 percentage point, reaching 33.6%, as the share of construction increased by 1.5 percentage points and industry by 0.5 percentage points, while agriculture's share decreased by 1.0 percentage point."
+    },
+    {
+        "title": "Kyrgyzstan Industrial Production Drops in November",
+        "link": "/kyrgyzstan/industrial-production",
+        "time": "23 hours ago",
+        "content": "Kyrgyzstan Industrial Production Drops in November Kyrgyzstan \u00a0 Industrial Production Industrial production in Kyrgyzstan dropped by 1.1% year-on-year in November 2024, slipping from a 13% rise in the previous month. This marked the first month of decline in industrial activity since June, as output tumbled for the manufacturing sector (-5.1% vs 14.4% in October). Moreover, production growth slowed sharply for electricity, gas and steam (10.4% vs 23.8%). Meanwhile, output recovered significantly for mining & quarrying (19.4% vs -0.3%). For the period of January to November 2024, overall output production rose 4.8% compared to the same period in the previous year."
+    },
+    {
+        "title": "Euro Area Private Sector Activity Shrinks At Softer Pace",
+        "link": "/euro-area/composite-pmi",
+        "time": "24 hours ago",
+        "content": "Euro Area Private Sector Activity Shrinks At Softer Pace Euro Area \u00a0 Composite PMI The HCOB Flash Eurozone Composite PMI increased to 49.5 in December 2024 from 48.3 in November, beating forecasts of 48.2, preliminary estimates showed. While the reading indicated a second consecutive monthly decline in private sector activity, the contraction eased. The manufacturing sector remained weak (45.2, unchanged), but the services sector rebounded into expansion territory (51.4 vs. 49.5). New orders continued to decline, and the pace of job cuts accelerated to its fastest in four years as firms adjusted to reduced workloads. Inflation rates for both input costs and output prices also picked up. The overall drop in business activity was driven by contractions in Germany and France, the Eurozone's largest economies. However, the rest of the region saw solid output growth. On a brighter note, optimism for the 12-month outlook improved in both manufacturing and services."
+    },
+    {
+        "title": "Euro Area Services Activity Returns to Growth",
+        "link": "/euro-area/services-pmi",
+        "time": "24 hours ago",
+        "content": "Euro Area Services Activity Returns to Growth Euro Area \u00a0 Services PMI The HCOB Eurozone Services PMI rose to 51.4 in December 2024, up from 49.5 in November, while analysts had expected it to remain steady at 49.5, preliminary estimates showed. The latest reading pointed to a renewed expansion in the service sector activity following a first contraction in ten months during November. New orders continued to decline at a solid pace, though less than in the prior month. Meanwhile, the rate of job growth nearly stalled. On the price front, both input and output charges experienced a sharp and accelerated increase. Lastly, optimism in the 12-month outlook for output strengthened."
+    },
+    {
+        "title": "French Stocks Fall After Moody's Unexpected Credit Downgrade",
+        "link": "/france/stock-market",
+        "time": "24 hours ago",
+        "content": "French Stocks Fall After Moody's Unexpected Credit Downgrade France \u00a0 Stock Market The CAC 40 fell 0.6% to 7,367 on Monday, following Moody's unexpected credit downgrade. The credit agency lowered France's rating from Aa2 to Aa3 on Saturday, citing concerns that public finances are likely to deteriorate in the coming years due to ongoing political instability. Meanwhile, French President Emmanuel Macron appointed Fran\u00e7ois Bayrou as the new prime minister on Friday, ending a week of uncertainty after the collapse of Michel Barnier\u2019s government. In economic news, preliminary estimates revealed that France's private sector contracted for the fourth consecutive month, with the manufacturing downturn deepening, while the services sector contracted at a slower pace. On the corporate front, Vivendi is in the spotlight after news that several entities previously under the French media giant are now listing independently across Europe, particularly Canal+ in London, Havas in Amsterdam, and Louis Hachette Group in Paris."
+    },
+    {
+        "title": "Kyrgyzstan Producer Inflation Eases in November",
+        "link": "/kyrgyzstan/producer-prices-change",
+        "time": "24 hours ago",
+        "content": "Kyrgyzstan Producer Inflation Eases in November Kyrgyzstan \u00a0 Producer Prices Change Producer prices in Kyrgyzstan increased by 9.7% year-on-year in November 2024, easing from an 11.9% rise in the previous month. Prices moderated for mining & quarrying (14.2% vs 14.7% in September) and manufacturing (8.1% vs 10.8%). Conversely, producer inflation edged up for electricity, gas, steam and water conditioning (21.5% vs 21.4%), while water supply and waste management remained unchanged (at -0.5%). On a monthly basis, producer prices fell by 0.1%, slipping from a 0.3% gain in the preceding period."
+    },
+    {
+        "title": "Eurozone Manufacturing Activity Declines More than Expected",
+        "link": "/euro-area/manufacturing-pmi",
+        "time": "24 hours ago",
+        "content": "Eurozone Manufacturing Activity Declines More than Expected Euro Area \u00a0 Manufacturing PMI The HCOB Eurozone Manufacturing PMI was at 45.2 in December of 2024, remaining unchanged from the prior month and firmly below market expectations of 45.3 to extend the ongoing two-year streak of monthly contractions in the currency bloc\u2019s manufacturing activity. New orders continued to decline at a sustained pace, driving factories to drop output the most since the corresponding period of the previous year. The decline in output took place despite a fresh decrease in work backlogs. Consequently, lower demand for capacity drove manufacturers to reduce their workforce, especially in Germany and France. On the price front, input costs decreased at the softest pace in four months. Looking forward, manufacturer\u2019s confidence about future activity continued to be muted, albeit it improved from last month."
+    },
+    {
+        "title": "Bulgaria Inflation Rises to 3-Month High",
+        "link": "/bulgaria/inflation-cpi",
+        "time": "24 hours ago",
+        "content": "Bulgaria Inflation Rises to 3-Month High Bulgaria \u00a0 Inflation Rate Bulgaria\u2019s annual inflation rate increased to 2.1% in November 2024, the highest in three months, from 1.8% in the previous month. This was primarily driven by rising costs for food & non-alcoholic beverages (4.1% vs 2.8% in October), alcoholic beverages & tobacco (6.4% vs 5.8%), and education (7.1% vs 6.8%). Meanwhile, price growth slowed for housing & utilities (2.5% vs 4.2%), restaurants & hotels (7.5% vs 7.7%), and miscellaneous goods & services (3.5% vs 3.8%). At the same time, prices for transport (-3.4% vs -4.7%) and communication (-3.9% vs -4.1%) continued to drop, albeit at softer rates. On a monthly basis, consumer prices rose by 0.6% in November, slowing from a 1.1% advance in October."
+    },
+    {
+        "title": "FX Updates:  Brazilian Real Drops by 0.39%",
+        "link": "/currencies",
+        "time": "24 hours ago",
+        "content": "FX Updates:  Brazilian Real Drops by 0.39% Currency Top currency losers are  Brazilian Real  ( -0.39% ),  Norwegian Krone  ( -0.30% ) and  Dollar Index  ( -0.05% ). Gains are led by  British Pound  ( 0.15% ),  Euro  ( 0.07% ) and  Japanese Yen  ( 0.03% )."
+    },
+    {
+        "title": "UK Stocks Start Week on Cautious Note",
+        "link": "/united-kingdom/stock-market",
+        "time": "24 hours ago",
+        "content": "UK Stocks Start Week on Cautious Note United Kingdom \u00a0 Stock Market The FTSE 100 was flat to lower around 8,290 on Monday, in line with other European peers, as investors braced for a busy week, with policy announcements due from the Federal Reserve, the Bank of England and the Bank of Japan. Attention was also on a batch of PMI surveys from major economies for insights into the health of the global economy. On the corporate front, Entain dropped nearly 4% and led the losses,  after Australia\u2019s financial crime regulator began civil penalty proceedings against the company related to alleged contraventions of an anti-money laundering and counter-terrorism financing act. It was followed by Persimmon, Centrica and Endeavour Mining. On the flip side, banks were among the top risers, with Barclays, Natwest Group and Standard Chartered adding around 1% each."
+    },
+    {
+        "title": "German Services Sector Unexpectedly Expands",
+        "link": "/germany/services-pmi",
+        "time": "24 hours ago",
+        "content": "German Services Sector Unexpectedly Expands Germany \u00a0 Services PMI The HCOB Germany Services PMI rose to 51 in December 2024 from 49.3 in the previous month and exceeding market expectations of 49.3, preliminary estimates showed. This latest reading indicated a return to growth, although the expansion remains insufficient to offset broader economic challenges. New business activity experienced its sharpest decline since September, with the pace of contraction accelerating across both monitored sectors. Meanwhile, employment in the services industry declined slightly, reflecting a cautious business environment marked by layoffs and hiring freezes amid an uncertain outlook. On the pricing front, inflationary pressures intensified, with input costs rising at the fastest pace since April, while output charges climbed at the sharpest rate since February. Looking ahead, business expectations for future output edged higher from September\u2019s recent low but remained below the long-term average."
+    },
+    {
+        "title": "France Private Sector Continues to Struggle",
+        "link": "/france/composite-pmi",
+        "time": "24 hours ago",
+        "content": "France Private Sector Continues to Struggle France \u00a0 Composite PMI The HCOB France Composite PMI rose to 46.7 in December 2024, from 45.9 in November and higher than market estimates of 45.9, preliminary estimates showed. Still, this marked the fourth consecutive month of contraction in the private sector, and at a solid pace overall, despite easing from the prior month. Manufacturing activity remained in severe contraction (PMI at 41.9 vs 43.1 in November) and the dominant services sector (PMI at 48.2 vs 46.9) failed to provide any growth impetus. The latest survey showed further weakness in demand, which contributed to the sharpest reduction in employment in over four years. Regarding price development, both manufacturers and service providers recorded weaker rises in their input prices, with the overall pace of inflation remaining\nbelow its historical average. Selling prices were broadly unchanged. Finally, business confidence saw a modest improvement, as firms\u2019 expectations for the next 12 months shifted back into optimistic territory."
+    },
+    {
+        "title": "Italian Stocks Muted",
+        "link": "/italy/stock-market",
+        "time": "24 hours ago",
+        "content": "Italian Stocks Muted Italy \u00a0 Stock Market The FTSE MIB hovered near the 34,900 mark in early trading on Monday as investors braced for the US Federal Reserve's policy decision later this week. While the Fed is widely expected to lower interest rates by 25bps, attention will be focused on the updated policy statement and Chair Jerome Powell\u2019s forward guidance. On the corporate front, early gainers included Intesa Sanpaolo (+1.3%), Leonardo (+1.5%), and Banco BPM (+2%). Conversely, Stellantis led the decliners, falling 2.2%, followed by Amplifon (-1.8%) and Diasorin (-1.9%)."
+    },
+    {
+        "title": "Germany Private Sector In Contraction for 6th Month",
+        "link": "/germany/composite-pmi",
+        "time": "24 hours ago",
+        "content": "Germany Private Sector In Contraction for 6th Month Germany \u00a0 Composite PMI The HCOB Flash Germany Composite PMI edged up to 47.8 in December 2024 from 47.2 in November, slightly higher than forecasts of 47.5, preliminary estimates showed. The reading pointed to a sixth straight month of falling private sector activity, albeit with the rate of contraction losing some momentum. The manufacturing downturn worsened (42.5 vs 43) while the services sector rebounded (51 vs 49.3). The data continued to point to broad-based weakness in underlying demand, with inflows of new business falling the most since September and backlogs of work decreasing. Also, employment retreated and there was a further pick-up in inflationary pressures. Finally, although expectations for output in the coming year ticked up further from September\u2019s recent low, they remained weaker than the long-run average as firms voiced concerns about political uncertainty, a sluggish economy and troubles in the automotive sector. Sentiment was particularly subdued in manufacturing."
+    },
+    {
+        "title": "German Manufacturing Downturn Unexpectedly Deepens",
+        "link": "/germany/manufacturing-pmi",
+        "time": "24 hours ago",
+        "content": "German Manufacturing Downturn Unexpectedly Deepens Germany \u00a0 Manufacturing PMI The HCOB Germany Manufacturing PMI fell to 42.5 in December 2024, down from 43 in November and missing expectations of a slight improvement to 43.1, preliminary data showed. The reading signals a deeper contraction in Germany's manufacturing sector, with output declining at a much faster pace than in the previous two months and new orders dropping at one of the sharpest rates of the year. There was also a broad decline in outstanding business, prompting another significant round of staff retrenchments as manufacturers sought to scale back operating capacity. However, the pace of factory job losses eased slightly, marking the weakest decline in four months. Meanwhile, the fall in manufacturing input costs slowed, but sentiment among manufacturing firms remained particularly subdued."
+    },
+    {
+        "title": "European Stocks Cautious on Monday",
+        "link": "/euro-area/stock-market",
+        "time": "25 hours ago",
+        "content": "European Stocks Cautious on Monday Euro Area \u00a0 Stock Market European stocks started the week on a cautious note, with the STOXX 50 slipping 0.1% and the STOXX 600 hovering near the flatline, as traders brace for a week of key central bank decisions from the Fed, BoE, and BoJ. Adding to concerns were signs of economic weakness in the Euro Area. Flash PMIs from France revealed the country\u2019s private sector contracted for a fourth consecutive month, with a sharp deepening in the manufacturing downturn. Over the weekend, Moody\u2019s unexpectedly downgraded France's credit rating to Aa3 from Aa2, citing concerns over weakened public finances due to ongoing political instability. In Germany, Chancellor Olaf Scholz faces a confidence vote on Monday, with expectations of a defeat that could trigger snap elections early next year."
+    },
+    {
+        "title": "France Services Sector Faces Ongoing Strain",
+        "link": "/france/services-pmi",
+        "time": "25 hours ago",
+        "content": "France Services Sector Faces Ongoing Strain France \u00a0 Services PMI The HCOB France Services PMI rose to 48.2 in December 2024, up from 46.9 in November and better than the market expectations of 46.7, preliminary estimates showed. Still, this marked the fourth consecutive month of downturn, though the pace of contraction eased compared to November. Services companies continued to indicate lower sales, amid weak demand conditions, further exacerbated by political instability. Additionally, employment decreased, with the first layoffs by French service providers in nearly four years being particularly alarming. On the price front, firms reported slower increases in input prices, with the overall pace of inflation staying below its historical average, while selling prices were broadly unchanged on the month."
+    }
+]

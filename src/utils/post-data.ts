@@ -29,53 +29,57 @@ export interface UpdateProcess {
 
 
 /**
- * Post news data to Firebase, compare timestamps, and return ProcessedDataPost.
- * @param lastProcessedTimestamp - The timestamp of the last processed item.
- * @param lastNewTitle - (Optional) Title of the last processed item.
+ * Post news data to Firebase after filtering by timestamp and duplicate titles.
  */
 export async function postNewsDataToFirebase(): Promise<ProcessedDataPost> {
+    // 1. Fetch the last processed data
     const lastProcessedData = await getLastProcessedData();
     const lastProcessedTimestamp = lastProcessedData?.lastNewTime || 0;
     const lastNewTitle = lastProcessedData?.lastNewTitle || '';
-    console.log(`Last processed time: ${lastProcessedTimestamp}`);
+    console.log(`Last processed timestamp: ${lastProcessedTimestamp}`);
+    console.log(`Last processed title: "${lastNewTitle}"`);
+
+    // Initialize result variables
     const validItems: Array<NewsItem & { processedTimestamp: number }> = [];
     let totalValidItems = 0;
     let latestProcessedTimestamp = lastProcessedTimestamp;
-    let latestNewTitle = lastNewTitle || undefined;
+    let latestNewTitle = lastNewTitle;
 
     try {
-        // 1. Get the latest file path
+        // 2. Get the latest file path
         const latestFilePath = getLatestFile();
         console.log(`Latest file found: ${latestFilePath}`);
 
-        // 2. Read and parse the file data
+        // 3. Read and parse the file data
         const fileData = fs.readFileSync(latestFilePath, 'utf8');
         const parsedData: NewsItem[] = JSON.parse(fileData);
 
-        // 3. Firebase references
+        // 4. Firebase references
         const newsRef = ref(database, 'news');
         const processRef = ref(database, 'process');
 
-        // 4. Define current time
+        // 5. Define current time
         const currentTime = new Date().getTime();
 
-        // 5. Filter and post new items
+        // 6. Filter and post new items
         for (const newsItem of parsedData) {
             const processedTimestamp = convertRelativeTime(newsItem.time);
 
-            // Skip old or already processed items
+            // Skip old items (> 48 hours)
             if (currentTime - processedTimestamp > 48 * 60 * 60 * 1000) {
                 console.log(`Skipping old item: ${newsItem.title}`);
                 continue;
             }
 
+            // Skip already processed items based on timestamp
             if (processedTimestamp <= lastProcessedTimestamp) {
                 console.log(`Skipping already processed item: ${newsItem.title}`);
                 continue;
             }
 
+            // Skip duplicate items based on title
             if (newsItem.title === lastNewTitle) {
-                console.log(`Skipping duplicate item: ${newsItem.title}`);
+                console.log(`Skipping duplicate title: ${newsItem.title}`);
                 continue;
             }
 
@@ -87,13 +91,13 @@ export async function postNewsDataToFirebase(): Promise<ProcessedDataPost> {
                 updatedAt: serverTimestamp(),
             });
 
-            // Add to validItems
+            // Add to valid items
             validItems.push({
                 ...newsItem,
                 processedTimestamp,
             });
 
-            // Track the latest processed item
+            // Update latest processed info
             totalValidItems++;
             if (processedTimestamp > latestProcessedTimestamp) {
                 latestProcessedTimestamp = processedTimestamp;
@@ -103,8 +107,8 @@ export async function postNewsDataToFirebase(): Promise<ProcessedDataPost> {
 
         console.log(`Successfully posted ${totalValidItems} new items to Firebase.`);
 
-        // 6. Update the 'process' table with the latest data
-        if (latestProcessedTimestamp && latestNewTitle) {
+        // 7. Update the 'process' table with the latest data
+        if (totalValidItems > 0) {
             await set(processRef, {
                 lastNewTime: latestProcessedTimestamp,
                 lastNewTitle: latestNewTitle,
@@ -112,9 +116,11 @@ export async function postNewsDataToFirebase(): Promise<ProcessedDataPost> {
             console.log(
                 `Updated 'process' table with lastNewTime: ${latestProcessedTimestamp} and lastNewTitle: "${latestNewTitle}"`
             );
+        } else {
+            console.log('No new items to update in the process table.');
         }
 
-        // 7. Return the ProcessedDataPost object
+        // 8. Return the ProcessedDataPost object
         return {
             validItems,
             totalValidItems,
@@ -125,7 +131,7 @@ export async function postNewsDataToFirebase(): Promise<ProcessedDataPost> {
         console.error('Error posting data to Firebase:', error);
     }
 
-    // Return empty response in case of failure
+    // 9. Return an empty response in case of failure
     return {
         validItems: [],
         totalValidItems: 0,

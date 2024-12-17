@@ -74,6 +74,11 @@ export async function postNewsDataToFirebase(): Promise<ProcessedDataPost> {
                 continue;
             }
 
+            if (newsItem.title === lastNewTitle) {
+                console.log(`Skipping duplicate item: ${newsItem.title}`);
+                continue;
+            }
+
             // Push new item to Firebase
             await push(newsRef, {
                 ...newsItem,

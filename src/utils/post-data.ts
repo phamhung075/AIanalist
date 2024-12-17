@@ -189,34 +189,66 @@ function convertRelativeTime(relativeTime: string): number {
 /**
  * Preview processed data before posting to Firebase.
  */
+import { ref, get, query, orderByChild, startAt } from 'firebase-admin/database';
+
+/**
+ * Preview processed data: Filter items not in Firebase news and within 48 hours.
+ */
 export async function previewProcessedData(): Promise<ProcessedDataPost> {
     try {
+        // 1. Fetch last processed data
         const lastProcessedData = await getLastProcessedData();
         const lastNewTime = lastProcessedData?.lastNewTime || 0;
         console.log(`Last processed time: ${lastNewTime}`);
 
+        // 2. Fetch all news items from the last 24 hours for deduplication
+        const newsRef = ref(database, 'news');
+        const oneDayAgo = new Date().getTime() - 24 * 60 * 60 * 1000; // 24 hours ago
+        const newsQuery = query(newsRef, orderByChild('processedTimestamp'), startAt(oneDayAgo));
+
+        const snapshot = await get(newsQuery);
+        const existingItems = snapshot.exists() ? Object.values(snapshot.val() || {}) : [];
+
+        const existingTitles = new Set<string>();
+        existingItems.forEach((item: any) => {
+            if (item.title) existingTitles.add(item.title);
+        });
+
+        console.log(`Fetched ${existingTitles.size} existing titles from the last 24 hours.`);
+
+        // 3. Get the latest file path
         const latestFilePath = getLatestFile();
         console.log(`Latest file found: ${latestFilePath}`);
 
         const fileData = fs.readFileSync(latestFilePath, 'utf8');
         const parsedData: NewsItem[] = JSON.parse(fileData);
 
+        // 4. Filter new valid items
         const currentTime = new Date().getTime();
-        let validItems: Array<NewsItem & { processedTimestamp: number }> = [];
+        const validItems: Array<NewsItem & { processedTimestamp: number }> = [];
 
         for (const newsItem of parsedData) {
             const processedTimestamp = convertRelativeTime(newsItem.time);
 
+            // Skip old items (> 48 hours)
             if (currentTime - processedTimestamp > 48 * 60 * 60 * 1000) {
                 console.log(`Skipping old item: ${newsItem.title}`);
                 continue;
             }
 
+            // Skip already processed items
             if (processedTimestamp <= lastNewTime) {
                 console.log(`Skipping already processed item: ${newsItem.title}`);
                 continue;
             }
 
+            // Skip duplicates based on title
+            if (existingTitles.has(newsItem.title)) {
+                console.log(`Skipping duplicate title: ${newsItem.title}`);
+                continue;
+            }
+
+            // Add to valid items
             validItems.push({
                 ...newsItem,
                 processedTimestamp,
@@ -226,6 +258,7 @@ export async function previewProcessedData(): Promise<ProcessedDataPost> {
         console.log(`Total new valid items ready for posting: ${validItems.length}`);
         console.table(validItems);
 
+        // 5. Prepare and return response
         const response: ProcessedDataPost = {
             validItems: validItems,
             totalValidItems: validItems.length,
@@ -246,6 +279,7 @@ export async function previewProcessedData(): Promise<ProcessedDataPost> {
         lastNewTitle: '',
     };
 }
+
 
 
 /**

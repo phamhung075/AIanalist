@@ -75,13 +75,7 @@ export async function postNewsDataToFirebase(): Promise<ProcessedDataPost> {
             if (processedTimestamp <= lastProcessedTimestamp) {
                 console.log(`Skipping already processed item: ${newsItem.title}`);
                 continue;
-            }
-
-            // Skip duplicate items based on title
-            if (newsItem.title === lastNewTitle) {
-                console.log(`Skipping duplicate title: ${newsItem.title}`);
-                continue;
-            }
+            }           
 
             // Push new item to Firebase
             await push(newsRef, {

@@ -154,25 +154,25 @@ function convertRelativeTime(relativeTime: string): number {
     }
 }
 
-function getTimestampFromFirebaseItem(item: any): number {
-    // First try to get the processed timestamp
-    if (item.processedTimestamp) {
-        return item.processedTimestamp;
-    }
+// function getTimestampFromFirebaseItem(item: any): number {
+//     // First try to get the processed timestamp
+//     if (item.processedTimestamp) {
+//         return item.processedTimestamp;
+//     }
     
-    // If no processed timestamp, try to get it from the time field
-    if (item.time) {
-        // Handle relative time strings
-        if (typeof item.time === 'string' && item.time.toLowerCase().includes('ago')) {
-            return convertRelativeTime(item.time);
-        }
-        // Handle direct date strings
-        return new Date(item.time).getTime();
-    }
+//     // If no processed timestamp, try to get it from the time field
+//     if (item.time) {
+//         // Handle relative time strings
+//         if (typeof item.time === 'string' && item.time.toLowerCase().includes('ago')) {
+//             return convertRelativeTime(item.time);
+//         }
+//         // Handle direct date strings
+//         return new Date(item.time).getTime();
+//     }
     
-    // If no valid timestamp found, return current time
-    return new Date().getTime();
-}
+//     // If no valid timestamp found, return current time
+//     return new Date().getTime();
+// }
 
 
 

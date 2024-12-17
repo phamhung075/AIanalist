@@ -1,4 +1,4 @@
-import { get, push, ref, serverTimestamp, set } from 'firebase/database';
+import { get, orderByChild, push, query, ref, serverTimestamp, set, startAt } from 'firebase/database';
 import fs from 'fs';
 import { database } from '../_core/server/firebase/firebase'; // Import Firebase config
 import { getLastProcessedData } from './get-data';
@@ -182,14 +182,6 @@ function convertRelativeTime(relativeTime: string): number {
 
 
 
-/**
- * Preview processed data before posting to Firebase.
- * This function calculates the processedTimestamp and filters items older than 48 hours.
- */
-/**
- * Preview processed data before posting to Firebase.
- */
-import { ref, get, query, orderByChild, startAt } from 'firebase-admin/database';
 
 /**
  * Preview processed data: Filter items not in Firebase news and within 48 hours.

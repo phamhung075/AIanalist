@@ -1,5 +1,6 @@
 // src/_core/server/routes.ts
 import { database } from '@/_core/database/firebase/config'; // Import Firebase configuration
+import _ERROR from '@@src/_core/helper/async-handler/error/error.response';
 import { createRouter } from '@@src/_core/helper/create-router-path';
 import { cleanFirebaseData } from '@utils/clean-doublon';
 import { getAllFiles } from '@utils/get-all-files';
@@ -206,7 +207,7 @@ router.post(base + '/clean-news-data', async (_req, res) => {
         await cleanFirebaseData();
         res.status(200).json({ message: 'Firebase news data cleaned successfully!' });
     } catch (error) {
-        res.status(500).json({ error: (error as Error).message });
+        throw new _ERROR.FailedDependencyError('Error cleaning Firebase news data:');
     }
 });
 

@@ -9,6 +9,9 @@ interface RouteInfo {
     handler: string;
     module?: string;
     path_folder?: string;
+    status?: string;
+    statusCode?: number;
+    responseType?: string;
 }
 
 export class RouteDisplay {
@@ -141,7 +144,7 @@ export class RouteDisplay {
         this.extractRoutes();
 
         const table = new Table({
-            head: ['Method', 'Path', 'Handler', 'Module', 'Source'].map(h => white(h)),
+            head: ['Method', 'Status', 'Path', 'Handler', 'Response Type', 'Module', 'Source'].map(h => white(h)),
             style: {
                 head: [],
                 border: []
@@ -153,8 +156,10 @@ export class RouteDisplay {
             .forEach(route => {
                 table.push([
                     this.formatMethod(route.method),
+                    this.formatStatus(route.status || 'unknown'),
                     route.path,
                     cyan(route.handler),
+                    yellow(route.responseType || ''),
                     gray(route.module || ''),
                     this.formatVSCodeLink(route.path_folder)
                 ]);
@@ -193,16 +198,84 @@ export class RouteDisplay {
         }
     }
 
+    private getHandlerResponseInfo(fn: any): { status: string; responseType: string } {
+        try {
+            // Convert function to string to analyze its content
+            const fnString = fn.toString();
+            
+            // Look for new _SUCCESS patterns
+            const successMatch = fnString.match(/new\s+_SUCCESS\.(\w+)/);
+            if (successMatch) {
+                const responseType = successMatch[1];
+                const status = this.getStatusFromResponseType(responseType);
+                return { status, responseType };
+            }
+
+            // Look for status codes in res.status() calls
+            const statusMatch = fnString.match(/res\.status\((\d+)\)/);
+            if (statusMatch) {
+                const status = statusMatch[1];
+                return { 
+                    status: `${status} ${this.getStatusText(parseInt(status))}`,
+                    responseType: 'Custom'
+                };
+            }
+
+            return { status: 'unknown', responseType: 'unknown' };
+        } catch (error) {
+            return { status: 'unknown', responseType: 'unknown' };
+        }
+    }
+
+    private getStatusFromResponseType(responseType: string): string {
+        const statusMap: Record<string, string> = {
+            'OKResponse': '200 OK',
+            'CreatedResponse': '201 Created',
+            'AcceptedResponse': '202 Accepted',
+            'NonAuthoritativeInformationResponse': '203 Non-Authoritative',
+            'NoContentResponse': '204 No Content',
+            'ResetContentResponse': '205 Reset Content',
+            'PartialContentResponse': '206 Partial Content',
+            'MultiStatusResponse': '207 Multi-Status',
+            'AlreadyReportedResponse': '208 Already Reported',
+            'IMUsedResponse': '226 IM Used'
+        };
+
+        return statusMap[responseType] || `${responseType.match(/\d+/)?.[0] || 'unknown'}`;
+    }
+
+    private getStatusText(code: number): string {
+        const texts: Record<number, string> = {
+            200: 'OK',
+            201: 'Created',
+            202: 'Accepted',
+            203: 'Non-Authoritative Information',
+            204: 'No Content',
+            205: 'Reset Content',
+            206: 'Partial Content',
+            207: 'Multi-Status',
+            208: 'Already Reported',
+            226: 'IM Used'
+        };
+        return texts[code] || 'Unknown';
+    }
+
+    private formatStatus(status: string): string {
+        if (status.startsWith('2')) return green(status);
+        if (status.startsWith('4')) return yellow(status);
+        if (status.startsWith('5')) return red(status);
+        return gray(status);
+    }
+
     private processRouterMiddleware(middleware: any): void {
         middleware.handle.stack.forEach((handler: any) => {
             if (handler.route) {
                 const routePath = handler.route.path;
-                const sourceFile = this.getSourceFile(handler.route.stack[0]);
                 const routeHandler = handler.route.stack[0];
-
-                // Get the actual function handler
                 const fn = routeHandler.handle || routeHandler;
-                const handlerName = this.getHandlerName(fn);
+                
+                // Get additional info about the handler
+                const { status, responseType } = this.getHandlerResponseInfo(fn);
 
                 Object.keys(handler.route.methods)
                     .filter(method => handler.route.methods[method])
@@ -210,9 +283,11 @@ export class RouteDisplay {
                         this.routes.push({
                             method: method.toUpperCase(),
                             path: routePath,
-                            handler: handlerName,
+                            handler: this.getHandlerName(fn),
                             module: this.getModuleName(handler),
-                            path_folder: sourceFile
+                            path_folder: this.getSourceFile(routeHandler),
+                            status,
+                            responseType
                         });
                     });
             }

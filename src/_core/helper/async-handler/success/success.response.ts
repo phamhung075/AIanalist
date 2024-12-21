@@ -6,11 +6,12 @@ class SuccessResponse {
 	status: number;
 	metadata: any;
 	options: any;
-	constructor({ message, statusCode = StatusCodes.OK, reasonPhrase = ReasonPhrases.OK, metadata = {}, options = {} }: { message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any, options?: any }) {
+	constructor({ message, statusCode = StatusCodes.OK, reasonPhrase = ReasonPhrases.OK, metadata = {}, options = {}, data ={} }: { message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any, options?: any, data?: any }) {
 		this.message = !message ? reasonPhrase : message;
 		this.status = statusCode;
 		this.metadata = metadata;
 		this.options = options;
+		this.data = data;
 	}
 
 	send(res: any, _header: any = {}) {

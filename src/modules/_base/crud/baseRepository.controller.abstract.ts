@@ -1,5 +1,5 @@
+import { ExtendedFunctionRequest } from "@@src/_core/guard/handle-permission/user-context.interface";
 import { EnumErrors } from "../../../enums/Error";
-import { ExtendedFunctionRequest } from "../../../interfaces/ExtendedFunctionRequest.interface";
 import { BaseRepositoryService } from "./baseRepository.service.abstract";
 
 

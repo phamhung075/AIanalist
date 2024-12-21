@@ -40,10 +40,7 @@ export const asyncHandlerFn = (
             const resourceUrl = `${baseUrl}${req.originalUrl}`;
 
             return RestHandler.success(res, {
-                data: result,
-                meta: {
-                    processTime: `${Date.now() - startTime}ms`
-                },
+                data: result,             
                 links: {
                     self: resourceUrl,
                     // Add other HATEOAS links as needed

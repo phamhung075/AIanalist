@@ -9,8 +9,7 @@ export class ErrorController {
     constructor(private readonly errorService: ErrorTestService) { }
 
     BadRequestError = async (req: ExtendedUserContextRequest, res: Response): Promise<Response> => {
-        console.log('BadRequestError');
-        console.log(req.body);
+
         const result = await this.errorService.BadRequestError(req.body);
 
         return RestHandler.success(res, result);

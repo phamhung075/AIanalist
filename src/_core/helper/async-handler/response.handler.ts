@@ -50,7 +50,7 @@ export class RestHandler {
             data: null,
             meta: {
                 code,
-                status: res.status as string ?? this.getStatusText(code),
+                status: this.getStatusText(code),
                 message,
                 timestamp: new Date().toISOString()
             },

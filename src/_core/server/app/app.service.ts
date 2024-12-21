@@ -11,8 +11,8 @@ import { checkSystemOverload } from '../../helper/check-system-overload/check-sy
 import { SimpleLogger } from '../../logger/simple-logger'; // Assuming SimpleLogger is used for logging
 // Determine the environment and load the corresponding .env file
 import { config, showConfig } from '@config/index';
-import { blue, green, yellow, cyan, blueBright } from 'colorette';
 import { isRunningWithNodemon } from '@src/_core/helper/check-nodemon';
+import { blue, blueBright, cyan, green, greenBright, yellow, yellowBright } from 'colorette';
 
 
 const env = config.env;
@@ -222,10 +222,10 @@ export class AppService {
 	 * Log request details for debugging
 	 */
 	private showRequestUrl(req: express.Request, _: express.Response, next: express.NextFunction): void {
-		console.log('\n--------------------------------------------------------------------------------------------------------------');
+		console.log(yellowBright('\n--------------------------------------------------------------------------------------------------------------'));
 		if (!isEmpty(req.originalUrl)) console.log('Request URL:', `${blueBright(req.headers.host ?? 'host_not_found')}${blue(req.originalUrl)}`);
 		if (!isEmpty(req.method)) console.log('Method:', yellow(req.method));
-		if (!isEmpty(req.body)) console.log('Body:', JSON.stringify(req.body, null, 2));
+		if (!isEmpty(req.body)) console.log('Body:', greenBright(JSON.stringify(req.body, null, 2)));
 		if (!isEmpty(req.params)) console.log('Params:', JSON.stringify(req.params, null, 2));
 		if (!isEmpty(req.query)) console.log('Query:', JSON.stringify(req.query, null, 2));
 		next();

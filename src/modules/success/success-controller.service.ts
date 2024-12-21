@@ -1,6 +1,6 @@
 import { ExtendedUserContextRequest } from "@src/_core/guard/handle-permission/user-context.interface";
-import _ERROR from "../../_core/helper/async-handler/error/error.response";
-import { _SUCCESS } from "../../_core/helper/async-handler/success/success.response";
+import _ERROR from "../../_core/helper/async-handler/error";
+import { _SUCCESS } from "../../_core/helper/async-handler/success";
 import { SuccessTestService } from "./success.service";
 import { NextFunction, Response } from 'express';
 export interface SuccessTestBodyRequest {

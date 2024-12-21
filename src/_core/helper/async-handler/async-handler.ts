@@ -4,7 +4,7 @@ import * as path from 'path';
 import { ExtendedFunctionRequest } from '../../guard/handle-permission/user-context.interface';
 import { HttpStatusCode } from './common/httpStatusCode';
 import { RestHandler } from './common/response.handler';
-import { ErrorResponse } from './error/error.response';
+import { ErrorResponse } from './error';
 import { AsyncHandlerFn } from '../register-routes/RegisterRoutes';
 import { yellow } from 'colorette';
 const { StatusCodes } = HttpStatusCode;

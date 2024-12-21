@@ -1,5 +1,5 @@
 
-import { HttpStatusCode } from "./../common/httpStatusCode"
+import { HttpStatusCode } from "../common/httpStatusCode"
 const { StatusCodes, ReasonPhrases } = HttpStatusCode
 // Interface for standardized error response
 export interface ErrorDetails {

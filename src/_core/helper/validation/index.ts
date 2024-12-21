@@ -1,4 +1,4 @@
-import _ERROR from "../async-handler/error/error.response";
+import _ERROR from "../async-handler/error";
 import { ValidationRule, ValidationError } from "./interface/validation.interface";
 
 export function validateData<T>(data: T, rules: ValidationRule<T>[]): ValidationError[] {

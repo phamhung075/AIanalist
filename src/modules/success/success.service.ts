@@ -1,4 +1,4 @@
-import { _SUCCESS } from "../../_core/helper/async-handler/success/success.response";
+import { _SUCCESS } from "../../_core/helper/async-handler/success";
 import { SuccessTestBodyRequest } from "./success-controller.service";
 
 

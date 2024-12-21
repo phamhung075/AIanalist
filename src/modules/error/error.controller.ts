@@ -1,5 +1,5 @@
-import _ERROR from '@/_core/helper/async-handler/error/error.response';
-import { _SUCCESS } from '@/_core/helper/async-handler/success/success.response';
+import _ERROR from '@/_core/helper/async-handler/error';
+import { _SUCCESS } from '@/_core/helper/async-handler/success';
 import { validateUser } from '@/_core/helper/validation/user/user.validation';
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { ErrorTestService } from './error.service';

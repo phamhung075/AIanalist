@@ -13,9 +13,12 @@ import { SimpleLogger } from '../../logger/simple-logger'; // Assuming SimpleLog
 import { config, showConfig } from '@config/index';
 import { blue, green, yellow, cyan } from 'colorette';
 import { isRunningWithNodemon } from '@@src/_core/helper/check-nodemon';
+
+
 const env = config.env;
 const pathToEnvFile = path.resolve(__dirname, `../../../../environment/.env.${env}`);
 const envFile = path.resolve(pathToEnvFile);
+
 isRunningWithNodemon()
   
 // Load environment variables from the .env file

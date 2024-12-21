@@ -3,7 +3,7 @@ import { _SUCCESS } from '@/_core/helper/async-handler/success';
 import { validateUser } from '@/_core/helper/validation/user';
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { ErrorTestService } from './error.service';
-import { ControllerMethod } from '@/_core/helper/register-routes/RegisterRoutes';
+import { ControllerMethod } from '@/_core/helper/register-routes';
 
 export class ErrorController {
     [key: string]: ControllerMethod | unknown; 

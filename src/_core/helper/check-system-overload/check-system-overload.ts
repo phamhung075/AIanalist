@@ -2,7 +2,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { get, onValue, ref } from 'firebase/database';
 import os from "os";
 import process from "process";
-import { auth, database } from "./../../server/firebase/firebase"; // Assuming you're using Firestore for logging/notifications
+import { auth, database } from "@database/firebase/firebase"; // Assuming you're using Firestore for logging/notifications
 
 const _SECONDS = 10000;
 

@@ -1,7 +1,7 @@
 import { EnumErrors } from "../../../enums/Error";
 import { FetchPageResult } from "../../../interfaces/FetchPageResult.interface";
 import { PaginationOptions } from "../../../interfaces/PaginationOptions.interface";
-import { FireBaseUtilsService } from "../../../utils/firebase-utils.service";
+import { FireBaseUtilsService } from "@utils/firebase-utils.service";
 
 
 

@@ -117,7 +117,6 @@
 		"strictBindCallApply": true, // Check stricter `bind`, `call`, and `apply` methods
 		"forceConsistentCasingInFileNames": true, // Enforce consistent file name casing
 		/* Output settings */
-		"outDir": "./dist", // Output directory for compiled JS
 		"rootDir": "./src", // Root directory of TypeScript files
 		"removeComments": true, // Remove comments in the output
 		"sourceMap": true, // Generate corresponding `.map` files
@@ -130,7 +129,29 @@
 		"noFallthroughCasesInSwitch": true, // Prevent fallthrough cases in switch statements
 		"allowJs": false, // Disallow JavaScript files
 		"checkJs": false, // Do not check JavaScript files
-		"incremental": true // Enable incremental compilation for faster builds
+		"incremental": true, // Enable incremental compilation for faster builds
+		"baseUrl": ".",
+		"outDir": "dist",
+		"paths": {
+			"@/*": [
+				"src/*"
+			],
+			"@scripts/*": [
+				"src/scripts/*"
+			],
+			"@utils/*": [
+				"src/utils/*"
+			],
+			"@modules/*": [
+				"src/modules/*"
+			],
+			"@server/*": [
+				"src/_core/server/*"
+			],
+			"@database/*": [
+				"src/_core/database/*"
+			],
+		}
 	},
 	"include": [
 		"src/**/*"

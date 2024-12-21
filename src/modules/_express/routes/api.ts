@@ -2,13 +2,13 @@
 import { exec, spawn } from 'child_process';
 import express from 'express';
 import { ref, serverTimestamp, set } from 'firebase/database'; // Firebase Realtime Database methods
-import { cleanFirebaseData } from '../../../utils/clean-doublon';
-import { getAllFiles } from '../../../utils/get-all-files';
-import { getAllContentFromFirebase, getContentById, updateNewsTimestamps } from '../../../utils/get-data';
-import { getLatestFile } from '../../../utils/get-latest-file';
-import { postNewsDataToFirebase, previewProcessedData, ProcessedDataPost, updateLastProcessedData, UpdateProcess } from '../../../utils/post-data';
-import { packageJson } from '../../utils/utils'; // Utility to load package.json
-import { database } from '../firebase/firebase'; // Import Firebase configuration
+import { cleanFirebaseData } from '@utils/clean-doublon';
+import { getAllFiles } from '@utils/get-all-files';
+import { getAllContentFromFirebase, getContentById, updateNewsTimestamps } from '@utils/get-data';
+import { getLatestFile } from '@utils/get-latest-file';
+import { postNewsDataToFirebase, previewProcessedData, ProcessedDataPost, updateLastProcessedData, UpdateProcess } from '@utils/post-data';
+import { database } from '@database/firebase/firebase'; // Import Firebase configuration
+import { packageJson } from '../../../_core/utils/utils';
 const fs = require('fs').promises;
 
 const path = require('path');

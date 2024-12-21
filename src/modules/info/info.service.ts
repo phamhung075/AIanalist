@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 import path from 'path';
 // Determine the environment and load the corresponding .env file
-const env = process.env.NODE_ENV || 'development';
+import { config } from '@env/index';
+const env = config.env;
 const envFile = path.resolve(__dirname, `../environment/.env.${env}`);
-
 dotenv.config({ path: envFile });
 
 //console.log(`Loaded environment: ${env}`);

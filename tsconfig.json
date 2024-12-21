@@ -133,6 +133,7 @@
 		"baseUrl": ".",
 		"outDir": "dist",
 		"paths": {
+			"@@*":["./*"], //root
 			"@/*": [
 				"src/*"
 			],
@@ -150,6 +151,15 @@
 			],
 			"@database/*": [
 				"src/_core/database/*"
+			],
+			"@env/*": [
+				"src/_core/config/*"
+			],
+			"@node_modules/*": [
+				"node_modules/*"
+			],
+			"@environment/*": [
+				"environment/*"
 			],
 		}
 	},

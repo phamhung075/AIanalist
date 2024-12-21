@@ -1,14 +1,13 @@
 // src/_core/server/routes.ts
-import { exec, spawn } from 'child_process';
-import express from 'express';
-import { ref, serverTimestamp, set } from 'firebase/database'; // Firebase Realtime Database methods
+import { database } from '@/_core/database/firebase/config'; // Import Firebase configuration
 import { cleanFirebaseData } from '@utils/clean-doublon';
 import { getAllFiles } from '@utils/get-all-files';
 import { getAllContentFromFirebase, getContentById, updateNewsTimestamps } from '@utils/get-data';
 import { getLatestFile } from '@utils/get-latest-file';
 import { postNewsDataToFirebase, previewProcessedData, ProcessedDataPost, updateLastProcessedData, UpdateProcess } from '@utils/post-data';
-import { database } from '@/_core/database/firebase/config'; // Import Firebase configuration
-import { packageJson } from '@/_core/logger/log-route';
+import { exec, spawn } from 'child_process';
+import express from 'express';
+import { ref, serverTimestamp, set } from 'firebase/database'; // Firebase Realtime Database methods
 const fs = require('fs').promises;
 
 const path = require('path');
@@ -20,13 +19,8 @@ router.get('/ping', (_req, res) => {
 	res.send('pong');
 });
 
-// Version route
-router.get(base + '/version', (_req, res) => {
-	res.json({
-		name: packageJson.name,
-		version: packageJson.version
-	});
-});
+
+
 
 // Write test data to Firebase Realtime Database
 router.post(base + '/write-test-data', async (_req, res) => {

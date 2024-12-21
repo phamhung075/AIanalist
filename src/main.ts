@@ -3,6 +3,7 @@ export const modules = [
 	'error',
 	'success',
 	'trading-economics-new',
-	'_express'
+	'_express',
+	'_express/version/GET',
 	//... other modules
 ];

@@ -12,23 +12,23 @@ export class RestHandler {
         code = StatusCodes.OK,
         message = ReasonPhrases.OK,
         pagination,
-        meta = {}
+        metadata = {}
     }: {
         data: T;
         code?: number;
         message?: string;
         pagination?: PaginationMeta;
-        meta?: Record<string, any>;
+        metadata?: Record<string, any>;
     }): Response {
         const response: ApiResponse<T> = {
             success: true,
+            code,
+            message,
             data,
-            meta: {
-                code,
+            metadata: {
                 status: this.getStatusText(code),
-                message,
                 timestamp: new Date().toISOString(),
-                ...meta,
+                ...metadata,
                 ...(pagination && { pagination })
             }
         };

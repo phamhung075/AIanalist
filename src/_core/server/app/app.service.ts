@@ -5,8 +5,8 @@ import * as http from "http";
 import * as https from "https";
 import express from 'express';
 import dotenv from 'dotenv';
-import { SimpleLogger } from '../../utils/logger';  // Assuming SimpleLogger is used for logging
-import { logRoutes } from '../../utils/utils';
+import { SimpleLogger } from '../../logger/simple-logger';  // Assuming SimpleLogger is used for logging
+import { logRoutes } from '../../logger/log-route';
 import { isEmpty } from 'lodash';
 import { checkSystemOverload } from '../../helper/check-system-overload/check-system-overload';
 import { modules } from  '../../../main';

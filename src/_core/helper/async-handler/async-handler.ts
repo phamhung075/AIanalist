@@ -6,6 +6,7 @@ import { HttpStatusCode } from './common/httpStatusCode';
 import { RestHandler } from './common/response.handler';
 import { ErrorResponse } from './error/error.response';
 import { AsyncHandlerFn } from '../register-routes/RegisterRoutes';
+import { yellow } from 'colorette';
 const { StatusCodes } = HttpStatusCode;
 
 // Middleware function to log responses and errors
@@ -41,7 +42,7 @@ export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) =>
             if (!res.headersSent) {
                 const baseUrl = `${req.protocol}://${req.get('host')}`;
                 const resourceUrl = `${baseUrl}${req.originalUrl}`;
-
+                console.log(yellow(`Response sent for ${resourceUrl}`));
                 return RestHandler.success(res, {
                     data: result,             
                     links: {
@@ -50,6 +51,7 @@ export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) =>
                 });
             }
         } catch (error: any) {
+            console.log(yellow("Error in asyncHandlerFn:"));
             const logDir = createLogDir();
             const logger = createLogger(logDir);
             logger.logError(createErrorLog(req, error, startTime));
@@ -115,7 +117,7 @@ function createLogDir(): string {
     const now = new Date();
     const date = now.toISOString().split('T')[0];
     const hour = now.getUTCHours().toString().padStart(2, '0');
-    const logDir = path.join(__dirname, '../../../../logs', 'api', date, hour);
+    const logDir = path.join(__dirname, '../../../../logs', 'error', date, hour);
 
     fs.mkdirSync(logDir, { recursive: true });
     return logDir;

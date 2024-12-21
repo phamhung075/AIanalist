@@ -223,7 +223,7 @@ export class AppService {
 	 */
 	private showRequestUrl(req: express.Request, _: express.Response, next: express.NextFunction): void {
 		const timestamp = new Date().toLocaleString();
-		console.log(bgWhite("\n"+timestamp));
+		console.log(bgWhite("\n"+"showRequestUrl: "+timestamp));
 		if (!isEmpty(req.originalUrl)) console.log('Request URL:', `${blueBright(req.headers.host ?? 'host_not_found')}${blue(req.originalUrl)}`);
 		if (!isEmpty(req.method)) console.log('Method:', yellow(req.method));
 		if (!isEmpty(req.body)) console.log('Body:', greenBright(JSON.stringify(req.body, null, 2)));

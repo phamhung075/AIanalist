@@ -1,5 +1,5 @@
-import { StatusCodes } from "./statusCodes"
-import { ReasonPhrases } from "./reasonPhrases"
+import { StatusCodes } from "./StatusCodes"
+import { ReasonPhrases } from "./ReasonPhrases"
 export const HttpStatusCode = {
 	StatusCodes,
 	ReasonPhrases

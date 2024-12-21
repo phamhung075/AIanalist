@@ -1,4 +1,4 @@
-import { HttpStatusCode } from "../common/httpStatusCode"
+import { HttpStatusCode } from "../common/HttpStatusCode"
 const { StatusCodes, ReasonPhrases } = HttpStatusCode
 
 class SuccessResponse {

@@ -200,7 +200,6 @@ export class AppService {
 			await this.loadCloudModules(this.app);  // Load cloud modules
 
 			const server = await this.createServer();
-			logRoutes(this.app);  // Log routes after everything is set up
 			console.log('Server is now listening for connections');
 			checkSystemOverload();
 

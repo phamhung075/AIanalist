@@ -101,7 +101,7 @@ export class AppService {
 	 * @param fileExtension - File extension based on environment
 	 */
 	private async loadModule(moduleDir: string, modulesDir: string, fileExtension: string): Promise<void> {
-		const cloudFilePath = path.join(modulesDir, moduleDir, `cloud.${fileExtension}`);
+		const cloudFilePath = path.join(modulesDir, moduleDir, `api.${fileExtension}`);
 		console.log(`Loading module ${moduleDir} from ${cloudFilePath}`);
 
 		if (fs.existsSync(cloudFilePath)) {

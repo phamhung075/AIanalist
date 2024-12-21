@@ -1,8 +1,8 @@
 export const modules = [
-	'./../_core/server/routes',
 	'./info',
 	'error',
 	'success',
 	'trading-economics-new',
+	'_express/routes/api.ts'
 	//... other modules
 ];

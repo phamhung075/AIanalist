@@ -9,7 +9,8 @@ import { SimpleLogger } from '../../logger/simple-logger';  // Assuming SimpleLo
 import { logRoutes } from '../../logger/log-route';
 import { isEmpty } from 'lodash';
 import { checkSystemOverload } from '../../helper/check-system-overload/check-system-overload';
-import { modules } from  '../../../main';
+import { modules } from '../../../main';
+import { RouteDisplay } from '@/_core/helper/route-display/route-display.index';
 // Determine the environment and load the corresponding .env file
 const env = process.env.NODE_ENV || 'development';
 const envFile = path.resolve(__dirname, `../../../../environment/.env.${env}`);
@@ -50,7 +51,7 @@ export class AppService {
 		this.app.use(express.json({ limit: '50mb' }));
 		this.app.use(express.urlencoded({ limit: '50mb', extended: true }));
 		this.app.use(this.showRequestUrl);
-		
+
 	}
 
 	/**
@@ -86,20 +87,22 @@ export class AppService {
 		const modulesDir = isDevMode
 			? path.join(baseDir, 'src/modules')
 			: path.join(baseDir, 'dist', 'src/modules');
-		
-		
+
+
 		console.log(`Loading modules from ${baseDir}`);
 		await Promise.all(modules.map(moduleDir => this.loadModule(moduleDir, modulesDir, fileExtension)));
-
+		// Initialize and display routes after loading all modules
+		const routeDisplay = new RouteDisplay(this.app);
+		routeDisplay.displayRoutes();
 	}
 
-	/**
-	 * Helper function to load a single cloud module
-	 * 
-	 * @param moduleDir - Directory of the module
-	 * @param modulesDir - Base directory where modules are located
-	 * @param fileExtension - File extension based on environment
-	 */
+	// /**
+	//  * Helper function to load a single cloud module
+	//  * 
+	//  * @param moduleDir - Directory of the module
+	//  * @param modulesDir - Base directory where modules are located
+	//  * @param fileExtension - File extension based on environment
+	//  */
 	private async loadModule(moduleDir: string, modulesDir: string, fileExtension: string): Promise<void> {
 		const cloudFilePath = path.join(modulesDir, moduleDir, `api.${fileExtension}`);
 		console.log(`Loading module ${moduleDir} from ${cloudFilePath}`);
@@ -224,7 +227,7 @@ export class AppService {
 	/**
 	 * Log and handle the response
 	 */
-	
+
 
 
 }

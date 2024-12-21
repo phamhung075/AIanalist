@@ -1,8 +1,8 @@
-import { ErrorTestCloudService } from './error-cloud.service';
+import { ErrorController } from './error.controller';
 import { ErrorTestService } from './error.service';
 
 const errorTestService = new ErrorTestService();
-const errorTestCloudService = new ErrorTestCloudService(errorTestService);
+const errorTestCloudService = new ErrorController(errorTestService);
 
 export {
 	errorTestService,

@@ -1,61 +1,23 @@
-import { asyncHandlerFn } from '../../_core/helper/async-handler/async-handler';
-import { errorTestCloudService } from '.';
 import { createRouter } from '@@src/_core/helper/create-router-path';
+import { ErrorController } from './error.controller';
+import { ErrorTestService } from './error.service';
+import { asyncHandlerFn } from '@@src/_core/helper/async-handler/async-handler';
 
 // Créer un routeur Express
-
-
 const router = createRouter(__filename);
+const controller = new ErrorController(new ErrorTestService());
 
-const cloudFunctions_v1_get = {
-	"Error-BadRequestError": errorTestCloudService.BadRequestError,
-	"Error-UnauthorizedError": errorTestCloudService.UnauthorizedError,
-	"Error-PaymentRequiredError": errorTestCloudService.PaymentRequiredError,
-	"Error-ForbiddenError": errorTestCloudService.ForbiddenError,
-	"Error-NotFoundError": errorTestCloudService.NotFoundError,
-	"Error-MethodNotAllowedError": errorTestCloudService.MethodNotAllowedError,
-	"Error-NotAcceptableError": errorTestCloudService.NotAcceptableError,
-	"Error-ProxyAuthenticationRequiredError": errorTestCloudService.ProxyAuthenticationRequiredError,
-	"Error-RequestTimeoutError": errorTestCloudService.RequestTimeoutError,
-	"Error-ConflictRequestError": errorTestCloudService.ConflictRequestError,
-	"Error-GoneError": errorTestCloudService.GoneError,
-	"Error-LengthRequiredError": errorTestCloudService.LengthRequiredError,
-	"Error-PreconditionFailedError": errorTestCloudService.PreconditionFailedError,
-	"Error-RequestTooLongError": errorTestCloudService.RequestTooLongError,
-	"Error-RequestUriTooLongError": errorTestCloudService.RequestUriTooLongError,
-	"Error-UnsupportedMediaTypeError": errorTestCloudService.UnsupportedMediaTypeError,
-	"Error-RequestedRangeNotSatisfiableError": errorTestCloudService.RequestedRangeNotSatisfiableError,
-	"Error-ExpectationFailedError": errorTestCloudService.ExpectationFailedError,
-	"Error-ImATeapotError": errorTestCloudService.ImATeapotError,
-	"Error-InsufficientStorageError": errorTestCloudService.InsufficientStorageError,
-	"Error-MethodFailureError": errorTestCloudService.MethodFailureError,
-	"Error-MisdirectedRequestError": errorTestCloudService.MisdirectedRequestError,
-	"Error-UnprocessableEntityError": errorTestCloudService.UnprocessableEntityError,
-	"Error-LockedError": errorTestCloudService.LockedError,
-	"Error-FailedDependencyError": errorTestCloudService.FailedDependencyError,
-	"Error-PreconditionRequiredError": errorTestCloudService.PreconditionRequiredError,
-	"Error-TooManyRequestsError": errorTestCloudService.TooManyRequestsError,
-	"Error-RequestHeaderFieldsTooLargeError": errorTestCloudService.RequestHeaderFieldsTooLargeError,
-	"Error-UnavailableForLegalReasonsError": errorTestCloudService.UnavailableForLegalReasonsError,
-	"Error-InternalServerError": errorTestCloudService.InternalServerError,
-	"Error-NotImplementedError": errorTestCloudService.NotImplementedError,
-	"Error-BadGatewayError": errorTestCloudService.BadGatewayError,
-	"Error-ServiceUnavailableError": errorTestCloudService.ServiceUnavailableError,
-	"Error-GatewayTimeoutError": errorTestCloudService.GatewayTimeoutError,
-	"Error-HttpVersionNotSupportedError": errorTestCloudService.HttpVersionNotSupportedError,
-	"Error-NetworkAuthenticationRequiredError": errorTestCloudService.NetworkAuthenticationRequiredError,
+const routes = {
+    'bad-request': controller.BadRequestError,
+    'validation': controller.ValidationError,
+    // ... other routes
 };
 
-// Convertir chaque fonction en une route Express
-Object.entries(cloudFunctions_v1_get).forEach(([functionName, functionHandler]) => {
-	router.get(
-		`/${functionName}`,
-		// authenticateToken, // Add the authentication middleware here
-		asyncHandlerFn(
-			functionHandler.bind(errorTestCloudService)
-		)
-	)
+Object.entries(routes).forEach(([path, handler]) => {
+    router.get(
+        `/error/${path}`,
+        asyncHandlerFn(handler.bind(controller))
+    );
 });
-
 
 export default router;

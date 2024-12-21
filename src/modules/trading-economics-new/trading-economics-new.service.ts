@@ -10,7 +10,8 @@ export class TradingEconomicsNewService extends BaseRepositoryService<TradingEco
     }
 
     async test(): Promise<any[]> {
-		throw new _ERROR.RequestTooLongError() 
+      return [];
+		// throw new _ERROR.RequestTooLongError() 
     }
 
 }

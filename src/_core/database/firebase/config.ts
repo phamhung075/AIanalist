@@ -14,7 +14,12 @@ import { yellow } from 'colorette';
 console.clear();
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-console.log(yellow("firebase initialized"));
+
+if (app) {
+	console.log(yellow('✅ firebase initialized'));
+} else {
+	console.error('❌ firebase not initialized');
+}
 
 // export const analytics = getAnalytics(app);
 

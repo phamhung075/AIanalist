@@ -133,7 +133,9 @@
 		"baseUrl": ".",
 		"outDir": "dist",
 		"paths": {
-			"@@*":["./*"], //root
+			"@@*": [
+				"./*"
+			], //root
 			"@/*": [
 				"src/*"
 			],
@@ -160,6 +162,9 @@
 			],
 			"@environment/*": [
 				"environment/*"
+			],
+			"@config/*": [
+				"src/_core/config/*"
 			],
 		}
 	},

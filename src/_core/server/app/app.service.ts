@@ -1,6 +1,5 @@
 import { RouteDisplay } from '@/_core/helper/route-display/route-display.index';
 import cors from 'cors'; // Correct way to import
-import dotenv from 'dotenv';
 import express from 'express';
 import * as fs from "fs";
 import * as http from "http";
@@ -11,12 +10,23 @@ import { modules } from '../../../main';
 import { checkSystemOverload } from '../../helper/check-system-overload/check-system-overload';
 import { SimpleLogger } from '../../logger/simple-logger'; // Assuming SimpleLogger is used for logging
 // Determine the environment and load the corresponding .env file
-const env = process.env.NODE_ENV || 'development';
-const envFile = path.resolve(__dirname, `../../../../environment/.env.${env}`);
-dotenv.config({ path: envFile });
-// console.log('All environment variables:', process.env);
-console.log(`All environment variables is ${process.env.TEST_VAR} on mode ${process.env.NODE_ENV}`);
-
+import { config, showConfig } from '@config/index';
+import { blue, green, yellow, cyan } from 'colorette';
+const env = config.env;
+const pathToEnvFile = path.resolve(__dirname, `../../../../environment/.env.${env}`);
+const envFile = path.resolve(pathToEnvFile);
+if (process.env.__NODEMON__) {
+	console.log('Running with Nodemon!');
+  } else {
+	console.log('Running without Nodemon!');
+  }
+  
+// Load environment variables from the .env file
+console.log(green(`Loading environment from  ${blue(envFile)}`));
+console.log(
+	green(`All environment variables are ${yellow(process.env.TEST_VAR || 'N/A')} on mode ${yellow(process.env.NODE_ENV || 'N/A')}`)
+);
+console.log(showConfig());
 
 /**
  * Service class for managing the server application
@@ -50,7 +60,6 @@ export class AppService {
 		this.app.use(express.json({ limit: '50mb' }));
 		this.app.use(express.urlencoded({ limit: '50mb', extended: true }));
 		this.app.use(this.showRequestUrl);
-
 	}
 
 	/**
@@ -88,7 +97,7 @@ export class AppService {
 			: path.join(baseDir, 'dist', 'src/modules');
 
 
-		console.log(`Loading modules from ${baseDir}`);
+		console.log(green(`Loading modules from ${blue(baseDir)}`));
 		await Promise.all(modules.map(moduleDir => this.loadModule(moduleDir, modulesDir, fileExtension)));
 		// Initialize and display routes after loading all modules
 		const routeDisplay = new RouteDisplay(this.app);
@@ -104,7 +113,7 @@ export class AppService {
 	//  */
 	private async loadModule(moduleDir: string, modulesDir: string, fileExtension: string): Promise<void> {
 		const cloudFilePath = path.join(modulesDir, moduleDir, `api.${fileExtension}`);
-		console.log(`Loading module ${moduleDir} from ${cloudFilePath}`);
+		console.log(green(`Loading module ${moduleDir} from ${blue(cloudFilePath)}`));
 
 		if (fs.existsSync(cloudFilePath)) {
 			try {
@@ -113,15 +122,15 @@ export class AppService {
 
 				if (moduleRouter && typeof moduleRouter === 'function') {
 					this.app.use(moduleRouter);
-					console.log(`Module ${moduleDir} loaded and routes attached.`);
+					console.log(green(`Module ${blue(moduleDir)} loaded and routes attached.`));
 				} else {
-					console.warn(`Module ${moduleDir} does not export a valid router function.`);
+					console.warn(`Module ${blue(moduleDir)} does not export a valid router function.`);
 				}
 			} catch (error) {
-				console.error(`Error loading module ${moduleDir}:`, error);
+				console.error(`Error loading module ${blue(moduleDir)}:`, error);
 			}
 		} else {
-			console.warn(`Cloud file not found for module ${moduleDir}: ${cloudFilePath}`);
+			console.warn(`Cloud file not found for module ${blue(moduleDir)}: ${cyan(cloudFilePath)}`);
 		}
 	}
 
@@ -200,7 +209,7 @@ export class AppService {
 
 			const server = await this.createServer();
 			console.log('Server is now listening for connections');
-			checkSystemOverload();
+			if (config.env == 'production') checkSystemOverload();
 
 			return server;
 		} catch (error) {

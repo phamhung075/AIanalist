@@ -1,11 +1,11 @@
-import * as express from 'express';
-import { asyncHandlerFn } from '../../_core/helper/async-handler/async-handler';
+import { createRouter } from '@@src/_core/helper/create-router-path';
 import { successTestCloudService } from '.';
+import { asyncHandlerFn } from '../../_core/helper/async-handler/async-handler';
 
 // Créer un routeur Express
 
 
-const router = express.Router();
+const router = createRouter(__filename);
 
 const cloudFunctions_v1_get = {
 	"Success-OKResponse": successTestCloudService.OKResponse,

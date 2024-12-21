@@ -1,18 +1,18 @@
 // src/_core/server/routes.ts
 import { database } from '@/_core/database/firebase/config'; // Import Firebase configuration
+import { createRouter } from '@@src/_core/helper/create-router-path';
 import { cleanFirebaseData } from '@utils/clean-doublon';
 import { getAllFiles } from '@utils/get-all-files';
 import { getAllContentFromFirebase, getContentById, updateNewsTimestamps } from '@utils/get-data';
 import { getLatestFile } from '@utils/get-latest-file';
 import { postNewsDataToFirebase, previewProcessedData, ProcessedDataPost, updateLastProcessedData, UpdateProcess } from '@utils/post-data';
 import { exec, spawn } from 'child_process';
-import express from 'express';
 import { ref, serverTimestamp, set } from 'firebase/database'; // Firebase Realtime Database methods
 const fs = require('fs').promises;
 
 const path = require('path');
 
-const router = express.Router();
+const router = createRouter(__filename);
 const base = '/api_v1';
 // Ping route
 router.get('/ping', (_req, res) => {

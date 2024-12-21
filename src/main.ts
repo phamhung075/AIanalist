@@ -1,5 +1,5 @@
 export const modules = [
-	'./info',
+	'info',
 	'error',
 	'success',
 	'trading-economics-new',

@@ -1,7 +1,8 @@
 // src/_core/server/routes.ts
 import { packageJson } from '@/_core/logger/log-route';
+import { createRouter } from '@@src/_core/helper/create-router-path';
 import express from 'express';
-const router = express.Router();
+const router = createRouter(__filename);
 // import from env BASE_API
 const base = process.env.BASE_API || 'BASE_API-no-set';
 

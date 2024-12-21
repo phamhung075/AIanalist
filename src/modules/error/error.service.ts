@@ -1,5 +1,5 @@
 
-import { UserInput } from "@/_core/helper/validation/user/user.validation";
+import { UserInput } from "@/_core/helper/validation/user";
 import _ERROR from "../../_core/helper/async-handler/error";
 
 

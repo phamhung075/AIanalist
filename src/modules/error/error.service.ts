@@ -1,51 +1,14 @@
 
+import { UserInput, validateUser } from "@/_core/helper/validation/user/user.validation";
 import _ERROR from "../../_core/helper/async-handler/error/error.response";
-interface UserInput {
-    email?: string;
-    password?: string;
-    age?: number;
-}
 
-interface ValidationError {
-    field: string;
-    message: string;
-    code: string;
-}
 
-export class ErrorTestService {
-    private validateUser(data: UserInput): ValidationError[] {
-        const errors: ValidationError[] = [];
-        
-        // Check multiple fields
-        if (!data.email) {
-            errors.push({
-                field: 'email',
-                message: 'Email is required',
-                code: 'FIELD_REQUIRED'
-            });
-        }
-        
-        if (data.password && data.password.length < 8) {
-            errors.push({
-                field: 'password',
-                message: 'Password must be at least 8 characters',
-                code: 'INVALID_LENGTH'
-            });
-        }
-    
-        if (data.age && data.age < 18) {
-            errors.push({
-                field: 'age',
-                message: 'Must be 18 or older',
-                code: 'INVALID_VALUE'
-            });
-        }
-    
-        return errors;
-    }
+
+
+export class ErrorTestService {    
 
     async BadRequestError(data: UserInput): Promise<never> {
-        const validationErrors = this.validateUser(data);
+        const validationErrors = validateUser(data);
         if (validationErrors.length > 0) {
             throw new _ERROR.BadRequestError({
                 message: 'Validation failed',

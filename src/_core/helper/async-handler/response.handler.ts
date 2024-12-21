@@ -50,7 +50,7 @@ export class RestHandler {
             data: null,
             meta: {
                 code,
-                status: this.getStatusText(code),
+                status: res.status as string ?? this.getStatusText(code),
                 message,
                 timestamp: new Date().toISOString()
             },
@@ -62,6 +62,6 @@ export class RestHandler {
 
     private static getStatusText(code: number): string {
         return Object.entries(ReasonPhrases)
-            .find(([_, value]) => StatusCodes[value as keyof typeof StatusCodes] === code)?.[1] || 'Unknown Status';
+            .find(([_, value]) => StatusCodes[value as keyof typeof StatusCodes] === code)?.[1] || 'UNKNOWN_STATUS';
     }
 }

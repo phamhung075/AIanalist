@@ -20,8 +20,6 @@ export function errorMiddleware(
 
     // Handle ErrorResponse instances
     if (error instanceof ErrorResponse) {
-        console.log('ErrorResponse handling:', error);
-
         const apiErrors: ApiError[] = error.errors?.map(err => ({
             code: err.code || 'UNKNOWN_ERROR',
             message: err.message,

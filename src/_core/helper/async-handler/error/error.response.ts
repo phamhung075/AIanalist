@@ -287,6 +287,22 @@ class BadRequestError extends ErrorResponse {
     }
 }
 
+class ValidationError extends ErrorResponse {
+    constructor(data: {
+        message?: string;
+        field?: string;
+        errors?: Array<{ field: string; message: string; code?: string }>;
+    }) {
+        super({
+            message: data.message || "Validation Error",
+            status: StatusCodes.BAD_REQUEST,
+            code: 'VALIDATION_ERROR',
+            field: data.field,
+            errors: data.errors
+        });
+    }
+}
+
 // Same pattern for other error classes
 class UnprocessableEntityError extends ErrorResponse {
     constructor(data: {
@@ -308,6 +324,7 @@ class UnprocessableEntityError extends ErrorResponse {
 
 const _ERROR = {
 	BadRequestError, // 400
+    ValidationError, // 400
 	// UnauthorizedError, // 401
 	// PaymentRequiredError, // 402
 	// ForbiddenError, // 403

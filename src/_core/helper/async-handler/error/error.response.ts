@@ -229,21 +229,44 @@ export interface ErrorDetails {
 // }
 
 // src/_core/helper/async-handler/error/error.response.ts
+// src/_core/types/error.types.ts
 export class ErrorResponse extends Error {
     status: number;
+    code: string;
     field?: string;
-    errors?: Array<{ field: string; message: string }>;
+    details?: any;
+    errors?: Array<{ 
+        field: string; 
+        message: string;
+        code?: string;
+    }>;
 
-    constructor(props: {
+    constructor({
+        message,
+        status,
+        code,
+        field,
+        details,
+        errors
+    }: {
         message: string;
         status: number;
+        code: string;
         field?: string;
-        errors?: Array<{ field: string; message: string }>;
+        details?: any;
+        errors?: Array<{ 
+            field: string; 
+            message: string;
+            code?: string;
+        }>;
     }) {
-        super(props.message);
-        this.status = props.status;
-        this.field = props.field;
-        this.errors = props.errors;
+        super(message);
+        this.name = this.constructor.name;
+        this.status = status;
+        this.code = code;
+        this.field = field;
+        this.details = details;
+        this.errors = errors;
     }
 }
 
@@ -251,11 +274,12 @@ class BadRequestError extends ErrorResponse {
     constructor(data: {
         message?: string;
         field?: string;
-        errors?: Array<{ field: string; message: string }>;
+        errors?: Array<{ field: string; message: string; code?: string }>;
     }) {
         super({
             message: data.message || ReasonPhrases.BAD_REQUEST,
             status: StatusCodes.BAD_REQUEST,
+            code: 'BAD_REQUEST',
             field: data.field,
             errors: data.errors
         });
@@ -267,11 +291,12 @@ class UnprocessableEntityError extends ErrorResponse {
     constructor(data: {
         message?: string;
         field?: string;
-        errors?: Array<{ field: string; message: string }>;
+        errors?: Array<{ field: string; message: string; code?: string }>;
     }) {
         super({
             message: data.message || ReasonPhrases.UNPROCESSABLE_ENTITY,
             status: StatusCodes.UNPROCESSABLE_ENTITY,
+            code: 'UNPROCESSABLE_ENTITY',
             field: data.field,
             errors: data.errors
         });

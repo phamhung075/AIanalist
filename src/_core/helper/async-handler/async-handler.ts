@@ -86,6 +86,7 @@ __________________________________________
 function handleError(_req: ExtendedFunctionRequest, res: Response, error: any) {
     if (!res.headersSent) {
         if (error instanceof ErrorResponse) {
+            console.log('error instanceof ErrorResponse', error);
             return RestHandler.error(res, {
                 code: error.status,
                 message: error.message,
@@ -95,9 +96,11 @@ function handleError(_req: ExtendedFunctionRequest, res: Response, error: any) {
                 }]
             });
         }
+        console.log('error not instanceof ErrorResponse', error);
 
         // Handle unexpected errors
         return RestHandler.error(res, {
+
             code: StatusCodes.INTERNAL_SERVER_ERROR,
             message: 'An unexpected error occurred',
             errors: [{

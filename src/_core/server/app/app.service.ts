@@ -224,7 +224,7 @@ export class AppService {
 	private showRequestUrl(req: express.Request, _: express.Response, next: express.NextFunction): void {
 		console.log('\n--------------------------------------------------------------------------------------------------------------');
 		if (!isEmpty(req.originalUrl)) console.log('Request URL:', `${req.headers.host}${req.originalUrl}`);
-		if (!isEmpty(req.method)) console.log('Method:', req.method);
+		if (!isEmpty(req.method)) console.log('Method:', yellow(req.method));
 		if (!isEmpty(req.body)) console.log('Body:', JSON.stringify(req.body, null, 2));
 		if (!isEmpty(req.params)) console.log('Params:', JSON.stringify(req.params, null, 2));
 		if (!isEmpty(req.query)) console.log('Query:', JSON.stringify(req.query, null, 2));

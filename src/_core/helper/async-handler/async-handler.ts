@@ -1,10 +1,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { NextFunction, Response } from 'express';
+import { NextFunction, RequestHandler, Response } from 'express';
 import { ErrorResponse } from './error/error.response';
 import { HttpStatusCode } from './common/httpStatusCode';
 import { ExtendedFunctionRequest } from '../../guard/handle-permission/user-context.interface';
 import { RestHandler } from './common/response.handler';
+import { AsyncHandlerFn } from '../register-routes/registerRoutes';
 const { StatusCodes } = HttpStatusCode;
 
 // Middleware function to log responses and errors
@@ -26,36 +27,37 @@ export function logResponseMiddleware(
     };
 }
 
-// Async handler function
-export const asyncHandlerFn = (
-    fn: (req: ExtendedFunctionRequest, res: Response, next: NextFunction) => Promise<any>
-) => logResponseMiddleware(async (req: ExtendedFunctionRequest, res: Response, next: NextFunction) => {
-    const startTime = Date.now();
+export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) => 
+    logResponseMiddleware(async (
+        req: ExtendedFunctionRequest, 
+        res: Response, 
+        next: NextFunction
+    ) => {
+        const startTime = Date.now();
 
-    try {
-        const result = await fn(req, res, next);
+        try {
+            const result = await handler(req, res, next);
 
-        if (!res.headersSent) {
-            const baseUrl = `${req.protocol}://${req.get('host')}`;
-            const resourceUrl = `${baseUrl}${req.originalUrl}`;
+            if (!res.headersSent) {
+                const baseUrl = `${req.protocol}://${req.get('host')}`;
+                const resourceUrl = `${baseUrl}${req.originalUrl}`;
 
-            return RestHandler.success(res, {
-                data: result,             
-                links: {
-                    self: resourceUrl,
-                    // Add other HATEOAS links as needed
-                }
-            });
+                return RestHandler.success(res, {
+                    data: result,             
+                    links: {
+                        self: resourceUrl,
+                    }
+                });
+            }
+        } catch (error: any) {
+            const logDir = createLogDir();
+            const logger = createLogger(logDir);
+            logger.logError(createErrorLog(req, error, startTime));
+            
+            handleError(req, res, error);
+            next(error);
         }
-    } catch (error: any) {
-        const logDir = createLogDir();
-        const logger = createLogger(logDir);
-        logger.logError(createErrorLog(req, error, startTime));
-        
-        handleError(req, res, error);
-        next(error);
-    }
-});
+    });
 
 // Logger utility
 function createLogger(logDir: string) {

@@ -1,23 +1,37 @@
+// routes.ts
 import { createRouter } from '@src/_core/helper/create-router-path';
-import { ErrorController } from './error.controller';
-import { ErrorTestService } from './error.service';
 import { asyncHandlerFn } from '@src/_core/helper/async-handler/async-handler';
+import { BaseController, registerRoutes, Routes } from '@/_core/helper/register-routes/registerRoutes';
+import { RequestHandler } from '@node_modules/@types/express';
+import { controller } from '.';
+export interface IErrorController extends BaseController {
+    BadRequestError: RequestHandler;
+    ValidationError: RequestHandler;
+}
 
-// Créer un routeur Express
 const router = createRouter(__filename);
-const controller = new ErrorController(new ErrorTestService());
 
-const routes = {
-    'bad-request': controller.BadRequestError,
-    'validation': controller.ValidationError,
-    // ... other routes
+const routes: Routes<IErrorController> = {
+    GET: {
+        BadRequestError: 'bad-request'
+    },
+    // POST: {
+    //     BadRequestError: 'bad-request',
+    //     ValidationError: 'validation'
+    // },
+    // PUT: {
+    //     BadRequestError: 'bad-request',
+    //     ValidationError: 'validation'
+    // },
+    // DELETE: {
+    //     BadRequestError: 'bad-request',
+    //     ValidationError: 'validation'
+    // },
+    // PATCH: {
+    //     BadRequestError: 'bad-request',
+    //     ValidationError: 'validation'
+    // }
 };
 
-Object.entries(routes).forEach(([path, handler]) => {
-    router.get(
-        `/error/${path}`,
-        asyncHandlerFn(handler.bind(controller))
-    );
-});
-
+registerRoutes<IErrorController>(router, routes, controller, asyncHandlerFn);
 export default router;

@@ -1,47 +1,48 @@
-// src/modules/error/error.controller.ts
-import { Response } from 'express';
-import { StatusCodes } from '@src/_core/helper/async-handler/common/statusCodes';
+import _ERROR from '@/_core/helper/async-handler/error/error.response';
+import { _SUCCESS } from '@/_core/helper/async-handler/success/success.response';
+import { validateUser } from '@/_core/helper/validation/user/user.validation';
+import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { ErrorTestService } from './error.service';
-import { ExtendedUserContextRequest } from '@src/_core/guard/handle-permission/user-context.interface';
-import { RestHandler } from '@src/_core/helper/async-handler/common/response.handler';
+import { ControllerMethod } from '@/_core/helper/register-routes/registerRoutes';
 
 export class ErrorController {
-    constructor(private readonly errorService: ErrorTestService) { }
+    [key: string]: ControllerMethod | unknown; 
 
-    BadRequestError = async (req: ExtendedUserContextRequest, res: Response): Promise<Response> => {
+    constructor(private readonly errorService: ErrorTestService) {}
 
-        const result = await this.errorService.BadRequestError(req.body);
-
-        return RestHandler.success(res, result);
-
-    };
-
-    ValidationError = async (req: ExtendedUserContextRequest, res: Response): Promise<Response> => {
-        try {
-            await this.errorService.ValidationError({
-                message: req.body.message,
-                field: req.body.field,
-                errors: req.body.errors
-            });
-        } catch (error: any) {
-            return RestHandler.error(res, {
-                code: StatusCodes.UNPROCESSABLE_ENTITY,
+    /**
+     * Handles Bad Request Error
+     */
+    public BadRequestError: RequestHandler = async (req: Request, res: Response, _next: NextFunction) => {
+        const validationErrors = validateUser(req.body);
+        if (validationErrors.length > 0) {
+            throw new _ERROR.BadRequestError({
                 message: 'Validation failed',
-                errors: error.errors || [{
-                    code: 'VALIDATION_ERROR',
-                    message: error.message,
-                    field: error.field
-                }]
+                errors: validationErrors,
             });
         }
-        return RestHandler.error(res, {
-            code: StatusCodes.UNPROCESSABLE_ENTITY,
-            message: 'Validation failed',
-            errors: [{
-                code: 'VALIDATION_ERROR',
+
+        new _SUCCESS.OKResponse({
+            message: 'Create checkout success',
+            metadata: await this.errorService.BadRequestError(req.body),
+        }).send(res);
+    };
+
+    /**
+     * Handles Validation Error
+     */
+    public ValidationError: RequestHandler = async (req: Request, res: Response, _next: NextFunction) => {
+        const validationErrors = validateUser(req.body);
+        if (validationErrors.length > 0) {
+            throw new _ERROR.ValidationError({
                 message: 'Validation failed',
-                field: 'field'
-            }]
-        });
+                errors: validationErrors,
+            });
+        }
+
+        new _SUCCESS.OKResponse({
+            message: 'Validation success',
+            // metadata: await this.errorService.ValidationError(req.body),
+        }).send(res);
     };
 }

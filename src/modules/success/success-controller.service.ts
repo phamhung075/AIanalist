@@ -1,4 +1,4 @@
-import { ExtendedUserContextRequest } from "@@src/_core/guard/handle-permission/user-context.interface";
+import { ExtendedUserContextRequest } from "@src/_core/guard/handle-permission/user-context.interface";
 import _ERROR from "../../_core/helper/async-handler/error/error.response";
 import { _SUCCESS } from "../../_core/helper/async-handler/success/success.response";
 import { SuccessTestService } from "./success.service";

@@ -132,11 +132,11 @@
 		"incremental": true, // Enable incremental compilation for faster builds
 		"baseUrl": ".",
 		"outDir": "dist",
-		"paths": {
-			"@@*": [
-				"./*"
-			], //root
+		"paths": {	
 			"@/*": [
+				"src/*"
+			],
+			"@src/*": [
 				"src/*"
 			],
 			"@scripts/*": [

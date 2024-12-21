@@ -1,7 +1,7 @@
 import { tradingEconomicsNewCloudService } from ".";
 import { asyncHandlerFn } from '../../_core/helper/async-handler/async-handler';
 import { withUserContextAndPermissions } from '../../_core/guard/handle-permission/user-context.middleware';
-import { createRouter } from '@@src/_core/helper/create-router-path';
+import { createRouter } from '@src/_core/helper/create-router-path';
 
 
 // Créer un routeur Express

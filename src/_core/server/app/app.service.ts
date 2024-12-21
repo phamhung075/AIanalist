@@ -12,7 +12,7 @@ import { SimpleLogger } from '../../logger/simple-logger'; // Assuming SimpleLog
 // Determine the environment and load the corresponding .env file
 import { config, showConfig } from '@config/index';
 import { blue, green, yellow, cyan } from 'colorette';
-import { isRunningWithNodemon } from '@@src/_core/helper/check-nodemon';
+import { isRunningWithNodemon } from '@src/_core/helper/check-nodemon';
 
 
 const env = config.env;

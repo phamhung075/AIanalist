@@ -1,7 +1,7 @@
-import { createRouter } from '@@src/_core/helper/create-router-path';
+import { createRouter } from '@src/_core/helper/create-router-path';
 import { ErrorController } from './error.controller';
 import { ErrorTestService } from './error.service';
-import { asyncHandlerFn } from '@@src/_core/helper/async-handler/async-handler';
+import { asyncHandlerFn } from '@src/_core/helper/async-handler/async-handler';
 
 // Créer un routeur Express
 const router = createRouter(__filename);

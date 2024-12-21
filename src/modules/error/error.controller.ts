@@ -1,9 +1,9 @@
 // src/modules/error/error.controller.ts
 import { Response } from 'express';
-import { StatusCodes } from '@@src/_core/helper/async-handler/common/statusCodes';
+import { StatusCodes } from '@src/_core/helper/async-handler/common/statusCodes';
 import { ErrorTestService } from './error.service';
-import { ExtendedUserContextRequest } from '@@src/_core/guard/handle-permission/user-context.interface';
-import { RestHandler } from '@@src/_core/helper/async-handler/common/response.handler';
+import { ExtendedUserContextRequest } from '@src/_core/guard/handle-permission/user-context.interface';
+import { RestHandler } from '@src/_core/helper/async-handler/common/response.handler';
 
 export class ErrorController {
     constructor(private readonly errorService: ErrorTestService) {}

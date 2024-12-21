@@ -1,4 +1,4 @@
-// import { createRouter } from '@@src/_core/helper/create-router-path';
+// import { createRouter } from '@src/_core/helper/create-router-path';
 // import { successTestCloudService } from '.';
 // import { asyncHandlerFn } from '../../_core/helper/async-handler/async-handler';
 

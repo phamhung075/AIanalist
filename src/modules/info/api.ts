@@ -1,6 +1,6 @@
 import { infoCloudService } from ".";
 import { asyncHandlerFn } from '../../_core/helper/async-handler/async-handler';
-import { createRouter } from '@@src/_core/helper/create-router-path';
+import { createRouter } from '@src/_core/helper/create-router-path';
 
 // Instead of creating a standard Express router, use our createRouter helper
 const router = createRouter(__filename);

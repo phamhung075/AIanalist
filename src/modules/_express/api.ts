@@ -1,7 +1,7 @@
 // // src/_core/server/routes.ts
 // import { database } from '@/_core/database/firebase/config'; // Import Firebase configuration
-// import _ERROR from '@@src/_core/helper/async-handler/error/error.response';
-// import { createRouter } from '@@src/_core/helper/create-router-path';
+// import _ERROR from '@src/_core/helper/async-handler/error/error.response';
+// import { createRouter } from '@src/_core/helper/create-router-path';
 // import { cleanFirebaseData } from '@utils/clean-doublon';
 // import { getAllFiles } from '@utils/get-all-files';
 // import { getAllContentFromFirebase, getContentById, updateNewsTimestamps } from '@utils/get-data';

@@ -6,7 +6,7 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { getDatabase } from 'firebase/database'; // Import for Realtime Database
 
 import { getAuth } from 'firebase/auth';  // For Authentication
-import { firebaseConfig } from "@@src/_core/config";
+import { firebaseConfig } from "@src/_core/config";
 import { yellow } from 'colorette';
 
 // Your web app's Firebase configuration

@@ -1,4 +1,4 @@
-import { ExtendedUserContextRequest } from "@@src/_core/guard/handle-permission/user-context.interface";
+import { ExtendedUserContextRequest } from "@src/_core/guard/handle-permission/user-context.interface";
 import { TradingEconomicsNew } from "../../models/TradingEconomicsNew.model";
 import { BaseRepositoryController } from "../_base/crud/baseRepository.controller.abstract";
 import { TradingEconomicsNewService } from "./trading-economics-new.service";

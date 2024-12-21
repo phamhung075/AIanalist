@@ -6,6 +6,7 @@ class SuccessResponse {
 	status: number;
 	metadata: any;
 	options: any;
+	data: any;
 	constructor({ message, statusCode = StatusCodes.OK, reasonPhrase = ReasonPhrases.OK, metadata = {}, options = {}, data ={} }: { message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any, options?: any, data?: any }) {
 		this.message = !message ? reasonPhrase : message;
 		this.status = statusCode;

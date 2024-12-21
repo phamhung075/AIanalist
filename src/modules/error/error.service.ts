@@ -47,7 +47,6 @@ export class ErrorTestService {
     async BadRequestError(data: UserInput): Promise<never> {
         const validationErrors = this.validateUser(data);
         if (validationErrors.length > 0) {
-			// console.log("validationErrors", validationErrors);
             throw new _ERROR.BadRequestError({
                 message: 'Validation failed',
                 errors: validationErrors

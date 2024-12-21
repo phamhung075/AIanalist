@@ -1,16 +1,15 @@
-import cors from 'cors';  // Correct way to import
+import { RouteDisplay } from '@/_core/helper/route-display/route-display.index';
+import cors from 'cors'; // Correct way to import
+import dotenv from 'dotenv';
+import express from 'express';
 import * as fs from "fs";
-import * as path from "path";
 import * as http from "http";
 import * as https from "https";
-import express from 'express';
-import dotenv from 'dotenv';
-import { SimpleLogger } from '../../logger/simple-logger';  // Assuming SimpleLogger is used for logging
-import { logRoutes } from '../../logger/log-route';
 import { isEmpty } from 'lodash';
-import { checkSystemOverload } from '../../helper/check-system-overload/check-system-overload';
+import * as path from "path";
 import { modules } from '../../../main';
-import { RouteDisplay } from '@/_core/helper/route-display/route-display.index';
+import { checkSystemOverload } from '../../helper/check-system-overload/check-system-overload';
+import { SimpleLogger } from '../../logger/simple-logger'; // Assuming SimpleLogger is used for logging
 // Determine the environment and load the corresponding .env file
 const env = process.env.NODE_ENV || 'development';
 const envFile = path.resolve(__dirname, `../../../../environment/.env.${env}`);
@@ -235,3 +234,4 @@ export class AppService {
 const appService = AppService.getInstance();
 
 export { appService };
+

@@ -6,29 +6,15 @@ import { ExtendedUserContextRequest } from '@src/_core/guard/handle-permission/u
 import { RestHandler } from '@src/_core/helper/async-handler/common/response.handler';
 
 export class ErrorController {
-    constructor(private readonly errorService: ErrorTestService) {}
+    constructor(private readonly errorService: ErrorTestService) { }
 
     BadRequestError = async (req: ExtendedUserContextRequest, res: Response): Promise<Response> => {
-        try {
-			console.log('BadRequestError');
-            await this.errorService.BadRequestError({
-                message: req.body.message,
-                field: req.body.field
-            });
-            
-            // This won't be reached because the service always throws
-            return RestHandler.success(res, { data: null });
-        } catch (error: any) {
-            return RestHandler.error(res, {
-                code: error.status || StatusCodes.BAD_REQUEST,
-                message: error.message || 'Bad Request',
-                errors: [{
-                    code: 'BAD_REQUEST',
-                    message: error.message,
-                    field: error.field
-                }]
-            });
-        }
+        console.log('BadRequestError');
+        console.log(req.body);
+        const result = await this.errorService.BadRequestError(req.body);
+
+        return RestHandler.success(res, result);
+
     };
 
     ValidationError = async (req: ExtendedUserContextRequest, res: Response): Promise<Response> => {
@@ -49,7 +35,7 @@ export class ErrorController {
                 }]
             });
         }
-		return RestHandler.error(res, {
+        return RestHandler.error(res, {
             code: StatusCodes.UNPROCESSABLE_ENTITY,
             message: 'Validation failed',
             errors: [{

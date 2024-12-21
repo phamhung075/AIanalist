@@ -239,6 +239,7 @@ export class ErrorResponse extends Error {
         field: string; 
         message: string;
         code?: string;
+        details?: any;
     }>;
 
     constructor({

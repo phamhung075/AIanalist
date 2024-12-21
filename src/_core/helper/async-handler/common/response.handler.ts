@@ -42,6 +42,7 @@ export class RestHandler {
         code?: number;
         message?: string;
     }): Response {
+
         const response: RestResponse = {
             data: null,
             meta: {
@@ -52,7 +53,7 @@ export class RestHandler {
             },
             errors
         };
-
+        console.error(response);
         return res.status(code).json(response);
     }
 

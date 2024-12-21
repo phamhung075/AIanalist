@@ -90,17 +90,17 @@ function handleError(_req: ExtendedFunctionRequest, res: Response, error: any) {
             return RestHandler.error(res, {
                 code: error.status,
                 message: error.message,
-                errors: [{
-                    code: error.constructor.name.replace('Error', '').toUpperCase(),
-                    message: error.message
-                }]
+                errors: error.errors?.map(err => ({
+                    code: err.code || 'UNKNOWN_ERROR',
+                    message: err.message,
+                    field: err.field,
+                }))
             });
         }
         console.log('error not instanceof ErrorResponse', error);
 
         // Handle unexpected errors
         return RestHandler.error(res, {
-
             code: StatusCodes.INTERNAL_SERVER_ERROR,
             message: 'An unexpected error occurred',
             errors: [{
@@ -110,7 +110,6 @@ function handleError(_req: ExtendedFunctionRequest, res: Response, error: any) {
         });
     }
 }
-
 // Create log directory
 function createLogDir(): string {
     const now = new Date();

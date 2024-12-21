@@ -1,11 +1,9 @@
-// src/_core/middleware/error.middleware.ts
-import { Request, Response, NextFunction } from 'express';
-import { HttpStatusCode } from '../helper/async-handler/common/httpStatusCode';
-import { ErrorResponse } from '../helper/async-handler/error/error.response';
-import { RestHandler } from '../helper/async-handler/response.handler';
-
-
-const { StatusCodes } = HttpStatusCode;
+import { NextFunction } from "@node_modules/@types/express";
+import { StatusCodes } from "../helper/async-handler/common/statusCodes";
+import { RestHandler } from "../helper/async-handler/response.handler";
+import { ApiError } from "../types/response.types";
+import { ErrorResponse } from "../helper/async-handler/error/error.response";
+import { Response } from 'express';
 
 export function errorMiddleware(
     error: Error,
@@ -20,44 +18,55 @@ export function errorMiddleware(
         timestamp: new Date().toISOString()
     });
 
-    // Handle different types of errors
+    // Handle ErrorResponse instances
     if (error instanceof ErrorResponse) {
+        console.log('ErrorResponse handling:', error);
+
+        const apiErrors: ApiError[] = error.errors?.map(err => ({
+            code: err.code || 'UNKNOWN_ERROR',
+            message: err.message,
+            field: err.field,
+            details: err.details
+        })) || [{
+            code: error.code || 'UNKNOWN_ERROR',
+            message: error.message,
+            field: error.field
+        }];
+
         return RestHandler.error(res, {
             code: error.status,
             message: error.message,
-            errors: [
-                {
-                    code: error.code,
-                    message: error.message,
-                    ...(error.field && { field: error.field }),
-                    ...(error.details && { details: error.details })
-                },
-                ...(error.errors || [])
-            ]
+            errors: apiErrors
         });
     }
 
     // Handle validation errors
     if (error.name === 'ValidationError' && 'errors' in error) {
         const validationError = error as any;
+        
+        const apiErrors: ApiError[] = validationError.errors?.map((err: any) => ({
+            code: 'VALIDATION_ERROR',
+            message: err.message,
+            field: err.path,
+            details: err.value
+        })) || [];
+
         return RestHandler.error(res, {
             code: StatusCodes.UNPROCESSABLE_ENTITY,
             message: 'Validation failed',
-            errors: validationError.errors?.map((err: any) => ({
-                code: 'VALIDATION_ERROR',
-                message: err.message,
-                field: err.path
-            })) || []
+            errors: apiErrors
         });
     }
 
     // Handle unexpected errors
+    console.error('Unexpected error:', error);
     return RestHandler.error(res, {
         code: StatusCodes.INTERNAL_SERVER_ERROR,
         message: 'Internal Server Error',
         errors: [{
             code: 'INTERNAL_SERVER_ERROR',
-            message: error.message || 'An unexpected error occurred'
+            message: error.message || 'An unexpected error occurred',
+            details: process.env.NODE_ENV === 'development' ? error.stack : undefined
         }]
     });
 }

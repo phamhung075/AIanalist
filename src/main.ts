@@ -3,6 +3,6 @@ export const modules = [
 	'error',
 	'success',
 	'trading-economics-new',
-	'_express/routes/api.ts'
+	'_express'
 	//... other modules
 ];

@@ -26,7 +26,3 @@ export interface Routes {
  */
 export type Controller<T extends Record<string, RequestHandler>> = T;
 
-/**
- * Asynchronous Handler Function Type
- */
-export type AsyncHandlerFn = (fn: RequestHandler) => RequestHandler;

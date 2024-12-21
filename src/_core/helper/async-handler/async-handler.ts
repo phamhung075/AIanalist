@@ -1,11 +1,11 @@
+import { NextFunction, RequestHandler, Response } from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
-import { NextFunction, RequestHandler, Response } from 'express';
-import { ErrorResponse } from './error/error.response';
-import { HttpStatusCode } from './common/httpStatusCode';
 import { ExtendedFunctionRequest } from '../../guard/handle-permission/user-context.interface';
+import { HttpStatusCode } from './common/httpStatusCode';
 import { RestHandler } from './common/response.handler';
-import { AsyncHandlerFn } from '../register-routes/registerRoutes';
+import { ErrorResponse } from './error/error.response';
+import { AsyncHandlerFn } from '../register-routes/RegisterRoutes';
 const { StatusCodes } = HttpStatusCode;
 
 // Middleware function to log responses and errors

@@ -1,7 +1,7 @@
 // routes.ts
 import { createRouter } from '@src/_core/helper/create-router-path';
 import { asyncHandlerFn } from '@src/_core/helper/async-handler/async-handler';
-import { BaseController, registerRoutes, Routes } from '@/_core/helper/register-routes/registerRoutes';
+import { BaseController, registerRoutes, Routes } from '@/_core/helper/register-routes/RegisterRoutes';
 import { RequestHandler } from '@node_modules/@types/express';
 import { controller } from '.';
 export interface IErrorController extends BaseController {

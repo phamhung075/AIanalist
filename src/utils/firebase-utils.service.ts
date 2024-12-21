@@ -2,8 +2,7 @@ import { getAuth, signInWithCustomToken, signInWithEmailAndPassword, createUserW
 import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs, orderBy, limit, startAfter, deleteDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import * as crypto from 'crypto';
-import { PaginationOptions } from '@src/_core/helper/interfaces/PaginationOptions.interface';
-import { FetchPageResult } from '@src/_core/helper/interfaces/FetchPageResult.interface';
+import { FetchPageResult, PaginationOptions } from '@src/_core/helper/interfaces/FetchPageResult.interface';
 
 
 export class FireBaseUtilsService {

@@ -12,14 +12,11 @@ import { SimpleLogger } from '../../logger/simple-logger'; // Assuming SimpleLog
 // Determine the environment and load the corresponding .env file
 import { config, showConfig } from '@config/index';
 import { blue, green, yellow, cyan } from 'colorette';
+import { isRunningWithNodemon } from '@@src/_core/helper/check-nodemon';
 const env = config.env;
 const pathToEnvFile = path.resolve(__dirname, `../../../../environment/.env.${env}`);
 const envFile = path.resolve(pathToEnvFile);
-if (process.env.__NODEMON__) {
-	console.log('Running with Nodemon!');
-  } else {
-	console.log('Running without Nodemon!');
-  }
+isRunningWithNodemon()
   
 // Load environment variables from the .env file
 console.log(green(`Loading environment from  ${blue(envFile)}`));

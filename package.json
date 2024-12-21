@@ -6,7 +6,7 @@
 	"scripts": {
 		"build": "tsc",
 		"start": "cross-env NODE_ENV=production node -r tsconfig-paths/register dist/_core/server/server.js",
-		"dev": "cross-env NODE_ENV=development nodemon --watch src/**/*.ts --exec ts-node -r tsconfig-paths/register src/_core/server/server.ts"
+		"dev": "cross-env NODE_ENV=development NODEMON=true nodemon --watch src/**/*.ts --exec ts-node -r tsconfig-paths/register src/_core/server/server.ts"
 	},
 	"keywords": [],
 	"author": "",
@@ -31,7 +31,7 @@
 		"@types/node": "^22.5.4",
 		"cross-env": "^7.0.3",
 		"husky": "^9.1.5",
-		"nodemon": "^3.1.4",
+		"nodemon": "^3.1.9",
 		"standard-version": "^9.5.0",
 		"ts-node": "^10.9.2",
 		"tsconfig-paths": "^4.2.0",

@@ -13,7 +13,7 @@ const validationRules: ValidationRule<UserInput>[] = [
         validate: (value) => Boolean(value && value.includes('@')),
         message: 'Email is required and must be valid',
         code: 'FIELD_REQUIRED'
-    },
+    },    
     {
         field: 'password',
         validate: (value) => value?.length >= 8,

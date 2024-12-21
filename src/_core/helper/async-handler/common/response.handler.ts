@@ -53,7 +53,6 @@ export class RestHandler {
             },
             errors
         };
-        console.error(response);
         return res.status(code).json(response);
     }
 

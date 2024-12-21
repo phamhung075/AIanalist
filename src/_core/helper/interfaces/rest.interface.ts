@@ -15,7 +15,7 @@ export interface ResponseMeta {
 
 export interface RestResponse<T = any> {
     data: T | null;
-    meta: ResponseMeta;
+    metadata: ResponseMeta;
     links?: {
         self: string;
         first?: string;

@@ -1,14 +1,23 @@
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T> {
     success: boolean;
-    data: T | null;
-    meta: {
+    code: number;
+    message: string;
+    data: T;
+    metadata?: {
         timestamp: string;
-        code: number;
-        status: string;
-        message?: string;
-        pagination?: PaginationMeta;
+        path: string;
+        pagination?: {
+            page: number;
+            limit: number;
+            total: number;
+        };
+        request?: {
+            id: string;
+            timestamp: string;
+        };
+        code?: number;
+        status?: string;
     };
-    errors?: ApiError[];
 }
 
 export interface ApiError {

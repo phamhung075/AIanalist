@@ -15,12 +15,12 @@ export class RestHandler {
         data: T;
         code?: number;
         message?: string;
-        pagination?: RestResponse['meta']['pagination'];
+        pagination?: RestResponse['metadata']['pagination'];
         links?: RestResponse['links'];
     }): Response {
         const response: RestResponse<T> = {
             data,
-            meta: {
+            metadata: {
                 code,
                 status: this.getStatusText(code),
                 message,
@@ -45,7 +45,7 @@ export class RestHandler {
 
         const response: RestResponse = {
             data: null,
-            meta: {
+            metadata: {
                 code,
                 status: this.getStatusText(code),
                 message,

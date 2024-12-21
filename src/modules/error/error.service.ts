@@ -7,12 +7,13 @@ import _ERROR from "../../_core/helper/async-handler/error";
 
 export class ErrorTestService {
 
-    async BadRequestError(data: UserInput): Promise<never> {
+    async BadRequestError(data: UserInput): Promise<any> {
         console.log(data)
         // If we get here, validation passed
-        throw new _ERROR.BadRequestError({
-            message: 'This is a test error',
-        });
+        // throw new _ERROR.BadRequestError({
+        //     message: 'This is a test error',
+        // });
+        return data
     }
 
 

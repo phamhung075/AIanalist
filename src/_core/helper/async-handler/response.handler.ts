@@ -1,7 +1,7 @@
 // src/_core/utils/response.handler.ts
 import { Response } from 'express';
 import { HttpStatusCode } from './common/HttpStatusCode';
-import { PaginationMeta } from './interfaces/rest.interface';
+import { PaginationMeta } from '../interfaces/rest.interface';
 import { ApiError, ApiResponse } from '@src/_core/types/response.types';
 
 const { StatusCodes, ReasonPhrases } = HttpStatusCode;

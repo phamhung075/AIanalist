@@ -1,7 +1,7 @@
 // src/_core/utils/response.handler.ts
 import { Response } from 'express';
 import { HttpStatusCode } from './HttpStatusCode';
-import { RestResponse } from '../interfaces/rest.interface';
+import { RestResponse } from '../../interfaces/rest.interface';
 const { StatusCodes, ReasonPhrases } = HttpStatusCode;
 
 export class RestHandler {

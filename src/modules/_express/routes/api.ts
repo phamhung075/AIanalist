@@ -7,7 +7,7 @@ import { getAllFiles } from '@utils/get-all-files';
 import { getAllContentFromFirebase, getContentById, updateNewsTimestamps } from '@utils/get-data';
 import { getLatestFile } from '@utils/get-latest-file';
 import { postNewsDataToFirebase, previewProcessedData, ProcessedDataPost, updateLastProcessedData, UpdateProcess } from '@utils/post-data';
-import { database } from '@database/firebase/firebase'; // Import Firebase configuration
+import { database } from '@/_core/database/firebase/config'; // Import Firebase configuration
 import { packageJson } from '../../../_core/utils/utils';
 const fs = require('fs').promises;
 

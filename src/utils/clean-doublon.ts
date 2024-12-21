@@ -1,5 +1,5 @@
 import { ref, get, child, remove } from "firebase/database";
-import { database } from '../_core/server/firebase/firebase';  // Import Firebase config
+import { database } from '../_core/server/firebase/config';  // Import Firebase config
 
 /**
  * Clean duplicate data from the 'news' node in Firebase based on the `title` field.

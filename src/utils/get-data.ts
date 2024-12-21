@@ -1,5 +1,5 @@
 import { ref, get, getDatabase, update } from "firebase/database";
-import { database } from '../_core/server/firebase/firebase';
+import { database } from '@database/firebase/config';
 
 /**
  * Convert relative time string to hours

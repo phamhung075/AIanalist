@@ -53,8 +53,7 @@ export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) =>
         } catch (error: any) {
             console.log(yellow("Error in asyncHandlerFn:"));
             const logDir = createLogDir();
-            const baseUrl = `${req.protocol}://${req.get('host')}`;
-            const logger = createLogger(logDir, baseUrl);
+            const logger = createLogger(logDir);
             logger.logError(createErrorLog(req, error, startTime));
             
             handleError(req, res, error);
@@ -63,13 +62,13 @@ export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) =>
     });
 
 // Logger utility
-function createLogger(logDir: string, api: string) {
+function createLogger(logDir: string) {
     return {
         logError: (message: string) => {
-            fs.appendFileSync(path.join(logDir, "error" ,api, '.txt'), message + '\n', 'utf8');
+            fs.appendFileSync(path.join(logDir, 'error-log.txt'), message + '\n', 'utf8');
         },
         logResponse: (message: string) => {
-            fs.appendFileSync(path.join(logDir, "success",api, '.txt'), message + '\n', 'utf8');
+            fs.appendFileSync(path.join(logDir, 'response-log.txt'), message + '\n', 'utf8');
         }
     };
 }

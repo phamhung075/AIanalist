@@ -23,6 +23,7 @@ describe('ContactController', () => {
     mockResponse = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
+      setHeader: jest.fn(), // Mock setHeader explicitly
     };
   });
 
@@ -43,7 +44,22 @@ describe('ContactController', () => {
       jest.fn()
     );
 
+    expect(mockResponse.setHeader).toHaveBeenCalledWith('X-Response-Time', expect.any(String));
     expect(mockResponse.status).toHaveBeenCalledWith(201);
-    expect(mockResponse.json).toHaveBeenCalledWith({ id: '1', name: 'John' });
+    expect(mockResponse.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Contact created successfully',
+      data: {
+        id: '1',
+        name: 'John',
+        email: 'john@example.com',
+        phone: '1234567890',
+        message: 'Hello, this is a test message.',
+      },
+      metadata: expect.objectContaining({
+        timestamp: expect.any(String),
+        responseTime: expect.any(String),
+      }),
+    });
   });
 });

@@ -34,8 +34,9 @@ export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) =>
         res: Response,
         next: NextFunction
     ) => {
+        const startTime = Date.now();
         if (!req.startTime) {
-            req.startTime = Date.now();
+            req.startTime = startTime;
         } 
         try {
             const result = await handler(req, res, next);

@@ -227,7 +227,6 @@ export class AppService {
 			throw error;
 		}
 	}
-
 }
 
 // Initialize the AppService and start the server

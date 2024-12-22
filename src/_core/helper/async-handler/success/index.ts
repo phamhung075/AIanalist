@@ -237,53 +237,223 @@ class CreatedSuccess extends SuccessResponse {
         });
     }
 }
-// class AcceptedSuccess extends SuccessResponse {
-// 	constructor(result = ReasonPhrases.ACCEPTED as unknown, statusCode : string | number = StatusCodes.ACCEPTED) {
-// 		super(result, statusCode);
-// 	}
-// }
 
-// class NoContentSuccess extends SuccessResponse {
-// 	constructor(result = ReasonPhrases.NO_CONTENT as unknown, statusCode : string | number = StatusCodes.NO_CONTENT) {
-// 		super(result, statusCode);
-// 	}
-// }
 
-// class ResetContentSuccess extends SuccessResponse {
-// 	constructor(result = ReasonPhrases.RESET_CONTENT as unknown, statusCode : string | number = StatusCodes.RESET_CONTENT) {
-// 		super(result, statusCode);
-// 	}
-// }
+class AcceptedSuccess extends SuccessResponse {
+	constructor({
+        message,
+        statusCode = StatusCodes.ACCEPTED,
+        reasonPhrase = ReasonPhrases.ACCEPTED,
+        metadata = {},
+        options = {},
+        data = {},
+    }: {
+        message?: string;
+        statusCode?: number;
+        reasonPhrase?: string;
+        metadata?: any;
+        options?: any;
+        data?: any;
+    }) {
+        super({
+            message,
+            statusCode,
+            reasonPhrase,
+            metadata,
+            options,
+            data,
+        });
+    }
+}
 
-// class PartialContentSuccess extends SuccessResponse {
-// 	constructor(result = ReasonPhrases.PARTIAL_CONTENT as unknown, statusCode : string | number = StatusCodes.PARTIAL_CONTENT) {
-// 		super(result, statusCode);
-// 	}
-// }
+class NoContentSuccess extends SuccessResponse {
+	constructor({
+        message,
+        statusCode = StatusCodes.NO_CONTENT,
+        reasonPhrase = ReasonPhrases.NO_CONTENT,
+        metadata = {},
+        options = {},
+        data = {},
+    }: {
+        message?: string;
+        statusCode?: number;
+        reasonPhrase?: string;
+        metadata?: any;
+        options?: any;
+        data?: any;
+    }) {
+        super({
+            message,
+            statusCode,
+            reasonPhrase,
+            metadata,
+            options,
+            data,
+        });
+    }
+}
 
-// class NonAuthoritativeInformationSuccess extends SuccessResponse {
-// 	constructor(result = ReasonPhrases.NON_AUTHORITATIVE_INFORMATION as unknown, statusCode : string | number = StatusCodes.NON_AUTHORITATIVE_INFORMATION) {
-// 		super(result, statusCode);
-// 	}
-// }
+class ResetContentSuccess extends SuccessResponse {
+	constructor({
+        message,
+        statusCode = StatusCodes.RESET_CONTENT,
+        reasonPhrase = ReasonPhrases.RESET_CONTENT,
+        metadata = {},
+        options = {},
+        data = {},
+    }: {
+        message?: string;
+        statusCode?: number;
+        reasonPhrase?: string;
+        metadata?: any;
+        options?: any;
+        data?: any;
+    }) {
+        super({
+            message,
+            statusCode,
+            reasonPhrase,
+            metadata,
+            options,
+            data,
+        });
+    }
+}
 
-// class MultiStatusSuccess extends SuccessResponse {
-// 	constructor(result = ReasonPhrases.MULTI_STATUS as unknown, statusCode : string | number = StatusCodes.MULTI_STATUS) {
-// 		super(result, statusCode);
-// 	}
-// }
+class PartialContentSuccess extends SuccessResponse {
+	constructor({
+        message,
+        statusCode = StatusCodes.PARTIAL_CONTENT,
+        reasonPhrase = ReasonPhrases.PARTIAL_CONTENT,
+        metadata = {},
+        options = {},
+        data = {},
+    }: {
+        message?: string;
+        statusCode?: number;
+        reasonPhrase?: string;
+        metadata?: any;
+        options?: any;
+        data?: any;
+    }) {
+        super({
+            message,
+            statusCode,
+            reasonPhrase,
+            metadata,
+            options,
+            data,
+        });
+    }
+}
 
-// class SeeOtherSuccess extends SuccessResponse {
-// 	constructor(result = ReasonPhrases.SEE_OTHER as unknown, statusCode : string | number = StatusCodes.SEE_OTHER) {
-// 		super(result, statusCode);
-// 	}
-// }
+class NonAuthoritativeInformationSuccess extends SuccessResponse {
+	constructor({
+        message,
+        statusCode = StatusCodes.NON_AUTHORITATIVE_INFORMATION,
+        reasonPhrase = ReasonPhrases.NON_AUTHORITATIVE_INFORMATION,
+        metadata = {},
+        options = {},
+        data = {},
+    }: {
+        message?: string;
+        statusCode?: number;
+        reasonPhrase?: string;
+        metadata?: any;
+        options?: any;
+        data?: any;
+    }) {
+        super({
+            message,
+            statusCode,
+            reasonPhrase,
+            metadata,
+            options,
+            data,
+        });
+    }
+}
 
-// class ProcessingSuccess extends SuccessResponse {
-// 	constructor(result = ReasonPhrases.PROCESSING as unknown, statusCode : string | number = StatusCodes.PROCESSING) {
-// 		super(result, statusCode);
-// 	}
-// }
+class MultiStatusSuccess extends SuccessResponse {
+	constructor({
+        message,
+        statusCode = StatusCodes.MULTI_STATUS,
+        reasonPhrase = ReasonPhrases.MULTI_STATUS,
+        metadata = {},
+        options = {},
+        data = {},
+    }: {
+        message?: string;
+        statusCode?: number;
+        reasonPhrase?: string;
+        metadata?: any;
+        options?: any;
+        data?: any;
+    }) {
+        super({
+            message,
+            statusCode,
+            reasonPhrase,
+            metadata,
+            options,
+            data,
+        });
+    }
+}
+
+class SeeOtherSuccess extends SuccessResponse {
+	constructor({
+        message,
+        statusCode = StatusCodes.SEE_OTHER,
+        reasonPhrase = ReasonPhrases.SEE_OTHER,
+        metadata = {},
+        options = {},
+        data = {},
+    }: {
+        message?: string;
+        statusCode?: number;
+        reasonPhrase?: string;
+        metadata?: any;
+        options?: any;
+        data?: any;
+    }) {
+        super({
+            message,
+            statusCode,
+            reasonPhrase,
+            metadata,
+            options,
+            data,
+        });
+    }
+}
+
+class ProcessingSuccess extends SuccessResponse {
+	constructor({
+        message,
+        statusCode = StatusCodes.PROCESSING,
+        reasonPhrase = ReasonPhrases.PROCESSING,
+        metadata = {},
+        options = {},
+        data = {},
+    }: {
+        message?: string;
+        statusCode?: number;
+        reasonPhrase?: string;
+        metadata?: any;
+        options?: any;
+        data?: any;
+    }) {
+        super({
+            message,
+            statusCode,
+            reasonPhrase,
+            metadata,
+            options,
+            data,
+        });
+    }
+}
 
 /**
  * Export Success Response
@@ -291,14 +461,14 @@ class CreatedSuccess extends SuccessResponse {
 const _SUCCESS = {
     SuccessResponse,
     CreatedSuccess, // 201
-	// AcceptedSuccess, // 202
-	// NoContentSuccess, // 204
-	// ResetContentSuccess, // 205
-	// PartialContentSuccess, // 206
-	// NonAuthoritativeInformationSuccess, // 203
-	// MultiStatusSuccess, // 207
-	// SeeOtherSuccess, // 303
-	// ProcessingSuccess // 102
+	AcceptedSuccess, // 202
+	NoContentSuccess, // 204
+	ResetContentSuccess, // 205
+	PartialContentSuccess, // 206
+	NonAuthoritativeInformationSuccess, // 203
+	MultiStatusSuccess, // 207
+	SeeOtherSuccess, // 303
+	ProcessingSuccess // 102
 
 };
 

@@ -1,4 +1,4 @@
-// src/_core/config/index.ts
+// src/_core/config/dotenv.ts
 import dotenv from 'dotenv';
 import path from 'path';
 import { version, name } from '../../../package.json';
@@ -21,7 +21,6 @@ export const config = {
     host: process.env.HOST || 'localhost',
     dbUri: process.env.DATABASE_URI || 'mongodb://localhost:27017/mydatabase',
     dbName: process.env.DATABASE_NAME || 'mydatabase',
-    
 };
 
 export const firebaseConfig = {

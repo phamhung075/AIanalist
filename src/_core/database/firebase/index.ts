@@ -6,8 +6,8 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { getDatabase } from 'firebase/database'; // Import for Realtime Database
 
 import { getAuth } from 'firebase/auth';  // For Authentication
-import { firebaseConfig } from "@src/_core/config";
 import { yellow } from 'colorette';
+import { firebaseConfig } from "@/_core/config/dotenv.config";
 
 // Your web app's Firebase configuration
 // clear console

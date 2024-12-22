@@ -1,4 +1,4 @@
-import { config } from '@config/index';
+import { config } from '@/_core/config/dotenv.config';
 //console.log(`Loaded environment: ${env}`);
 
 export class InfoService {

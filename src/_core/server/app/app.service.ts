@@ -6,13 +6,13 @@ import * as http from "http";
 import * as https from "https";
 import { isEmpty } from 'lodash';
 import * as path from "path";
-import { modules } from '../../../main';
 import { checkSystemOverload } from '../../helper/check-system-overload/check-system-overload';
 import { SimpleLogger } from '../../logger/simple-logger'; // Assuming SimpleLogger is used for logging
 // Determine the environment and load the corresponding .env file
-import { config, showConfig } from '@config/index';
+import { config, showConfig } from '@/_core/config/dotenv.config';
 import { isRunningWithNodemon } from '@src/_core/helper/check-nodemon';
 import { bgMagenta, bgWhite, blue, blueBright, cyan, green, greenBright, yellow } from 'colorette';
+import { modules } from '@/modules';
 
 
 const env = config.env;

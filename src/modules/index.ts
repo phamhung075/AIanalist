@@ -1,7 +1,7 @@
 export const modules = [
 	// 'info',
-	// 'contact/contact.route',
-	'error/error.route',
+	'contact/contact.route',
+	// 'error/error.route',
 
 	// 'error',
 	// 'success',

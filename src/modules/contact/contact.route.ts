@@ -9,34 +9,33 @@ import {
 } from './contact.validation';
 
 const router = createRouter(__filename);
-
 // Create a new contact
 router.post(
-  '/',
+  '/contact',
   validateSchema(CreateContactSchema),
   (req, res) => contactController.createContact(req, res)
 );
 
 // Get all contacts
-router.get('/', (req, res) => contactController.getAllContacts(req, res));
+router.get('/contacts', (req, res) => contactController.getAllContacts(req, res));
 
 // Get a specific contact by ID
 router.get(
-  '/:id',
+  '/contact/:id',
   validateSchema(ContactIdSchema),
   (req, res) => contactController.getContactById(req, res)
 );
 
 // Update a contact by ID
 router.put(
-  '/:id',
+  '/contact/:id',
   validateSchema(UpdateContactSchema),
   (req, res) => contactController.updateContact(req, res)
 );
 
 // Delete a contact by ID
 router.delete(
-  '/:id',
+  '/contact/:id',
   validateSchema(ContactIdSchema),
   (req, res) => contactController.deleteContact(req, res)
 );

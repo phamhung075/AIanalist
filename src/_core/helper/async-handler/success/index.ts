@@ -214,17 +214,28 @@ class SuccessResponse {
 class CreatedSuccess extends SuccessResponse {
 	constructor({
         message,
-        data,
-        statusCode = StatusCodes.OK,
-        reasonPhrase = ReasonPhrases.OK
+        statusCode = StatusCodes.CREATED,
+        reasonPhrase = ReasonPhrases.CREATED,
+        metadata = {},
+        options = {},
+        data = {},
     }: {
         message?: string;
-        data?: any;
         statusCode?: number;
         reasonPhrase?: string;
+        metadata?: any;
+        options?: any;
+        data?: any;
     }) {
-		super({message, data, statusCode, reasonPhrase});
-	}
+        super({
+            message,
+            statusCode,
+            reasonPhrase,
+            metadata,
+            options,
+            data,
+        });
+    }
 }
 // class AcceptedSuccess extends SuccessResponse {
 // 	constructor(result = ReasonPhrases.ACCEPTED as unknown, statusCode : string | number = StatusCodes.ACCEPTED) {

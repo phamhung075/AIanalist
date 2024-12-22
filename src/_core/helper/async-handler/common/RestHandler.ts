@@ -16,7 +16,7 @@ export class RestHandler {
         code?: number;
         message?: string;
         pagination?: RestResponse['metadata']['pagination'];
-        links?: RestResponse['links'];
+        links?: RestResponse['metadata']['links'];
     }): Response {
         const response: RestResponse<T> = {
             data,
@@ -25,9 +25,9 @@ export class RestHandler {
                 status: this.getStatusText(code),
                 message,
                 timestamp: new Date().toISOString(),
-                ...(pagination && { pagination })
+                ...(pagination && { pagination }),
+                ...(links && { links })
             },
-            ...(links && { links })
         };
 
         return res.status(code).json(response);

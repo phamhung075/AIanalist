@@ -1,90 +1,158 @@
+import { MetaData } from "../../interfaces/rest.interface";
 import { HttpStatusCode } from "../common/HttpStatusCode"
 const { StatusCodes, ReasonPhrases } = HttpStatusCode
-
 class SuccessResponse {
-	message: string;
-	status: number;
-	metadata: any;
-	options: any;
-	data: any;
-	constructor({ message, statusCode = StatusCodes.OK, reasonPhrase = ReasonPhrases.OK, metadata = {}, options = {}, data ={} }: { message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any, options?: any, data?: any }) {
-		this.message = !message ? reasonPhrase : message;
-		this.status = statusCode;
-		this.metadata = metadata;
-		this.options = options;
-		this.data = data;
-	}
+    success: boolean;
+    message: string;
+    status: number;
+    metadata: MetaData;
+    data: any;
+    options?: Record<string, any>;
 
-	send(res: any, _header: any = {}) {
-		return res.status(this.status).json(this);
-	}
+    constructor({
+        message,
+        statusCode = StatusCodes.OK,
+        reasonPhrase = ReasonPhrases.OK,
+        metadata = {},
+        options = {},
+        data = {},
+        req
+    }: {
+        message?: string;
+        statusCode?: number;
+        reasonPhrase?: string;
+        metadata?: Partial<MetaData>;
+        options?: Record<string, any>;
+        data?: any;
+        req?: any;
+    }) {
+        const baseUrl = req ? `${req.protocol}://${req.get('host')}` : '';
+        const requestPath = req ? req.originalUrl : '';
+
+        this.success = true;
+        this.message = !message ? reasonPhrase : message;
+        this.status = statusCode;
+        this.data = data;
+        this.options = Object.keys(options).length > 0 ? options : undefined;
+
+        // Construct metadata
+        this.metadata = {
+            timestamp: new Date().toISOString(),
+            code: statusCode,
+            status: reasonPhrase,
+            ...(req && {
+                path: requestPath,
+                request: {
+                    id: `req_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`,                    
+					timestamp: new Date().toISOString(),
+                    method: req.method,
+                    url: `${baseUrl}${requestPath}`
+                }
+            }),
+            ...metadata
+        };
+    }
+
+    send(res: any, headers: Record<string, any> = {}) {
+        // Add response time to metadata
+        this.metadata.responseTime = `${Date.now() - new Date(this.metadata.timestamp).getTime()}ms`;
+        
+        // Set any custom headers
+        Object.entries(headers).forEach(([key, value]) => {
+            res.set(key, value);
+        });
+
+        return res.status(this.status).json({
+            success: this.success,
+            message: this.message,
+            data: this.data,
+            metadata: this.metadata,
+            ...(this.options && { options: this.options })
+        });
+    }
 }
-
 // Specific classes for each type of successful response
 class OKResponse extends SuccessResponse { // 200
-	constructor({ message, metadata }: { message?: string; metadata?: any }) {
-		super({ message, metadata });
+	constructor({ message, data }: { message?: string; data?: any }) {
+		super({ message, data });
 	}
 }
 
-class CreatedResponse extends SuccessResponse { // 201
-	options: any;
-
-	constructor({ options = {}, message, statusCode = StatusCodes.CREATED, reasonPhrase = ReasonPhrases.CREATED, metadata }: { options?: any; message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any }) {
-		super({ message, statusCode, reasonPhrase, metadata });
-		this.options = options;
-	}
+class CreatedResponse extends SuccessResponse {
+    constructor({ 
+        message, 
+        data,
+        metadata = {},
+        options = {},
+        req
+    }: { 
+        message?: string; 
+        data?: any;
+        metadata?: Partial<MetaData>;
+        options?: Record<string, any>;
+        req?: any;
+    }) {
+        super({ 
+            message, 
+            statusCode: StatusCodes.CREATED, 
+            reasonPhrase: ReasonPhrases.CREATED,
+            data,
+            metadata,
+            options,
+            req
+        });
+    }
 }
 
 class AcceptedResponse extends SuccessResponse { // 202
-	constructor({ options = {}, message, statusCode = StatusCodes.ACCEPTED, reasonPhrase = ReasonPhrases.ACCEPTED, metadata }: { options?: any; message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any }) {
-		super({ message, statusCode, reasonPhrase, metadata });
+	constructor({ options = {}, message, statusCode = StatusCodes.ACCEPTED, reasonPhrase = ReasonPhrases.ACCEPTED, data }: { options?: any; message?: string; statusCode?: number; reasonPhrase?: string; data?: any }) {
+		super({ message, statusCode, reasonPhrase, data });
 		this.options = options;
 	}
 }
 
 class NonAuthoritativeInformationResponse extends SuccessResponse { // 203
-	constructor({ options = {}, message, statusCode = StatusCodes.NON_AUTHORITATIVE_INFORMATION, reasonPhrase = ReasonPhrases.NON_AUTHORITATIVE_INFORMATION, metadata }: { options?: any; message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any }) {
-		super({ message, statusCode, reasonPhrase, metadata });
+	constructor({ options = {}, message, statusCode = StatusCodes.NON_AUTHORITATIVE_INFORMATION, reasonPhrase = ReasonPhrases.NON_AUTHORITATIVE_INFORMATION, data }: { options?: any; message?: string; statusCode?: number; reasonPhrase?: string; data?: any }) {
+		super({ message, statusCode, reasonPhrase, data });
 		this.options = options;
 	}
 }
 
 class NoContentResponse extends SuccessResponse { // 204
-	constructor({ message, statusCode = StatusCodes.NO_CONTENT, reasonPhrase = ReasonPhrases.NO_CONTENT, metadata = null }: { message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any }) {
-		super({ message, statusCode, reasonPhrase, metadata });
+	constructor({ message, statusCode = StatusCodes.NO_CONTENT, reasonPhrase = ReasonPhrases.NO_CONTENT, data = null }: { message?: string; statusCode?: number; reasonPhrase?: string; data?: any }) {
+		super({ message, statusCode, reasonPhrase, data });
 	}
 }
 
 class ResetContentResponse extends SuccessResponse { // 205
-	constructor({ message, statusCode = StatusCodes.RESET_CONTENT, reasonPhrase = ReasonPhrases.RESET_CONTENT, metadata }: { message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any }) {
-		super({ message, statusCode, reasonPhrase, metadata });
+	constructor({ message, statusCode = StatusCodes.RESET_CONTENT, reasonPhrase = ReasonPhrases.RESET_CONTENT, data }: { message?: string; statusCode?: number; reasonPhrase?: string; data?: any }) {
+		super({ message, statusCode, reasonPhrase, data });
 	}
 }
 
 class PartialContentResponse extends SuccessResponse { // 206
-	constructor({ options = {}, message, statusCode = StatusCodes.PARTIAL_CONTENT, reasonPhrase = ReasonPhrases.PARTIAL_CONTENT, metadata }: { options?: any; message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any }) {
-		super({ message, statusCode, reasonPhrase, metadata });
+	constructor({ options = {}, message, statusCode = StatusCodes.PARTIAL_CONTENT, reasonPhrase = ReasonPhrases.PARTIAL_CONTENT, data }: { options?: any; message?: string; statusCode?: number; reasonPhrase?: string; data?: any }) {
+		super({ message, statusCode, reasonPhrase, data });
 		this.options = options;
 
 	}
 }
 
 class MultiStatusResponse extends SuccessResponse { // 207
-	constructor({ message, statusCode = StatusCodes.MULTI_STATUS, reasonPhrase = ReasonPhrases.MULTI_STATUS, metadata }: { message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any }) {
-		super({ message, statusCode, reasonPhrase, metadata });
+	constructor({ message, statusCode = StatusCodes.MULTI_STATUS, reasonPhrase = ReasonPhrases.MULTI_STATUS, data }: { message?: string; statusCode?: number; reasonPhrase?: string; data?: any }) {
+		super({ message, statusCode, reasonPhrase, data });
 	}
 }
 
 class AlreadyReportedResponse extends SuccessResponse { // 208
-	constructor({ message, statusCode = StatusCodes.ALREADY_REPORTED, reasonPhrase = ReasonPhrases.ALREADY_REPORTED, metadata }: { message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any }) {
-		super({ message, statusCode, reasonPhrase, metadata });
+	constructor({ message, statusCode = StatusCodes.ALREADY_REPORTED, reasonPhrase = ReasonPhrases.ALREADY_REPORTED, data }: { message?: string; statusCode?: number; reasonPhrase?: string; data?: any }) {
+		super({ message, statusCode, reasonPhrase, data });
 	}
 }
 
 class IMUsedResponse extends SuccessResponse { // 226
-	constructor({ options = {}, message, statusCode = StatusCodes.IM_USED, reasonPhrase = ReasonPhrases.IM_USED, metadata }: { options?: any; message?: string; statusCode?: number; reasonPhrase?: string; metadata?: any }) {
-		super({ message, statusCode, reasonPhrase, metadata });
+	constructor({ options = {}, message, statusCode = StatusCodes.IM_USED, reasonPhrase = ReasonPhrases.IM_USED, data }: { options?: any; message?: string; statusCode?: number; reasonPhrase?: string; data?: any }) {
+		super({ message, statusCode, reasonPhrase, data });
 		this.options = options;
 
 	}
@@ -105,4 +173,4 @@ const _SUCCESS = {
 	SuccessResponse
 };
 
-export  {_SUCCESS, SuccessResponse};
+export { _SUCCESS, SuccessResponse };

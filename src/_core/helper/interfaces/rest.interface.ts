@@ -5,17 +5,15 @@ export interface PaginationMeta {
     totalPages: number;
 }
 
-export interface ResponseMeta {
+export interface MetaData {
     code: number;
     status: string;
     message?: string;
+    path?: string;
     timestamp: string;
     pagination?: PaginationMeta;
-}
-
-export interface RestResponse<T = any> {
-    data: T | null;
-    metadata: ResponseMeta;
+    request?: RequestMeta;
+    responseTime?: string;
     links?: {
         self: string;
         first?: string;
@@ -23,9 +21,22 @@ export interface RestResponse<T = any> {
         next?: string;
         last?: string;
     };
+}
+
+export interface RestResponse<T = any> {
+    data: T | null;
+    metadata: MetaData;    
     errors?: Array<{
         code: string;
         message: string;
         field?: string;
     }>;
+}
+
+
+export interface RequestMeta {
+    id: string;
+    timestamp: string;
+    method: string;
+    url: string;
 }

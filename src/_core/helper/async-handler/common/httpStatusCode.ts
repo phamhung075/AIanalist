@@ -79,6 +79,7 @@ export interface ApiError {
     timestamp: string;
     path?: string;
     stack?: string;
+    details?: any;
 }
 
 export interface ApiSuccess<T> {

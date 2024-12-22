@@ -13,7 +13,10 @@ export class ErrorTestService {
         // throw new _ERROR.BadRequestError({
         //     message: 'This is a test error',
         // });
-        return data
+        return {
+            id: 879,
+            name: "Jone"
+        }
     }
 
 

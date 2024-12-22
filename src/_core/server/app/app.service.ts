@@ -27,6 +27,7 @@ console.log(green(`Loading environment from  ${blue(envFile)}`));
 console.log(
 	green(`All environment variables are ${yellow(process.env.TEST_VAR || 'N/A')} on mode ${yellow(process.env.NODE_ENV || 'N/A')}`)
 );
+console.log('➡️');
 console.log(showConfig());
 
 /**
@@ -97,8 +98,10 @@ export class AppService {
 			? path.join(baseDir, 'src/modules')
 			: path.join(baseDir, 'dist', 'src/modules');
 
-
+		console.log('➡️');
 		console.log(green(`Loading modules from ${blue(baseDir)}`));
+		console.log('✅ After loadCloudModules');
+
 		console.log('✅ Ensuring Firebase Firestore is accessible...');
 		// await testFirestoreAccess();
 		await Promise.all(modules.map(moduleDir => this.loadModule(moduleDir, modulesDir, fileExtension)));

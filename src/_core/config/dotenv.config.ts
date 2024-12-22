@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { version, name } from '../../../package.json';
 const env = process.env.NODE_ENV || 'development';
-
+import {empty} from 'lodash';
 // Load base .env file first
 dotenv.config();
 
@@ -35,7 +35,11 @@ export const firebaseConfig = {
 };
 
 export const showConfig = () => {
-    console.log('Config:', config);
+    if (empty(config)) {
+        console.log('❌ Config not loaded');
+    } else {
+        console.log('✅ Config:', config);
+    }
 };
 
 

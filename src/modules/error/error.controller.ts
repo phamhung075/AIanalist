@@ -1,9 +1,9 @@
 import _ERROR from '@/_core/helper/async-handler/error';
-import { _SUCCESS } from '@/_core/helper/async-handler/success';
 import { validateUser } from '@/_core/helper/validation/user';
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { ErrorTestService } from './error.service';
 import { ControllerMethod } from '@/_core/helper/register-routes';
+import _SUCCESS from '@/_core/helper/async-handler/success';
 
 export class ErrorController {
     [key: string]: ControllerMethod | unknown; 
@@ -22,10 +22,9 @@ export class ErrorController {
             });
         }
 
-        new _SUCCESS.OKResponse({
-            message: 'Create checkout success',
-            data: await this.errorService.BadRequestError(req.body),  
-        }).send(res);
+        const data = await this.errorService.BadRequestError(req.body);
+        const message = 'Bad Request Error';
+        new _SUCCESS.SuccessResponse({message, data}).send(res);
     };
 
     /**
@@ -40,7 +39,7 @@ export class ErrorController {
             });
         }
 
-        new _SUCCESS.OKResponse({
+        new _SUCCESS.SuccessResponse({
             message: 'Validation success',
             // metadata: await this.errorService.ValidationError(req.body),
         }).send(res);

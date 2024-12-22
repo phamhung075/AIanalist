@@ -13,6 +13,7 @@ export interface ExtendedUserContextRequest extends Request {
 
 // Étendre la requête pour inclure les paramètres supplémentaires
 export interface ExtendedFunctionRequest extends ExtendedUserContextRequest {
+    startTime?: number;
     body: {
         [key: string]: any; // Permet de stocker divers paramètres, tels que parseObj, objectId, etc.
     };

@@ -1,13 +1,21 @@
-import { MetaData } from "../../interfaces/rest.interface";
-import { HttpStatusCode } from "../common/HttpStatusCode"
-const { StatusCodes, ReasonPhrases } = HttpStatusCode
+import { NextFunction } from "@node_modules/@types/express";
+import { ReasonPhrases } from "../common/ReasonPhrases";
+import { StatusCodes } from "../common/StatusCodes";
+
+export interface ResponseOptions {
+    code?: number;
+    message?: string;
+    metadata?: Record<string, any>;
+    options?: Record<string, any>;
+}
+
 class SuccessResponse {
     success: boolean;
     message: string;
     status: number;
-    metadata: MetaData;
+    metadata: any;
+    options: any;
     data: any;
-    options?: Record<string, any>;
 
     constructor({
         message,
@@ -15,162 +23,152 @@ class SuccessResponse {
         reasonPhrase = ReasonPhrases.OK,
         metadata = {},
         options = {},
-        data = {},
-        req
+        data = {}
     }: {
         message?: string;
         statusCode?: number;
         reasonPhrase?: string;
-        metadata?: Partial<MetaData>;
-        options?: Record<string, any>;
-        data?: any;
-        req?: any;
+        metadata?: any,
+        options?: any,
+        data?: any
     }) {
-        const baseUrl = req ? `${req.protocol}://${req.get('host')}` : '';
-        const requestPath = req ? req.originalUrl : '';
-
         this.success = true;
         this.message = !message ? reasonPhrase : message;
         this.status = statusCode;
+        this.metadata = this.formatMetadata(metadata);
+        this.options = options;
         this.data = data;
-        this.options = Object.keys(options).length > 0 ? options : undefined;
-
-        // Construct metadata
-        this.metadata = {
-            timestamp: new Date().toISOString(),
-            code: statusCode,
-            status: reasonPhrase,
-            ...(req && {
-                path: requestPath,
-                request: {
-                    id: `req_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`,                    
-					timestamp: new Date().toISOString(),
-                    method: req.method,
-                    url: `${baseUrl}${requestPath}`
-                }
-            }),
-            ...metadata
-        };
     }
 
-    send(res: any, headers: Record<string, any> = {}) {
-        // Add response time to metadata
-        this.metadata.responseTime = `${Date.now() - new Date(this.metadata.timestamp).getTime()}ms`;
-        
-        // Set any custom headers
-        Object.entries(headers).forEach(([key, value]) => {
-            res.set(key, value);
-        });
+    private formatMetadata(metadata: any) {
+        return {
+            timestamp: new Date().toISOString(),
+            code: this.status,
+            status: this.getStatusText(this.status),
+            ...metadata
+        };
+    }  
 
-        return res.status(this.status).json({
+    setStatus(status: number) {
+        this.status = status;
+        this.metadata.code = status;
+        this.metadata.status = this.getStatusText(status);
+        return this;
+    }
+    setMessage(message: string) {
+        this.message = message;
+        return this;
+    }
+    setMetadata(metadata: any) {
+        this.metadata = { ...this.metadata, ...metadata };
+        return this;
+    }
+    setOptions(options: any) {        
+        this.options = options;
+        return this;
+    }
+    
+    setResponseTime(startTime: number) {
+        const responseTime = `${Date.now() - startTime}ms`;
+        this.metadata.responseTime = responseTime;
+        return this;
+    }
+
+ 
+    setData(data: any) {
+        this.data = data;
+        return this;
+    }
+
+    send(res: any, next?: NextFunction) {
+        try {
+            // 1. Pre-send hooks
+            this.preSendHooks();
+
+            // 2. Format response
+            const response = this.formatResponse();
+
+            // 3. Add response time
+            const responseTime = this.setResponseTime(res.startTime);
+            response.metadata.responseTime = responseTime;
+
+            // 4. Handle headers
+            this.handleHeaders(res);
+
+            // 5. Send response
+            if (!res.headersSent) {
+                return res.status(this.status).json(response);
+            }
+
+            // 6. Post-send hooks (if needed)
+            this.postSendHooks();
+
+        } catch (error) {
+            // Handle send errors
+            console.error('Error sending response:', error);
+            if (next) {
+                next(error);
+            } else {
+                throw error;
+            }
+        }
+    }
+
+    private preSendHooks() {
+        // Add any pre-send logic
+        // Example: logging, validation, etc.
+        this.metadata.timestamp = new Date().toISOString();
+    }
+
+    private formatResponse() {
+        const response = {
             success: this.success,
             message: this.message,
             data: this.data,
-            metadata: this.metadata,
-            ...(this.options && { options: this.options })
-        });
+            metadata: {
+                ...this.metadata,
+                code: this.status,
+                status: this.getStatusText(this.status)
+            }
+        };
+
+        // Only include options if they exist
+        if (Object.keys(this.options).length > 0) {
+            Object.assign(response, { options: this.options });
+        }
+
+        return response;
+    }
+
+    private handleHeaders(res: any) {
+        // Set standard headers
+        res.set('X-Response-Time', this.metadata.responseTime);
+        
+        // Set custom headers if they exist
+        if (this.options?.headers) {
+            Object.entries(this.options.headers).forEach(([key, value]) => {
+                res.set(key, value);
+            });
+        }
+    }
+
+    
+
+    private getStatusText(code: number): string {
+        return Object.entries(ReasonPhrases)
+            .find(([_, value]) => StatusCodes[value as keyof typeof StatusCodes] === code)?.[1] 
+            || 'UNKNOWN_STATUS';
+    }
+
+    private postSendHooks() {
+        // Add any post-send logic
+        // Example: cleanup, logging, etc.
     }
 }
-// Specific classes for each type of successful response
-class OKResponse extends SuccessResponse { // 200
-	constructor({ message, data }: { message?: string; data?: any }) {
-		super({ message, data });
-	}
-}
 
-class CreatedResponse extends SuccessResponse {
-    constructor({ 
-        message, 
-        data,
-        metadata = {},
-        options = {},
-        req
-    }: { 
-        message?: string; 
-        data?: any;
-        metadata?: Partial<MetaData>;
-        options?: Record<string, any>;
-        req?: any;
-    }) {
-        super({ 
-            message, 
-            statusCode: StatusCodes.CREATED, 
-            reasonPhrase: ReasonPhrases.CREATED,
-            data,
-            metadata,
-            options,
-            req
-        });
-    }
-}
 
-class AcceptedResponse extends SuccessResponse { // 202
-	constructor({ options = {}, message, statusCode = StatusCodes.ACCEPTED, reasonPhrase = ReasonPhrases.ACCEPTED, data }: { options?: any; message?: string; statusCode?: number; reasonPhrase?: string; data?: any }) {
-		super({ message, statusCode, reasonPhrase, data });
-		this.options = options;
-	}
-}
-
-class NonAuthoritativeInformationResponse extends SuccessResponse { // 203
-	constructor({ options = {}, message, statusCode = StatusCodes.NON_AUTHORITATIVE_INFORMATION, reasonPhrase = ReasonPhrases.NON_AUTHORITATIVE_INFORMATION, data }: { options?: any; message?: string; statusCode?: number; reasonPhrase?: string; data?: any }) {
-		super({ message, statusCode, reasonPhrase, data });
-		this.options = options;
-	}
-}
-
-class NoContentResponse extends SuccessResponse { // 204
-	constructor({ message, statusCode = StatusCodes.NO_CONTENT, reasonPhrase = ReasonPhrases.NO_CONTENT, data = null }: { message?: string; statusCode?: number; reasonPhrase?: string; data?: any }) {
-		super({ message, statusCode, reasonPhrase, data });
-	}
-}
-
-class ResetContentResponse extends SuccessResponse { // 205
-	constructor({ message, statusCode = StatusCodes.RESET_CONTENT, reasonPhrase = ReasonPhrases.RESET_CONTENT, data }: { message?: string; statusCode?: number; reasonPhrase?: string; data?: any }) {
-		super({ message, statusCode, reasonPhrase, data });
-	}
-}
-
-class PartialContentResponse extends SuccessResponse { // 206
-	constructor({ options = {}, message, statusCode = StatusCodes.PARTIAL_CONTENT, reasonPhrase = ReasonPhrases.PARTIAL_CONTENT, data }: { options?: any; message?: string; statusCode?: number; reasonPhrase?: string; data?: any }) {
-		super({ message, statusCode, reasonPhrase, data });
-		this.options = options;
-
-	}
-}
-
-class MultiStatusResponse extends SuccessResponse { // 207
-	constructor({ message, statusCode = StatusCodes.MULTI_STATUS, reasonPhrase = ReasonPhrases.MULTI_STATUS, data }: { message?: string; statusCode?: number; reasonPhrase?: string; data?: any }) {
-		super({ message, statusCode, reasonPhrase, data });
-	}
-}
-
-class AlreadyReportedResponse extends SuccessResponse { // 208
-	constructor({ message, statusCode = StatusCodes.ALREADY_REPORTED, reasonPhrase = ReasonPhrases.ALREADY_REPORTED, data }: { message?: string; statusCode?: number; reasonPhrase?: string; data?: any }) {
-		super({ message, statusCode, reasonPhrase, data });
-	}
-}
-
-class IMUsedResponse extends SuccessResponse { // 226
-	constructor({ options = {}, message, statusCode = StatusCodes.IM_USED, reasonPhrase = ReasonPhrases.IM_USED, data }: { options?: any; message?: string; statusCode?: number; reasonPhrase?: string; data?: any }) {
-		super({ message, statusCode, reasonPhrase, data });
-		this.options = options;
-
-	}
-}
-
-// Exporting the responses in order of increasing status codes
 const _SUCCESS = {
-	OKResponse, // 200
-	CreatedResponse, // 201
-	AcceptedResponse, // 202
-	NonAuthoritativeInformationResponse, // 203
-	NoContentResponse, // 204
-	ResetContentResponse, // 205
-	PartialContentResponse, // 206
-	MultiStatusResponse, // 207
-	AlreadyReportedResponse, // 208
-	IMUsedResponse, // 226
-	SuccessResponse
-};
+    SuccessResponse
+}
 
-export { _SUCCESS, SuccessResponse };
+export default _SUCCESS;

@@ -35,7 +35,7 @@ export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) =>
         next: NextFunction
     ) => {
         const startTime = Date.now();
-
+        req.startTime = startTime;
         try {
             const result = await handler(req, res, next);
 
@@ -44,10 +44,11 @@ export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) =>
                 const resourceUrl = `${baseUrl}${req.originalUrl}`;
                 console.log(yellow(`Response sent for ${resourceUrl}`));
                 return RestHandler.success(res, {
-                    data: result,             
+                    data: result, 
                     links: {
                         self: resourceUrl,
-                    }
+                    },
+                    startTime,        
                 });
             }
         } catch (error: any) {

@@ -10,15 +10,19 @@ export class RestHandler {
         code = StatusCodes.OK,
         message = ReasonPhrases.OK,
         pagination,
-        links
+        links,
+        startTime
     }: {
         data: T;
         code?: number;
         message?: string;
         pagination?: RestResponse['metadata']['pagination'];
         links?: RestResponse['metadata']['links'];
+        startTime: number;
     }): Response {
+        const responseTime = (new Date().getTime() - startTime).toString();
         const response: RestResponse<T> = {
+            level: "Success REST",
             data,
             metadata: {
                 code,
@@ -26,10 +30,11 @@ export class RestHandler {
                 message,
                 timestamp: new Date().toISOString(),
                 ...(pagination && { pagination }),
-                ...(links && { links })
+                ...(links && { links }),
+                responseTime
             },
         };
-
+        console.log(response);
         return res.status(code).json(response);
     }
 
@@ -44,6 +49,7 @@ export class RestHandler {
     }): Response {
 
         const response: RestResponse = {
+            level: "Error REST",
             data: null,
             metadata: {
                 code,

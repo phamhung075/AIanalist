@@ -6,6 +6,7 @@ import { RequestHandler } from '@node_modules/@types/express';
 import errorController from './error.controller.factory';
 import { ErrorMessageSchema } from './error.validation';
 import { validateSchema } from '@/_core/middleware/validateSchema.middleware';
+import { config } from '@/_core/config/dotenv.config';
 export interface IErrorController extends BaseController {
     BadRequestError: RequestHandler;
     ValidationError: RequestHandler;
@@ -13,7 +14,7 @@ export interface IErrorController extends BaseController {
 
 const router = createRouter(__filename);
 router.get(
-    '/error/test',
+    config.baseApi + '/error/test',
     validateSchema(ErrorMessageSchema),
     asyncHandlerFn(async (req, res, next) => {
         await errorController.BadRequestError(req, res, next);

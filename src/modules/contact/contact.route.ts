@@ -9,12 +9,13 @@ import {
   UpdateContactSchema
 } from './contact.validation';
 import { validateSchema } from '@/_core/middleware/validateSchema.middleware';
+import { config } from '@/_core/config/dotenv.config';
 
 const router = createRouter(__filename);
 
 // Create a new contact
 router.post(
-  '/contact',
+  config.baseApi + '/contact',
   validateSchema(CreateContactSchema),
   asyncHandlerFn(async (req, res, next) => {
     await contactController.createContact(req, res, next);
@@ -24,7 +25,7 @@ router.post(
 
 // Get all contacts
 router.get(
-  '/contacts',
+  config.baseApi + '/contacts',
   asyncHandlerFn(async (req, res) => {
     await contactController.getAllContacts(req, res);
   })
@@ -32,7 +33,7 @@ router.get(
 
 // Get a specific contact by ID
 router.get(
-  '/contact/:id',
+  config.baseApi + '/contact/:id',
   validateSchema(ContactIdSchema),
   asyncHandlerFn(async (req, res) => {
     await contactController.getContactById(req, res);
@@ -40,7 +41,7 @@ router.get(
 );
 // Update a contact by ID
 router.put(
-  '/contact/:id',
+  config.baseApi + '/contact/:id',
   validateSchema(UpdateContactSchema),
   asyncHandlerFn(async (req, res) => {
     await contactController.updateContact(req, res);
@@ -49,7 +50,7 @@ router.put(
 
 // Delete a contact by ID
 router.delete(
-  '/contact/:id',
+  config.baseApi + '/contact/:id',
   validateSchema(ContactIdSchema),
   asyncHandlerFn(async (req, res) => {
     await contactController.deleteContact(req, res);

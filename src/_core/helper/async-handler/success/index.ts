@@ -1,6 +1,6 @@
-import { NextFunction } from "@node_modules/@types/express";
-import { ReasonPhrases } from "../common/ReasonPhrases";
-import { StatusCodes } from "../common/StatusCodes";
+import { NextFunction, Response } from 'express';
+import { ReasonPhrases } from '../common/ReasonPhrases';
+import { StatusCodes } from '../common/StatusCodes';
 
 export interface ResponseOptions {
     code?: number;
@@ -23,96 +23,118 @@ class SuccessResponse {
         reasonPhrase = ReasonPhrases.OK,
         metadata = {},
         options = {},
-        data = {}
+        data = {},
     }: {
         message?: string;
         statusCode?: number;
         reasonPhrase?: string;
-        metadata?: any,
-        options?: any,
-        data?: any
+        metadata?: any;
+        options?: any;
+        data?: any;
     }) {
         this.success = true;
-        this.message = !message ? reasonPhrase : message;
+        this.message = message || reasonPhrase;
         this.status = statusCode;
         this.metadata = this.formatMetadata(metadata);
         this.options = options;
         this.data = data;
     }
 
+    /**
+     * Format Metadata
+     */
     private formatMetadata(metadata: any) {
         return {
             timestamp: new Date().toISOString(),
             code: this.status,
             status: this.getStatusText(this.status),
-            ...metadata
+            ...metadata,
         };
     }
 
+    /**
+     * Set Response Status Code
+     */
     setStatus(status: number) {
         this.status = status;
         this.metadata.code = status;
         this.metadata.status = this.getStatusText(status);
         return this;
     }
+
+    /**
+     * Set Response Message
+     */
     setMessage(message: string) {
         this.message = message;
         return this;
     }
+
+    /**
+     * Set Metadata
+     */
     setMetadata(metadata: any) {
         this.metadata = { ...this.metadata, ...metadata };
         return this;
     }
+
+    /**
+     * Set Options
+     */
     setOptions(options: any) {
         this.options = options;
         return this;
     }
 
+    /**
+     * Set Response Time
+     */
     setResponseTime(startTime?: number) {
-        if (!startTime) {
-            this.metadata.responseTime = '0ms';
-        } else {
-            const responseTime = `${Date.now() - startTime}ms`;
-            this.metadata.responseTime = responseTime;
-        }
+        const responseTime = startTime ? `${Date.now() - startTime}ms` : '0ms';
+        this.metadata.responseTime = responseTime;
         return this;
     }
 
+    /**
+     * Set Custom Headers
+     */
     setHeader(headers: Record<string, string>) {
         this.options.headers = { ...this.options.headers, ...headers };
         return this;
     }
 
-
+    /**
+     * Set Response Data
+     */
     setData(data: any) {
         this.data = data;
         return this;
     }
 
-    send(res: any, next?: NextFunction) {
+    /**
+     * Send Response
+     */
+    send(res: Response, next?: NextFunction) {
         try {
-            // 1. Pre-send hooks
             this.preSendHooks();
 
-            // 2. Set response time once
-            if (res.startTime) {
-                this.setResponseTime(res.startTime);
+            // Set Response Time if startTime exists on res.locals
+            if (res.locals?.startTime) {
+                this.setResponseTime(res.locals.startTime);
             }
 
-            // 3. Format response
-            const response = this.formatResponse();
+            // Handle Headers
+            this.handleHeaders(res);
 
-            // 4. Handle headers
-            this.handleHeaders();
-
-            // 5. Send response
+            // Send Response
             if (!res.headersSent) {
-                return res.status(this.status).json(response);
+                const response = this.formatResponse();
+                res.status(this.status).json(response);
+            } else {
+                console.warn('Attempted to send response after headers were already sent.');
             }
 
-            // 6. Post-send hooks (if needed)
             this.postSendHooks();
-
         } catch (error) {
             console.error('Error sending response:', error);
             if (next) {
@@ -123,12 +145,16 @@ class SuccessResponse {
         }
     }
 
+    /**
+     * Pre-send Hooks
+     */
     private preSendHooks() {
-        // Add any pre-send logic
-        // Example: logging, validation, etc.
         this.metadata.timestamp = new Date().toISOString();
     }
 
+    /**
+     * Format Response
+     */
     private formatResponse() {
         const response = {
             success: this.success,
@@ -137,11 +163,10 @@ class SuccessResponse {
             metadata: {
                 ...this.metadata,
                 code: this.status,
-                status: this.getStatusText(this.status)
-            }
+                status: this.getStatusText(this.status),
+            },
         };
 
-        // Only include options if they exist
         if (Object.keys(this.options).length > 0) {
             Object.assign(response, { options: this.options });
         }
@@ -149,35 +174,47 @@ class SuccessResponse {
         return response;
     }
 
-    private handleHeaders() {
-        // Set standard headers
-        this.setHeader({ 'X-Response-Time': this.metadata.responseTime });
-
-        // Set custom headers if they exist
+    /**
+     * Handle Headers
+     */
+    private handleHeaders(res: Response) {
         if (this.options?.headers) {
             Object.entries(this.options.headers).forEach(([key, value]) => {
-                this.setHeader({ [key]: String(value) });
+                // Ensure value is converted to a valid header type
+                const safeValue = Array.isArray(value)
+                    ? value.map(v => String(v))
+                    : String(value);
+                res.setHeader(key, safeValue);
             });
         }
+    
+        res.setHeader('X-Response-Time', this.metadata.responseTime);
     }
 
-
-
+    /**
+     * Get Status Text
+     */
     private getStatusText(code: number): string {
-        return Object.entries(ReasonPhrases)
-            .find(([_, value]) => StatusCodes[value as keyof typeof StatusCodes] === code)?.[1]
-            || 'UNKNOWN_STATUS';
+        return (
+            Object.entries(ReasonPhrases).find(([_, value]) => StatusCodes[value as keyof typeof StatusCodes] === code)
+                ?.[1] || 'UNKNOWN_STATUS'
+        );
     }
 
+    /**
+     * Post-send Hooks
+     */
     private postSendHooks() {
-        // Add any post-send logic
-        // Example: cleanup, logging, etc.
+        // Example: Logging or clean-up operations
+        console.log(`Response sent with status: ${this.status}`);
     }
 }
 
-
+/**
+ * Export Success Response
+ */
 const _SUCCESS = {
-    SuccessResponse
-}
+    SuccessResponse,
+};
 
 export default _SUCCESS;

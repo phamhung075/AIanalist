@@ -1,4 +1,5 @@
 // __tests__/contact.controller.spec.ts
+
 import ContactController from '../contact.controller';
 import ContactService from '../contact.service';
 import { Request, Response } from 'express';
@@ -33,7 +34,11 @@ describe('ContactController', () => {
       name: 'John',
     });
 
-    await contactController.createContact(mockRequest, mockResponse as Response);
+    await contactController.createContact(
+      mockRequest,
+      mockResponse as Response,
+      jest.fn()
+    );
 
     expect(mockResponse.status).toHaveBeenCalledWith(201);
     expect(mockResponse.json).toHaveBeenCalledWith({ id: '1', name: 'John' });

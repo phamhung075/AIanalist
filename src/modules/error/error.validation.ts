@@ -13,6 +13,10 @@ export const ErrorIdSchema = z.object({
   id: z.string().min(1, 'Error ID is required and must be a valid string'),
 });
 
+export const ErrorMessageSchema = z.object({
+  message: z.string().min(1, 'Message is required and cannot be empty'),
+});
+
 // ✅ TypeScript Types inferred from Zod Schemas
 export type LogErrorInput = z.infer<typeof LogErrorSchema>;
 export type ErrorIdInput = z.infer<typeof ErrorIdSchema>;

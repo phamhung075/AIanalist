@@ -1,21 +1,27 @@
 // contact.route.ts
+import { asyncHandlerFn } from '@/_core/helper/async-handler/async-handler';
 import { createRouter } from '@/_core/helper/create-router-path';
 import contactController from './contact.controller.factory';
 import { validateSchema } from './contact.middleware';
 import {
   ContactIdSchema,
-  CreateContactSchema,
-  UpdateContactSchema,
+  UpdateContactSchema
 } from './contact.validation';
-import { asyncHandlerFn } from '@/_core/helper/async-handler/async-handler';
 
 const router = createRouter(__filename);
 // Create a new contact
+// Create a new contact
 router.post(
   '/contact',
-  validateSchema(CreateContactSchema),
+  (req, _res, next) => {
+    console.log('Route hit:', req.path);
+    console.log('Request body:', req.body);
+    next();
+  },
+  // validateSchema(CreateContactSchema),
   asyncHandlerFn(async (req, res, next) => {
-    await contactController.createContact(req, res, next);
+    console.log('Handler executing for path:', req.path);
+    return await contactController.createContact(req, res, next);
   })
 );
 

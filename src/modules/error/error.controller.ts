@@ -1,29 +1,21 @@
-import _ERROR from '@/_core/helper/async-handler/error';
-import { validateUser } from '@/_core/helper/validation/user';
-import { Request, Response, NextFunction, RequestHandler } from 'express';
-import { ErrorTestService } from './error.service';
-import { ControllerMethod } from '@/_core/helper/register-routes';
-import _SUCCESS from '@/_core/helper/async-handler/success';
 import { ExtendedFunctionRequest } from '@/_core/guard/handle-permission/user-context.interface';
+import _ERROR from '@/_core/helper/async-handler/error';
+import _SUCCESS from '@/_core/helper/async-handler/success';
+import { ControllerMethod } from '@/_core/helper/register-routes';
+import { validateUser } from '@/_core/helper/validation/user';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
+import ErrorService from './error.service';
 
 export class ErrorController {
     [key: string]: ControllerMethod | unknown; 
 
-    constructor(private readonly errorService: ErrorTestService) {}
+    constructor(private readonly errorService: ErrorService) {}
 
     /**
      * Handles Bad Request Error
      */
     public BadRequestError: RequestHandler = async (req: ExtendedFunctionRequest, res: Response, _next: NextFunction) => {
-        const validationErrors = validateUser(req.body);
-        if (validationErrors.length > 0) {
-            throw new _ERROR.BadRequestError({
-                message: 'Validation failed',
-                errors: validationErrors,
-            });
-        }
-
-        const data = await this.errorService.BadRequestError(req.body);
+        const data = await this.errorService.BadRequestError(req.body.message);
         const message = 'Bad Request Error';
         new _SUCCESS.SuccessResponse({message, data}).setResponseTime(req.startTime).send(res);
     };

@@ -4,16 +4,24 @@ import { asyncHandlerFn } from '@src/_core/helper/async-handler/async-handler';
 import { BaseController, registerRoutes, Routes } from '@/_core/helper/register-routes';
 import { RequestHandler } from '@node_modules/@types/express';
 import errorController from './error.controller.factory';
+import { validateSchema } from './error.middleware';
+import { ErrorMessageSchema } from './error.validation';
 export interface IErrorController extends BaseController {
     BadRequestError: RequestHandler;
     ValidationError: RequestHandler;
 }
 
 const router = createRouter(__filename);
-
+router.get(
+    '/error/test',
+    validateSchema(ErrorMessageSchema),
+    asyncHandlerFn(async (req, res, next) => {
+        await errorController.BadRequestError(req, res, next);
+    })
+);
 const routes: Routes<IErrorController> = {
     GET: {
-        BadRequestError: 'bad-request'
+        BadRequestError: 'bad-request',
     },
     // POST: {
     //     BadRequestError: 'bad-request',
@@ -32,6 +40,6 @@ const routes: Routes<IErrorController> = {
     //     ValidationError: 'validation'
     // }
 };
-
+// validateSchema(ErrorMessageSchema);
 registerRoutes<IErrorController>(router, routes, errorController, asyncHandlerFn);
 export default router;

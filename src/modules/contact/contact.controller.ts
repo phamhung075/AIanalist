@@ -21,7 +21,6 @@ class ContactController {
     console.log(contact);
     const message = 'Contact created successfully';
     new _SUCCESS.SuccessResponse({message, data: contact}).setResponseTime(req.startTime).send(res);
-    res.status(201).json(contact);
   }
 
   async getAllContacts(_req: Request, res: Response) {

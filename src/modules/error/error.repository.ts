@@ -7,7 +7,8 @@ const errorDatabase: IError[] = [];
 class ErrorRepository {
   async create(error: IError): Promise<IError> {
     const newError = { ...error, id: Date.now().toString() };
-    errorDatabase.push(newError);
+    // errorDatabase.push(newError);
+    
     return newError;
   }
 

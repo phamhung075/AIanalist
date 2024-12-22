@@ -5,6 +5,15 @@ import { IError } from './error.interface';
 class ErrorService {
   constructor(private errorRepository: ErrorRepository) {}
 
+  async BadRequestError (message : string): Promise<IError> {
+    const error: IError = {
+      message: message || 'Bad Request Error' ,
+      statusCode: 400,
+      timestamp: new Date(),
+    };
+    return this.errorRepository.create(error);
+  }
+
   async logError(message: string, stack?: string, statusCode: number = 500): Promise<IError> {
     const error: IError = {
       message,

@@ -13,6 +13,7 @@ import { config, showConfig } from '@/_core/config/dotenv.config';
 import { isRunningWithNodemon } from '@src/_core/helper/check-nodemon';
 import { bgMagenta, bgWhite, blue, blueBright, cyan, green, greenBright, yellow } from 'colorette';
 import { modules } from '@/modules';
+import { testFirestoreAccess } from '@/_core/database/firebase';
 
 
 const env = config.env;
@@ -20,7 +21,7 @@ const pathToEnvFile = path.resolve(__dirname, `../../../../environment/.env.${en
 const envFile = path.resolve(pathToEnvFile);
 
 isRunningWithNodemon()
-  
+
 // Load environment variables from the .env file
 console.log(green(`Loading environment from  ${blue(envFile)}`));
 console.log(
@@ -98,6 +99,8 @@ export class AppService {
 
 
 		console.log(green(`Loading modules from ${blue(baseDir)}`));
+		console.log('✅ Ensuring Firebase Firestore is accessible...');
+		await testFirestoreAccess();
 		await Promise.all(modules.map(moduleDir => this.loadModule(moduleDir, modulesDir, fileExtension)));
 		// Initialize and display routes after loading all modules
 		const routeDisplay = new RouteDisplay(this.app);
@@ -112,7 +115,7 @@ export class AppService {
 	//  * @param fileExtension - File extension based on environment
 	//  */
 	private async loadModule(moduleDir: string, modulesDir: string, fileExtension: string): Promise<void> {
-		const cloudFilePath = path.join(modulesDir, moduleDir, `api.${fileExtension}`);
+		const cloudFilePath = path.join(modulesDir, moduleDir + `.${fileExtension}`);
 		console.log(green(`Loading module ${moduleDir} from ${blue(cloudFilePath)}`));
 
 		if (fs.existsSync(cloudFilePath)) {
@@ -223,7 +226,7 @@ export class AppService {
 	 */
 	private showRequestUrl(req: express.Request, _: express.Response, next: express.NextFunction): void {
 		const timestamp = new Date().toLocaleString();
-		console.log(bgWhite("\n"+"showRequestUrl: "+timestamp));
+		console.log(bgWhite("\n" + "showRequestUrl: " + timestamp));
 		if (!isEmpty(req.originalUrl)) console.log('Request URL:', `${blueBright(req.headers.host ?? 'host_not_found')}${blue(req.originalUrl)}`);
 		if (!isEmpty(req.method)) console.log('Method:', yellow(req.method));
 		if (!isEmpty(req.body)) console.log('Body:', greenBright(JSON.stringify(req.body, null, 2)));
@@ -243,6 +246,6 @@ export class AppService {
 
 // Initialize the AppService and start the server
 const appService = AppService.getInstance();
-
-export { appService };
+const app = appService.app; // Export the Express app for testing
+export { appService, app };
 

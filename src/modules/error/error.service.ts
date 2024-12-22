@@ -1,28 +1,28 @@
+// error.service.ts
+import ErrorRepository from './error.repository';
+import { IError } from './error.interface';
 
-import { UserInput } from "@/_core/helper/validation/user";
-import _ERROR from "../../_core/helper/async-handler/error";
+class ErrorService {
+  constructor(private errorRepository: ErrorRepository) {}
 
+  async logError(message: string, stack?: string, statusCode: number = 500): Promise<IError> {
+    const error: IError = {
+      message,
+      stack,
+      statusCode,
+      timestamp: new Date(),
+    };
 
+    return this.errorRepository.create(error);
+  }
 
+  async getAllErrors(): Promise<IError[]> {
+    return this.errorRepository.findAll();
+  }
 
-export class ErrorTestService {
-
-    async BadRequestError(data: UserInput): Promise<any> {
-        console.log(data)
-        // If we get here, validation passed
-        // throw new _ERROR.BadRequestError({
-        //     message: 'This is a test error',
-        // });
-        return {
-            id: 879,
-            name: "Jone"
-        }
-    }
-
-
-
+  async getErrorById(id: string): Promise<IError | undefined> {
+    return this.errorRepository.findById(id);
+  }
 }
 
-
-
-
+export default ErrorService;

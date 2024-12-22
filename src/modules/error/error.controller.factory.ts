@@ -2,9 +2,7 @@ import { ErrorController } from './error.controller';
 import { ErrorTestService } from './error.service';
 
 const errorTestService = new ErrorTestService();
-const controller = new ErrorController(errorTestService);
+const errorController = new ErrorController(errorTestService);
 
-export {
-	controller
-};
+export default errorController
 

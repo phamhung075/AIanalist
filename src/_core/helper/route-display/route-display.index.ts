@@ -172,7 +172,7 @@ export class RouteDisplay {
 
     private getHandlerName(handler: any): string {
         try {
-            console.log("Handler:", handler);
+            // console.log("Handler:", handler);
             // If it's an async handler wrapper
             if (handler.name === 'asyncHandlerFn' && handler.original) {
                 return this.getHandlerName(handler.original);
@@ -270,7 +270,7 @@ export class RouteDisplay {
 
     private processRouterMiddleware(middleware: any): void {
         middleware.handle.stack.forEach((handler: any) => {
-            console.log(`Middleware: ${handler.name}`, handler);
+            // console.log(`Middleware: ${handler.name}`, handler);
             if (handler.route) {
                 const routePath = handler.route.path;
                 const routeHandler = handler.route.stack[0];

@@ -3,7 +3,7 @@ import { createRouter } from '@src/_core/helper/create-router-path';
 import { asyncHandlerFn } from '@src/_core/helper/async-handler/async-handler';
 import { BaseController, registerRoutes, Routes } from '@/_core/helper/register-routes';
 import { RequestHandler } from '@node_modules/@types/express';
-import { controller } from '.';
+import errorController from './error.controller.factory';
 export interface IErrorController extends BaseController {
     BadRequestError: RequestHandler;
     ValidationError: RequestHandler;
@@ -33,5 +33,5 @@ const routes: Routes<IErrorController> = {
     // }
 };
 
-registerRoutes<IErrorController>(router, routes, controller, asyncHandlerFn);
+registerRoutes<IErrorController>(router, routes, errorController, asyncHandlerFn);
 export default router;

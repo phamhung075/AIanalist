@@ -28,14 +28,15 @@ export function logResponseMiddleware(
     };
 }
 
-export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) => 
+export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) =>
     logResponseMiddleware(async (
-        req: ExtendedFunctionRequest, 
-        res: Response, 
+        req: ExtendedFunctionRequest,
+        res: Response,
         next: NextFunction
     ) => {
-        const startTime = Date.now();
-        req.startTime = startTime;
+        if (!req.startTime) {
+            req.startTime = Date.now();
+        } 
         try {
             const result = await handler(req, res, next);
 
@@ -44,11 +45,11 @@ export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) =>
                 const resourceUrl = `${baseUrl}${req.originalUrl}`;
                 console.log(yellow(`Response sent for ${resourceUrl}`));
                 return RestHandler.success(res, {
-                    data: result, 
+                    data: result,
                     links: {
                         self: resourceUrl,
                     },
-                    startTime,        
+                    startTime,
                 });
             }
         } catch (error: any) {
@@ -56,7 +57,7 @@ export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) =>
             const logDir = createLogDir();
             const logger = createLogger(logDir);
             logger.logError(createErrorLog(req, error, startTime));
-            
+
             handleError(req, res, error);
             next(error);
         }

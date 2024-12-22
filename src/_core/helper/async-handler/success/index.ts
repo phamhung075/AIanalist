@@ -211,13 +211,84 @@ class SuccessResponse {
 }
 
 
+class CreatedSuccess extends SuccessResponse {
+	constructor({
+        message,
+        data,
+        statusCode = StatusCodes.OK,
+        reasonPhrase = ReasonPhrases.OK
+    }: {
+        message?: string;
+        data?: any;
+        statusCode?: number;
+        reasonPhrase?: string;
+    }) {
+		super({message, data, statusCode, reasonPhrase});
+	}
+}
+// class AcceptedSuccess extends SuccessResponse {
+// 	constructor(result = ReasonPhrases.ACCEPTED as unknown, statusCode : string | number = StatusCodes.ACCEPTED) {
+// 		super(result, statusCode);
+// 	}
+// }
+
+// class NoContentSuccess extends SuccessResponse {
+// 	constructor(result = ReasonPhrases.NO_CONTENT as unknown, statusCode : string | number = StatusCodes.NO_CONTENT) {
+// 		super(result, statusCode);
+// 	}
+// }
+
+// class ResetContentSuccess extends SuccessResponse {
+// 	constructor(result = ReasonPhrases.RESET_CONTENT as unknown, statusCode : string | number = StatusCodes.RESET_CONTENT) {
+// 		super(result, statusCode);
+// 	}
+// }
+
+// class PartialContentSuccess extends SuccessResponse {
+// 	constructor(result = ReasonPhrases.PARTIAL_CONTENT as unknown, statusCode : string | number = StatusCodes.PARTIAL_CONTENT) {
+// 		super(result, statusCode);
+// 	}
+// }
+
+// class NonAuthoritativeInformationSuccess extends SuccessResponse {
+// 	constructor(result = ReasonPhrases.NON_AUTHORITATIVE_INFORMATION as unknown, statusCode : string | number = StatusCodes.NON_AUTHORITATIVE_INFORMATION) {
+// 		super(result, statusCode);
+// 	}
+// }
+
+// class MultiStatusSuccess extends SuccessResponse {
+// 	constructor(result = ReasonPhrases.MULTI_STATUS as unknown, statusCode : string | number = StatusCodes.MULTI_STATUS) {
+// 		super(result, statusCode);
+// 	}
+// }
+
+// class SeeOtherSuccess extends SuccessResponse {
+// 	constructor(result = ReasonPhrases.SEE_OTHER as unknown, statusCode : string | number = StatusCodes.SEE_OTHER) {
+// 		super(result, statusCode);
+// 	}
+// }
+
+// class ProcessingSuccess extends SuccessResponse {
+// 	constructor(result = ReasonPhrases.PROCESSING as unknown, statusCode : string | number = StatusCodes.PROCESSING) {
+// 		super(result, statusCode);
+// 	}
+// }
 
 /**
  * Export Success Response
  */
 const _SUCCESS = {
     SuccessResponse,
-    
+    CreatedSuccess, // 201
+	// AcceptedSuccess, // 202
+	// NoContentSuccess, // 204
+	// ResetContentSuccess, // 205
+	// PartialContentSuccess, // 206
+	// NonAuthoritativeInformationSuccess, // 203
+	// MultiStatusSuccess, // 207
+	// SeeOtherSuccess, // 303
+	// ProcessingSuccess // 102
+
 };
 
 export default _SUCCESS;

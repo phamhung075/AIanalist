@@ -19,7 +19,7 @@ class ContactController {
     } as IContact
     const contact = await this.contactService.createContact(inputData);
     const message = 'Contact created successfully';
-    new _SUCCESS.SuccessResponse({ message, data: contact }).setResponseTime(req.startTime).send(res);
+    new _SUCCESS.CreatedSuccess({ message, data: contact }).setResponseTime(req.startTime).send(res);
   }
 
   getAllContacts = async (req: ExtendedFunctionRequest, res: Response, _next: NextFunction) => {

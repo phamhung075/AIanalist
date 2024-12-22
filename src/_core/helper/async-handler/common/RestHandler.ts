@@ -11,16 +11,13 @@ export class RestHandler {
         message = ReasonPhrases.OK,
         pagination,
         links,
-        startTime
     }: {
         data: T;
         code?: number;
         message?: string;
         pagination?: RestResponse['metadata']['pagination'];
         links?: RestResponse['metadata']['links'];
-        startTime: number;
     }): Response {
-        const responseTime = (new Date().getTime() - startTime).toString();
         const response: RestResponse<T> = {
             level: "Success REST",
             data,
@@ -31,7 +28,6 @@ export class RestHandler {
                 timestamp: new Date().toISOString(),
                 ...(pagination && { pagination }),
                 ...(links && { links }),
-                responseTime
             },
         };
         console.log(response);

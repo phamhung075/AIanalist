@@ -51,7 +51,6 @@ export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) =>
                     links: {
                         self: resourceUrl,
                     },
-                    startTime,
                 });
             }
         } catch (error: any) {

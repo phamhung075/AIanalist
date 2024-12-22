@@ -1,14 +1,14 @@
 // firebase.config.ts
-import { initializeApp, getApps, getApp } from 'firebase-admin/app';
-import { getFirestore } from 'firebase-admin/firestore';
-import { getDatabase } from 'firebase-admin/database';
+import { red, yellow } from 'colorette';
+import { getApp, getApps, initializeApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
-// import { firebaseConfig } from '@/_core/config/dotenv.config';
-import { yellow, red } from 'colorette';
+import { getDatabase } from 'firebase-admin/database';
+import { getFirestore } from 'firebase-admin/firestore';
 import { firebaseConfig } from './dotenv.config';
 
 // ✅ Initialize Firebase Admin SDK
 let firebaseAdminApp;
+
 if (!getApps().length) {
   firebaseAdminApp = initializeApp(firebaseConfig);
   console.log(yellow('✅ Firebase Admin initialized'));
@@ -33,9 +33,7 @@ const testFirestoreAccess = async () => {
 };
 
 export {
-  firebaseAdminApp,
-  firestore,
-  database,
-  auth,
-  testFirestoreAccess,
+  auth, database, firebaseAdminApp,
+  firestore, testFirestoreAccess
 };
+

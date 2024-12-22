@@ -14,6 +14,7 @@ import { modules } from '@/modules';
 import { isRunningWithNodemon } from '@src/_core/helper/check-nodemon';
 import { blue, cyan, green, yellow } from 'colorette';
 import { showRequestUrl } from '@/_core/middleware/showRequestUrl.middleware';
+import { testFirestoreAccess } from '@/_core/config/firebase.backend.config';
 // import { testFirestoreAccess } from '@/_core/database/firebase';
 
 
@@ -103,7 +104,7 @@ export class AppService {
 		console.log(green(`Loading modules from ${blue(baseDir)}`));
 
 		console.log('✅ Ensuring Firebase Firestore is accessible...');
-		// await testFirestoreAccess();
+		await testFirestoreAccess();
 		
 		await Promise.all(modules.map(moduleDir => this.loadModule(moduleDir, modulesDir, fileExtension)));
 		console.log('✅ After loadModule');

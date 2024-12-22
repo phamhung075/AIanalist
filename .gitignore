@@ -21,8 +21,7 @@ tmp/
 # Angular
 .angular/
 .angular-cache/
-src/environment/.env.development
-src/environment/.env.production
+src/environment/
 
 # IDE files
 .vscode/

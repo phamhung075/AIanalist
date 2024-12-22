@@ -28,7 +28,7 @@ console.log(
 	green(`All environment variables are ${yellow(process.env.TEST_VAR || 'N/A')} on mode ${yellow(process.env.NODE_ENV || 'N/A')}`)
 );
 
-showConfig();
+console.log(showConfig());
 
 /**
  * Service class for managing the server application

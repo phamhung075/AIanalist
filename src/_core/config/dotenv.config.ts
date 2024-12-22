@@ -38,7 +38,7 @@ export function showConfig(): string {
     if (isEmpty(config)) {
         return '❌ Config not loaded';
     } else {
-        return `✅ Config: ${JSON.stringify(config)}`;
+        return `✅ Config: ${JSON.stringify(config, null, 2)}`;
     }
 }
 

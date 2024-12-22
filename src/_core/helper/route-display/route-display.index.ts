@@ -172,6 +172,7 @@ export class RouteDisplay {
 
     private getHandlerName(handler: any): string {
         try {
+            console.log("Handler:", handler);
             // If it's an async handler wrapper
             if (handler.name === 'asyncHandlerFn' && handler.original) {
                 return this.getHandlerName(handler.original);
@@ -204,7 +205,7 @@ export class RouteDisplay {
             const fnString = fn.toString();
             
             // Look for new _SUCCESS patterns
-            const successMatch = fnString.match(/new\s+_SUCCESS\.(\w+)/);
+            const successMatch = fnString.match(/_SUCCESS\.(\w+)/);
             if (successMatch) {
                 const responseType = successMatch[1];
                 const status = this.getStatusFromResponseType(responseType);
@@ -269,6 +270,7 @@ export class RouteDisplay {
 
     private processRouterMiddleware(middleware: any): void {
         middleware.handle.stack.forEach((handler: any) => {
+            console.log(`Middleware: ${handler.name}`, handler);
             if (handler.route) {
                 const routePath = handler.route.path;
                 const routeHandler = handler.route.stack[0];

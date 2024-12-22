@@ -14,7 +14,7 @@ import { modules } from '@/modules';
 import { isRunningWithNodemon } from '@src/_core/helper/check-nodemon';
 import { blue, cyan, green, yellow } from 'colorette';
 import { showRequestUrl } from '@/_core/middleware/showRequestUrl.middleware';
-import { testFirestoreAccess } from '@/_core/config/firebase.backend.config';
+import { testFirestoreAccess } from '@/_core/database/firebase';
 // import { testFirestoreAccess } from '@/_core/database/firebase';
 
 

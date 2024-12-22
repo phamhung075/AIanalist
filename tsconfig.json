@@ -170,7 +170,7 @@
 	},
 	"include": [
 		"src/**/*"
-	],
+, "backup/firebase.backend.config.ts"	],
 	"exclude": [
 		"node_modules",
 		"dist"

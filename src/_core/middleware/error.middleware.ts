@@ -1,10 +1,10 @@
 
 import { NextFunction, Response } from 'express';
 import { ErrorResponse } from '../helper/async-handler/error';
-import { ApiError } from '../types/response.types';
 import { RestHandler } from '../helper/async-handler/response.handler';
 import { StatusCodes } from '../helper/async-handler/common/StatusCodes';
 import { ExtendedFunctionRequest } from '../guard/handle-permission/user-context.interface';
+import { ApiError } from '@/types/response.types';
 
 export function errorMiddleware(
     error: Error,

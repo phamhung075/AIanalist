@@ -1,12 +1,12 @@
+import { yellow } from 'colorette';
 import { NextFunction, RequestHandler, Response } from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
 import { ExtendedFunctionRequest } from '../../guard/handle-permission/user-context.interface';
+import { AsyncHandlerFn } from '../register-routes';
 import { HttpStatusCode } from './common/HttpStatusCode';
 import { RestHandler } from './common/RestHandler';
 import { ErrorResponse } from './error';
-import { AsyncHandlerFn } from '../register-routes';
-import { yellow } from 'colorette';
 const { StatusCodes } = HttpStatusCode;
 
 // Middleware function to log responses and errors
@@ -41,7 +41,6 @@ export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) =>
         // console.log(yellow(`Request received for startTime ${ req.startTime }`));
         try {
             const result = await handler(req, res, next);
-
             if (!res.headersSent) {
                 const baseUrl = `${req.protocol}://${req.get('host')}`;
                 const resourceUrl = `${baseUrl}${req.originalUrl}`;
@@ -90,8 +89,7 @@ __________________________________________
 }
 
 // Error handler
-function handleError(req: ExtendedFunctionRequest, res: Response, error: any) {
-    
+function handleError(req: ExtendedFunctionRequest, res: Response, error: any) {    
     if (!res.headersSent) {
         if (error instanceof ErrorResponse) {
             return RestHandler.error(res, {
@@ -115,7 +113,6 @@ function handleError(req: ExtendedFunctionRequest, res: Response, error: any) {
                 message: error.message || 'Unknown error'
             }],
             startTime: req.startTime
-
         });
     }
 }

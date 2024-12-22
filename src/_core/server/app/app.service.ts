@@ -4,15 +4,16 @@ import express from 'express';
 import * as fs from "fs";
 import * as http from "http";
 import * as https from "https";
-import { isEmpty } from 'lodash';
 import * as path from "path";
 import { checkSystemOverload } from '../../helper/check-system-overload/check-system-overload';
 import { SimpleLogger } from '../../logger/simple-logger'; // Assuming SimpleLogger is used for logging
 // Determine the environment and load the corresponding .env file
 import { config, showConfig } from '@/_core/config/dotenv.config';
-import { isRunningWithNodemon } from '@src/_core/helper/check-nodemon';
-import { bgMagenta, bgWhite, blue, blueBright, cyan, green, greenBright, yellow } from 'colorette';
+import { responseLogger } from '@/_core/middleware/responseLogger.middleware';
 import { modules } from '@/modules';
+import { isRunningWithNodemon } from '@src/_core/helper/check-nodemon';
+import { blue, cyan, green, yellow } from 'colorette';
+import { showRequestUrl } from '@/_core/middleware/showRequestUrl.middleware';
 // import { testFirestoreAccess } from '@/_core/database/firebase';
 
 
@@ -61,7 +62,8 @@ export class AppService {
 		this.setupCors();
 		this.app.use(express.json({ limit: '50mb' }));
 		this.app.use(express.urlencoded({ limit: '50mb', extended: true }));
-		this.app.use(this.showRequestUrl);
+		this.app.use(showRequestUrl);
+		this.app.use(responseLogger);
 	}
 
 	/**
@@ -226,31 +228,10 @@ export class AppService {
 		}
 	}
 
-	/**
-	 * Log request details for debugging
-	 */
-	private showRequestUrl(req: express.Request, _: express.Response, next: express.NextFunction): void {
-		const timestamp = new Date().toLocaleString();
-		console.log(bgWhite("\n" + "showRequestUrl: " + timestamp));
-		if (!isEmpty(req.originalUrl)) console.log('Request URL:', `${blueBright(req.headers.host ?? 'host_not_found')}${blue(req.originalUrl)}`);
-		if (!isEmpty(req.method)) console.log('Method:', yellow(req.method));
-		if (!isEmpty(req.body)) console.log('Body:', greenBright(JSON.stringify(req.body, null, 2)));
-		if (!isEmpty(req.params)) console.log('Params:', JSON.stringify(req.params, null, 2));
-		if (!isEmpty(req.query)) console.log('Query:', JSON.stringify(req.query, null, 2));
-		console.log(bgMagenta("\n"));
-		next();
-	}
-
-	/**
-	 * Log and handle the response
-	 */
-
-
-
 }
 
 // Initialize the AppService and start the server
 const appService = AppService.getInstance();
 const app = appService.app; // Export the Express app for testing
-export { appService, app };
+export { app, appService };
 

@@ -4,8 +4,8 @@ import { asyncHandlerFn } from '@src/_core/helper/async-handler/async-handler';
 import { BaseController, registerRoutes, Routes } from '@/_core/helper/register-routes';
 import { RequestHandler } from '@node_modules/@types/express';
 import errorController from './error.controller.factory';
-import { validateSchema } from './error.middleware';
 import { ErrorMessageSchema } from './error.validation';
+import { validateSchema } from '@/_core/middleware/validateSchema.middleware';
 export interface IErrorController extends BaseController {
     BadRequestError: RequestHandler;
     ValidationError: RequestHandler;

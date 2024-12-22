@@ -69,8 +69,12 @@ class SuccessResponse {
     }
     
     setResponseTime(startTime: number) {
-        const responseTime = `${Date.now() - startTime}ms`;
-        this.metadata.responseTime = responseTime;
+        if (!startTime) {
+            this.metadata.responseTime = '0ms';
+        } else {
+            const responseTime = `${Date.now() - startTime}ms`;
+            this.metadata.responseTime = responseTime;
+        }
         return this;
     }
 
@@ -84,27 +88,27 @@ class SuccessResponse {
         try {
             // 1. Pre-send hooks
             this.preSendHooks();
-
-            // 2. Format response
+    
+            // 2. Set response time once
+            if (res.startTime) {
+                this.setResponseTime(res.startTime);
+            }
+    
+            // 3. Format response
             const response = this.formatResponse();
-
-            // 3. Add response time
-            const responseTime = this.setResponseTime(res.startTime);
-            response.metadata.responseTime = responseTime;
-
+    
             // 4. Handle headers
             this.handleHeaders(res);
-
+    
             // 5. Send response
             if (!res.headersSent) {
                 return res.status(this.status).json(response);
             }
-
+    
             // 6. Post-send hooks (if needed)
             this.postSendHooks();
-
+    
         } catch (error) {
-            // Handle send errors
             console.error('Error sending response:', error);
             if (next) {
                 next(error);

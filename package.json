@@ -22,7 +22,8 @@
 		"firebase-admin": "^12.4.0",
 		"lodash": "^4.17.21",
 		"python-shell": "^5.0.0",
-		"selenium": "^2.20.0"
+		"selenium": "^2.20.0",
+		"zod": "^3.24.1"
 	},
 	"devDependencies": {
 		"@types/cors": "^2.8.17",

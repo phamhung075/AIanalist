@@ -38,6 +38,7 @@ export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) =>
         if (!req.startTime) {
             req.startTime = startTime;
         } 
+        console.log(yellow(`Request received for startTime ${startTime}`));
         try {
             const result = await handler(req, res, next);
 

@@ -34,11 +34,11 @@ export const firebaseConfig = {
     measurementId: process.env.FIREBASE_MEASUREMENT_ID
 };
 
-export function showConfig(): void {
+export function showConfig(): string {
     if (isEmpty(config)) {
-        console.log('❌ Config not loaded');
+        return '❌ Config not loaded';
     } else {
-        console.log('✅ Config:', config);
+        return `✅ Config: ${JSON.stringify(config)}`;
     }
 }
 

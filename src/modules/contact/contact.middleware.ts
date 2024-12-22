@@ -5,6 +5,7 @@ import { ZodSchema, ZodError } from 'zod';
 // ✅ Generic Zod Validation Middleware
 export const validateSchema =
   (schema: ZodSchema) => (req: Request, res: Response, next: NextFunction) => {
+    console.log('level Validation');
     try {
       schema.parse({
         body: req.body,

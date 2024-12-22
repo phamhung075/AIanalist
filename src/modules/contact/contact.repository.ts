@@ -4,12 +4,18 @@ import { IContact } from './contact.interface';
 
 class ContactRepository {
   async create(contact: IContact): Promise<IContact> {
-    const docRef = await firestore.collection('contacts').add({
-      ...contact,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-    return { id: docRef.id, ...contact };
+    console.log('level Repository');
+    try {
+      const docRef = await firestore.collection('contacts').add({
+        ...contact,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+      console.log('Document written with ID: ', docRef.id);
+      return { id: docRef.id, ...contact };
+    } catch (error) {
+      throw error;
+    }
   }
 
   async findAll(): Promise<IContact[]> {

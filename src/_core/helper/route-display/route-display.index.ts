@@ -43,7 +43,6 @@ export class RouteDisplay {
     private getRoutePath(route: any, middleware: any): string {
         try {
             const basePath = this.getBasePathFromRegex(middleware.regexp);
-            console.log('Base Path:', basePath);
             const routePath = route.path || '';
             return path.join(config.baseApi, basePath, routePath).replace(/\\/g, '/');
         } catch (error) {

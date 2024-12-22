@@ -14,8 +14,8 @@ const router = createRouter(__filename);
 router.post(
   '/contact',
   validateSchema(CreateContactSchema),
-  asyncHandlerFn(async (req, res) => {
-    await contactController.createContact(req, res);
+  asyncHandlerFn(async (req, res, next) => {
+    await contactController.createContact(req, res, next);
   })
 );
 

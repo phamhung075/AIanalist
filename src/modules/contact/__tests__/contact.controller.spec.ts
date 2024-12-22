@@ -105,22 +105,24 @@ describe('ContactController', () => {
       );
     });
 
-    it('should handle service errors properly', async () => {
+    it('should let error propagate to error handling middleware', async () => {
       // Setup service mock to throw error
       const mockError = new Error('Database error');
       mockContactService.createContact.mockRejectedValue(mockError);
 
       // Execute controller method
-      await contactController.createContact(
-        mockRequest as Request,
-        mockResponse as Response,
-        mockNext
-      );
+      await expect(
+        contactController.createContact(
+          mockRequest as Request,
+          mockResponse as Response,
+          mockNext
+        )
+      ).rejects.toThrow(mockError);
 
-      // Verify error was passed to next middleware
-      expect(mockNext).toHaveBeenCalledWith(mockError);
-
-      // Verify response was not sent
+      // Verify service was called
+      expect(mockContactService.createContact).toHaveBeenCalled();
+      
+      // Verify response was not sent since error will be handled by middleware
       expect(mockResponse.json).not.toHaveBeenCalled();
     });
 

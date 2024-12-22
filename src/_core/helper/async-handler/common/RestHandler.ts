@@ -19,7 +19,7 @@ export class RestHandler {
         links?: RestResponse['metadata']['links'];
     }): Response {
         const response: RestResponse<T> = {
-            level: "Success REST",
+            // level: "Success REST",
             data,
             metadata: {
                 code,
@@ -50,7 +50,7 @@ export class RestHandler {
             responseTime = `${Date.now() - startTime}ms`;
         }
         const response: RestResponse = {
-            level: "Error REST",
+            // level: "Error REST",
             data: null,
             metadata: {
                 code,

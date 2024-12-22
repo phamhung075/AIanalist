@@ -24,7 +24,7 @@ export interface MetaData {
 }
 
 export interface RestResponse<T = any> {
-    level: string;
+    level?: string;
     data: T | null;
     metadata: MetaData;    
     errors?: Array<{

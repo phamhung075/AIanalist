@@ -13,7 +13,6 @@ import { responseLogger } from '@/_core/middleware/responseLogger.middleware';
 import { modules } from '@/modules';
 import { isRunningWithNodemon } from '@src/_core/helper/check-nodemon';
 import { blue, cyan, green, yellow } from 'colorette';
-import { showRequestUrl } from '@/_core/middleware/showRequestUrl.middleware';
 // import { testFirestoreAccess } from '@/_core/database/firebase';
 
 
@@ -62,7 +61,7 @@ export class AppService {
 		this.setupCors();
 		this.app.use(express.json({ limit: '50mb' }));
 		this.app.use(express.urlencoded({ limit: '50mb', extended: true }));
-		this.app.use(showRequestUrl);
+		// this.app.use(showRequestUrl);
 		this.app.use(responseLogger);
 	}
 

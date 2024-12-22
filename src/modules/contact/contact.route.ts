@@ -11,26 +11,16 @@ import {
 import { validateSchema } from '@/_core/middleware/validateSchema.middleware';
 
 const router = createRouter(__filename);
-// Create a new contact
-// Create a new contact
 
+// Create a new contact
 router.post(
   '/contact',
   validateSchema(CreateContactSchema),
   asyncHandlerFn(async (req, res, next) => {
-      return await contactController.createContact(req, res, next);
+    await contactController.createContact(req, res, next);
   })
 );
 
-router.post(
-  '/contact',
-
-  // validateSchema(CreateContactSchema),
-  asyncHandlerFn(async (req, res, next) => {
-    console.log('Handler executing for path:', req.path);
-    return await contactController.createContact(req, res, next);
-  })
-);
 
 // Get all contacts
 router.get(

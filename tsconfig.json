@@ -133,44 +133,22 @@
 		"baseUrl": ".",
 		"outDir": "dist",
 		"paths": {	
-			"@/*": [
-				"src/*"
-			],
-			"@src/*": [
-				"src/*"
-			],
-			"@scripts/*": [
-				"src/scripts/*"
-			],
-			"@utils/*": [
-				"src/utils/*"
-			],
-			"@modules/*": [
-				"src/modules/*"
-			],
-			"@server/*": [
-				"src/_core/server/*"
-			],
-			"@database/*": [
-				"src/_core/database/*"
-			],
-			"@env/*": [
-				"src/_core/config/*"
-			],
-			"@node_modules/*": [
-				"node_modules/*"
-			],
-			"@environment/*": [
-				"environment/*"
-			],
-			"@config/*": [
-				"src/_core/config/*"
-			],
+			"@/*": ["src/*"],
+			"@src/*": ["src/*"],
+			"@scripts/*": ["src/scripts/*"],
+			"@utils/*": ["src/utils/*"],
+			"@modules/*": ["src/modules/*"],
+			"@server/*": ["src/_core/server/*"],
+			"@database/*": ["src/_core/database/*"],
+			"@env/*": ["src/_core/config/*"],
+			"@node_modules/*": ["node_modules/*"],
+			"@environment/*": ["environment/*"],
+			"@config/*": ["src/_core/config/*"]
 		}
 	},
 	"include": [
 		"src/**/*"
-, "backup/firebase.backend.config.ts"	],
+	],
 	"exclude": [
 		"node_modules",
 		"dist"

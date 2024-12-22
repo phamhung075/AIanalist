@@ -26,8 +26,8 @@ router.post(
 // Get all contacts
 router.get(
   config.baseApi + '/contacts',
-  asyncHandlerFn(async (req, res) => {
-    await contactController.getAllContacts(req, res);
+  asyncHandlerFn(async (req, res, next) => {
+    await contactController.getAllContacts(req, res, next);
   })
 );
 
@@ -35,16 +35,16 @@ router.get(
 router.get(
   config.baseApi + '/contact/:id',
   validateSchema(ContactIdSchema),
-  asyncHandlerFn(async (req, res) => {
-    await contactController.getContactById(req, res);
+  asyncHandlerFn(async (req, res, next) => {
+    await contactController.getContactById(req, res, next);
   })
 );
 // Update a contact by ID
 router.put(
   config.baseApi + '/contact/:id',
   validateSchema(UpdateContactSchema),
-  asyncHandlerFn(async (req, res) => {
-    await contactController.updateContact(req, res);
+  asyncHandlerFn(async (req, res, next) => {
+    await contactController.updateContact(req, res, next);
   })
 )
 
@@ -52,8 +52,8 @@ router.put(
 router.delete(
   config.baseApi + '/contact/:id',
   validateSchema(ContactIdSchema),
-  asyncHandlerFn(async (req, res) => {
-    await contactController.deleteContact(req, res);
+  asyncHandlerFn(async (req, res, next) => {
+    await contactController.deleteContact(req, res, next);
   })
 );
 

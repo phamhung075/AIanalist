@@ -1,12 +1,12 @@
 // contact.controller.ts
-import { NextFunction, Request, RequestHandler, Response } from 'express';
-import ContactService from './contact.service';
 import { ExtendedFunctionRequest } from '@/_core/guard/handle-permission/user-context.interface';
-import { IContact } from './contact.interface';
 import _SUCCESS from '@/_core/helper/async-handler/success';
+import { NextFunction, RequestHandler, Response } from 'express';
+import { IContact } from './contact.interface';
+import ContactService from './contact.service';
 
 class ContactController {
-  constructor(private contactService: ContactService) {}
+  constructor(private contactService: ContactService) { }
 
   createContact: RequestHandler = async (req: ExtendedFunctionRequest, res: Response, _next: NextFunction) => {
     console.log('level Controller');
@@ -15,32 +15,46 @@ class ContactController {
       name: body.name,
       email: body.email,
       phone: body.phone,
-      message: body.message,  
+      message: body.message,
     } as IContact
     const contact = await this.contactService.createContact(inputData);
-    console.log(contact);
     const message = 'Contact created successfully';
-    new _SUCCESS.SuccessResponse({message, data: contact}).setResponseTime(req.startTime).send(res);
+    new _SUCCESS.SuccessResponse({ message, data: contact }).setResponseTime(req.startTime).send(res);
   }
 
-  async getAllContacts(_req: Request, res: Response) {
+  getAllContacts = async (req: ExtendedFunctionRequest, res: Response, _next: NextFunction) => {
+    console.log('level Controller');
     const contacts = await this.contactService.getAllContacts();
-    res.status(200).json(contacts);
+    const message = 'Get all contacts successfully';
+    new _SUCCESS.SuccessResponse({ message, data: contacts }).setResponseTime(req.startTime).send(res);
   }
 
-  async getContactById(req: Request, res: Response) {
+  getContactById = async (req: ExtendedFunctionRequest, res: Response, _next: NextFunction) => {
+    console.log('level Controller');
     const contact = await this.contactService.getContactById(req.params.id);
-    res.status(contact ? 200 : 404).json(contact || { message: 'Contact not found' });
+    const message = 'Get contact by id successfully';
+    new _SUCCESS.SuccessResponse({ message, data: contact }).setResponseTime(req.startTime).send(res);
   }
 
-  async updateContact(req: Request, res: Response) {
-    const contact = await this.contactService.updateContact(req.params.id, req.body);
-    res.status(contact ? 200 : 404).json(contact || { message: 'Contact not found' });
+  updateContact = async (req: ExtendedFunctionRequest, res: Response, _next: NextFunction) => {
+    console.log('level Controller');
+    const body = req.body;
+    const inputData = {
+      name: body.name,
+      email: body.email,
+      phone: body.phone,
+      message: body.message,
+    } as IContact
+    const contact = await this.contactService.updateContact(req.params.id, inputData);
+    const message = 'Update contact successfully';
+    new _SUCCESS.SuccessResponse({ message, data: contact }).setResponseTime(req.startTime).send(res);
   }
 
-  async deleteContact(req: Request, res: Response) {
+  deleteContact = async (req: ExtendedFunctionRequest, res: Response, _next: NextFunction) => {
+    console.log('level Controller');
     await this.contactService.deleteContact(req.params.id);
-    res.status(204).send();
+    const message = 'Delete contact successfully';
+    new _SUCCESS.SuccessResponse({ message }).setResponseTime(req.startTime).send(res);
   }
 }
 

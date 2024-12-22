@@ -1,14 +1,14 @@
 // contact.route.ts
-import { Router } from 'express';
+import { createRouter } from '@/_core/helper/create-router-path';
 import contactController from './contact.controller.factory';
 import { validateSchema } from './contact.middleware';
 import {
+  ContactIdSchema,
   CreateContactSchema,
   UpdateContactSchema,
-  ContactIdSchema,
 } from './contact.validation';
 
-const router = Router();
+const router = createRouter(__filename);
 
 // Create a new contact
 router.post(

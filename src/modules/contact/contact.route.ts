@@ -7,37 +7,50 @@ import {
   CreateContactSchema,
   UpdateContactSchema,
 } from './contact.validation';
+import { asyncHandlerFn } from '@/_core/helper/async-handler/async-handler';
 
 const router = createRouter(__filename);
 // Create a new contact
 router.post(
   '/contact',
   validateSchema(CreateContactSchema),
-  (req, res) => contactController.createContact(req, res)
+  asyncHandlerFn(async (req, res) => {
+    await contactController.createContact(req, res);
+  })
 );
 
 // Get all contacts
-router.get('/contacts', (req, res) => contactController.getAllContacts(req, res));
+router.get(
+  '/contacts',
+  asyncHandlerFn(async (req, res) => {
+    await contactController.getAllContacts(req, res);
+  })
+);
 
 // Get a specific contact by ID
 router.get(
   '/contact/:id',
   validateSchema(ContactIdSchema),
-  (req, res) => contactController.getContactById(req, res)
+  asyncHandlerFn(async (req, res) => {
+    await contactController.getContactById(req, res);
+  })
 );
-
 // Update a contact by ID
 router.put(
   '/contact/:id',
   validateSchema(UpdateContactSchema),
-  (req, res) => contactController.updateContact(req, res)
-);
+  asyncHandlerFn(async (req, res) => {
+    await contactController.updateContact(req, res);
+  })
+)
 
 // Delete a contact by ID
 router.delete(
   '/contact/:id',
   validateSchema(ContactIdSchema),
-  (req, res) => contactController.deleteContact(req, res)
+  asyncHandlerFn(async (req, res) => {
+    await contactController.deleteContact(req, res);
+  })
 );
 
 export default router;

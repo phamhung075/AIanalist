@@ -1,3 +1,4 @@
+import { config } from '@/_core/config/dotenv.config';
 import Table from 'cli-table3';
 import { blue, cyan, gray, green, magenta, red, white } from 'colorette';
 import express from 'express';
@@ -42,8 +43,9 @@ export class RouteDisplay {
     private getRoutePath(route: any, middleware: any): string {
         try {
             const basePath = this.getBasePathFromRegex(middleware.regexp);
+            console.log('Base Path:', basePath);
             const routePath = route.path || '';
-            return path.join('/api', basePath, routePath).replace(/\\/g, '/');
+            return path.join(config.baseApi, basePath, routePath).replace(/\\/g, '/');
         } catch (error) {
             console.error('Error getting route path:', error);
             return 'unknown';

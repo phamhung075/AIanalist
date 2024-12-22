@@ -16,7 +16,7 @@ console.clear();
 const app = initializeApp(firebaseConfig);
 
 if (app) {
-	console.log(yellow('✅ firebase initialized'));
+	console.log(yellow('✅ Firebase initialized'));
 } else {
 	console.error('❌ firebase not initialized');
 }

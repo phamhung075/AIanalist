@@ -13,7 +13,7 @@ import { config, showConfig } from '@/_core/config/dotenv.config';
 import { isRunningWithNodemon } from '@src/_core/helper/check-nodemon';
 import { bgMagenta, bgWhite, blue, blueBright, cyan, green, greenBright, yellow } from 'colorette';
 import { modules } from '@/modules';
-import { testFirestoreAccess } from '@/_core/database/firebase';
+// import { testFirestoreAccess } from '@/_core/database/firebase';
 
 
 const env = config.env;
@@ -100,7 +100,7 @@ export class AppService {
 
 		console.log(green(`Loading modules from ${blue(baseDir)}`));
 		console.log('✅ Ensuring Firebase Firestore is accessible...');
-		await testFirestoreAccess();
+		// await testFirestoreAccess();
 		await Promise.all(modules.map(moduleDir => this.loadModule(moduleDir, modulesDir, fileExtension)));
 		// Initialize and display routes after loading all modules
 		const routeDisplay = new RouteDisplay(this.app);

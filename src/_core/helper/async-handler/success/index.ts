@@ -68,7 +68,7 @@ class SuccessResponse {
         return this;
     }
     
-    setResponseTime(startTime: number) {
+    setResponseTime(startTime?: number) {
         if (!startTime) {
             this.metadata.responseTime = '0ms';
         } else {

@@ -25,7 +25,7 @@ export class ErrorController {
 
         const data = await this.errorService.BadRequestError(req.body);
         const message = 'Bad Request Error';
-        new _SUCCESS.SuccessResponse({message, data}).setResponseTime(req.startTime!).send(res);
+        new _SUCCESS.SuccessResponse({message, data}).setResponseTime(req.startTime).send(res);
     };
 
     /**

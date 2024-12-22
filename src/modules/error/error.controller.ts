@@ -4,6 +4,7 @@ import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { ErrorTestService } from './error.service';
 import { ControllerMethod } from '@/_core/helper/register-routes';
 import _SUCCESS from '@/_core/helper/async-handler/success';
+import { ExtendedFunctionRequest } from '@/_core/guard/handle-permission/user-context.interface';
 
 export class ErrorController {
     [key: string]: ControllerMethod | unknown; 
@@ -13,7 +14,7 @@ export class ErrorController {
     /**
      * Handles Bad Request Error
      */
-    public BadRequestError: RequestHandler = async (req: Request, res: Response, _next: NextFunction) => {
+    public BadRequestError: RequestHandler = async (req: ExtendedFunctionRequest, res: Response, _next: NextFunction) => {
         const validationErrors = validateUser(req.body);
         if (validationErrors.length > 0) {
             throw new _ERROR.BadRequestError({

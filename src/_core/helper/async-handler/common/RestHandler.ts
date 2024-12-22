@@ -37,13 +37,18 @@ export class RestHandler {
     static error(res: Response, {
         errors,
         code = StatusCodes.INTERNAL_SERVER_ERROR,
-        message = ReasonPhrases.INTERNAL_SERVER_ERROR
+        message = ReasonPhrases.INTERNAL_SERVER_ERROR,
+        startTime,
     }: {
         errors: RestResponse['errors'];
         code?: number;
         message?: string;
+        startTime?: number;
     }): Response {
-
+        let responseTime = 'not calculated';
+        if (startTime) {           
+            responseTime = `${Date.now() - startTime}ms`;
+        }
         const response: RestResponse = {
             level: "Error REST",
             data: null,
@@ -51,7 +56,8 @@ export class RestHandler {
                 code,
                 status: this.getStatusText(code),
                 message,
-                timestamp: new Date().toISOString()
+                timestamp: new Date().toISOString(),
+                responseTime: responseTime
             },
             errors
         };

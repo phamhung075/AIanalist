@@ -90,7 +90,8 @@ __________________________________________
 }
 
 // Error handler
-function handleError(_req: ExtendedFunctionRequest, res: Response, error: any) {
+function handleError(req: ExtendedFunctionRequest, res: Response, error: any) {
+    
     if (!res.headersSent) {
         if (error instanceof ErrorResponse) {
             return RestHandler.error(res, {
@@ -100,7 +101,8 @@ function handleError(_req: ExtendedFunctionRequest, res: Response, error: any) {
                     code: err.code || 'UNKNOWN_ERROR',
                     message: err.message,
                     field: err.field,
-                }))
+                })),
+                startTime: req.startTime
             });
         }
 
@@ -111,7 +113,9 @@ function handleError(_req: ExtendedFunctionRequest, res: Response, error: any) {
             errors: [{
                 code: 'INTERNAL_SERVER_ERROR',
                 message: error.message || 'Unknown error'
-            }]
+            }],
+            startTime: req.startTime
+
         });
     }
 }

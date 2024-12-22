@@ -1,4 +1,5 @@
 // firebase.config.ts
+// used for get data from realtime database
 import { red, yellow } from 'colorette';
 import { getApp, getApps, initializeApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';

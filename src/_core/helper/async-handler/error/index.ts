@@ -272,7 +272,7 @@ export class ErrorResponse extends Error {
 }
 
 class BadRequestError extends ErrorResponse {
-    constructor(data: {
+   constructor(data: {
         message?: string;
         field?: string;
         errors?: Array<{ field: string; message: string; code?: string }>;
@@ -295,7 +295,7 @@ class ValidationError extends ErrorResponse {
     }) {
         super({
             message: data.message || "Validation Error",
-            status: StatusCodes.BAD_REQUEST,
+            status: StatusCodes.CONFLICT,
             code: 'VALIDATION_ERROR',
             field: data.field,
             errors: data.errors
@@ -320,15 +320,31 @@ class UnprocessableEntityError extends ErrorResponse {
     }
 }
 
+class NotFoundError extends ErrorResponse {
+    constructor(data: {
+        message?: string;
+        field?: string;
+        errors?: Array<{ field: string; message: string; code?: string }>;
+    }) {
+        super({
+            message: data.message || ReasonPhrases.NOT_FOUND,
+            status: StatusCodes.NOT_FOUND,
+            code: 'NOT_FOUND',
+            field: data.field,
+            errors: data.errors
+        });
+    }
+}
+
 // Thêm các lớp lỗi khác theo nhu cầu...
 
 const _ERROR = {
 	BadRequestError, // 400
-    ValidationError, // 400
+    ValidationError, // 409
 	// UnauthorizedError, // 401
 	// PaymentRequiredError, // 402
 	// ForbiddenError, // 403
-	// NotFoundError, // 404
+	NotFoundError, // 404
 	// MethodNotAllowedError, // 405
 	// NotAcceptableError, // 406
 	// ProxyAuthenticationRequiredError, // 407

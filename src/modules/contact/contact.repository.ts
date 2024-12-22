@@ -14,6 +14,7 @@ class ContactRepository {
       console.log('Document written with ID: ', docRef.id);
       return { id: docRef.id, ...contact };
     } catch (error) {
+      console.error('Error adding document');
       throw error;
     }
   }

@@ -32,6 +32,9 @@ describe('ContactController', () => {
     (mockContactService.createContact as jest.Mock).mockResolvedValue({
       id: '1',
       name: 'John',
+      email: 'john@example.com',
+      phone: '1234567890',
+      message: 'Hello, this is a test message.',
     });
 
     await contactController.createContact(

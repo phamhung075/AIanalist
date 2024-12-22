@@ -47,7 +47,7 @@ class SuccessResponse {
             status: this.getStatusText(this.status),
             ...metadata
         };
-    }  
+    }
 
     setStatus(status: number) {
         this.status = status;
@@ -63,11 +63,11 @@ class SuccessResponse {
         this.metadata = { ...this.metadata, ...metadata };
         return this;
     }
-    setOptions(options: any) {        
+    setOptions(options: any) {
         this.options = options;
         return this;
     }
-    
+
     setResponseTime(startTime?: number) {
         if (!startTime) {
             this.metadata.responseTime = '0ms';
@@ -78,7 +78,12 @@ class SuccessResponse {
         return this;
     }
 
- 
+    setHeader(headers: Record<string, string>) {
+        this.options.headers = { ...this.options.headers, ...headers };
+        return this;
+    }
+
+
     setData(data: any) {
         this.data = data;
         return this;
@@ -88,26 +93,26 @@ class SuccessResponse {
         try {
             // 1. Pre-send hooks
             this.preSendHooks();
-    
+
             // 2. Set response time once
             if (res.startTime) {
                 this.setResponseTime(res.startTime);
             }
-    
+
             // 3. Format response
             const response = this.formatResponse();
-    
+
             // 4. Handle headers
-            this.handleHeaders(res);
-    
+            this.handleHeaders();
+
             // 5. Send response
             if (!res.headersSent) {
                 return res.status(this.status).json(response);
             }
-    
+
             // 6. Post-send hooks (if needed)
             this.postSendHooks();
-    
+
         } catch (error) {
             console.error('Error sending response:', error);
             if (next) {
@@ -144,23 +149,23 @@ class SuccessResponse {
         return response;
     }
 
-    private handleHeaders(res: any) {
+    private handleHeaders() {
         // Set standard headers
-        res.set('X-Response-Time', this.metadata.responseTime);
-        
+        this.setHeader({ 'X-Response-Time': this.metadata.responseTime });
+
         // Set custom headers if they exist
         if (this.options?.headers) {
             Object.entries(this.options.headers).forEach(([key, value]) => {
-                res.set(key, value);
+                this.setHeader({ [key]: String(value) });
             });
         }
     }
 
-    
+
 
     private getStatusText(code: number): string {
         return Object.entries(ReasonPhrases)
-            .find(([_, value]) => StatusCodes[value as keyof typeof StatusCodes] === code)?.[1] 
+            .find(([_, value]) => StatusCodes[value as keyof typeof StatusCodes] === code)?.[1]
             || 'UNKNOWN_STATUS';
     }
 

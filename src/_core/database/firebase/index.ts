@@ -36,9 +36,9 @@ const testFirestoreAccess = async () => {
         console.error(red('❌ Firestore is not initialized'));
         return;
     }
-
     try {
         const snapshot = await firestore.collection('news').get();
+        console.log(yellow('✅ Firestore initialized successfully'));
         console.log(yellow(`✅ Firestore Test: ${snapshot.size} documents found.`));
     } catch (error) {
         console.error(red('❌ Error accessing Firestore:'), error);

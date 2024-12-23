@@ -9,12 +9,12 @@ import { checkSystemOverload } from '../../helper/check-system-overload/check-sy
 import { SimpleLogger } from '../../logger/simple-logger'; // Assuming SimpleLogger is used for logging
 // Determine the environment and load the corresponding .env file
 import { config, showConfig } from '@/_core/config/dotenv.config';
+import { testFirestoreAccess } from '@/_core/database/firebase';
 import { responseLogger } from '@/_core/middleware/responseLogger.middleware';
+import { showRequestUrl } from '@/_core/middleware/showRequestUrl.middleware';
 import { modules } from '@/modules';
 import { isRunningWithNodemon } from '@src/_core/helper/check-nodemon';
 import { blue, cyan, green, yellow } from 'colorette';
-import { showRequestUrl } from '@/_core/middleware/showRequestUrl.middleware';
-import { testFirestoreAccess } from '@/_core/database/firebase';
 // import { testFirestoreAccess } from '@/_core/database/firebase';
 
 
@@ -103,9 +103,6 @@ export class AppService {
 
 		console.log(green(`Loading modules from ${blue(baseDir)}`));
 
-		console.log('✅ Ensuring Firebase Firestore is accessible...');
-		await testFirestoreAccess();
-		
 		await Promise.all(modules.map(moduleDir => this.loadModule(moduleDir, modulesDir, fileExtension)));
 		console.log('✅ After loadModule');
 		// Initialize and display routes after loading all modules
@@ -214,7 +211,7 @@ export class AppService {
 	async listen(): Promise<http.Server | https.Server> {
 		try {
 			await this.init();
-			
+			await testFirestoreAccess();
 			await this.loadCloudModules(this.app);  // Load cloud modules
 			console.log('✅ After loadCloudModules');
 

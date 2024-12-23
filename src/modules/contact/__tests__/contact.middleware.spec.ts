@@ -5,7 +5,14 @@ import { CreateContactSchema } from '../contact.validation';
 
 describe('Contact Middleware - validateSchema', () => {
   it('should pass validation', () => {
-    const mockRequest = { body: { name: 'John', email: 'john@example.com', phone: '1234567890' } };
+    const mockRequest = {
+      startTime: Date.now(), // Ensure startTime exists
+      body: {
+        name: 'Jane Doe',
+        email: 'jane@example.com',
+        phone: '1234567890',
+      }
+    };
     const mockResponse = {};
     const mockNext = jest.fn();
 

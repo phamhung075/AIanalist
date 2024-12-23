@@ -10,6 +10,8 @@ export function logRoutes(app: express.Express): void {
 	// Iterate over the app's middleware stack
 	app._router.stack.forEach((middleware: any) => {
 		if (middleware.route) {
+			console.log(`Route registered: [${Object.keys(middleware.route.methods)}] ${middleware.route.path}`);
+
 			const route = middleware.route;
 			routes.push({
 				path: route.path,

@@ -18,7 +18,12 @@ const config: Config = {
 		'^@database/(.*)$': '<rootDir>/src/_core/database/$1'
 	},
 	setupFiles: ['dotenv/config'],
-	rootDir: './'
+	rootDir: './',
+
 };
 
 export default config;
+module.exports = {
+	setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+	testEnvironment: 'node',
+};

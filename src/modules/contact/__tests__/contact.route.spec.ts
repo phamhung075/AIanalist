@@ -1,5 +1,4 @@
-// __tests__/contact.route.spec.ts
-import { app } from '@/_core/server/app/app.service';
+import {app} from '@/_core/server/app/app.service';
 import request from 'supertest';
 
 describe('Contact Routes', () => {
@@ -10,7 +9,9 @@ describe('Contact Routes', () => {
         name: 'Jane Doe',
         email: 'jane@example.com',
         phone: '1234567890',
+        message: 'Test message',
       });
+
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty('id');
     expect(response.body.name).toBe('Jane Doe');
@@ -19,5 +20,6 @@ describe('Contact Routes', () => {
   it('should fetch all contacts', async () => {
     const response = await request(app).get('/api/contacts');
     expect(response.status).toBe(200);
+    expect(Array.isArray(response.body)).toBe(true);
   });
 });

@@ -14,7 +14,7 @@ dotenv.config({ path: envFile });
 export const config = {
     appName: name || 'Unknown App',
     appVersion : version || 'Unknown Version',
-    baseApi: process.env.BASE_API || '/api_v1',
+    baseApi: process.env.BASE_API || '/undefined',
     env: env || 'development',
     mode: process.env.MODE || 'development',
     port: process.env.PORT || 3000,

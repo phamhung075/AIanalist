@@ -1,24 +1,60 @@
-import { app } from '@/_core/server/app/app.service';
-import request from 'supertest';
-import { IContact } from './contact.interface';
+// contact.route.ts
+import { asyncHandlerFn } from '@/_core/helper/async-handler/async-handler';
+import { createRouter } from '@/_core/helper/create-router-path';
+import contactController from './contact.controller.factory';
 
-describe('Contact Routes', () => {
-  it('should create a new contact', async () => {
-    const response = await request(app)
-      .post('/api/contact') // Updated to match the route
-      .send({
-        name: 'Jane Doe',
-        email: 'jane@example.com',
-        phone: '1234567890',
-      } as IContact);
+import {
+  ContactIdSchema,
+  CreateContactSchema,
+  UpdateContactSchema
+} from './contact.validation';
+import { validateSchema } from '@/_core/middleware/validateSchema.middleware';
+import { config } from '@/_core/config/dotenv.config';
 
-    expect(response.status).toBe(201); // Expect a created status
-    expect(response.body).toHaveProperty('id');
-    expect(response.body.name).toBe('Jane Doe');
-  });
+const router = createRouter(__filename);
 
-  it('should fetch all contacts', async () => {
-    const response = await request(app).get('/api/contacts'); // Updated to match the route
-    expect(response.status).toBe(200); // Expect an OK status
-  });
-});
+// Create a new contact
+router.post(
+  config.baseApi + '/contact',
+  validateSchema(CreateContactSchema),
+  asyncHandlerFn(async (req, res, next) => {
+    await contactController.createContact(req, res, next);
+  })
+);
+
+
+// Get all contacts
+router.get(
+  config.baseApi + '/contacts',
+  asyncHandlerFn(async (req, res, next) => {
+    await contactController.getAllContacts(req, res, next);
+  })
+);
+
+// Get a specific contact by ID
+router.get(
+  config.baseApi + '/contact/:id',
+  validateSchema(ContactIdSchema),
+  asyncHandlerFn(async (req, res, next) => {
+    await contactController.getContactById(req, res, next);
+  })
+);
+// Update a contact by ID
+router.put(
+  config.baseApi + '/contact/:id',
+  validateSchema(UpdateContactSchema),
+  asyncHandlerFn(async (req, res, next) => {
+    await contactController.updateContact(req, res, next);
+  })
+)
+
+// Delete a contact by ID
+router.delete(
+  config.baseApi + '/contact/:id',
+  validateSchema(ContactIdSchema),
+  asyncHandlerFn(async (req, res, next) => {
+    await contactController.deleteContact(req, res, next);
+  })
+);
+
+export default router;

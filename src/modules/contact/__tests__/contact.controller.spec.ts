@@ -81,7 +81,7 @@ describe('ContactController', () => {
       });
 
       // Verify response status
-      expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.OK);
+      expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.CREATED);
 
       // Verify response headers
       expect(mockResponse.setHeader).toHaveBeenCalledWith(
@@ -97,8 +97,8 @@ describe('ContactController', () => {
           data: mockContactData,
           metadata: expect.objectContaining({
             timestamp: expect.any(String),
-            code: StatusCodes.OK,
-            status: ReasonPhrases.OK,
+            code: StatusCodes.CREATED,
+            status: ReasonPhrases.CREATED,
             responseTime: expect.stringMatching(/^\d+ms$/)
           })
         })

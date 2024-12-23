@@ -11,7 +11,7 @@ const config: Config = {
 		'^@/(.*)$': '<rootDir>/src/$1',
 		'^@src/(.*)$': '<rootDir>/src/$1',
 		'^@modules/(.*)$': '<rootDir>/src/modules/$1',
-    '^firebase-admin$': '<rootDir>/__mocks__/firebase-admin.ts',
+		'^firebase-admin$': '<rootDir>/__mocks__/firebase-admin.ts',
 		'^@environment/(.*)$': '<rootDir>/environment/$1',
 		'^@config/(.*)$': '<rootDir>/src/_core/config/$1',
 		'^@server/(.*)$': '<rootDir>/src/_core/server/$1',

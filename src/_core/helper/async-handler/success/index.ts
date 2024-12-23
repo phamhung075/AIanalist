@@ -196,10 +196,14 @@ class SuccessResponse {
      */
     private getStatusText(code: number): string {
         return (
-            Object.entries(ReasonPhrases).find(([_, value]) => StatusCodes[value as keyof typeof StatusCodes] === code)
-                ?.[1] || 'UNKNOWN_STATUS'
+            Object.entries(StatusCodes).find(([_key, value]) => value === code)
+                ?.[0] // Return the key
+                ?.split('_')
+                .map(word => word.charAt(0) + word.slice(1).toLowerCase())
+                .join(' ') || 'UNKNOWN_STATUS'
         );
     }
+    
 
     /**
      * Post-send Hooks

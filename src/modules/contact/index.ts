@@ -7,8 +7,7 @@ import {
   UpdateContactSchema
 } from './contact.validation';
 import { validateSchema } from '@/_core/middleware/validateSchema.middleware';
-import { createRouter } from '@/_core/helper/create-router-path';
-
+import { createRouter } from '@node_modules/express-route-tracker/dist';
 // Create router with source tracking
 const router = createRouter(__filename);
 

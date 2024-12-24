@@ -14,7 +14,7 @@ import { showRequestUrl } from '@/_core/middleware/showRequestUrl.middleware';
 import router from "@modules/index";
 import { isRunningWithNodemon } from '@src/_core/helper/check-nodemon';
 import { blue, green, yellow } from 'colorette';
-import { RouteDisplay } from '@/_core/helper/route-display/route-display.index';
+import { RouteDisplay } from '@node_modules/express-route-tracker/dist';
 
 // import { testFirestoreAccess } from '@/_core/database/firebase';
 

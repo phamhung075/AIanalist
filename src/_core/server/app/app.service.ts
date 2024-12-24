@@ -62,13 +62,13 @@ export class AppService {
 	 */
 	private async init(): Promise<void> {
 		this.setupCors();
-		this.app.use(express.json({ limit: '50mb' }));
-		this.app.use(express.urlencoded({ limit: '50mb', extended: true }));
-		this.app.use(showRequestUrl);
-		this.app.use(responseLogger);
+		app.use(express.json({ limit: '50mb' }));
+		app.use(express.urlencoded({ limit: '50mb', extended: true }));
+		app.use(showRequestUrl);
+		app.use(responseLogger);
 		// Initialize and display routes after loading all modules
 		app.use("/", router);
-		const routeDisplay = new RouteDisplay(this.app);
+		const routeDisplay = new RouteDisplay(app);
 		routeDisplay.displayRoutes();
 		// const routes: { methods: string[], path: string }[] = [];
 

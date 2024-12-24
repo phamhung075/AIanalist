@@ -5,9 +5,7 @@ import express from 'express';
 interface RouteInfo {
     method: string;
     path: string;
-    handler: string;
     sourcePath: string;
-    stack: any[];
 }
 
 export class RouteDisplay {
@@ -29,37 +27,6 @@ export class RouteDisplay {
         return colors[method]?.(method.toUpperCase()) || method;
     }
 
-    private getHandlerName(route: any): string {
-        try {
-            const lastHandler = route.stack[route.stack.length - 1];
-            if (!lastHandler) return '<anonymous>';
-
-            // Check for async handler
-            if (lastHandler.handle?.original) {
-                const fnStr = lastHandler.handle.original.toString();
-                const match = fnStr.match(/await\s+(\w+)\.(\w+)\(/);
-                if (match) return `${match[1]}.${match[2]}`;
-            }
-
-            // Get name from the handler
-            const handler = lastHandler.handle || lastHandler;
-            if (handler.name && handler.name !== 'handle') {
-                return handler.name;
-            }
-
-            // Try to extract controller method name
-            const fnStr = handler.toString();
-            const controllerMatch = fnStr.match(/await\s+(\w+)\.(\w+)\(/);
-            if (controllerMatch) {
-                return `${controllerMatch[1]}.${controllerMatch[2]}`;
-            }
-
-            return '<anonymous>';
-        } catch (error) {
-            return '<anonymous>';
-        }
-    }
-
     private getSourcePath(route: any): string {
         return route.__source || 
                route.stack?.[0]?.handle?.__source || 
@@ -79,8 +46,6 @@ export class RouteDisplay {
                 this.routes.push({
                     method: method.toUpperCase(),
                     path: (basePath + route.path) || '/',
-                    stack: route.stack,
-                    handler: this.getHandlerName(route),
                     sourcePath: this.getSourcePath(route)
                 });
             });
@@ -94,8 +59,7 @@ export class RouteDisplay {
                 
             // Parse nested routes
             layer.handle.stack.forEach((nestedLayer: any) => {
-                console.log('Nested Layer:', nestedLayer);
-                console.log('stack:', nestedLayer.stack);
+                // console.log('Nested Layer:', nestedLayer);
                 this.parseRoutes(nestedLayer, prefix);
             });
         }
@@ -118,7 +82,7 @@ export class RouteDisplay {
         });
 
         const table = new Table({
-            head: ['Method', 'Path', 'Handler', 'Source'].map(h => white(h)),
+            head: ['Method', 'Path', 'Source'].map(h => white(h)),
             style: {
                 head: [],
                 border: []
@@ -129,7 +93,6 @@ export class RouteDisplay {
             table.push([
                 this.formatMethod(route.method),
                 route.path,
-                cyan(route.handler),
                 gray(route.sourcePath)
             ]);
         });

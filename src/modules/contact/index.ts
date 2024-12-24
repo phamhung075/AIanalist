@@ -1,7 +1,4 @@
-//src\modules\contact\contact.route.ts
-
 import { asyncHandlerFn } from '@/_core/helper/async-handler/async-handler';
-
 import contactController from './contact.controller.factory';
 import {
   ContactIdSchema,
@@ -14,46 +11,32 @@ import { createRouter } from '@/_core/helper/create-router-path';
 // Create router with source tracking
 const router = createRouter(__filename);
 
+// Named Handlers
+async function createContactHandler(req: any, res: any, next: any) {
+  await contactController.createContact(req, res, next);
+}
+
+async function getAllContactsHandler(req: any, res: any, next: any) {
+  await contactController.getAllContacts(req, res, next);
+}
+
+async function getContactByIdHandler(req: any, res: any, next: any) {
+  await contactController.getContactById(req, res, next);
+}
+
+async function updateContactHandler(req: any, res: any, next: any) {
+  await contactController.updateContact(req, res, next);
+}
+
+async function deleteContactHandler(req: any, res: any, next: any) {
+  await contactController.deleteContact(req, res, next);
+}
+
 // Define routes without baseApi prefix
-// Collection routes
-router.post(
-  '/',  // Base route for collection
-  validateSchema(CreateContactSchema),
-  asyncHandlerFn(async (req, res, next) => {
-    await contactController.createContact(req, res, next);
-  })
-);
-
-router.get(
-  '/',  // Base route for collection
-  asyncHandlerFn(async (req, res, next) => {
-    await contactController.getAllContacts(req, res, next);
-  })
-);
-
-// Individual resource routes
-router.get(
-  '/:id',
-  validateSchema(ContactIdSchema),
-  asyncHandlerFn(async (req, res, next) => {
-    await contactController.getContactById(req, res, next);
-  })
-);
-
-router.put(
-  '/:id',
-  validateSchema(UpdateContactSchema),
-  asyncHandlerFn(async (req, res, next) => {
-    await contactController.updateContact(req, res, next);
-  })
-);
-
-router.delete(
-  '/:id',
-  validateSchema(ContactIdSchema),
-  asyncHandlerFn(async (req, res, next) => {
-    await contactController.deleteContact(req, res, next);
-  })
-);
+router.post('/', validateSchema(CreateContactSchema), asyncHandlerFn(createContactHandler));
+router.get('/', asyncHandlerFn(getAllContactsHandler));
+router.get('/:id', validateSchema(ContactIdSchema), asyncHandlerFn(getContactByIdHandler));
+router.put('/:id', validateSchema(UpdateContactSchema), asyncHandlerFn(updateContactHandler));
+router.delete('/:id', validateSchema(ContactIdSchema), asyncHandlerFn(deleteContactHandler));
 
 export = router;

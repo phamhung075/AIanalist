@@ -7,6 +7,7 @@ interface RouteInfo {
     path: string;
     handler: string;
     sourcePath: string;
+    stack: any[];
 }
 
 export class RouteDisplay {
@@ -67,6 +68,8 @@ export class RouteDisplay {
     }
 
     private parseRoutes(layer: any, basePath: string = ''): void {
+        console.log('Parsing routes...');
+        console.log('Layer:', layer);
         if (layer.route) {
             // This is a route definition
             const route = layer.route;
@@ -76,6 +79,7 @@ export class RouteDisplay {
                 this.routes.push({
                     method: method.toUpperCase(),
                     path: (basePath + route.path) || '/',
+                    stack: route.stack,
                     handler: this.getHandlerName(route),
                     sourcePath: this.getSourcePath(route)
                 });
@@ -90,6 +94,8 @@ export class RouteDisplay {
                 
             // Parse nested routes
             layer.handle.stack.forEach((nestedLayer: any) => {
+                console.log('Nested Layer:', nestedLayer);
+                console.log('stack:', nestedLayer.stack);
                 this.parseRoutes(nestedLayer, prefix);
             });
         }

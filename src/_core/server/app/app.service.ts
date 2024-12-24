@@ -70,20 +70,6 @@ export class AppService {
 		app.use("/", router);
 		const routeDisplay = new RouteDisplay(app);
 		routeDisplay.displayRoutes();
-		// const routes: { methods: string[], path: string }[] = [];
-
-		// const parseRoute = (def: any) => {
-		// 	if (def.route) {
-		// 		routes.push({ path: def.route.path, methods: Object.keys(def.route.methods) });
-		// 	} else if (def.name === 'router') {
-		// 		// nested route (sub router)..
-		// 		def.handle.stack.forEach(parseRoute);
-		// 	}
-		// }
-		// app._router.stack.forEach(parseRoute);
-		// console.log(routes);
-
-
 	}
 
 	/**
@@ -103,62 +89,6 @@ export class AppService {
 		app.use(cors(corsOptions));
 	}
 
-	// /**
-	//  * Load cloud modules dynamically
-	//  * 
-	//  * @param app - Express application instance
-	//  */
-	// private async loadCloudModules(_app: express.Express): Promise<void> {
-	// 	const isDevMode = process.env.NODE_ENV === 'development';
-	// 	const fileExtension = isDevMode ? 'ts' : 'js';
-
-	// 	// Adjust the base path depending on environment
-	// 	const baseDir = isDevMode
-	// 		? path.resolve(__dirname, '../../../..')
-	// 		: '/var/www/aianalist-backend';
-	// 	const modulesDir = isDevMode
-	// 		? path.join(baseDir, 'src/modules')
-	// 		: path.join(baseDir, 'dist', 'src/modules');
-
-	// 	console.log(green(`Loading modules from ${blue(baseDir)}`));
-
-	// 	await Promise.all(modules.map(moduleDir => this.loadModule(moduleDir, modulesDir, fileExtension)));
-	// 	console.log('✅ After loadModule');
-	// 	// Initialize and display routes after loading all modules
-	// 	const routeDisplay = new RouteDisplay(app);
-	// 	routeDisplay.displayRoutes();
-	// }
-
-	// // /**
-	// //  * Helper function to load a single cloud module
-	// //  * 
-	// //  * @param moduleDir - Directory of the module
-	// //  * @param modulesDir - Base directory where modules are located
-	// //  * @param fileExtension - File extension based on environment
-	// //  */
-	// private async loadModule(moduleDir: string, modulesDir: string, fileExtension: string): Promise<void> {
-	// 	const cloudFilePath = path.join(modulesDir, moduleDir + `.${fileExtension}`);
-	// 	console.log(green(`Loading module ${moduleDir} from ${blue(cloudFilePath)}`));
-
-	// 	if (fs.existsSync(cloudFilePath)) {
-	// 		try {
-	// 			const moduleImport = await import(cloudFilePath);
-	// 			const moduleRouter = moduleImport.default || moduleImport;
-
-	// 			if (moduleRouter && typeof moduleRouter === 'function') {
-	// 				console.log(green(`Module router loaded:`), moduleRouter);
-	// 				app.use(moduleRouter);
-	// 				console.log(green(`Module ${blue(moduleDir)} loaded and routes attached.`));
-	// 			} else {
-	// 				console.warn(`Module ${blue(moduleDir)} does not export a valid router function.`);
-	// 			}
-	// 		} catch (error) {
-	// 			console.error(`Error loading module ${blue(moduleDir)}:`, error);
-	// 		}
-	// 	} else {
-	// 		console.warn(`Cloud file not found for module ${blue(moduleDir)}: ${cyan(cloudFilePath)}`);
-	// 	}
-	// }
 
 	/**
 	 * Create and configure the server (HTTP or HTTPS)

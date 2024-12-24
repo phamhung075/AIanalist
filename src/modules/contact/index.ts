@@ -1,3 +1,4 @@
+// src\modules\contact\index.ts
 import { asyncHandlerFn } from '@/_core/helper/async-handler/async-handler';
 import contactController from './contact.controller.factory';
 import {

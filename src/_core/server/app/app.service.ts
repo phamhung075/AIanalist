@@ -100,7 +100,7 @@ export class AppService {
 			credentials: true,
 		};
 
-		this.app.use(cors(corsOptions));
+		app.use(cors(corsOptions));
 	}
 
 	// /**
@@ -125,7 +125,7 @@ export class AppService {
 	// 	await Promise.all(modules.map(moduleDir => this.loadModule(moduleDir, modulesDir, fileExtension)));
 	// 	console.log('✅ After loadModule');
 	// 	// Initialize and display routes after loading all modules
-	// 	const routeDisplay = new RouteDisplay(this.app);
+	// 	const routeDisplay = new RouteDisplay(app);
 	// 	routeDisplay.displayRoutes();
 	// }
 
@@ -147,7 +147,7 @@ export class AppService {
 
 	// 			if (moduleRouter && typeof moduleRouter === 'function') {
 	// 				console.log(green(`Module router loaded:`), moduleRouter);
-	// 				this.app.use(moduleRouter);
+	// 				app.use(moduleRouter);
 	// 				console.log(green(`Module ${blue(moduleDir)} loaded and routes attached.`));
 	// 			} else {
 	// 				console.warn(`Module ${blue(moduleDir)} does not export a valid router function.`);
@@ -167,7 +167,7 @@ export class AppService {
 		let server: http.Server | https.Server;
 
 		if (env === 'development') {
-			server = http.createServer(this.app);
+			server = http.createServer(app);
 		} else {
 			// SSL certificate paths for production
 			const privateKeyPath = '/var/keys/privkey.pem';
@@ -178,7 +178,7 @@ export class AppService {
 				cert: fs.readFileSync(certificatePath, 'utf8')
 			};
 
-			server = https.createServer(credentials, this.app);
+			server = https.createServer(credentials, app);
 		}
 
 		// Wrap the listen call with error handling
@@ -232,7 +232,7 @@ export class AppService {
 		try {
 			await this.init();
 			await testFirestoreAccess();
-			// await this.loadCloudModules(this.app);  // Load cloud modules
+			// await this.loadCloudModules(app);  // Load cloud modules
 			// console.log('✅ After loadCloudModules');
 
 			const server = await this.createServer();

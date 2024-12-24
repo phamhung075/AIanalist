@@ -1,7 +1,6 @@
 import Table from 'cli-table3';
 import { blue, cyan, gray, green, magenta, red, white } from 'colorette';
 import express from 'express';
-import * as path from 'path';
 
 interface RouteInfo {
     method: string;
@@ -29,86 +28,88 @@ export class RouteDisplay {
         return colors[method]?.(method.toUpperCase()) || method;
     }
 
-    private getBasePathFromRegex(regexp: RegExp): string {
+    private getHandlerName(route: any): string {
         try {
-            const regexStr = regexp.toString();
-            const match = regexStr.match(/^\^\\\/([^\\\/\?]+)/);
-            return match ? match[1] : '';
-        } catch {
-            return '';
-        }
-    }
+            const lastHandler = route.stack[route.stack.length - 1];
+            if (!lastHandler) return '<anonymous>';
 
-    private getRoutePath(route: any, middleware: any): string {
-        try {
-            const basePath = this.getBasePathFromRegex(middleware.regexp);
-            const routePath = route.path || '';
-            return path.join(basePath, routePath).replace(/\\/g, '/');
-        } catch (error) {
-            console.error('Error getting route path:', error);
-            return 'unknown';
-        }
-    }
-
-    private getHandlerFromStack(stack: any[]): string {
-        try {
-            const lastHandler = stack[stack.length - 1];
-            if (!lastHandler || !lastHandler.handle) return '<anonymous>';
-
-            const fnStr = lastHandler.handle.toString();
-
-            const patterns = [
-                /\.(\w+)\(req,\s*res\)/, // matches methodName(req, res)
-                /Controller\.(\w+)/, // matches anyController.methodName
-                /function\s+(\w+)/, // matches named functions
-                /\.(get|post|put|delete|patch)\(/ // matches HTTP method handlers
-            ];
-
-            for (const pattern of patterns) {
-                const match = fnStr.match(pattern);
-                if (match && match[1]) {
-                    return match[1];
-                }
+            // Check for async handler
+            if (lastHandler.handle?.original) {
+                const fnStr = lastHandler.handle.original.toString();
+                const match = fnStr.match(/await\s+(\w+)\.(\w+)\(/);
+                if (match) return `${match[1]}.${match[2]}`;
             }
 
-            if (lastHandler.handle.name && lastHandler.handle.name !== 'handle') {
-                return lastHandler.handle.name;
+            // Get name from the handler
+            const handler = lastHandler.handle || lastHandler;
+            if (handler.name && handler.name !== 'handle') {
+                return handler.name;
+            }
+
+            // Try to extract controller method name
+            const fnStr = handler.toString();
+            const controllerMatch = fnStr.match(/await\s+(\w+)\.(\w+)\(/);
+            if (controllerMatch) {
+                return `${controllerMatch[1]}.${controllerMatch[2]}`;
             }
 
             return '<anonymous>';
         } catch (error) {
-            console.error('Error getting handler name:', error);
             return '<anonymous>';
         }
     }
 
-    private extractRoutes(): void {
-        const stack = this.app._router?.stack || [];
-        
-        stack.forEach((middleware: any) => {
-            if (middleware.name === 'router') {
-                const routerStack = middleware.handle.stack || [];
+    private getSourcePath(route: any): string {
+        return route.__source || 
+               route.stack?.[0]?.handle?.__source || 
+               route.stack?.[0]?.handle?.original?.__source || 
+               'unknown';
+    }
 
-                routerStack.forEach((layer: any) => {
-                    if (layer.route) {
-                        const route = layer.route;
-                        const method = Object.keys(route.methods)[0].toUpperCase();
-                        const sourceFromRoute = middleware.handle.__source;
-
-                        this.routes.push({
-                            method,
-                            path: this.getRoutePath(route, middleware),
-                            handler: this.getHandlerFromStack(route.stack),
-                            sourcePath: sourceFromRoute || 'unknown'
-                        });
-                    }
+    private parseRoutes(layer: any, basePath: string = ''): void {
+        if (layer.route) {
+            // This is a route definition
+            const route = layer.route;
+            const methods = Object.keys(route.methods);
+            
+            methods.forEach(method => {
+                this.routes.push({
+                    method: method.toUpperCase(),
+                    path: (basePath + route.path) || '/',
+                    handler: this.getHandlerName(route),
+                    sourcePath: this.getSourcePath(route)
                 });
-            }
-        });
+            });
+        } else if (layer.name === 'router') {
+            // This is a nested router
+            const prefix = layer.regexp?.source
+                ?.replace('\\/?(?=\\/|$)', '')
+                ?.replace(/\\\//g, '/')
+                ?.replace(/^\^/, '')
+                ?.replace(/\$/, '') || '';
+                
+            // Parse nested routes
+            layer.handle.stack.forEach((nestedLayer: any) => {
+                this.parseRoutes(nestedLayer, prefix);
+            });
+        }
     }
 
     public displayRoutes(): void {
-        this.extractRoutes();
+        // Parse all routes
+        this.app._router.stack.forEach((layer:any) => this.parseRoutes(layer));
+
+        if (this.routes.length === 0) {
+            console.log('\nNo routes found. Make sure routes are properly mounted on the Express app.');
+            return;
+        }
+
+        // Sort routes by path and method
+        this.routes.sort((a, b) => {
+            const pathCompare = a.path.localeCompare(b.path);
+            if (pathCompare !== 0) return pathCompare;
+            return a.method.localeCompare(b.method);
+        });
 
         const table = new Table({
             head: ['Method', 'Path', 'Handler', 'Source'].map(h => white(h)),
@@ -118,19 +119,17 @@ export class RouteDisplay {
             }
         });
 
-        this.routes
-            .sort((a, b) => a.path.localeCompare(b.path))
-            .forEach(route => {
-                table.push([
-                    this.formatMethod(route.method),
-                    route.path,
-                    cyan(route.handler),
-                    gray(route.sourcePath)
-                ]);
-            });
+        this.routes.forEach(route => {
+            table.push([
+                this.formatMethod(route.method),
+                route.path,
+                cyan(route.handler),
+                gray(route.sourcePath)
+            ]);
+        });
 
         console.log('\nAPI Routes:');
         console.log(table.toString());
-        console.log(`\nTotal routes: ${this.routes.length}`);
+        console.log(`\nTotal routes: ${this.routes.length}\n`);
     }
 }

@@ -1,5 +1,7 @@
+//src\modules\contact\contact.route.ts
+
 import { asyncHandlerFn } from '@/_core/helper/async-handler/async-handler';
-import { createRouter } from '@/_core/helper/create-router-path';
+
 import contactController from './contact.controller.factory';
 import {
   ContactIdSchema,
@@ -7,6 +9,7 @@ import {
   UpdateContactSchema
 } from './contact.validation';
 import { validateSchema } from '@/_core/middleware/validateSchema.middleware';
+import { createRouter } from '@/_core/helper/create-router-path';
 
 // Create router with source tracking
 const router = createRouter(__filename);
@@ -53,4 +56,4 @@ router.delete(
   })
 );
 
-export default router;
+export = router;

@@ -1,12 +1,18 @@
-export const modules = [
-	// 'info',
-	'contact/contact.route',
-	'error/error.route',
+//src\modules\index.ts
+import { Request, Response, NextFunction } from 'express';
+import { Router } from 'express';
 
-	// 'error',
-	// 'success',
-	// 'trading-economics-new',
-	// '_express',
-	// '_express/version/GET',
-	//... other modules
-];
+const router = Router();
+
+
+router.use('/api/contact', require('./contact'));
+// router.use('/v1/api/error', require('./error'));
+
+router.post('/', (_req: Request, res: Response, _next: NextFunction) => {
+	return res.status(200).json({
+		message: 'Welcome to AIAnalyst!'
+	})
+});
+
+
+export default router;

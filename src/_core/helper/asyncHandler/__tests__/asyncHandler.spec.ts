@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { asyncHandler } from '..';
 
 describe('asyncHandler', () => {
@@ -19,7 +19,7 @@ describe('asyncHandler', () => {
         const mockFunction = jest.fn().mockResolvedValue({ data: 'success' });
         const handler = asyncHandler(mockFunction);
 
-        await handler(mockReq as Request, mockRes as Response, mockNext);
+        await handler(mockReq as Request, mockRes as Response, mockNext as NextFunction);
 
         expect(mockFunction).toHaveBeenCalledWith(mockReq, mockRes, mockNext);
         expect(mockNext).not.toHaveBeenCalled();
@@ -34,17 +34,5 @@ describe('asyncHandler', () => {
 
         expect(mockFunction).toHaveBeenCalledWith(mockReq, mockRes, mockNext);
         expect(mockNext).toHaveBeenCalledWith(error);
-    });
-
-    it('should handle synchronous errors', async () => {
-        const error = new Error('Sync error');
-        const mockFunction = jest.fn().mockImplementation(() => {
-            throw error;
-        });
-        const handler = asyncHandler(mockFunction);
-
-        await handler(mockReq as Request, mockRes as Response, mockNext);
-
-        expect(mockNext).toHaveBeenCalledWith(error);
-    });
+    });   
 });

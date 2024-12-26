@@ -8,9 +8,7 @@ const config: Config = {
   verbose: true,
   clearMocks: true,
   transform: {
-    '^.+\\.tsx?$': ['ts-jest', {
-      useESM: true,
-    }]
+    '^.+\\.tsx?$': 'ts-jest'
   },
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',

@@ -37,7 +37,7 @@ export interface MetaData<T> {
 }
 
 export interface RestResponse<T = any> {
-    data: T | null;
+    data?: T | T[];
     metadata: MetaData<T>;    
     errors?: Array<{
         code: string;

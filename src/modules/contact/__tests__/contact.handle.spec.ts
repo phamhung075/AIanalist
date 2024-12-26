@@ -1,48 +1,69 @@
-import { validateSchema } from '@/_core/helper/validateZodSchema';
-import { CreateContactSchema } from '../contact.validation';
 
-describe('Contact Validation Tests', () => {
+const contactController = require('../../src/modules/contact/contact.handle');
+describe('ContactController', () => {
   let mockRequest: any;
+  let mockResponse: any;
+  let mockNext: any;
 
   beforeEach(() => {
     mockRequest = {
-      startTime: Date.now(),
       body: {
-        name: 'Jane Doe',
-        email: 'jane@example.com',
+        name: 'John Doe',
+        email: 'john@example.com',
         phone: '1234567890'
-      }
+      },
+      method: 'POST',
+      originalUrl: '/contact'
     };
+    
+    mockResponse = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+      req: mockRequest,
+      headersSent: false
+    };
+    
+    mockNext = jest.fn();
   });
 
-  describe('validateSchema', () => {
-    it('should pass with valid contact data', () => {
-      expect(() => validateSchema(CreateContactSchema)(mockRequest)).not.toThrow();
+  describe('createContact', () => {
+    it('should successfully create a contact and return proper success response', async () => {
+      await contactController.createContact(mockRequest, mockResponse, mockNext);
+      
+      expect(mockResponse.status).toHaveBeenCalledWith(201);
+      expect(mockResponse.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          success: true,
+          statusCode: expect.any(String),
+          methode: 'POST',
+          path: '/contact'
+        })
+      );
     });
 
-    it('should fail with missing name', () => {
+    it('should let error propagate to error handling middleware', async () => {
+      mockRequest.body = null;
+      await contactController.createContact(mockRequest, mockResponse, mockNext);
+      expect(mockNext).toHaveBeenCalled();
+    });
+
+    it('should handle missing required fields', async () => {
       delete mockRequest.body.name;
-      expect(() => validateSchema(CreateContactSchema)(mockRequest)).toThrow();
+      await contactController.createContact(mockRequest, mockResponse, mockNext);
+      
+      expect(mockResponse.status).toHaveBeenCalledWith(400);
+      expect(mockResponse.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          success: false
+        })
+      );
     });
 
-    it('should fail with invalid email', () => {
-      mockRequest.body.email = 'invalid-email';
-      expect(() => validateSchema(CreateContactSchema)(mockRequest)).toThrow();
-    });
-
-    it('should fail with invalid phone', () => {
-      mockRequest.body.phone = '123';
-      expect(() => validateSchema(CreateContactSchema)(mockRequest)).toThrow();
-    });
-
-    it('should fail with empty body', () => {
-      mockRequest.body = {};
-      expect(() => validateSchema(CreateContactSchema)(mockRequest)).toThrow();
-    });
-
-    it('should reject additional properties', () => {
-      mockRequest.body.extraField = 'extra';
-      expect(() => validateSchema(CreateContactSchema)(mockRequest)).toThrow();
+    it('should not send response if headers are already sent', async () => {
+      mockResponse.headersSent = true;
+      await contactController.createContact(mockRequest, mockResponse, mockNext);
+      
+      expect(mockResponse.json).not.toHaveBeenCalled();
     });
   });
 });

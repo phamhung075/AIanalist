@@ -10,7 +10,6 @@ const createContactHandler = async (req: Request, res: Response, next: NextFunct
     return contactController.createContact(req, res, next);
 };
 
-
 async function getAllContactsHandler(req: any, res: any, next: any) {
   await contactController.getAllContacts(req, res, next);
 }

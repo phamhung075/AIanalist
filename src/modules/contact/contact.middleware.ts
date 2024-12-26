@@ -5,16 +5,10 @@ import { CreateContactSchema } from "./contact.validation";
 import { Request, Response, NextFunction } from 'express';
 
 // Assuming validateSchema is synchronous
-async function createContactHandler(req: Request, res: Response, next: NextFunction) {
-    try {
-        validateSchema(CreateContactSchema)(req, res, next); // Middleware-style validation
-        
-        // Proceed with controller logic
-        await contactController.createContact(req, res, next);
-    } catch (error) {
-        next(error); // Pass any errors to Express error handler
-    }
-}
+const createContactHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+    validateSchema(CreateContactSchema)(req);
+    return contactController.createContact(req, res, next);
+};
 
 
 async function getAllContactsHandler(req: any, res: any, next: any) {

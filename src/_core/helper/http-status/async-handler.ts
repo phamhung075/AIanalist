@@ -1,4 +1,4 @@
-import { NextFunction, RequestHandler, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
 import { CustomRequest } from '../../guard/handle-permission/user-context.interface';
@@ -23,47 +23,58 @@ export function logResponseMiddleware(
     };
 }
 
+type AsyncFunction = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => Promise<any>;
 
-export type AsyncHandlerFn = (handler: RequestHandler) => 
-    (req: CustomRequest, res: Response, next: NextFunction) => Promise<any>;
+export const asyncHandler = (fn: AsyncFunction) => {
+  return (req: Request, res: Response, next: NextFunction): void => {
+    Promise.resolve(fn(req, res, next)).catch(next);
+  };
+};
 
-export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) =>
-    logResponseMiddleware(async (
-        req: CustomRequest,
-        res: Response,
-        next: NextFunction
-    ) => {
-        const startTime = Date.now();
-        if (!req.startTime) 
-            req.startTime = startTime;       
+// export type AsyncHandlerFn = (handler: RequestHandler) => 
+//     (req: CustomRequest, res: Response, next: NextFunction) => Promise<any>;
+
+// export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) =>
+//     logResponseMiddleware(async (
+//         req: CustomRequest,
+//         res: Response,
+//         next: NextFunction
+//     ) => {
+//         const startTime = Date.now();
+//         if (!req.startTime) 
+//             req.startTime = startTime;       
         
-        try {
-            const result = await handler(req, res, next);          
+//         try {
+//             const result = await handler(req, res, next);          
             
-            if (!res.headersSent) {
-                const baseUrl = `${req.protocol}://${req.get('host')}`;
-                const resourceUrl = `${baseUrl}${req.originalUrl}`;
+//             if (!res.headersSent) {
+//                 const baseUrl = `${req.protocol}://${req.get('host')}`;
+//                 const resourceUrl = `${baseUrl}${req.originalUrl}`;
                 
-                return RestHandler.success(req, res, {
-                    code: res.statusCode,
-                    data: result === undefined ? {} : result,
-                    startTime: req.startTime,
-                    links: {
-                        self: resourceUrl
-                    }
-                });
-            }
-            return result;
+//                 return RestHandler.success(req, res, {
+//                     code: res.statusCode,
+//                     data: result === undefined ? {} : result,
+//                     startTime: req.startTime,
+//                     links: {
+//                         self: resourceUrl
+//                     }
+//                 });
+//             }
+//             return result;
             
-        } catch (error: unknown) {
-            const logDir = createLogDir();
-            const logger = createLogger(logDir);
-            logger.logError(createErrorLog(req, error, startTime));
+//         } catch (error: unknown) {
+//             const logDir = createLogDir();
+//             const logger = createLogger(logDir);
+//             logger.logError(createErrorLog(req, error, startTime));
             
-            handleError(req, res, error);
-            return next(error);
-        }
-    });
+//             handleError(req, res, error);
+//             return next(error);
+//         }
+//     });
 
 // Logger utility
 function createLogger(logDir: string) {

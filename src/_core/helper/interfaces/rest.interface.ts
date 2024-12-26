@@ -39,13 +39,14 @@ export interface RestResponse<T = any> {
     data?: Partial<T> | Partial<T>[];
     pagination?: PaginationResult<T>;
     metadata: MetaData;
-    errors?: Array<{
-        code: string;
-        message: string;
-        field?: string;
-    }>;
+    errors?: ValidationError[];
 }
 
+export interface ValidationError {
+    field: string;
+    message: string;
+    code?: string;
+}
 
 export interface RequestMeta {
     id?: string;

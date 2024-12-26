@@ -1,22 +1,25 @@
-import { Request, Response, NextFunction } from 'express';
-import { ZodSchema, ZodError } from 'zod';
+import { Request } from 'express';
+import { ZodError, ZodSchema } from 'zod';
+import _ERROR, { ErrorResponse } from '../helper/http-status/error';
+import { HttpStatusCode } from '../helper/http-status/common/HttpStatusCode';
 
+// Assuming validateSchema is synchronous
 export const validateSchema = (schema: ZodSchema) => {
-  return (req: Request, res: Response, next: NextFunction) => {
+  return (req: Request) => {
     try {
       schema.parse(req.body);
-      next();
     } catch (err) {
       if (err instanceof ZodError) {
-        return res.status(400).json({
-          success: false,
-          errors: err.errors.map((error) => ({
-            path: error.path.join('.'),
-            message: error.message,
-          })),
+        throw new ErrorResponse({
+          status: HttpStatusCode.BAD_REQUEST,
+          message: 'Validation Error',
+          errors: err.issues.map((issue) => ({
+            field: issue.path.join('.'),
+            message: issue.message,
+          }))
         });
       }
-      next(err);
+      throw err;
     }
   };
 };

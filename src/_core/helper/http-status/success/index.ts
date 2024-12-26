@@ -3,23 +3,6 @@ import { HttpStatusCode } from '../common/HttpStatusCode';
 import { StatusCodes } from '../common/StatusCodes';
 import { RestHandler } from '../common/RestHandler';
 
-export interface ResponseOptions {
-    code?: number;
-    message?: string;
-    metadata?: Record<string, any>;
-    options?: Record<string, any>;
-}
-
-interface StatusCodeDetails {
-    code: HttpStatusCode;
-    phrase: string;
-    description: string;
-    documentation: string;
-}
-
-interface StatusCodesType {
-    [key: number]: StatusCodeDetails;
-}
 
 class SuccessResponse {
     success: boolean;
@@ -33,7 +16,7 @@ class SuccessResponse {
         message,
         data = {},
         status = HttpStatusCode.OK,
-        reasonPhrase = (StatusCodes as StatusCodesType)[status].phrase,
+        reasonPhrase = StatusCodes[status].phrase,
         options = {},
     }: {
         message?: string;

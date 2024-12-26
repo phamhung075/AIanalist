@@ -1,3 +1,5 @@
+import { HttpStatusCode } from "../common/HttpStatusCode";
+import { StatusCodes } from "../common/StatusCodes";
 
 // Interface for standardized error response
 export interface ErrorDetails {
@@ -229,55 +231,38 @@ export interface ErrorDetails {
 // src/_core/helper/async-handler/error/error.response.ts
 // src/_core/types/error.types.ts
 export class ErrorResponse extends Error {
-    status: number;
-    code: string;
-    field?: string;
-    details?: any;
-    errors?: Array<{ 
-        field: string; 
-        message: string;
-        code?: string;
-        details?: any;
-    }>;
-
+    success: boolean;
+    message: string;
+    status: HttpStatusCode;
+    errors?: Array<{ field: string; message: string; code?: string }>;
     constructor({
         message,
-        status,
-        code,
-        field,
-        details,
-        errors
+        status = HttpStatusCode.INTERNAL_SERVER_ERROR,
+        errors,
     }: {
-        message: string;
-        status: number;
-        code: string;
-        field?: string;
-        details?: any;
-        errors?: Array<{ 
-            field: string; 
-            message: string;
-            code?: string;
-        }>;
-    }) {
-        super(message);
-        this.name = this.constructor.name;
+        message?: string;
+        status?: HttpStatusCode;
+        reasonPhrase?: string;
+        errors?: Array<{ field: string; message: string; code?: string }>;
+        }) {
+        super();
+        this.success = false;
         this.status = status;
-        this.code = code;
-        this.field = field;
-        this.details = details;
+        this.message = message || StatusCodes[status].phrase;
         this.errors = errors;
     }
 }
 
 // class BadRequestError extends ErrorResponse {
-//    constructor(data: {
+//     constructor(data: {        
 //         message?: string;
 //         field?: string;
 //         errors?: Array<{ field: string; message: string; code?: string }>;
 //     }) {
-//         super({
-//             message: data.message || ReasonPhrases.BAD_REQUEST,
-//             status: StatusCodes.BAD_REQUEST,
+//        super({
+//             code: data. || HttpStatusCode.BAD_REQUEST,
+//             message: data. HttpStatusCode.BAD_REQUEST,
+//             status: message || StatusCodes[HttpStatusCode.BAD_REQUEST],
 //             code: 'BAD_REQUEST',
 //             field: data.field,
 //             errors: data.errors

@@ -1,6 +1,6 @@
 // src/_core/utils/response.handler.ts
 import { Response } from 'express';
-import { Link, PaginationResult, RestResponse } from '../../interfaces/rest.interface';
+import { Link, PaginationResult, RestResponse, ValidationError } from '../../interfaces/rest.interface';
 import { HttpStatusCode } from './HttpStatusCode';
 import { StatusCodes } from './StatusCodes';
 import { CustomRequest } from '@/_core/guard/handle-permission/user-context.interface';
@@ -49,7 +49,7 @@ export class RestHandler {
     }: {
         code?: HttpStatusCode;
         message?: string;
-        errors?: RestResponse['errors'];
+        errors?: ValidationError[];
         startTime?: number;
         }): Response {      
         const response: RestResponse = {

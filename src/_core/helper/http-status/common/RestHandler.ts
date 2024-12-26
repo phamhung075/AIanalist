@@ -19,7 +19,6 @@ export class RestHandler {
         links?: RestResponse['metadata']['links'];
     }): Response {
         const response: RestResponse<T> = {
-            // level: "Success REST",
             data,
             metadata: {
                 code,

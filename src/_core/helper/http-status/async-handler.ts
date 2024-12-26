@@ -1,13 +1,10 @@
-import { yellow } from 'colorette';
 import { NextFunction, RequestHandler, Response } from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
 import { ExtendedFunctionRequest } from '../../guard/handle-permission/user-context.interface';
-import { AsyncHandlerFn } from '../register-routes';
-import { HttpStatusCode } from './common/StatusCodes';
 import { RestHandler } from './common/RestHandler';
 import { ErrorResponse } from './error';
-const { StatusCodes } = HttpStatusCode;
+import { HttpStatusCode } from './common/HttpStatusCode';
 
 // Middleware function to log responses and errors
 export function logResponseMiddleware(
@@ -28,6 +25,10 @@ export function logResponseMiddleware(
     };
 }
 
+
+export type AsyncHandlerFn = (handler: RequestHandler) => 
+    (req: ExtendedFunctionRequest, res: Response, next: NextFunction) => Promise<any>;
+
 export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) =>
     logResponseMiddleware(async (
         req: ExtendedFunctionRequest,
@@ -37,29 +38,33 @@ export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) =>
         const startTime = Date.now();
         if (!req.startTime) {
             req.startTime = startTime;
-        } 
-        console.log(yellow(`Request received for startTime ${ req.startTime }`));
+        }
+        
         try {
             const result = await handler(req, res, next);
+            
             if (!res.headersSent) {
                 const baseUrl = `${req.protocol}://${req.get('host')}`;
                 const resourceUrl = `${baseUrl}${req.originalUrl}`;
-                console.log(yellow(`Response sent for ${resourceUrl}`));
+                
                 return RestHandler.success(res, {
-                    data: result,
+                    code: HttpStatusCode.OK,
+                    data: result === undefined ? {} : result,
+                    startTime: req.startTime,
                     links: {
-                        self: resourceUrl,
-                    },
+                        self: resourceUrl
+                    }
                 });
             }
-        } catch (error: any) {
-            console.log(yellow("Error in asyncHandlerFn:"));
+            return result;
+            
+        } catch (error: unknown) {
             const logDir = createLogDir();
             const logger = createLogger(logDir);
             logger.logError(createErrorLog(req, error, startTime));
-
+            
             handleError(req, res, error);
-            next(error);
+            return next(error);
         }
     });
 
@@ -106,12 +111,7 @@ function handleError(req: ExtendedFunctionRequest, res: Response, error: any) {
 
         // Handle unexpected errors
         return RestHandler.error(res, {
-            code: StatusCodes.INTERNAL_SERVER_ERROR,
-            message: 'An unexpected error occurred',
-            errors: [{
-                code: 'INTERNAL_SERVER_ERROR',
-                message: error.message || 'Unknown error'
-            }],
+            code: HttpStatusCode.INTERNAL_SERVER_ERROR,
             startTime: req.startTime
         });
     }

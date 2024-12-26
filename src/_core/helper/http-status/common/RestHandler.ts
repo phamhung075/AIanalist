@@ -7,8 +7,8 @@ import { StatusCodes } from './StatusCodes';
 export class RestHandler {
     static success<T>(res: Response, {
         code = HttpStatusCode.OK,
-        message = StatusCodes[HttpStatusCode.OK].phrase,
         data,     
+        message,
         pagination,
         startTime,
         links,
@@ -23,7 +23,7 @@ export class RestHandler {
         const response: RestResponse<T> = {
             success: true,
             code,
-            message,            
+            message :  message || StatusCodes[code].phrase,            
             data,
             metadata: {                
                 timestamp: new Date().toISOString(),
@@ -49,7 +49,7 @@ export class RestHandler {
     }: {
         code?: HttpStatusCode;
         message?: string;
-        errors: RestResponse['errors'];
+        errors?: RestResponse['errors'];
         startTime?: number;
         }): Response {      
         const response: RestResponse = {

@@ -1,5 +1,4 @@
 // src\modules\contact\index.ts
-import { asyncHandlerFn } from '@/_core/helper/async-handler/async-handler';
 import {
   ContactIdSchema,
   CreateContactSchema,
@@ -14,6 +13,7 @@ import {
   getContactByIdHandler,
   updateContactHandler
 } from './contact.middleware';
+import { asyncHandlerFn } from '@/_core/helper/http-status/async-handler';
 // Create router with source tracking
 const router = createRouter(__filename);
 

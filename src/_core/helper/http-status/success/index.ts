@@ -1,6 +1,6 @@
 import { NextFunction, Response } from 'express';
-import { ReasonPhrases } from '../common/ReasonPhrases';
-import { StatusCodes } from '../common/HttpStatusCode';
+import { HttpStatusCode } from '../common/HttpStatusCode';
+import { StatusCodes } from '../common/StatusCodes';
 
 export interface ResponseOptions {
     code?: number;
@@ -9,57 +9,42 @@ export interface ResponseOptions {
     options?: Record<string, any>;
 }
 
+interface StatusCodeDetails {
+    code: HttpStatusCode;
+    phrase: string;
+    description: string;
+    documentation: string;
+}
+
+interface StatusCodesType {
+    [key: number]: StatusCodeDetails;
+}
+
 class SuccessResponse {
-    success: boolean;
     message: string;
-    status: number;
+    data: any;
+    status: HttpStatusCode;
     metadata: any;
     options: any;
-    data: any;
 
     constructor({
         message,
-        statusCode = StatusCodes.OK,
-        reasonPhrase = ReasonPhrases.OK,
-        metadata = {},
-        options = {},
         data = {},
+        status = HttpStatusCode.OK,
+        reasonPhrase = (StatusCodes as StatusCodesType)[status].phrase,
+        options = {},
     }: {
         message?: string;
-        statusCode?: number;
+        data?: any;
+        status?: HttpStatusCode;
         reasonPhrase?: string;
         metadata?: any;
         options?: any;
-        data?: any;
     }) {
-        this.success = true;
         this.message = message || reasonPhrase;
-        this.status = statusCode;
-        this.metadata = this.formatMetadata(metadata);
-        this.options = options;
         this.data = data;
-    }
-
-    /**
-     * Format Metadata
-     */
-    private formatMetadata(metadata: any) {
-        return {
-            timestamp: new Date().toISOString(),
-            code: this.status,
-            status: this.getStatusText(this.status),
-            ...metadata,
-        };
-    }
-
-    /**
-     * Set Response Status Code
-     */
-    setStatus(status: number) {
         this.status = status;
-        this.metadata.code = status;
-        this.metadata.status = this.getStatusText(status);
-        return this;
+        this.options = options;
     }
 
     /**
@@ -70,28 +55,12 @@ class SuccessResponse {
         return this;
     }
 
-    /**
-     * Set Metadata
-     */
-    setMetadata(metadata: any) {
-        this.metadata = { ...this.metadata, ...metadata };
-        return this;
-    }
-
+ 
     /**
      * Set Options
      */
     setOptions(options: any) {
         this.options = options;
-        return this;
-    }
-
-    /**
-     * Set Response Time
-     */
-    setResponseTime(startTime?: number) {
-        const responseTime = startTime ? `${Date.now() - startTime}ms` : '0ms';
-        this.metadata.responseTime = responseTime;
         return this;
     }
 
@@ -104,28 +73,12 @@ class SuccessResponse {
     }
 
     /**
-     * Set Response Data
-     */
-    setData(data: any) {
-        this.data = data;
-        return this;
-    }
-
-    /**
      * Send Response
      */
     send(res: Response, next?: NextFunction) {
         try {
             this.preSendHooks();
-
-            // Set Response Time if startTime exists on res.locals
-            if (res.locals?.startTime) {
-                this.setResponseTime(res.locals.startTime);
-            }
-
-            // Handle Headers
-            this.handleHeaders(res);
-
+          
             // Send Response
             if (!res.headersSent) {
                 const response = this.formatResponse();
@@ -157,13 +110,10 @@ class SuccessResponse {
      */
     private formatResponse() {
         const response = {
-            success: this.success,
             message: this.message,
             data: this.data,
             metadata: {
                 ...this.metadata,
-                code: this.status,
-                status: this.getStatusText(this.status),
             },
         };
 
@@ -175,37 +125,6 @@ class SuccessResponse {
     }
 
     /**
-     * Handle Headers
-     */
-    private handleHeaders(res: Response) {
-        if (this.options?.headers) {
-            Object.entries(this.options.headers).forEach(([key, value]) => {
-                // Ensure value is converted to a valid header type
-                const safeValue = Array.isArray(value)
-                    ? value.map(v => String(v))
-                    : String(value);
-                res.setHeader(key, safeValue);
-            });
-        }
-    
-        res.setHeader('X-Response-Time', this.metadata.responseTime);
-    }
-
-    /**
-     * Get Status Text
-     */
-    private getStatusText(code: number): string {
-        return (
-            Object.entries(StatusCodes).find(([_key, value]) => value === code)
-                ?.[0] // Return the key
-                ?.split('_')
-                .map(word => word.charAt(0) + word.slice(1).toLowerCase())
-                .join(' ') || 'UNKNOWN_STATUS'
-        );
-    }
-    
-
-    /**
      * Post-send Hooks
      */
     private postSendHooks() {
@@ -214,30 +133,50 @@ class SuccessResponse {
     }
 }
 
-
-class CreatedSuccess extends SuccessResponse {
+class OkSuccess extends SuccessResponse {
 	constructor({
         message,
-        statusCode = StatusCodes.CREATED,
-        reasonPhrase = ReasonPhrases.CREATED,
+        status,
         metadata = {},
         options = {},
         data = {},
     }: {
         message?: string;
-        statusCode?: number;
-        reasonPhrase?: string;
+        status?: HttpStatusCode;
         metadata?: any;
         options?: any;
         data?: any;
     }) {
         super({
             message,
-            statusCode,
-            reasonPhrase,
+            data,
+            status : status || HttpStatusCode.OK,
             metadata,
             options,
+        });
+    }
+}
+
+class CreatedSuccess extends SuccessResponse {
+	constructor({
+        message,
+        status,
+        metadata = {},
+        options = {},
+        data = {},
+    }: {
+        message?: string;
+        status?: HttpStatusCode;
+        metadata?: any;
+        options?: any;
+        data?: any;
+    }) {
+        super({
+            message,
             data,
+            status : status || HttpStatusCode.CREATED,
+            metadata,
+            options,
         });
     }
 }
@@ -246,53 +185,46 @@ class CreatedSuccess extends SuccessResponse {
 class AcceptedSuccess extends SuccessResponse {
 	constructor({
         message,
-        statusCode = StatusCodes.ACCEPTED,
-        reasonPhrase = ReasonPhrases.ACCEPTED,
+        status,
         metadata = {},
         options = {},
         data = {},
     }: {
         message?: string;
-        statusCode?: number;
-        reasonPhrase?: string;
+        status?: HttpStatusCode;
         metadata?: any;
         options?: any;
         data?: any;
     }) {
         super({
             message,
-            statusCode,
-            reasonPhrase,
+            data,
+            status : status || HttpStatusCode.ACCEPTED,
             metadata,
             options,
-            data,
         });
     }
 }
-
 class NoContentSuccess extends SuccessResponse {
 	constructor({
         message,
-        statusCode = StatusCodes.NO_CONTENT,
-        reasonPhrase = ReasonPhrases.NO_CONTENT,
+        status,
         metadata = {},
         options = {},
         data = {},
     }: {
         message?: string;
-        statusCode?: number;
-        reasonPhrase?: string;
+        status?: HttpStatusCode;
         metadata?: any;
         options?: any;
         data?: any;
     }) {
         super({
             message,
-            statusCode,
-            reasonPhrase,
+            data,
+            status : status || HttpStatusCode.NO_CONTENT,
             metadata,
             options,
-            data,
         });
     }
 }
@@ -300,26 +232,23 @@ class NoContentSuccess extends SuccessResponse {
 class ResetContentSuccess extends SuccessResponse {
 	constructor({
         message,
-        statusCode = StatusCodes.RESET_CONTENT,
-        reasonPhrase = ReasonPhrases.RESET_CONTENT,
+        status,
         metadata = {},
         options = {},
         data = {},
     }: {
         message?: string;
-        statusCode?: number;
-        reasonPhrase?: string;
+        status?: HttpStatusCode;
         metadata?: any;
         options?: any;
         data?: any;
     }) {
         super({
             message,
-            statusCode,
-            reasonPhrase,
+            data,
+            status : status || HttpStatusCode.RESET_CONTENT,
             metadata,
             options,
-            data,
         });
     }
 }
@@ -327,26 +256,23 @@ class ResetContentSuccess extends SuccessResponse {
 class PartialContentSuccess extends SuccessResponse {
 	constructor({
         message,
-        statusCode = StatusCodes.PARTIAL_CONTENT,
-        reasonPhrase = ReasonPhrases.PARTIAL_CONTENT,
+        status,
         metadata = {},
         options = {},
         data = {},
     }: {
         message?: string;
-        statusCode?: number;
-        reasonPhrase?: string;
+        status?: HttpStatusCode;
         metadata?: any;
         options?: any;
         data?: any;
     }) {
         super({
             message,
-            statusCode,
-            reasonPhrase,
+            data,
+            status : status || HttpStatusCode.PARTIAL_CONTENT,
             metadata,
             options,
-            data,
         });
     }
 }
@@ -354,80 +280,69 @@ class PartialContentSuccess extends SuccessResponse {
 class NonAuthoritativeInformationSuccess extends SuccessResponse {
 	constructor({
         message,
-        statusCode = StatusCodes.NON_AUTHORITATIVE_INFORMATION,
-        reasonPhrase = ReasonPhrases.NON_AUTHORITATIVE_INFORMATION,
+        status,
         metadata = {},
         options = {},
         data = {},
     }: {
         message?: string;
-        statusCode?: number;
-        reasonPhrase?: string;
+        status?: HttpStatusCode;
         metadata?: any;
         options?: any;
         data?: any;
     }) {
         super({
             message,
-            statusCode,
-            reasonPhrase,
+            data,
+            status : status || HttpStatusCode.NON_AUTHORITATIVE_INFORMATION,
             metadata,
             options,
-            data,
         });
     }
 }
-
 class MultiStatusSuccess extends SuccessResponse {
 	constructor({
         message,
-        statusCode = StatusCodes.MULTI_STATUS,
-        reasonPhrase = ReasonPhrases.MULTI_STATUS,
+        status,
         metadata = {},
         options = {},
         data = {},
     }: {
         message?: string;
-        statusCode?: number;
-        reasonPhrase?: string;
+        status?: HttpStatusCode;
         metadata?: any;
         options?: any;
         data?: any;
     }) {
         super({
             message,
-            statusCode,
-            reasonPhrase,
+            data,
+            status : status || HttpStatusCode.MULTI_STATUS,
             metadata,
             options,
-            data,
         });
     }
 }
-
 class SeeOtherSuccess extends SuccessResponse {
 	constructor({
         message,
-        statusCode = StatusCodes.SEE_OTHER,
-        reasonPhrase = ReasonPhrases.SEE_OTHER,
+        status,
         metadata = {},
         options = {},
         data = {},
     }: {
         message?: string;
-        statusCode?: number;
-        reasonPhrase?: string;
+        status?: HttpStatusCode;
         metadata?: any;
         options?: any;
         data?: any;
     }) {
         super({
             message,
-            statusCode,
-            reasonPhrase,
+            data,
+            status : status || HttpStatusCode.SEE_OTHER,
             metadata,
             options,
-            data,
         });
     }
 }
@@ -435,26 +350,23 @@ class SeeOtherSuccess extends SuccessResponse {
 class ProcessingSuccess extends SuccessResponse {
 	constructor({
         message,
-        statusCode = StatusCodes.PROCESSING,
-        reasonPhrase = ReasonPhrases.PROCESSING,
+        status,
         metadata = {},
         options = {},
         data = {},
     }: {
         message?: string;
-        statusCode?: number;
-        reasonPhrase?: string;
+        status?: HttpStatusCode;
         metadata?: any;
         options?: any;
         data?: any;
     }) {
         super({
             message,
-            statusCode,
-            reasonPhrase,
+            data,
+            status : status || HttpStatusCode.PROCESSING,
             metadata,
             options,
-            data,
         });
     }
 }
@@ -464,6 +376,7 @@ class ProcessingSuccess extends SuccessResponse {
  */
 const _SUCCESS = {
     SuccessResponse,
+    OkSuccess, // 200
     CreatedSuccess, // 201
 	AcceptedSuccess, // 202
 	NoContentSuccess, // 204

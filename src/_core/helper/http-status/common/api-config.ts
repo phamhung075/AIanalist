@@ -1,9 +1,3 @@
-import { StatusCodes } from "./StatusCodes"
-import { ReasonPhrases } from "./ReasonPhrases"
-export const HttpStatusCode = {
-	StatusCodes,
-	ReasonPhrases
-}
 
 
 export const API_CONFIG = {
@@ -51,51 +45,6 @@ export const API_CONFIG = {
     }
 };
 
-export interface PaginationParams {
-    page?: number;
-    limit?: number;
-    sort?: string;
-    order?: 'asc' | 'desc';
-}
-
-export interface PaginationResult<T> {
-    items: T[];
-    meta: {
-        page: number;
-        limit: number;
-        totalItems: number;
-        totalPages: number;
-        hasNext: boolean;
-        hasPrev: boolean;
-    };
-}
-
-export interface ApiError {
-    success: false;
-    status: number;
-    code: string;
-    message: string;
-    errors?: any[];
-    timestamp: string;
-    path?: string;
-    stack?: string;
-    details?: any;
-}
-
-export interface ApiSuccess<T> {
-    success: true;
-    status: number;
-    message: string;
-    data?: T;
-    meta?: {
-        timestamp: string;
-        path?: string;
-        pagination?: PaginationResult<T>['meta'];
-        [key: string]: any;
-    };
-}
-
-export interface ApiResponse<T> extends Pick<ApiSuccess<T>, 'success' | 'status' | 'message' | 'data' | 'meta'> {}
 
 
 /*
@@ -140,19 +89,3 @@ export const ERROR_CODES = {
     BAD_REQUEST: 'BAD_REQUEST',
     SERVICE_UNAVAILABLE: 'SERVICE_UNAVAILABLE'
 } as const;
-
-export const createPagination = (
-    totalItems: number,
-    page: number = API_CONFIG.PAGINATION.DEFAULT_PAGE,
-    limit: number = API_CONFIG.PAGINATION.DEFAULT_LIMIT
-): PaginationResult<any>['meta'] => {
-    const totalPages = Math.ceil(totalItems / limit);
-    return {
-        page,
-        limit,
-        totalItems,
-        totalPages,
-        hasNext: page < totalPages,
-        hasPrev: page > 1
-    };
-};

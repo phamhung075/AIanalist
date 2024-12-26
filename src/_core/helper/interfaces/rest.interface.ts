@@ -1,17 +1,30 @@
-export interface PaginationMeta {
-    page: number;
-    limit: number;
-    total: number;
-    totalPages: number;
+
+export interface PaginationParams {
+    page?: number;
+    limit?: number;
+    sort?: string;
+    order?: 'asc' | 'desc';
 }
 
-export interface MetaData {
+export interface PaginationResult<T> {
+    data: T[];
+    meta: {
+        page: number;
+        limit: number;
+        totalItems?: number;
+        totalPages?: number;
+        hasNext?: boolean;
+        hasPrev?: boolean;
+    };
+}
+
+export interface MetaData<T> {
     code: number;
     status: string;
     message?: string;
     path?: string;
     timestamp: string;
-    pagination?: PaginationMeta;
+    pagination?: PaginationResult<T>;
     request?: RequestMeta;
     responseTime?: string;
     links?: {
@@ -24,9 +37,8 @@ export interface MetaData {
 }
 
 export interface RestResponse<T = any> {
-    level?: string;
     data: T | null;
-    metadata: MetaData;    
+    metadata: MetaData<T>;    
     errors?: Array<{
         code: string;
         message: string;
@@ -36,8 +48,8 @@ export interface RestResponse<T = any> {
 
 
 export interface RequestMeta {
-    id: string;
-    timestamp: string;
-    method: string;
-    url: string;
+    id?: string;
+    timestamp?: string;
+    method?: string;
+    url?: string;
 }

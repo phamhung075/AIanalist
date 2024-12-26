@@ -1,28 +1,29 @@
-// // contact.middleware.ts
-// import { Request, Response, NextFunction } from 'express';
-// import { ZodSchema, ZodError } from 'zod';
+import contactController from "./contact.controller.factory";
 
-// // ✅ Generic Zod Validation Middleware
-// export const validateSchema =
-//   (schema: ZodSchema) => (req: Request, res: Response, next: NextFunction) => {
-//     console.log('level Validation');
-//     try {
-//       schema.parse({
-//         body: req.body,
-//         params: req.params,
-//         query: req.query,
-//       });
-//       next();
-//     } catch (error) {
-//       if (error instanceof ZodError) {
-//         return res.status(400).json({
-//           success: false,
-//           errors: error.errors.map((err) => ({
-//             path: err.path.join('.'),
-//             message: err.message,
-//           })),
-//         });
-//       }
-//       next(error);
-//     }
-//   };
+async function createContactHandler(req: any, res: any, next: any) {
+  await contactController.createContact(req, res, next);
+}
+
+async function getAllContactsHandler(req: any, res: any, next: any) {
+  await contactController.getAllContacts(req, res, next);
+}
+
+async function getContactByIdHandler(req: any, res: any, next: any) {
+  await contactController.getContactById(req, res, next);
+}
+
+async function updateContactHandler(req: any, res: any, next: any) {
+  await contactController.updateContact(req, res, next);
+}
+
+async function deleteContactHandler(req: any, res: any, next: any) {
+  await contactController.deleteContact(req, res, next);
+}
+
+export {
+  createContactHandler,
+  getAllContactsHandler,
+  getContactByIdHandler,
+  updateContactHandler,
+  deleteContactHandler,
+};

@@ -1,10 +1,47 @@
 // src/_core/utils/response.handler.ts
 import { Response } from 'express';
 import { HttpStatusCode } from './common/HttpStatusCode';
-import { ApiError, ApiResponse } from '@src/_core/types/response.types';
-import { PaginationMeta } from '../interfaces/rest.interface';
+import { PaginationResult } from '../interfaces/rest.interface';
 
 const { StatusCodes, ReasonPhrases } = HttpStatusCode;
+
+export interface ApiError {
+    success?: false;
+    status?: number;
+    code?: number | string;
+    message: string;
+    errors?: any[];
+    stack?: string;
+    details?: any;
+    metadata?: {
+        responseTime?: string;
+        timestamp: string;
+        path?: string;
+        [key: string]: any;
+    };
+}
+
+export interface ApiSuccess<T> {
+    success?: true;
+    status?: number;
+    message?: string;
+    code?: number | string;
+    data?: Partial<T>;
+    links?: {
+        self?: string;
+        next?: string;
+        prev?: string;
+    }
+    metadata?: {
+        responseTime?: string;
+        timestamp: string;
+        path?: string;
+        pagination?: PaginationResult<T>;
+        [key: string]: any;
+    };
+}
+
+export type ApiResponse<T> = ApiSuccess<T> | ApiError;
 
 export class RestHandler {
     static success<T>(
@@ -19,7 +56,7 @@ export class RestHandler {
             data: T;
             code?: number;
             message?: string;
-            pagination?: PaginationMeta;
+            pagination?: PaginationResult<T>;
             metadata?: Record<string, any>;
         }
     ): Response {
@@ -56,7 +93,6 @@ export class RestHandler {
             success: false,
             code,
             message,
-            data: null,
             metadata: {
                 timestamp: new Date().toISOString(),
                 status: this.getStatusText(code),

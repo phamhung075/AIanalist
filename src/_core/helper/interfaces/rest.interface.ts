@@ -1,8 +1,4 @@
-import { HttpStatusCode } from "../http-status/common/StatusCodes";
-{
-	StatusCodes,
-	ReasonPhrases
-} = HttpStatusCode;
+import { HttpStatusCode } from "../http-status/common/HttpStatusCode";
 
 export interface PaginationParams {
     page?: number;
@@ -24,18 +20,21 @@ export interface PaginationResult<T> {
 }
 
 
-export interface MetaData {    
-    path?: string;
+export interface MetaData {   
     timestamp: string;
+    statusCode?: string
+    path?: string;
     request?: RequestMeta;
     responseTime?: string;
     links?: Link;
+    description?: string;
+    documentation?: string;
 }
 
 export interface RestResponse<T = any> {
-    code?: StatusCodes;
-    status: string;
-    message?: string | ReasonPhrases;
+    success?: boolean;
+    code?: HttpStatusCode;
+    message?: string;
     data?: Partial<T> | Partial<T>[];
     pagination?: PaginationResult<T>;
     metadata: MetaData;

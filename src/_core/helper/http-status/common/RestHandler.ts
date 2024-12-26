@@ -1,34 +1,38 @@
 // src/_core/utils/response.handler.ts
 import { Response } from 'express';
-import { HttpStatusCode } from './StatusCodes';
 import { PaginationResult, RestResponse } from '../../interfaces/rest.interface';
-const { StatusCodes, ReasonPhrases } = HttpStatusCode;
+import { HttpStatusCode } from './HttpStatusCode';
+import { StatusCodes } from './StatusCodes';
 
 export class RestHandler {
     static success<T>(res: Response, {
+        code = HttpStatusCode.OK,
+        message = StatusCodes[HttpStatusCode.OK].phrase,
         data,     
         pagination,
-        links,
         startTime,
-        code = StatusCodes.OK,
-        message = ReasonPhrases.OK,
+        links,
     }: {
         data?: Partial<T> | Partial<T>[];
-        code?: number;
         message?: string;
+        code?: HttpStatusCode;
         pagination?: PaginationResult<T>;
         links?: RestResponse['metadata']['links'];
         startTime?: number;
         }): Response {
         const response: RestResponse<T> = {
+            success: true,
+            code,
+            message,            
             data,
-            metadata: {
-                code,
-                status: this.getStatusText(code),
-                message,
+            metadata: {                
                 timestamp: new Date().toISOString(),
+                statusCode: this.getStatusText(code),
+                path: res.req.url,
                 ...(pagination && { pagination }),
                 ...(links && { links }),
+                description: StatusCodes[code].description,
+                documentation: StatusCodes[code].documentation,
             },
         };
         if (startTime) {
@@ -38,23 +42,25 @@ export class RestHandler {
     }
 
     static error(res: Response, {
+        code = HttpStatusCode.INTERNAL_SERVER_ERROR,
+        message = StatusCodes[HttpStatusCode.INTERNAL_SERVER_ERROR].phrase,
         errors,
-        code = StatusCodes.INTERNAL_SERVER_ERROR,
-        message = ReasonPhrases.INTERNAL_SERVER_ERROR,
         startTime,
     }: {
-        errors: RestResponse['errors'];
-        code?: number;
+        code?: HttpStatusCode;
         message?: string;
+        errors: RestResponse['errors'];
         startTime?: number;
         }): Response {      
         const response: RestResponse = {
-            data: null,
+            success: false,
+            code,
+            message,
             metadata: {
-                code,
-                status: this.getStatusText(code),
-                message,
                 timestamp: new Date().toISOString(),
+                statusCode: this.getStatusText(code),
+                description: StatusCodes[code].description,
+                documentation: StatusCodes[code].documentation,
             },
             errors
         };
@@ -65,7 +71,7 @@ export class RestHandler {
     }
 
     private static getStatusText(code: number): string {
-        return Object.entries(StatusCodes)
+        return Object.entries(HttpStatusCode)
             .find(([_, value]) => value === code)?.[0] || 'UNKNOWN_STATUS';
     }
 }

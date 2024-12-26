@@ -1,6 +1,6 @@
 // __tests__/contact.middleware.spec.ts
 // import { Request, Response, NextFunction } from 'express';
-import { validateSchema } from '@/_core/middleware/validateSchema.middleware';
+import { validateSchema } from '@/_core/helper/validateZodSchema';
 import { CreateContactSchema } from '../contact.validation';
 
 describe('Contact Middleware - validateSchema', () => {

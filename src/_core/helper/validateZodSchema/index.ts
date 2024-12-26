@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { ZodError, ZodSchema } from 'zod';
-import _ERROR, { ErrorResponse } from '../helper/http-status/error';
-import { HttpStatusCode } from '../helper/http-status/common/HttpStatusCode';
+import _ERROR, { ErrorResponse } from '../http-status/error';
+import { HttpStatusCode } from '../http-status/common/HttpStatusCode';
 
 // Assuming validateSchema is synchronous
 export const validateSchema = (schema: ZodSchema) => {

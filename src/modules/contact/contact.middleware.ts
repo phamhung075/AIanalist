@@ -1,4 +1,4 @@
-import { validateSchema } from "@/_core/middleware/validateSchema.middleware";
+import { validateSchema } from "@/_core/helper/validateZodSchema";
 import contactController from "./contact.controller.factory";
 import { CreateContactSchema } from "./contact.validation";
 

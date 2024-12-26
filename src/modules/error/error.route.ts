@@ -5,7 +5,7 @@ import { BaseController, registerRoutes, Routes } from '@/_core/helper/register-
 import { RequestHandler } from '@node_modules/@types/express';
 import errorController from './error.controller.factory';
 import { ErrorMessageSchema } from './error.validation';
-import { validateSchema } from '@/_core/middleware/validateSchema.middleware';
+import { validateSchema } from '@/_core/helper/validateZodSchema';
 import { config } from '@/_core/config/dotenv.config';
 export interface IErrorController extends BaseController {
     BadRequestError: RequestHandler;

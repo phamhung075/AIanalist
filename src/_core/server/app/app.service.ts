@@ -95,7 +95,7 @@ export class AppService {
 	/**
 	 * Setup CORS based on environment
 	 */
-	private setupCors(): void {
+	setupCors(): void {
 		const devOrigin = ['http://localhost:3333'];
 		const prodOrigin = ['http://localhost:3333'];
 

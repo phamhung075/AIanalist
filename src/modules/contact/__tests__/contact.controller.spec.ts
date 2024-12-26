@@ -2,8 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import ContactController from '../contact.controller';
 import ContactService from '../contact.service';
 import { IContact } from '../contact.interface';
-import { StatusCodes } from '@/_core/helper/async-handler/common/StatusCodes';
-import { ReasonPhrases } from '@/_core/helper/async-handler/common/ReasonPhrases';
+import { HttpStatusCode } from '@/_core/helper/http-status/common/HttpStatusCode';
+
 
 
 describe('ContactController', () => {
@@ -81,7 +81,7 @@ describe('ContactController', () => {
       });
 
       // Verify response status
-      expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.CREATED);
+      expect(mockResponse.status).toHaveBeenCalledWith(HttpStatusCode.CREATED);
 
       // Verify response headers
       expect(mockResponse.setHeader).toHaveBeenCalledWith(
@@ -97,8 +97,6 @@ describe('ContactController', () => {
           data: mockContactData,
           metadata: expect.objectContaining({
             timestamp: expect.any(String),
-            code: StatusCodes.CREATED,
-            status: ReasonPhrases.CREATED,
             responseTime: expect.stringMatching(/^\d+ms$/)
           })
         })

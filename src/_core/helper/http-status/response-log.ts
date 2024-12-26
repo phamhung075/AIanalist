@@ -1,8 +1,8 @@
-import { NextFunction, Request, Response } from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
 import { CustomRequest } from '../../guard/handle-permission/user-context.interface';
 import { config } from '../../config/dotenv.config';
+import { getRequest } from '@/_core/middleware/displayRequest.middleware';
 // const appDir = path.dirname(require.main?.filename || '');
 const logDirRoot = config.logDir;
 // import { RestHandler } from './common/RestHandler';
@@ -26,60 +26,8 @@ const logDirRoot = config.logDir;
 //     };
 // }
 
-type AsyncFunction = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => Promise<any>;
 
-export const asyncHandler = (fn: AsyncFunction) => {
-  return (req: Request, res: Response, next: NextFunction): void => {
-    Promise.resolve(fn(req, res, next)).catch(next);
-  };
-};
 
-// export type AsyncHandlerFn = (handler: RequestHandler) => 
-//     (req: CustomRequest, res: Response, next: NextFunction) => Promise<any>;
-
-// export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) =>
-//     logResponseMiddleware(async (
-//         req: CustomRequest,
-//         res: Response,
-//         next: NextFunction
-//     ) => {
-//         const startTime = Date.now();
-//         if (!req.startTime) 
-//             req.startTime = startTime;       
-        
-//         try {
-//             const result = await handler(req, res, next);          
-            
-//             if (!res.headersSent) {
-//                 const baseUrl = `${req.protocol}://${req.get('host')}`;
-//                 const resourceUrl = `${baseUrl}${req.originalUrl}`;
-                
-//                 return RestHandler.success(req, res, {
-//                     code: res.statusCode,
-//                     data: result === undefined ? {} : result,
-//                     startTime: req.startTime,
-//                     links: {
-//                         self: resourceUrl
-//                     }
-//                 });
-//             }
-//             return result;
-            
-//         } catch (error: unknown) {
-//             const logDir = createLogDir();
-//             const logger = createLogger(logDir);
-//             logger.logError(createErrorLog(req, error, startTime));
-            
-//             handleError(req, res, error);
-//             return next(error);
-//         }
-//     });
-
-// Logger utility
 export function createLogger(logDir: string) {
     return {
         logError: (message: string) => {
@@ -93,11 +41,13 @@ export function createLogger(logDir: string) {
 
 // Error logging format
 export function createErrorLog(req: CustomRequest, error: any, startTime: number): string {
+    const requestLog = getRequest(req);
     return `
-${new Date().toISOString()}
-_________________ ERROR _________________
+_________________ REQUEST _________________
 Request: ${req.method} ${req.originalUrl}
 Duration: ${Date.now() - startTime}ms
+${requestLog}
+_________________ ERROR _________________
 Error: ${error instanceof Error ? error.message : String(error)}
 Stack: ${error instanceof Error ? error.stack : 'No stack trace available'}
 __________________________________________

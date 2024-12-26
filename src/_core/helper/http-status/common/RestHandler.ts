@@ -2,7 +2,7 @@
 import { CustomRequest } from '@/_core/guard/handle-permission/user-context.interface';
 import { Response } from 'express';
 import { Link, PaginationResult, RestResponse, ValidationError } from '../../interfaces/rest.interface';
-import { logResponse } from '../async-handler';
+import { logResponse } from '../response-log';
 import { HttpStatusCode } from './HttpStatusCode';
 import { StatusCodes } from './StatusCodes';
 

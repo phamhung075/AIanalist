@@ -4,7 +4,7 @@ import {
   createContactHandler,
   getAllContactsHandler
 } from './contact.middleware';
-import { asyncHandler } from '@/_core/helper/asyncHandler/asyncHandler';
+import { asyncHandler } from '@/_core/helper/asyncHandler';
 
 // Create router with source tracking
 const router = createRouter(__filename);

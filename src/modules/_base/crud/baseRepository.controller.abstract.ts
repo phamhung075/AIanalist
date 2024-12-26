@@ -1,4 +1,4 @@
-// import { ExtendedFunctionRequest } from "@src/_core/guard/handle-permission/user-context.interface";
+// import { CustomRequest } from "@src/_core/guard/handle-permission/user-context.interface";
 // import { BaseRepositoryService } from "./baseRepository.service.abstract";
 
 
@@ -16,7 +16,7 @@
 // 		return this.classConstructor.name;
 // 	}
 
-// 	async create(req: ExtendedFunctionRequest): Promise<T> {
+// 	async create(req: CustomRequest): Promise<T> {
 // 		if (!req.body["parseObj"]) {
 // 			console.error(`Error creating ${this.getClassName()}:`, 'No parseObj found');
 // 			throw new ;
@@ -44,7 +44,7 @@
 // 		}
 // 	}
 
-// 	async createClient(req: ExtendedFunctionRequest): Promise<T> {
+// 	async createClient(req: CustomRequest): Promise<T> {
 // 		if (!req.body["parseObj"]) {
 // 			console.error(`Error creating ${this.getClassName()}:`, 'No parseObj found');
 // 			throw new Error(EnumErrors.ERROR_UNKNOWN);
@@ -72,7 +72,7 @@
 // 		}
 // 	}
 
-// 	async get(req: ExtendedFunctionRequest): Promise<Partial<T>> {
+// 	async get(req: CustomRequest): Promise<Partial<T>> {
 // 		if (!req.body["objectId"] || typeof req.body["objectId"] !== 'string' || req.body["objectId"].trim() === '') {
 // 			console.error(`Error getting ${this.getClassName()}:`, 'No objectId found');
 // 			throw new Error(EnumErrors.ERROR_UNKNOWN);
@@ -100,7 +100,7 @@
 // 		}
 // 	}
 
-// 	async getBy(req: ExtendedFunctionRequest): Promise<Partial<T> | undefined> {
+// 	async getBy(req: CustomRequest): Promise<Partial<T> | undefined> {
 // 		if (!req.body["propertyName"] || typeof req.body["propertyName"] !== 'string' || req.body["propertyName"].trim() === '') {
 // 			console.error(`Error getting ${this.getClassName()}:`, 'No propertyName found');
 // 			throw new Error(EnumErrors.ERROR_UNKNOWN);
@@ -133,11 +133,11 @@
 // 		}
 // 	}
 
-// 	async getClient(req: ExtendedFunctionRequest): Promise<Partial<T>> {
+// 	async getClient(req: CustomRequest): Promise<Partial<T>> {
 // 		return this.get(req); // Assuming same logic as get
 // 	}
 
-// 	async getAll(req: ExtendedFunctionRequest): Promise<Partial<T[]>> {
+// 	async getAll(req: CustomRequest): Promise<Partial<T[]>> {
 // 		if (!req.userContext) {
 // 			console.error(`Error getting ${this.getClassName()}:`, 'No userContext found');
 // 			throw new Error(EnumErrors.NO_USER_LOGGED);
@@ -160,7 +160,7 @@
 // 		}
 // 	}
 
-// 	async update(req: ExtendedFunctionRequest): Promise<boolean> {
+// 	async update(req: CustomRequest): Promise<boolean> {
 // 		if (!req.body["objectId"] || typeof req.body["objectId"] !== 'string' || req.body["objectId"].trim() === '') {
 // 			console.error(`Error updating ${this.getClassName()}:`, 'No objectId found');
 // 			throw new Error(EnumErrors.ERROR_UNKNOWN);
@@ -193,11 +193,11 @@
 // 		}
 // 	}
 
-// 	async updateClient(req: ExtendedFunctionRequest): Promise<boolean> {
+// 	async updateClient(req: CustomRequest): Promise<boolean> {
 // 		return this.update(req); // Assuming same logic as update
 // 	}
 
-// 	async disable(req: ExtendedFunctionRequest): Promise<boolean> {
+// 	async disable(req: CustomRequest): Promise<boolean> {
 // 		if (!req.body["objectId"] || typeof req.body["objectId"] !== 'string' || req.body["objectId"].trim() === '') {
 // 			console.error(`Error disabling ${this.getClassName()}:`, 'No objectId found');
 // 			throw new Error(EnumErrors.ERROR_UNKNOWN);
@@ -225,13 +225,13 @@
 // 		}
 // 	}
 
-// 	async disableClient(req: ExtendedFunctionRequest): Promise<boolean> {
+// 	async disableClient(req: CustomRequest): Promise<boolean> {
 // 		return this.disable(req); // Assuming same logic as disable
 // 	}
 
 
 
-// 	async setActive(req: ExtendedFunctionRequest): Promise<boolean> {
+// 	async setActive(req: CustomRequest): Promise<boolean> {
 // 		if (!req.body["objectId"] || typeof req.body["objectId"] !== 'string' || req.body["objectId"].trim() === '') {
 // 			console.error(`Error setting active ${this.getClassName()}:`, 'No objectId found');
 // 			throw new Error(EnumErrors.ERROR_UNKNOWN);
@@ -264,7 +264,7 @@
 // 		}
 // 	}
 
-// 	getPermissionData(req: ExtendedFunctionRequest): PermissionData {
+// 	getPermissionData(req: CustomRequest): PermissionData {
 // 		const contactDetailsJSON = req.userContext?.contactDetails;
 // 		const id_ofContactRequester = contactDetailsJSON?.objectId;
 // 		return { id_ofContactRequester };

@@ -2,7 +2,7 @@
 import { NextFunction, RequestHandler, Response } from 'express';
 // register-routes.ts
 import { Router } from 'express';
-import { ExtendedFunctionRequest } from '../interfaces/ExtendedFunctionRequest.interface';
+import { CustomRequest } from '../interfaces/CustomRequest.interface';
 
 export type ControllerMethod = RequestHandler;
 export type HttpMethods = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
@@ -25,7 +25,7 @@ export type Routes<T> = {
 export type AsyncHandlerFn = (
     handler: RequestHandler
 ) => (
-    req: ExtendedFunctionRequest, 
+    req: CustomRequest, 
     res: Response, 
     next: NextFunction
 ) => Promise<void>;

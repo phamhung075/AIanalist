@@ -1,9 +1,5 @@
 // src\modules\contact\index.ts
-import {
-  ContactIdSchema,
-  CreateContactSchema,
-  UpdateContactSchema
-} from './contact.validation';
+import { asyncHandlerFn } from '@/_core/helper/http-status/async-handler';
 import { validateSchema } from '@/_core/middleware/validateSchema.middleware';
 import { createRouter } from '@node_modules/express-route-tracker/dist';
 import {
@@ -13,12 +9,15 @@ import {
   getContactByIdHandler,
   updateContactHandler
 } from './contact.middleware';
-import { asyncHandlerFn } from '@/_core/helper/http-status/async-handler';
+import {
+  ContactIdSchema,
+  UpdateContactSchema
+} from './contact.validation';
 // Create router with source tracking
 const router = createRouter(__filename);
 
 // Define routes without baseApi prefix
-router.post('/', validateSchema(CreateContactSchema), asyncHandlerFn(createContactHandler));
+router.post('/', asyncHandlerFn(createContactHandler));
 router.get('/', asyncHandlerFn(getAllContactsHandler));
 router.get('/:id', validateSchema(ContactIdSchema), asyncHandlerFn(getContactByIdHandler));
 router.put('/:id', validateSchema(UpdateContactSchema), asyncHandlerFn(updateContactHandler));

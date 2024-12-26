@@ -1,4 +1,4 @@
-import { ExtendedFunctionRequest } from '@/_core/guard/handle-permission/user-context.interface';
+import { CustomRequest } from '@/_core/guard/handle-permission/user-context.interface';
 import _ERROR from '@/_core/helper/async-handler/error';
 import _SUCCESS from '@/_core/helper/async-handler/success';
 import { ControllerMethod } from '@/_core/helper/register-routes';
@@ -14,7 +14,7 @@ export class ErrorController {
     /**
      * Handles Bad Request Error
      */
-    public BadRequestError: RequestHandler = async (req: ExtendedFunctionRequest, res: Response, _next: NextFunction) => {
+    public BadRequestError: RequestHandler = async (req: CustomRequest, res: Response, _next: NextFunction) => {
         const data = await this.errorService.BadRequestError(req.body.message);
         const message = 'Bad Request Error';
         new _SUCCESS.SuccessResponse({message, data}).setResponseTime(req.startTime).send(res);

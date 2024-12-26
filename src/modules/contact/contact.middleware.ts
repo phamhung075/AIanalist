@@ -1,8 +1,21 @@
+import { validateSchema } from "@/_core/middleware/validateSchema.middleware";
 import contactController from "./contact.controller.factory";
+import { CreateContactSchema } from "./contact.validation";
 
-async function createContactHandler(req: any, res: any, next: any) {
-  await contactController.createContact(req, res, next);
+import { Request, Response, NextFunction } from 'express';
+
+// Assuming validateSchema is synchronous
+async function createContactHandler(req: Request, res: Response, next: NextFunction) {
+    try {
+        validateSchema(CreateContactSchema)(req, res, next); // Middleware-style validation
+        
+        // Proceed with controller logic
+        await contactController.createContact(req, res, next);
+    } catch (error) {
+        next(error); // Pass any errors to Express error handler
+    }
 }
+
 
 async function getAllContactsHandler(req: any, res: any, next: any) {
   await contactController.getAllContacts(req, res, next);

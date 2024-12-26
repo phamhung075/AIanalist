@@ -1,23 +1,23 @@
 // src/_core/utils/response.handler.ts
 import { Response } from 'express';
-import { PaginationResult, RestResponse } from '../../interfaces/rest.interface';
+import { Link, PaginationResult, RestResponse } from '../../interfaces/rest.interface';
 import { HttpStatusCode } from './HttpStatusCode';
 import { StatusCodes } from './StatusCodes';
+import { CustomRequest } from '@/_core/guard/handle-permission/user-context.interface';
 
 export class RestHandler {
-    static success<T>(res: Response, {
+    static success<T>(req: CustomRequest, res: Response, {
         code = HttpStatusCode.OK,
         data,     
         message,
         pagination,
-        startTime,
         links,
     }: {
         data?: Partial<T> | Partial<T>[];
         message?: string;
         code?: HttpStatusCode;
         pagination?: PaginationResult<T>;
-        links?: RestResponse['metadata']['links'];
+        links?: Link;
         startTime?: number;
         }): Response {
         const response: RestResponse<T> = {
@@ -36,17 +36,16 @@ export class RestHandler {
                 documentation: StatusCodes[code].documentation,
             },
         };
-        if (startTime) {
-            response.metadata.responseTime = `${Date.now() - startTime}ms`;
+        if (req.startTime) {
+            response.metadata.responseTime = `${Date.now() - req.startTime}ms`;
         }
         return res.status(code).json(response);
     }
 
-    static error(res: Response, {
+    static error(req: CustomRequest, res: Response, {
         code = HttpStatusCode.INTERNAL_SERVER_ERROR,
         message = StatusCodes[HttpStatusCode.INTERNAL_SERVER_ERROR].phrase,
         errors,
-        startTime,
     }: {
         code?: HttpStatusCode;
         message?: string;
@@ -65,8 +64,8 @@ export class RestHandler {
             },
             errors
         };
-        if (startTime) {
-            response.metadata.responseTime = `${Date.now() - startTime}ms`;
+        if (req.startTime) {
+            response.metadata.responseTime = `${Date.now() - req.startTime}ms`;
         }
         return res.status(code).json(response);
     }

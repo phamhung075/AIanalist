@@ -21,6 +21,7 @@ export const config = {
     host: process.env.HOST || 'localhost',
     dbUri: process.env.DATABASE_URI || 'mongodb://localhost:27017/mydatabase',
     dbName: process.env.DATABASE_NAME || 'mydatabase',
+    logDir: process.env.LOG_DIR || 'logs',
 };
 
 export const firebaseConfig = {

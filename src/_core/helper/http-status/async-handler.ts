@@ -2,7 +2,9 @@ import { NextFunction, Request, Response } from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
 import { CustomRequest } from '../../guard/handle-permission/user-context.interface';
-const appDir = path.dirname(require.main?.filename || '');
+import { config } from '../../config/dotenv.config';
+// const appDir = path.dirname(require.main?.filename || '');
+const logDirRoot = config.logDir;
 // import { RestHandler } from './common/RestHandler';
 
 // Middleware function to log responses and errors
@@ -119,7 +121,7 @@ export function createLogDir(): string {
     const now = new Date();
     const date = now.toISOString().split('T')[0];
     const hour = now.getUTCHours().toString().padStart(2, '0');
-    const logDir = path.join(appDir,'logs', 'error', date, hour);
+    const logDir = path.join(logDirRoot, 'error', date, hour);
     fs.mkdirSync(logDir, { recursive: true });
     return logDir;
 }

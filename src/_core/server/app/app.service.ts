@@ -14,12 +14,14 @@ import { displayRequest } from '@/_core/middleware/displayRequest.middleware';
 import router from "@modules/index";
 import { isRunningWithNodemon } from '@src/_core/helper/check-nodemon';
 import { blue, green, yellow } from 'colorette';
-import { RouteDisplay } from '@node_modules/express-route-tracker/dist';
 import { NextFunction, Request, Response } from 'express';
 import { HttpStatusCode } from '@/_core/helper/http-status/common/HttpStatusCode';
 import { RestHandler } from '@/_core/helper/http-status/common/RestHandler';
 import { StatusCodes } from '@/_core/helper/http-status/common/StatusCodes';
 import { ErrorResponse } from '@/_core/helper/http-status/error';
+import { RouteDisplay } from '@node_modules/express-route-tracker/dist';
+import helmet from '@node_modules/helmet/index.cjs';
+import rateLimit from '@node_modules/express-rate-limit';
 
 
 const env = config.env;
@@ -66,6 +68,11 @@ export class AppService {
 	private async init(): Promise<void> {
 		const startTime = Date.now();
 		this.setupCors();
+		app.use(helmet());
+		app.use(rateLimit({
+			windowMs: 15 * 60 * 1000, // 15 minutes
+			max: 100 // limit each IP to 100 requests per windowMs
+		}));
 		app.use(express.json({ limit: '50mb' }));
 		app.use(express.urlencoded({ limit: '50mb', extended: true }));
 		app.use(displayRequest);

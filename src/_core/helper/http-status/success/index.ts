@@ -115,7 +115,7 @@ class SuccessResponse {
             }
 
             // Handle Headers
-            this.handleHeaders(res);
+            // this.handleHeaders(res);
 
             // Send Response
             if (!res.headersSent) {
@@ -167,20 +167,20 @@ class SuccessResponse {
 
     /**
      * Handle Headers
-     */
-    private handleHeaders(res: Response) {
-        if (this.options?.headers) {
-            Object.entries(this.options.headers).forEach(([key, value]) => {
-                // Ensure value is converted to a valid header type
-                const safeValue = Array.isArray(value)
-                    ? value.map(v => String(v))
-                    : String(value);
-                res.setHeader(key, safeValue);
-            });
-        }
+    //  */
+    // private handleHeaders(res: Response) {
+    //     if (this.options?.headers) {
+    //         Object.entries(this.options.headers).forEach(([key, value]) => {
+    //             // Ensure value is converted to a valid header type
+    //             const safeValue = Array.isArray(value)
+    //                 ? value.map(v => String(v))
+    //                 : String(value);
+    //             res.setHeader(key, safeValue);
+    //         });
+    //     }
     
-        res.setHeader('X-Response-Time', this.metadata.responseTime);
-    }
+    //     res.setHeader('X-Response-Time', this.metadata.responseTime);
+    // }
   
 
     /**

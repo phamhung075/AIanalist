@@ -1,5 +1,4 @@
 // import { FireBaseUtilsService } from './@utils/firebase-utils.service';
-import { EnumErrors } from '../../../enums/Error';
 import { ExtendedUserContextRequest } from "./user-context.interface";
 
 // const fireBaseUtilsService = new FireBaseUtilsService();
@@ -51,7 +50,6 @@ class UserContextMiddleware {
             console.log("User context loaded successfully.");
         } else {
             console.error("User context not loaded.");
-            throw new Error(EnumErrors.ERROR_UNKNOWN);
         }
     };
 }

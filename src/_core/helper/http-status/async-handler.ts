@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
 import { CustomRequest } from '../../guard/handle-permission/user-context.interface';
-import { RestResponse } from '../interfaces/rest.interface';
 const appDir = path.dirname(require.main?.filename || '');
 // import { RestHandler } from './common/RestHandler';
 
@@ -125,8 +124,9 @@ export function createLogDir(): string {
     return logDir;
 }
 
-export function logResponse(req: CustomRequest, response: RestResponse) {
+export function logResponse(req: CustomRequest, response: string) {
     const logDir = createLogDir();
     const logger = createLogger(logDir);
+    console.log("response saved on:", logDir);
     logger.logError(createErrorLog(req, response, req.startTime || 0));
 }

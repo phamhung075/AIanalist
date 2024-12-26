@@ -10,7 +10,7 @@ import { SimpleLogger } from '../../logger/simple-logger'; // Assuming SimpleLog
 import { config, showConfig } from '@/_core/config/dotenv.config';
 import { testFirestoreAccess } from '@/_core/database/firebase';
 import { responseLogger } from '@/_core/middleware/responseLogger.middleware';
-import { showRequestUrl } from '@/_core/middleware/showRequestUrl.middleware';
+import { displayRequest } from '@/_core/middleware/displayRequest.middleware';
 import router from "@modules/index";
 import { isRunningWithNodemon } from '@src/_core/helper/check-nodemon';
 import { blue, green, yellow } from 'colorette';
@@ -20,8 +20,6 @@ import { HttpStatusCode } from '@/_core/helper/http-status/common/HttpStatusCode
 import { RestHandler } from '@/_core/helper/http-status/common/RestHandler';
 import { StatusCodes } from '@/_core/helper/http-status/common/StatusCodes';
 import { ErrorResponse } from '@/_core/helper/http-status/error';
-
-// import { testFirestoreAccess } from '@/_core/database/firebase';
 
 
 const env = config.env;
@@ -70,21 +68,21 @@ export class AppService {
 		this.setupCors();
 		app.use(express.json({ limit: '50mb' }));
 		app.use(express.urlencoded({ limit: '50mb', extended: true }));
-		app.use(showRequestUrl);
+		app.use(displayRequest);
 		app.use(responseLogger);
 		// Initialize and display routes after loading all modules
 		app.use("/", router);
 		const routeDisplay = new RouteDisplay(app);
 		routeDisplay.displayRoutes();
-		app.use ((_req: Request, _res: Response, next: NextFunction) => { //function middleware có 3 tham số
+		app.use ((_req: Request, _res: Response, next: NextFunction) => { //function middleware with 3 arguments
 			const error = new ErrorResponse({
 				message: 'Not found',
 				status: HttpStatusCode.NOT_FOUND
 			})
 			next(error)
 		})
-		app.use ((error : ErrorResponse, req: Request, res: Response, _next: NextFunction) => { // function quản lý lỗi có 4 tham số
-			const statusCode = error.status || HttpStatusCode.INTERNAL_SERVER_ERROR //500 là lỗi mặc định server
+		app.use ((error : ErrorResponse, req: Request, res: Response, _next: NextFunction) => { // function catch error with 4 arguments
+			const statusCode = error.status || HttpStatusCode.INTERNAL_SERVER_ERROR //500 if error.status is undefined
 			RestHandler.error(req, res, {
 				code: statusCode,
 				message: error.message || StatusCodes[error.status as unknown as HttpStatusCode].phrase || StatusCodes[HttpStatusCode.INTERNAL_SERVER_ERROR].phrase,

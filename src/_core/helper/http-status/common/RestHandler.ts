@@ -68,7 +68,7 @@ export class RestHandler {
         if (req.startTime) {
             response.metadata.responseTime = `${Date.now() - req.startTime}ms`;
         }
-        logResponse(req, response);
+        logResponse(req, JSON.stringify(response, null, 2));
         return res.status(code).json(response);
     }
 

@@ -13,7 +13,13 @@ describe('RestHandler', () => {
         mockReq = {
             startTime: Date.now(),
             method: 'GET',
-            originalUrl: '/test'
+            originalUrl: '/test',
+            headers: {
+                host: 'localhost:3000'
+            },
+            body: {},
+            params: {},
+            query: {}
         };
         mockRes = {
             status: jest.fn().mockReturnThis(),

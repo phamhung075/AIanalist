@@ -1,6 +1,7 @@
 import { NextFunction, Response } from 'express';
 import { HttpStatusCode } from '../common/HttpStatusCode';
 import { StatusCodes } from '../common/StatusCodes';
+import { RestHandler } from '../common/RestHandler';
 
 export interface ResponseOptions {
     code?: number;
@@ -21,6 +22,7 @@ interface StatusCodesType {
 }
 
 class SuccessResponse {
+    success: boolean;
     message: string;
     data: any;
     status: HttpStatusCode;
@@ -41,10 +43,31 @@ class SuccessResponse {
         metadata?: any;
         options?: any;
     }) {
+        this.success = true;
         this.message = message || reasonPhrase;
         this.data = data;
         this.status = status;
+        this.metadata = this.formatMetadata(this.metadata);
         this.options = options;
+    }
+
+    /**
+     * Format Metadata
+     */
+    private formatMetadata(metadata: any) {
+        return {
+            ...metadata,
+        };
+    }
+
+    /**
+     * Set Response Status Code
+     */
+    setStatus(status: number) {
+        this.status = status;
+        this.metadata.code = status;
+        this.metadata.status = RestHandler.getStatusText(status);
+        return this;
     }
 
     /**
@@ -55,12 +78,28 @@ class SuccessResponse {
         return this;
     }
 
- 
+    /**
+     * Set Metadata
+     */
+    setMetadata(metadata: any) {
+        this.metadata = { ...this.metadata, ...metadata };
+        return this;
+    }
+
     /**
      * Set Options
      */
     setOptions(options: any) {
         this.options = options;
+        return this;
+    }
+
+    /**
+     * Set Response Time
+     */
+    setResponseTime(startTime?: number) {
+        const responseTime = startTime ? `${Date.now() - startTime}ms` : '0ms';
+        this.metadata.responseTime = responseTime;
         return this;
     }
 
@@ -73,12 +112,28 @@ class SuccessResponse {
     }
 
     /**
+     * Set Response Data
+     */
+    setData(data: any) {
+        this.data = data;
+        return this;
+    }
+
+    /**
      * Send Response
      */
     send(res: Response, next?: NextFunction) {
         try {
             this.preSendHooks();
-          
+
+            // Set Response Time if startTime exists on res.locals
+            if (res.locals?.startTime) {
+                this.setResponseTime(res.locals.startTime);
+            }
+
+            // Handle Headers
+            this.handleHeaders(res);
+
             // Send Response
             if (!res.headersSent) {
                 const response = this.formatResponse();
@@ -110,10 +165,13 @@ class SuccessResponse {
      */
     private formatResponse() {
         const response = {
+            success: this.success,
             message: this.message,
             data: this.data,
             metadata: {
                 ...this.metadata,
+                code: this.status,
+                status: RestHandler.getStatusText(this.status),
             },
         };
 
@@ -123,6 +181,24 @@ class SuccessResponse {
 
         return response;
     }
+
+    /**
+     * Handle Headers
+     */
+    private handleHeaders(res: Response) {
+        if (this.options?.headers) {
+            Object.entries(this.options.headers).forEach(([key, value]) => {
+                // Ensure value is converted to a valid header type
+                const safeValue = Array.isArray(value)
+                    ? value.map(v => String(v))
+                    : String(value);
+                res.setHeader(key, safeValue);
+            });
+        }
+    
+        res.setHeader('X-Response-Time', this.metadata.responseTime);
+    }
+  
 
     /**
      * Post-send Hooks

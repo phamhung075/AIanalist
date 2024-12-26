@@ -4,6 +4,8 @@ import { NextFunction, RequestHandler, Response } from 'express';
 import { IContact } from './contact.interface';
 import ContactService from './contact.service';
 import _SUCCESS from '@/_core/helper/http-status/success';
+import { RestHandler } from '@/_core/helper/http-status/common/RestHandler';
+import { HttpStatusCode } from '@/_core/helper/http-status/common/HttpStatusCode';
 
 class ContactController {
   constructor(private contactService: ContactService) { }
@@ -19,7 +21,12 @@ class ContactController {
     } as IContact
     const contact = await this.contactService.createContact(inputData);
     const message = 'Contact created successfully';
-    return new _SUCCESS.SuccessResponse({ message, data: contact }).send(res);
+    // return new _SUCCESS.SuccessResponse({ message, data: contact }).send(res);
+    return RestHandler.success(res, {
+      code: HttpStatusCode.CREATED,
+      message,
+      data: contact
+    });
   }
 
   getAllContacts = async (_req: ExtendedFunctionRequest, res: Response, _next: NextFunction) => {

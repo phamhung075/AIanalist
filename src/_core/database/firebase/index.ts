@@ -4,7 +4,7 @@ import { getFirestore } from 'firebase-admin/firestore';
 import { getDatabase } from 'firebase-admin/database';
 import { getAuth } from 'firebase-admin/auth';
 import { yellow, red } from 'colorette';
-import * as serviceAccount from '@environment/ai-analyst-14876-firebase-adminsdk-euw8h-cc2c8e8d9e.json';
+import * as serviceAccount from '@environment/ai-analyst-14876-firebase-adminsdk-euw8h-703ddf3555.json';
 
 
 // ✅ Initialize Firebase Admin SDK

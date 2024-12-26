@@ -36,19 +36,22 @@ export const asyncHandlerFn: AsyncHandlerFn = (handler: RequestHandler) =>
         next: NextFunction
     ) => {
         const startTime = Date.now();
-        if (!req.startTime) {
-            req.startTime = startTime;
-        }
+        if (!req.startTime) 
+            req.startTime = startTime;       
+        if (!req.timestamp) 
+            req.timestamp = new Date().toISOString();
+        if (!req.path)
+            req.path = req.originalUrl; 
         
         try {
-            const result = await handler(req, res, next);
+            const result = await handler(req, res, next);          
             
             if (!res.headersSent) {
                 const baseUrl = `${req.protocol}://${req.get('host')}`;
                 const resourceUrl = `${baseUrl}${req.originalUrl}`;
                 
                 return RestHandler.success(res, {
-                    code: HttpStatusCode.OK,
+                    code: res.statusCode,
                     data: result === undefined ? {} : result,
                     startTime: req.startTime,
                     links: {

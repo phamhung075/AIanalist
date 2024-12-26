@@ -22,8 +22,9 @@ export interface PaginationResult<T> {
 
 export interface MetaData {   
     timestamp: string;
-    statusCode?: string
+    statusCode?: string;
     path?: string;
+    methode?: string;
     request?: RequestMeta;
     responseTime?: string;
     links?: Link;

@@ -28,7 +28,8 @@ export class RestHandler {
             metadata: {                
                 timestamp: new Date().toISOString(),
                 statusCode: this.getStatusText(code),
-                path: res.req.url,
+                methode: res.req.method,
+                path: res.req.originalUrl,
                 ...(pagination && { pagination }),
                 ...(links && { links }),
                 description: StatusCodes[code].description,
@@ -70,7 +71,7 @@ export class RestHandler {
         return res.status(code).json(response);
     }
 
-    private static getStatusText(code: number): string {
+    static getStatusText(code: number): string {
         return Object.entries(HttpStatusCode)
             .find(([_, value]) => value === code)?.[0] || 'UNKNOWN_STATUS';
     }

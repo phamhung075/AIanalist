@@ -182,8 +182,6 @@ export class AppService {
 		try {
 			await this.init();
 			await testFirestoreAccess();
-			// await this.loadCloudModules(app);  // Load cloud modules
-			// console.log('✅ After loadCloudModules');
 
 			const server = await this.createServer();
 			console.log('Server is now listening for connections');

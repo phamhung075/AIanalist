@@ -1,23 +1,25 @@
 // src/_core/utils/response.handler.ts
 import { Response } from 'express';
-import { HttpStatusCode } from './HttpStatusCode';
-import { RestResponse } from '../../interfaces/rest.interface';
+import { HttpStatusCode } from './StatusCodes';
+import { PaginationResult, RestResponse } from '../../interfaces/rest.interface';
 const { StatusCodes, ReasonPhrases } = HttpStatusCode;
 
 export class RestHandler {
     static success<T>(res: Response, {
-        data,
-        code = StatusCodes.OK,
-        message = ReasonPhrases.OK,
+        data,     
         pagination,
         links,
+        startTime,
+        code = StatusCodes.OK,
+        message = ReasonPhrases.OK,
     }: {
-        data: T;
+        data?: Partial<T> | Partial<T>[];
         code?: number;
         message?: string;
-        pagination?: RestResponse['metadata']['pagination'];
+        pagination?: PaginationResult<T>;
         links?: RestResponse['metadata']['links'];
-    }): Response {
+        startTime?: number;
+        }): Response {
         const response: RestResponse<T> = {
             data,
             metadata: {
@@ -29,7 +31,9 @@ export class RestHandler {
                 ...(links && { links }),
             },
         };
-        console.log(response);
+        if (startTime) {
+            response.metadata.responseTime = `${Date.now() - startTime}ms`;
+        }
         return res.status(code).json(response);
     }
 
@@ -43,23 +47,20 @@ export class RestHandler {
         code?: number;
         message?: string;
         startTime?: number;
-    }): Response {
-        let responseTime = 'not calculated';
-        if (startTime) {           
-            responseTime = `${Date.now() - startTime}ms`;
-        }
+        }): Response {      
         const response: RestResponse = {
-            // level: "Error REST",
             data: null,
             metadata: {
                 code,
                 status: this.getStatusText(code),
                 message,
                 timestamp: new Date().toISOString(),
-                responseTime: responseTime
             },
             errors
         };
+        if (startTime) {
+            response.metadata.responseTime = `${Date.now() - startTime}ms`;
+        }
         return res.status(code).json(response);
     }
 

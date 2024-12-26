@@ -1,6 +1,6 @@
 // src/_core/utils/response.handler.ts
 import { Response } from 'express';
-import { HttpStatusCode } from './common/HttpStatusCode';
+import { HttpStatusCode } from './common/StatusCodes';
 import { PaginationResult } from '../interfaces/rest.interface';
 
 const { StatusCodes, ReasonPhrases } = HttpStatusCode;

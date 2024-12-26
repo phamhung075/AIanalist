@@ -1,3 +1,8 @@
+import { HttpStatusCode } from "../http-status/common/StatusCodes";
+{
+	StatusCodes,
+	ReasonPhrases
+} = HttpStatusCode;
 
 export interface PaginationParams {
     page?: number;
@@ -7,7 +12,7 @@ export interface PaginationParams {
 }
 
 export interface PaginationResult<T> {
-    data: T[];
+    data: Partial<T>[]; // Ensure it's always an array
     meta: {
         page: number;
         limit: number;
@@ -18,27 +23,22 @@ export interface PaginationResult<T> {
     };
 }
 
-export interface MetaData<T> {
-    code: number;
-    status: string;
-    message?: string;
+
+export interface MetaData {    
     path?: string;
     timestamp: string;
-    pagination?: PaginationResult<T>;
     request?: RequestMeta;
     responseTime?: string;
-    links?: {
-        self: string;
-        first?: string;
-        prev?: string;
-        next?: string;
-        last?: string;
-    };
+    links?: Link;
 }
 
 export interface RestResponse<T = any> {
-    data?: T | T[];
-    metadata: MetaData<T>;    
+    code?: StatusCodes;
+    status: string;
+    message?: string | ReasonPhrases;
+    data?: Partial<T> | Partial<T>[];
+    pagination?: PaginationResult<T>;
+    metadata: MetaData;
     errors?: Array<{
         code: string;
         message: string;
@@ -53,3 +53,10 @@ export interface RequestMeta {
     method?: string;
     url?: string;
 }
+export interface Link {
+    self: string;
+    first?: string;
+    prev?: string;
+    next?: string;
+    last?: string;
+};

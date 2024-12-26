@@ -1,6 +1,6 @@
 import { NextFunction, Response } from 'express';
 import { ReasonPhrases } from '../common/ReasonPhrases';
-import { StatusCodes } from '../common/StatusCodes';
+import { StatusCodes } from '../common/HttpStatusCode';
 
 export interface ResponseOptions {
     code?: number;

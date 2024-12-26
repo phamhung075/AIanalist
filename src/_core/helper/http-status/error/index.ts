@@ -1,6 +1,4 @@
 
-import { HttpStatusCode } from "../common/StatusCodes"
-const { StatusCodes, ReasonPhrases } = HttpStatusCode
 // Interface for standardized error response
 export interface ErrorDetails {
     code: string;
@@ -271,80 +269,81 @@ export class ErrorResponse extends Error {
     }
 }
 
-class BadRequestError extends ErrorResponse {
-   constructor(data: {
-        message?: string;
-        field?: string;
-        errors?: Array<{ field: string; message: string; code?: string }>;
-    }) {
-        super({
-            message: data.message || ReasonPhrases.BAD_REQUEST,
-            status: StatusCodes.BAD_REQUEST,
-            code: 'BAD_REQUEST',
-            field: data.field,
-            errors: data.errors
-        });
-    }
-}
+// class BadRequestError extends ErrorResponse {
+//    constructor(data: {
+//         message?: string;
+//         field?: string;
+//         errors?: Array<{ field: string; message: string; code?: string }>;
+//     }) {
+//         super({
+//             message: data.message || ReasonPhrases.BAD_REQUEST,
+//             status: StatusCodes.BAD_REQUEST,
+//             code: 'BAD_REQUEST',
+//             field: data.field,
+//             errors: data.errors
+//         });
+//     }
+// }
 
-class ValidationError extends ErrorResponse {
-    constructor(data: {
-        message?: string;
-        field?: string;
-        errors?: Array<{ field: string; message: string; code?: string }>;
-    }) {
-        super({
-            message: data.message || "Validation Error",
-            status: StatusCodes.CONFLICT,
-            code: 'VALIDATION_ERROR',
-            field: data.field,
-            errors: data.errors
-        });
-    }
-}
+// class ValidationError extends ErrorResponse {
+//     constructor(data: {
+//         message?: string;
+//         field?: string;
+//         errors?: Array<{ field: string; message: string; code?: string }>;
+//     }) {
+//         super({
+//             message: data.message || "Validation Error",
+//             status: StatusCodes.CONFLICT,
+//             code: 'VALIDATION_ERROR',
+//             field: data.field,
+//             errors: data.errors
+//         });
+//     }
+// }
 
-// Same pattern for other error classes
-class UnprocessableEntityError extends ErrorResponse {
-    constructor(data: {
-        message?: string;
-        field?: string;
-        errors?: Array<{ field: string; message: string; code?: string }>;
-    }) {
-        super({
-            message: data.message || ReasonPhrases.UNPROCESSABLE_ENTITY,
-            status: StatusCodes.UNPROCESSABLE_ENTITY,
-            code: 'UNPROCESSABLE_ENTITY',
-            field: data.field,
-            errors: data.errors
-        });
-    }
-}
+// // Same pattern for other error classes
+// class UnprocessableEntityError extends ErrorResponse {
+//     constructor(data: {
+//         message?: string;
+//         field?: string;
+//         errors?: Array<{ field: string; message: string; code?: string }>;
+//     }) {
+//         super({
+//             message: data.message || ReasonPhrases.UNPROCESSABLE_ENTITY,
+//             status: StatusCodes.UNPROCESSABLE_ENTITY,
+//             code: 'UNPROCESSABLE_ENTITY',
+//             field: data.field,
+//             errors: data.errors
+//         });
+//     }
+// }
 
-class NotFoundError extends ErrorResponse {
-    constructor(data: {
-        message?: string;
-        field?: string;
-        errors?: Array<{ field: string; message: string; code?: string }>;
-    }) {
-        super({
-            message: data.message || ReasonPhrases.NOT_FOUND,
-            status: StatusCodes.NOT_FOUND,
-            code: 'NOT_FOUND',
-            field: data.field,
-            errors: data.errors
-        });
-    }
-}
+// class NotFoundError extends ErrorResponse {
+//     constructor(data: {
+//         message?: string;
+//         field?: string;
+//         errors?: Array<{ field: string; message: string; code?: string }>;
+//     }) {
+//         super({
+//             message: data.message || ReasonPhrases.NOT_FOUND,
+//             status: StatusCodes.NOT_FOUND,
+//             code: 'NOT_FOUND',
+//             field: data.field,
+//             errors: data.errors
+//         });
+//     }
+// }
 
 // Thêm các lớp lỗi khác theo nhu cầu...
 
 const _ERROR = {
-	BadRequestError, // 400
-    ValidationError, // 409
+    ErrorResponse
+	// BadRequestError, // 400
+    // ValidationError, // 409
 	// UnauthorizedError, // 401
 	// PaymentRequiredError, // 402
 	// ForbiddenError, // 403
-	NotFoundError, // 404
+	// NotFoundError, // 404
 	// MethodNotAllowedError, // 405
 	// NotAcceptableError, // 406
 	// ProxyAuthenticationRequiredError, // 407
@@ -362,7 +361,7 @@ const _ERROR = {
 	// InsufficientStorageError, // 419
 	// MethodFailureError, // 420
 	// MisdirectedRequestError, // 421
-	UnprocessableEntityError, // 422
+	// UnprocessableEntityError, // 422
 	// LockedError, // 423
 	// FailedDependencyError, // 424
 	// PreconditionRequiredError, // 428

@@ -4,6 +4,7 @@ import { Link, PaginationResult, RestResponse, ValidationError } from '../../int
 import { HttpStatusCode } from './HttpStatusCode';
 import { StatusCodes } from './StatusCodes';
 import { CustomRequest } from '@/_core/guard/handle-permission/user-context.interface';
+import { createErrorLog, createLogDir, createLogger, logResponse } from '../async-handler';
 
 export class RestHandler {
     static success<T>(req: CustomRequest, res: Response, {
@@ -56,17 +57,18 @@ export class RestHandler {
             success: false,
             code,
             message,
+            errors,
             metadata: {
                 timestamp: new Date().toISOString(),
                 statusCode: this.getStatusText(code),
                 description: StatusCodes[code].description,
                 documentation: StatusCodes[code].documentation,
-            },
-            errors
+            },            
         };
         if (req.startTime) {
             response.metadata.responseTime = `${Date.now() - req.startTime}ms`;
         }
+        logResponse(req, response);
         return res.status(code).json(response);
     }
 

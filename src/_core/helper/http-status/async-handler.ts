@@ -2,26 +2,28 @@ import { NextFunction, Request, Response } from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
 import { CustomRequest } from '../../guard/handle-permission/user-context.interface';
-import { RestHandler } from './common/RestHandler';
+import { RestResponse } from '../interfaces/rest.interface';
+const appDir = path.dirname(require.main?.filename || '');
+// import { RestHandler } from './common/RestHandler';
 
 // Middleware function to log responses and errors
-export function logResponseMiddleware(
-    fn: (req: CustomRequest, res: Response, next: NextFunction) => Promise<any>
-) {
-    return async (req: CustomRequest, res: Response, next: NextFunction) => {
-        const startTime = Date.now();
-        const logDir = createLogDir();
-        const logger = createLogger(logDir);
+// export function logResponseMiddleware(
+//     fn: (req: CustomRequest, res: Response, next: NextFunction) => Promise<any>
+// ) {
+//     return async (req: CustomRequest, res: Response, next: NextFunction) => {
+//         const startTime = Date.now();
+//         const logDir = createLogDir();
+//         const logger = createLogger(logDir);
 
-        try {
-            await fn(req, res, next);
-        } catch (error: any) {
-            logger.logError(createErrorLog(req, error, startTime));
-            handleError(req, res, error);
-            next(error);
-        }
-    };
-}
+//         try {
+//             await fn(req, res, next);
+//         } catch (error: any) {
+//             logger.logError(createErrorLog(req, error, startTime));
+//             handleError(req, res, error);
+//             next(error);
+//         }
+//     };
+// }
 
 type AsyncFunction = (
   req: Request,
@@ -77,7 +79,7 @@ export const asyncHandler = (fn: AsyncFunction) => {
 //     });
 
 // Logger utility
-function createLogger(logDir: string) {
+export function createLogger(logDir: string) {
     return {
         logError: (message: string) => {
             fs.appendFileSync(path.join(logDir, 'error-log.txt'), message + '\n', 'utf8');
@@ -89,7 +91,7 @@ function createLogger(logDir: string) {
 }
 
 // Error logging format
-function createErrorLog(req: CustomRequest, error: any, startTime: number): string {
+export function createErrorLog(req: CustomRequest, error: any, startTime: number): string {
     return `
 ${new Date().toISOString()}
 _________________ ERROR _________________
@@ -101,25 +103,30 @@ __________________________________________
     `;
 }
 
-// Error handler
-function handleError(req: CustomRequest, res: Response, error: any) {    
-    return RestHandler.error(req, res, {
-                code: error.status,
-                message: error.message,
-                errors: error.errors?.map((error: any) => ({
-                    code: error.code || 'UNKNOWN_ERROR',
-                    message: error.message,
-                    field: error.field,
-                })),
-            });
-}
+// // Error handler
+// function handleError(req: CustomRequest, res: Response, error: any) {    
+//     return RestHandler.error(req, res, {
+//                 code: error.status,
+//                 message: error.message,
+//                 errors: error.errors?.map((error: any) => ({
+//                     code: error.code || 'UNKNOWN_ERROR',
+//                     message: error.message,
+//                     field: error.field,
+//                 })),
+//             });
+// }
 // Create log directory
-function createLogDir(): string {
+export function createLogDir(): string {
     const now = new Date();
     const date = now.toISOString().split('T')[0];
     const hour = now.getUTCHours().toString().padStart(2, '0');
-    const logDir = path.join(__dirname, '../../../../logs', 'error', date, hour);
-
+    const logDir = path.join(appDir,'logs', 'error', date, hour);
     fs.mkdirSync(logDir, { recursive: true });
     return logDir;
+}
+
+export function logResponse(req: CustomRequest, response: RestResponse) {
+    const logDir = createLogDir();
+    const logger = createLogger(logDir);
+    logger.logError(createErrorLog(req, response, req.startTime || 0));
 }

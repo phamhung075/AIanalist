@@ -42,8 +42,10 @@ class ContactRepository {
     return updatedDoc?.exists ? ({ id: updatedDoc.id, ...updatedDoc.data() } as IContact) : null;
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: string): Promise<boolean> {
     await firestore?.collection('contacts').doc(id).delete();
+    console.log('Document successfully deleted!');
+    return true;
   }
 }
 

@@ -21,8 +21,8 @@ class ContactService {
     return await this.contactRepository.update(id, updates);
   }
 
-  async deleteContact(id: string): Promise<void> {
-    await this.contactRepository.delete(id);
+  async deleteContact(id: string): Promise<boolean> {
+    return await this.contactRepository.delete(id);
   }
 }
 

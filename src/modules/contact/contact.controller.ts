@@ -11,7 +11,6 @@ class ContactController {
   constructor(private contactService: ContactService) { }
 
   createContact: RequestHandler = async (req: CustomRequest, res: Response, _next: NextFunction) => {
-    console.log('level Controller');
     const body = req.body;
     const inputData = {
       name: body.name,
@@ -36,7 +35,6 @@ class ContactController {
   }
 
   getAllContacts = async (req: CustomRequest, res: Response, _next: NextFunction) => {
-    console.log('level Controller');
     const contacts = await this.contactService.getAllContacts();
     const message = 'Get all contacts successfully';
 
@@ -56,7 +54,6 @@ class ContactController {
   };
 
   getContactById = async (req: CustomRequest, res: Response, _next: NextFunction) => {
-    console.log('level Controller');
     const contact = await this.contactService.getContactById(req.params.id);
     if (!contact) {
       return RestHandler.error(req, res, {
@@ -76,33 +73,36 @@ class ContactController {
   };
 
   updateContact = async (req: CustomRequest, res: Response, _next: NextFunction) => {
-  console.log('level Controller');
-  const body = req.body;
-  const inputData = {
-    name: body.name,
-    email: body.email,
-    phone: body.phone,
-    message: body.message,
-  } as IContact;
+
+    const { name, email, phone, message } = req.body;
+
+    const inputData: Partial<IContact> = {
+      name,
+      email,
+      phone,
+      message,
+    };
 
     const contact = await this.contactService.updateContact(req.params.id, inputData);
+
     if (!contact) {
       return RestHandler.error(req, res, {
         code: HttpStatusCode.NOT_FOUND,
         message: 'Contact not found',
       });
     }
-    const message = 'Update contact successfully';
+
+    const messageSuccess = 'Update contact successfully';
 
     return RestHandler.success(req, res, {
       code: HttpStatusCode.OK,
-      message,
+      message: messageSuccess,
       data: contact,
     });
   };
 
+
   deleteContact = async (req: CustomRequest, res: Response, _next: NextFunction) => {
-    console.log('level Controller');
     const result = await this.contactService.deleteContact(req.params.id);
 
     if (!result) {

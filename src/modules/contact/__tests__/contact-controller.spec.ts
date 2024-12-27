@@ -152,18 +152,23 @@ describe('ContactController', () => {
   });
 
   // ✅ Test updateContact
-  it('should update a contact', async () => {
-    if (req.params === undefined) {
+  it('should update a contact successfully', async () => {
+     if (req.params === undefined) {
       throw new Error('Missing required parameter: id');
     }
     req.params.id = '1';
-    req.body = { name: 'Updated Name' };
+    req.body = {
+      name: 'Updated Name',
+      email: 'updated@example.com',
+      phone: '9876543210',
+      message: 'Updated message',
+    };
 
     const updatedContact: IContact = {
       id: '1',
       name: 'Updated Name',
-      email: 'john@example.com',
-      phone: '1234567890',
+      email: 'updated@example.com',
+      phone: '9876543210',
       message: 'Updated message',
     };
 
@@ -176,6 +181,29 @@ describe('ContactController', () => {
       code: HttpStatusCode.OK,
       message: 'Update contact successfully',
       data: updatedContact,
+    });
+  });
+
+  it('should return 404 when contact is not found', async () => {
+     if (req.params === undefined) {
+      throw new Error('Missing required parameter: id');
+    }
+    req.params.id = '1';
+    req.body = {
+      name: 'Updated Name',
+      email: 'updated@example.com',
+      phone: '9876543210',
+      message: 'Updated message',
+    };
+
+    mockContactService.updateContact.mockResolvedValue(null);
+
+    await contactController.updateContact(req as any, res as Response, next);
+
+    expect(mockContactService.updateContact).toHaveBeenCalledWith('1', req.body);
+    expect(RestHandler.error).toHaveBeenCalledWith(req, res, {
+      code: HttpStatusCode.NOT_FOUND,
+      message: 'Contact not found',
     });
   });
 

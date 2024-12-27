@@ -17,12 +17,20 @@ export function displayRequest(req: Request, _: Response, next: NextFunction): v
 export function getRequest(req: Request): string {
     const requestData = {
         timestamp: new Date().toLocaleString(),
-        url: req.headers.host && req.originalUrl ? `${req.headers.host}${req.originalUrl}` : undefined,
+        url: req.headers?.host && req.originalUrl ? `${req.headers.host}${req.originalUrl}` : undefined,
         method: !isEmpty(req.method) ? req.method : undefined,
         body: !isEmpty(req.body) ? req.body : undefined,
         params: !isEmpty(req.params) ? req.params : undefined,
         query: !isEmpty(req.query) ? req.query : undefined
     };
 
-    return JSON.stringify(requestData, null, 2);
+    // Ensure all properties are explicitly included
+    return JSON.stringify({
+        timestamp: requestData.timestamp,
+        url: requestData.url || undefined,
+        method: requestData.method || undefined,
+        body: requestData.body || undefined,
+        params: requestData.params || undefined,
+        query: requestData.query || undefined,
+    }, null, 2);
 }

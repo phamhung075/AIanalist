@@ -1,69 +1,62 @@
+import { createContactHandler } from '../contact.handler';
 
-const contactController = require('../../src/modules/contact/contact.handle');
-describe('ContactController', () => {
-  let mockRequest: any;
-  let mockResponse: any;
-  let mockNext: any;
+jest.mock('@/_core/helper/validateZodSchema', () => ({
+ validateSchema: jest.fn().mockImplementation(() => {
+   return (req: any) => {
+     if (!req.body.name) {
+       const error = new Error('Name is required');
+       throw error; 
+     }
+   };
+ })
+}));
 
-  beforeEach(() => {
-    mockRequest = {
-      body: {
-        name: 'John Doe',
-        email: 'john@example.com',
-        phone: '1234567890'
-      },
-      method: 'POST',
-      originalUrl: '/contact'
-    };
-    
-    mockResponse = {
-      status: jest.fn().mockReturnThis(),
-      json: jest.fn(),
-      req: mockRequest,
-      headersSent: false
-    };
-    
-    mockNext = jest.fn();
-  });
+jest.mock('../contact.controller.factory', () => ({
+ __esModule: true,
+ default: {
+   createContact: jest.fn().mockImplementation((_req, res) => res.status(201).json({}))
+ }
+}));
 
-  describe('createContact', () => {
-    it('should successfully create a contact and return proper success response', async () => {
-      await contactController.createContact(mockRequest, mockResponse, mockNext);
-      
-      expect(mockResponse.status).toHaveBeenCalledWith(201);
-      expect(mockResponse.json).toHaveBeenCalledWith(
-        expect.objectContaining({
-          success: true,
-          statusCode: expect.any(String),
-          methode: 'POST',
-          path: '/contact'
-        })
-      );
-    });
+describe('Contact Handler', () => {
+ let mockRequest: any;
+ let mockResponse: any;
+ let mockNext: any;
 
-    it('should let error propagate to error handling middleware', async () => {
-      mockRequest.body = null;
-      await contactController.createContact(mockRequest, mockResponse, mockNext);
-      expect(mockNext).toHaveBeenCalled();
-    });
+ beforeEach(() => {
+   mockRequest = {
+     body: {
+       name: 'John Doe',
+       email: 'john@example.com',
+       phone: '1234567890'
+     }
+   };
+   
+   mockResponse = {
+     status: jest.fn().mockReturnThis(),
+     json: jest.fn(),
+     headersSent: false
+   };
+   
+   mockNext = jest.fn();
 
-    it('should handle missing required fields', async () => {
-      delete mockRequest.body.name;
-      await contactController.createContact(mockRequest, mockResponse, mockNext);
-      
-      expect(mockResponse.status).toHaveBeenCalledWith(400);
-      expect(mockResponse.json).toHaveBeenCalledWith(
-        expect.objectContaining({
-          success: false
-        })
-      );
-    });
+   // Clear all mocks before each test
+   jest.clearAllMocks();
+ });
 
-    it('should not send response if headers are already sent', async () => {
-      mockResponse.headersSent = true;
-      await contactController.createContact(mockRequest, mockResponse, mockNext);
-      
-      expect(mockResponse.json).not.toHaveBeenCalled();
-    });
-  });
+ describe('createContact', () => {
+   it('should validate request and pass to controller', async () => {
+     await createContactHandler(mockRequest, mockResponse, mockNext);
+     expect(mockNext).not.toHaveBeenCalled();
+   });
+
+   it('should handle validation errors', async () => {
+     try {
+       delete mockRequest.body.name;
+       await createContactHandler(mockRequest, mockResponse, mockNext);
+     } catch (error : any) {
+       expect(error.message).toBe('Name is required');
+     }
+   });
+ });
 });

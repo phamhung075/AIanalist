@@ -20,7 +20,12 @@ const config: Config = {
     '^@database/(.*)$': '<rootDir>/src/_core/database/$1',
     '^@env/(.*)$': '<rootDir>/src/_core/config/$1',
     '^@config/(.*)$': '<rootDir>/src/_core/config/$1',
-    '^@environment/(.*)$': '<rootDir>/environment/$1'
+    '^@environment/(.*)$': '<rootDir>/environment/$1',
+    'express-route-tracker/dist': '<rootDir>/src/__mocks__/express-route-tracker/dist',
+    'helmet/index.cjs': '<rootDir>/node_modules/helmet/index.cjs',
+    'express-rate-limit': '<rootDir>/src/__mocks__/express-rate-limit',
+    'helmet': '<rootDir>/src/__mocks__/helmet'
+
   },
   setupFiles: ['dotenv/config'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],

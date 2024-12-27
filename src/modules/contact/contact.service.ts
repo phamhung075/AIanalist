@@ -5,7 +5,7 @@ import { IContact } from './contact.interface';
 class ContactService {
   constructor(private contactRepository: ContactRepository) {}
 
-  async createContact(contact: IContact): Promise<IContact> {
+  async createContact(contact: IContact): Promise<IContact | false> {
     return await this.contactRepository.create(contact);
   }
 

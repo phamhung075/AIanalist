@@ -5,24 +5,24 @@ import { CreateContactSchema } from "./contact.validation";
 import { Request, Response, NextFunction } from 'express';
 
 // Assuming validateSchema is synchronous
-const createContactHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+const createContactHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {    
     validateSchema(CreateContactSchema)(req);
     return contactController.createContact(req, res, next);
 };
 
-async function getAllContactsHandler(req: any, res: any, next: any) {
+const getAllContactsHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {    
   await contactController.getAllContacts(req, res, next);
 }
 
-async function getContactByIdHandler(req: any, res: any, next: any) {
+const getContactByIdHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {    
   await contactController.getContactById(req, res, next);
 }
 
-async function updateContactHandler(req: any, res: any, next: any) {
+const updateContactHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {    
   await contactController.updateContact(req, res, next);
 }
 
-async function deleteContactHandler(req: any, res: any, next: any) {
+const deleteContactHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {    
   await contactController.deleteContact(req, res, next);
 }
 

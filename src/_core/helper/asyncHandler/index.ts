@@ -7,6 +7,9 @@ type AsyncFunction = (
 
 export const asyncHandler = (fn: AsyncFunction) => {
   return (req: Request, res: Response, next: NextFunction): void => {
+    if (res.headersSent) {
+      return;
+    }
     Promise.resolve(fn(req, res, next)).catch(next);
   };
 };

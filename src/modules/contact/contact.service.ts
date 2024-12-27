@@ -13,7 +13,7 @@ class ContactService {
     return await this.contactRepository.findAll();
   }
 
-  async getContactById(id: string): Promise<IContact | null> {
+  async getContactById(id: string): Promise<Partial<IContact> | null> {
     return await this.contactRepository.findById(id);
   }
 

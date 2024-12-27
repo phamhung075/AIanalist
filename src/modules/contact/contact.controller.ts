@@ -20,6 +20,12 @@ class ContactController {
       message: body.message,
     } as IContact
     const contact = await this.contactService.createContact(inputData);
+    if (!contact) {
+      return RestHandler.error(req, res, {
+        code: HttpStatusCode.BAD_REQUEST,
+        message: 'Contact creation failed'
+      });
+    }
     const message = 'Contact created successfully';
     // return new _SUCCESS.SuccessResponse({ message, data: contact }).send(res);
     return RestHandler.success(req, res, {
@@ -29,19 +35,43 @@ class ContactController {
     });
   }
 
-  getAllContacts = async (_req: CustomRequest, res: Response, _next: NextFunction) => {
+  getAllContacts = async (req: CustomRequest, res: Response, _next: NextFunction) => {
     console.log('level Controller');
-    const contacts = await this.contactService.getAllContacts();
+    let contacts = await this.contactService.getAllContacts();
     const message = 'Get all contacts successfully';
-    new _SUCCESS.SuccessResponse({ message, data: contacts }).send(res);
+    if (!contacts) {
+      return RestHandler.success(req, res, {
+        code: HttpStatusCode.NO_CONTENT,
+        message,
+        data: []
+      });
+    }
+    return RestHandler.success(req, res, {
+      code: HttpStatusCode.OK,
+      message,
+      data: contacts
+    });
   }
 
   getContactById = async (req: CustomRequest, res: Response, _next: NextFunction) => {
     console.log('level Controller');
     const contact = await this.contactService.getContactById(req.params.id);
-    const message = 'Get contact by id successfully';
-    new _SUCCESS.SuccessResponse({ message, data: contact }).send(res);
-  }
+    if (!contact) {
+      return RestHandler.error(req, res, {
+        code: HttpStatusCode.NOT_FOUND,
+        message: 'Contact not found',
+      });
+    }
+    const message = contact
+      ? 'Get contact by id successfully'
+      : 'Contact not found';
+
+    return RestHandler.success(req, res, {
+      code: contact ? HttpStatusCode.OK : HttpStatusCode.NOT_FOUND,
+      message,
+      data: contact, // Ensure data is undefined if contact is null
+    });
+  };
 
   updateContact = async (req: CustomRequest, res: Response, _next: NextFunction) => {
     console.log('level Controller');
@@ -59,7 +89,13 @@ class ContactController {
 
   deleteContact = async (req: CustomRequest, res: Response, _next: NextFunction) => {
     console.log('level Controller');
-    await this.contactService.deleteContact(req.params.id);
+    const result = await this.contactService.deleteContact(req.params.id);
+    if (!result) {
+      return RestHandler.error(req, res, {
+        code: HttpStatusCode.NOT_FOUND,
+        message: 'Contact not found',
+      });
+    }
     const message = 'Delete contact successfully';
     new _SUCCESS.SuccessResponse({ message }).send(res);
   }

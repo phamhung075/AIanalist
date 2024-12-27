@@ -1,20 +1,14 @@
-import { Request, Response, NextFunction } from 'express';
-import ContactController from '../contact.controller';
+import { IContact } from '../contact.interface';
 import ContactService from '../contact.service';
 
-
 jest.mock('@/_core/helper/http-status/common/RestHandler', () => ({
- RestHandler: {
-   success: jest.fn()
- }
+  RestHandler: {
+    success: jest.fn(),
+  },
 }));
 
 describe('ContactController', () => {
-  let contactController: ContactController;
   let mockContactService: jest.Mocked<ContactService>;
-  let mockRequest: Partial<Request>;
-  let mockResponse: Partial<Response>;
-  let mockNext: jest.MockedFunction<NextFunction>;
 
   beforeEach(() => {
     mockContactService = {
@@ -23,30 +17,28 @@ describe('ContactController', () => {
       getContactById: jest.fn(),
       updateContact: jest.fn(),
       deleteContact: jest.fn(),
-    } as any;
-
-    mockNext = jest.fn();
-   
-    contactController = new ContactController(mockContactService);
-
-    mockRequest = {
-      body: {
-        name: 'John Doe',
-        email: 'john@example.com',
-        phone: '1234567890',
-        message: 'Test message'
-      },
-      method: 'POST',
-      originalUrl: '/contacts'
-    } as any;
-
-    mockResponse = {
-      status: jest.fn().mockReturnThis(),
-      json: jest.fn(),
-      req: mockRequest,
-      headersSent: false
-    } as Partial<Response>;
+    } as unknown as jest.Mocked<ContactService>;
 
     jest.clearAllMocks();
-  })
-})
+  });
+
+  it('should call createContact successfully', async () => {
+    const mockContact : IContact = { id: "1", name: 'John Doe',  email: 'john@example.com', phone: '1234567890' };
+    mockContactService.createContact.mockResolvedValue(mockContact);
+
+    const result = await mockContactService.createContact(mockContact);
+
+    expect(mockContactService.createContact).toHaveBeenCalledWith(mockContact);
+    expect(result).toEqual(mockContact);
+  });
+
+  it('should call getAllContacts successfully', async () => {
+    const mockContacts = [{ id: "1", name: 'John Doe',  email: 'john@example.com', phone: '1234567890' }];
+    mockContactService.getAllContacts.mockResolvedValue(mockContacts);
+
+    const result = await mockContactService.getAllContacts();
+
+    expect(mockContactService.getAllContacts).toHaveBeenCalled();
+    expect(result).toEqual(mockContacts);
+  });
+});

@@ -246,6 +246,170 @@ export class ContactService {
 }
 ```
 
+```
+
+Directory structure:
+└── AIanalist/
+    ├── CHANGELOG.md
+    ├── jest.config.ts
+    ├── jest.setup.ts
+    ├── package.json
+    ├── query
+    ├── src/
+    │   ├── __mocks__/
+    │   │   ├── contact.firebase.ts
+    │   │   ├── express-rate-limit.ts
+    │   │   ├── express-route-tracker/
+    │   │   │   └── dist.ts
+    │   │   ├── firebase-admin.ts
+    │   │   └── helmet.ts
+    │   ├── _core/
+    │   │   ├── auth/
+    │   │   ├── config/
+    │   │   │   └── dotenv.config.ts
+    │   │   ├── database/
+    │   │   │   └── firebase/
+    │   │   │       └── index.ts
+    │   │   ├── guard/
+    │   │   │   └── handle-permission/
+    │   │   │       ├── user-context.interface.ts
+    │   │   │       └── user-context.middleware.ts
+    │   │   ├── helper/
+    │   │   │   ├── asyncHandler/
+    │   │   │   │   ├── __tests__/
+    │   │   │   │   │   └── asyncHandler.spec.ts
+    │   │   │   │   └── index.ts
+    │   │   │   ├── check-nodemon/
+    │   │   │   │   ├── __tests__/
+    │   │   │   │   │   └── isRunningWithNodemon.spec.ts
+    │   │   │   │   └── index.ts
+    │   │   │   ├── check-system-overload/
+    │   │   │   │   ├── __tests__/
+    │   │   │   │   │   └── check-system-overload.spec.ts
+    │   │   │   │   └── check-system-overload.ts
+    │   │   │   ├── http-status/
+    │   │   │   │   ├── common/
+    │   │   │   │   │   ├── HttpStatusCode.ts
+    │   │   │   │   │   ├── RestHandler.ts
+    │   │   │   │   │   ├── StatusCodes.ts
+    │   │   │   │   │   ├── __tests__/
+    │   │   │   │   │   │   ├── RestHandler.spec.ts
+    │   │   │   │   │   │   └── createPagination.spec.ts
+    │   │   │   │   │   ├── api-config.ts
+    │   │   │   │   │   └── create-pagination.ts
+    │   │   │   │   ├── error/
+    │   │   │   │   │   └── index.ts
+    │   │   │   │   ├── response-log.ts
+    │   │   │   │   └── success/
+    │   │   │   │       └── index.ts
+    │   │   │   ├── interfaces/
+    │   │   │   │   ├── FetchPageResult.interface.ts
+    │   │   │   │   ├── RegisterRoutes.interface.ts
+    │   │   │   │   └── rest.interface.ts
+    │   │   │   └── validateZodSchema/
+    │   │   │       ├── __tests__/
+    │   │   │       │   └── validateSchema.spec.ts
+    │   │   │       └── index.ts
+    │   │   ├── logger/
+    │   │   │   ├── __tests__/
+    │   │   │   │   └── simple-logger.spec.ts
+    │   │   │   └── simple-logger.ts
+    │   │   ├── middleware/
+    │   │   │   ├── __tests__/
+    │   │   │   │   ├── displayRequest.spec.ts
+    │   │   │   │   └── responseLogger.spec.ts
+    │   │   │   ├── creates-HATEOAS.middleware.txt
+    │   │   │   ├── displayRequest.middleware.ts
+    │   │   │   └── responseLogger.middleware.ts
+    │   │   └── server/
+    │   │       ├── app/
+    │   │       │   ├── __tests__/
+    │   │       │   │   └── app.spec.ts
+    │   │       │   └── app.service.ts
+    │   │       └── server.ts
+    │   ├── models/
+    │   │   ├── Contact.model.ts
+    │   │   └── TradingEconomicsNew.model.ts
+    │   ├── modules/
+    │   │   ├── _base/
+    │   │   │   └── crud/
+    │   │   │       ├── baseRepository.controller.abstract.ts
+    │   │   │       └── baseRepository.service.abstract.ts
+    │   │   ├── _express/
+    │   │   │   ├── api.ts
+    │   │   │   └── version/
+    │   │   │       └── GET/
+    │   │   │           └── api.ts
+    │   │   ├── contact/
+    │   │   │   ├── __tests__/
+    │   │   │   │   ├── contact-controller.spec.ts
+    │   │   │   │   ├── contact.handle.spec.ts
+    │   │   │   │   ├── contact.repository.spec.ts
+    │   │   │   │   ├── contact.route.spec.ts
+    │   │   │   │   └── contact.service.spec.ts
+    │   │   │   ├── contact.controller.factory.ts
+    │   │   │   ├── contact.controller.ts
+    │   │   │   ├── contact.handler.ts
+    │   │   │   ├── contact.interface.ts
+    │   │   │   ├── contact.repository.ts
+    │   │   │   ├── contact.service.ts
+    │   │   │   ├── contact.validation.ts
+    │   │   │   └── index.ts
+    │   │   ├── error/
+    │   │   │   ├── error.controller.factory.ts
+    │   │   │   ├── error.controller.ts
+    │   │   │   ├── error.interface.ts
+    │   │   │   ├── error.middleware.ts
+    │   │   │   ├── error.repository.ts
+    │   │   │   ├── error.route.ts
+    │   │   │   ├── error.service.ts
+    │   │   │   └── error.validation.ts
+    │   │   ├── index.ts
+    │   │   ├── info/
+    │   │   │   ├── api.ts
+    │   │   │   ├── index.ts
+    │   │   │   ├── info-controller.service.ts
+    │   │   │   └── info.service.ts
+    │   │   ├── success/
+    │   │   │   ├── api.ts
+    │   │   │   ├── index.ts
+    │   │   │   ├── success-controller.service.ts
+    │   │   │   └── success.service.ts
+    │   │   └── trading-economics-new/
+    │   │       ├── api.ts
+    │   │       ├── index.ts
+    │   │       ├── trading-economics-new-controller.service.ts
+    │   │       └── trading-economics-new.service.ts
+    │   ├── scripts/
+    │   │   ├── bot/
+    │   │   │   ├── __pycache__/
+    │   │   │   ├── fetch-html-background.py
+    │   │   │   ├── fetch-html.py
+    │   │   │   ├── fetch-single-url-html-background.py
+    │   │   │   └── test.py
+    │   │   ├── openai/
+    │   │   │   ├── __pycache__/
+    │   │   │   ├── analyze_news.py
+    │   │   │   ├── ask0.py
+    │   │   │   └── config/
+    │   │   │       └── aianalist-firebase-adminsdk-8gwkb-09a794ac72.json
+    │   │   └── test-path-converter.ts
+    │   ├── type/
+    │   │   └── CreatedOrUpdatedBy.ts
+    │   ├── types/
+    │   │   └── response.types.ts
+    │   └── utils/
+    │       ├── clean-doublon.ts
+    │       ├── fetch-content.ts
+    │       ├── firebase-utils.service.ts
+    │       ├── get-all-files.ts
+    │       ├── get-data.ts
+    │       ├── get-latest-file.ts
+    │       └── post-data.ts
+    └── tsconfig.json
+
+```
+
 By following these guidelines, you'll have a scalable and efficient RESTful API ready for production. 🚀
 
 > For detailed code examples, check `src/modules/contact` in your project repository.

@@ -36,6 +36,8 @@ Thumbs.db
 .env
 
 #backup
-backup
+backup/
 
-coverage
+coverage/
+fetch-data/
+logs/

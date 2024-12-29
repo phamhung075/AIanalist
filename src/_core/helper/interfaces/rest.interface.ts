@@ -1,3 +1,4 @@
+import { HATEOASLinks } from "express-route-tracker";
 import { HttpStatusCode } from "../http-status/common/HttpStatusCode";
 
 export interface PaginationParams {
@@ -27,7 +28,7 @@ export interface MetaData {
     methode?: string;
     request?: RequestMeta;
     responseTime?: string;
-    links?: Link;
+    links?: HATEOASLinks;
     description?: string;
     documentation?: string;
 }
@@ -54,10 +55,3 @@ export interface RequestMeta {
     method?: string;
     url?: string;
 }
-export interface Link {
-    self: string;
-    first?: string;
-    prev?: string;
-    next?: string;
-    last?: string;
-};

@@ -158,6 +158,94 @@ export class ContactService {
 7. Validate Input.
 8. Handle Errors.
 
+## 📷 **Example Screenshot**
+
+![Example Usage](https://scontent.fctt1-1.fna.fbcdn.net/v/t1.15752-9/467114773_1049798083500442_9220589951170052487_n.png?_nc_cat=109&ccb=1-7&_nc_sid=9f807c&_nc_ohc=LagamJ5YO6EQ7kNvgH1emSC&_nc_zt=23&_nc_ht=scontent.fctt1-1.fna&oh=03_Q7cD1gFU3TRmRpEfgInCnhodelyaslhhCB0O5245mzhQYKnuWg&oe=67918C78)
+
+![Console Log request](https://scontent.fctt1-1.fna.fbcdn.net/v/t1.15752-9/462573393_637184128693842_7510104037535305269_n.png?_nc_cat=111&ccb=1-7&_nc_sid=9f807c&_nc_ohc=Q6xKSFbm_pwQ7kNvgE78TQJ&_nc_zt=23&_nc_ht=scontent.fctt1-1.fna&oh=03_Q7cD1gFwjoZ1Og6Xru1QNoShJ0b9aL6TVv0aeasS7VKq3GMb8g&oe=67995635)
+
+![Important Log ](https://scontent.xx.fbcdn.net/v/t1.15752-9/462577183_1521197635219617_5938353982022041730_n.png?_nc_cat=101&ccb=1-7&_nc_sid=0024fc&_nc_ohc=RTO2q1A6qLQQ7kNvgE9_R6R&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD1gGlC-hIQA6lKZpc2lKKNhaDcl9yeSVsi47Qk11CMW8cyA&oe=6799414E)
+
+![Error Log ](https://scontent.fctt1-1.fna.fbcdn.net/v/t1.15752-9/462570903_1134773754680523_7473195736379572011_n.png?_nc_cat=100&ccb=1-7&_nc_sid=9f807c&_nc_ohc=ZSBpsy__irgQ7kNvgHaCzFl&_nc_zt=23&_nc_ht=scontent.fctt1-1.fna&oh=03_Q7cD1gGn1QhxqjAXyOfi9S3FUxTiuxAehA8y8G9tbQCGFaWKhA&oe=67995228)
+
+---
+
+## **Example Postman response**
+
+```
+{
+    "success": true,
+    "code": 200,
+    "message": "Get contact by id successfully",
+    "data": {
+        "id": "yQg9OD4KRTNywa2fHwxN",
+        "name": "Jett Zboncak",
+        "email": "test.email19214@yopmail.com",
+        "phone": "06 26 73 76 92",
+        "message": "Interested in your services",
+        "createdAt": {
+            "_seconds": 1735267038,
+            "_nanoseconds": 739000000
+        },
+        "updatedAt": {
+            "_seconds": 1735267038,
+            "_nanoseconds": 739000000
+        }
+    },
+    "metadata": {
+        "timestamp": "2024-12-29T22:50:17.735Z",
+        "statusCode": "OK",
+        "methode": "GET",
+        "path": "/api/contact/yQg9OD4KRTNywa2fHwxN",
+        "description": "The request has succeeded.",
+        "documentation": "https://tools.ietf.org/html/rfc7231#section-6.3.1"
+    },
+    "links": {
+        "self": {
+            "rel": "self",
+            "href": "localhost:3333/api/contact/yQg9OD4KRTNywa2fHwxN",
+            "method": "GET"
+        },
+        "create": {
+            "title": "POST /",
+            "rel": "create",
+            "href": "localhost:3333/api/contact/",
+            "method": "POST"
+        },
+        "collection": {
+            "title": "GET /",
+            "rel": "collection",
+            "href": "localhost:3333/api/contact/",
+            "method": "GET"
+        },
+        "item": {
+            "title": "GET /:id",
+            "rel": "item",
+            "href": "localhost:3333/api/contact/yQg9OD4KRTNywa2fHwxN",
+            "method": "GET"
+        },
+        "update": {
+            "title": "PUT /:id",
+            "rel": "update",
+            "href": "localhost:3333/api/contact/yQg9OD4KRTNywa2fHwxN",
+            "method": "PUT"
+        },
+        "delete": {
+            "title": "DELETE /:id",
+            "rel": "delete",
+            "href": "localhost:3333/api/contact/yQg9OD4KRTNywa2fHwxN",
+            "method": "DELETE"
+        },
+        "documentation": {
+            "rel": "documentation",
+            "href": "localhost:3333/docs",
+            "method": "GET",
+            "title": "API Documentation"
+        }
+    }
+}
+```
+
 By following these guidelines, you'll have a scalable and efficient RESTful API ready for production. 🚀
 
 > For detailed code examples, check `src/modules/contact` in your project repository.

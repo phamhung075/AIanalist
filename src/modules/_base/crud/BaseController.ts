@@ -12,7 +12,7 @@ import { BaseService } from './BaseService';
  */
 @Service()
 export abstract class BaseController<
-    T extends { id?: string },
+    T extends CreateDTO & { id?: string },
     CreateDTO,
     UpdateDTO
 > {
@@ -22,14 +22,11 @@ export abstract class BaseController<
         this.service = service;
     }
 
-    /**
-     * ✅ Create an entity using CreateDTO
-     */
-    async create(req: CustomRequest, res: Response, _next: NextFunction) {
+    async create(req: CustomRequest<CreateDTO>, res: Response, _next: NextFunction) {
         try {
-            // Use CreateDTO explicitly
-            const inputData = req.body as CreateDTO;
-            const entity = await this.service.create(inputData as unknown as Omit<T, 'id'>);
+            const inputData: CreateDTO = req.body;
+
+            const entity = await this.service.create(inputData as Omit<T, 'id'>);
 
             if (!entity) {
                 throw new _ERROR.BadRequestError({
@@ -47,6 +44,7 @@ export abstract class BaseController<
             _next(error);
         }
     }
+    
 
     /**
      * ✅ Get all entities

@@ -19,7 +19,7 @@ export function createLogger(logDir: string) {
 }
 
 // Error logging format
-export function createErrorLog(req: CustomRequest, error: any, startTime: number): string {
+export function createErrorLog<T>(req: CustomRequest<T>, error: any, startTime: number): string {
     const requestLog = getRequest(req);
     return `
 _________________ REQUEST _________________
@@ -42,7 +42,7 @@ export function createLogDir(): string {
     return logDir;
 }
 
-export function logResponse(req: CustomRequest, response: string) {
+export function logResponse<T>(req: CustomRequest<T>, response: string) {
     const logDir = createLogDir();
     const logger = createLogger(logDir);
     console.log("response saved on:", logDir);

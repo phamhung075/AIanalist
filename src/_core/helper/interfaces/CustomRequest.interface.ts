@@ -13,11 +13,14 @@ export interface ExtendedUserContextRequest extends Request {
 }
 
 // Étendre la requête pour inclure les paramètres supplémentaires
-export interface CustomRequest extends ExtendedUserContextRequest {
+// Default case if no type is specified
+type FallbackBody = { [key: string]: any };
+
+// Generic CustomRequest Interface
+export interface CustomRequest<T = FallbackBody> extends ExtendedUserContextRequest {
     startTime?: number;
     timestamp?: string;
     path: string;
-    body: {
-        [key: string]: any; // Permet de stocker divers paramètres, tels que parseObj, objectId, etc.
-    };
+    body: T;
 }
+

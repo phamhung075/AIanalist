@@ -9,7 +9,7 @@ import { CustomRequest } from '../../interfaces/CustomRequest.interface';
 import { HttpMethod } from './api-config';
 
 export class RestHandler {
-    static success<T>(req: CustomRequest, res: Response, {
+    static success<T>(req: CustomRequest<T>, res: Response, {
         code = HttpStatusCode.OK,
         data,     
         message,
@@ -45,7 +45,7 @@ export class RestHandler {
         return res.status(code).json(response);
     }
 
-    static error(req: CustomRequest, res: Response, {
+    static error<T>(req: CustomRequest<T>, res: Response, {
         code = HttpStatusCode.INTERNAL_SERVER_ERROR,
         message = StatusCodes[HttpStatusCode.INTERNAL_SERVER_ERROR].phrase,
         errors,

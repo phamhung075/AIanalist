@@ -245,6 +245,59 @@ export class ContactService {
 }
 ```
 
+
+Validation error
+```
+{
+    "success": false,
+    "code": 400,
+    "message": "Validation Error",
+    "errors": [
+        {
+            "field": "password",
+            "message": "Password must be at least 8 characters long"
+        },
+        {
+            "field": "password",
+            "message": "Password must contain at least one lowercase letter"
+        },
+        {
+            "field": "password",
+            "message": "Password must contain at least one uppercase letter"
+        },
+        {
+            "field": "password",
+            "message": "Password must contain at least one special character"
+        }
+    ],
+    "metadata": {
+        "timestamp": "2024-12-30T14:36:52.645Z",
+        "statusCode": "BAD_REQUEST",
+        "description": "The server could not understand the request due to invalid syntax.",
+        "documentation": "https://tools.ietf.org/html/rfc7231#section-6.5.1"
+    },
+    "links": {
+        "self": {
+            "rel": "self",
+            "href": "localhost:3333/api/auth/registre",
+            "method": "POST"
+        },
+        "post-registre": {
+            "title": "POST /registre",
+            "rel": "post-registre",
+            "href": "localhost:3333/registre",
+            "method": "POST"
+        },
+        "documentation": {
+            "rel": "documentation",
+            "href": "localhost:3333/docs",
+            "method": "GET",
+            "title": "API Documentation"
+        }
+    }
+}
+```
+
 ```
 
 Directory structure:

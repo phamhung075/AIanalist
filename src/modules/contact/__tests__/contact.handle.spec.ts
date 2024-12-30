@@ -1,4 +1,4 @@
-import { createContactHandler } from '../contact.handler';
+import { createHandler } from '../contact.handler';
 
 jest.mock('@/_core/helper/validateZodSchema', () => ({
   validateSchema: jest.fn().mockImplementation(() => {
@@ -54,7 +54,7 @@ describe('Contact Handler', () => {
     it('should validate the request and pass to controller', async () => {
       const mockController = require('../contact.controller.factory').default;
 
-      await createContactHandler(mockRequest, mockResponse, mockNext);
+      await createHandler(mockRequest, mockResponse, mockNext);
 
       expect(mockNext).not.toHaveBeenCalled();
       expect(mockController.createContact).toHaveBeenCalled();
@@ -70,7 +70,7 @@ describe('Contact Handler', () => {
       delete mockRequest.body.name;
 
       try {
-        await createContactHandler(mockRequest, mockResponse, mockNext);
+        await createHandler(mockRequest, mockResponse, mockNext);
       } catch (error: any) {
         expect(error.message).toBe('Name is required');
       }
@@ -84,7 +84,7 @@ describe('Contact Handler', () => {
         throw new Error('Controller Error');
       });
 
-      await expect(createContactHandler(mockRequest, mockResponse, mockNext)).rejects.toThrow('Controller Error');
+      await expect(createHandler(mockRequest, mockResponse, mockNext)).rejects.toThrow('Controller Error');
 
       expect(mockController.createContact).toHaveBeenCalled();
     });
@@ -98,7 +98,7 @@ describe('Contact Handler', () => {
       });
 
       try {
-        await createContactHandler(mockRequest, mockResponse, mockNext);
+        await createHandler(mockRequest, mockResponse, mockNext);
       } catch (error: any) {
         expect(error.message).toBe('Invalid email format');
       }
@@ -113,7 +113,7 @@ describe('Contact Handler', () => {
       });
 
       try {
-        await createContactHandler(mockRequest, mockResponse, mockNext);
+        await createHandler(mockRequest, mockResponse, mockNext);
       } catch (error: any) {
         expect(error.message).toBe('Phone is required');
       }
@@ -128,7 +128,7 @@ describe('Contact Handler', () => {
       });
 
       try {
-        await createContactHandler(mockRequest, mockResponse, mockNext);
+        await createHandler(mockRequest, mockResponse, mockNext);
       } catch (error: any) {
         expect(error.message).toBe('Email is required');
       }

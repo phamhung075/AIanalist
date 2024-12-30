@@ -44,7 +44,8 @@ describe('ContactRepository', () => {
   // ✅ Test: Create a New Contact
   it('should create a new contact', async () => {
     const contactData: IContact = {
-      name: 'John Doe',
+      firstName: 'John',
+      lastName: 'Doe',
       email: 'john@example.com',
       phone: '1234567890',
       message: 'Test message',

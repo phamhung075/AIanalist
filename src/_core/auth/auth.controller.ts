@@ -45,13 +45,7 @@ class AuthController {
           code: HttpStatusCode.BAD_REQUEST,
           message: error.message,
         });
-      }
-
-      // Fallback for unhandled errors
-      return RestHandler.error(req, res, {
-        code: HttpStatusCode.INTERNAL_SERVER_ERROR,
-        message: 'An unexpected error occurred during registration',
-      });
+      }     
     }
   };
 }

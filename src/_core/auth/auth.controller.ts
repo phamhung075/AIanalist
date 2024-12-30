@@ -26,7 +26,6 @@ class AuthController {
       message: 'User registered successfully',
       data: account,
     });
-
   }
 };
 

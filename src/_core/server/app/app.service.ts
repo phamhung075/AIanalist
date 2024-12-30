@@ -18,10 +18,10 @@ import { NextFunction, Request, Response } from 'express';
 import { HttpStatusCode } from '@/_core/helper/http-status/common/HttpStatusCode';
 import { RestHandler } from '@/_core/helper/http-status/common/RestHandler';
 import { StatusCodes } from '@/_core/helper/http-status/common/StatusCodes';
-import { ErrorResponse } from '@/_core/helper/http-status/error';
 import { RouteDisplay } from '@node_modules/express-route-tracker/dist';
 import helmet from '@node_modules/helmet/index.cjs';
 import rateLimit from '@node_modules/express-rate-limit';
+import _ERROR, { ErrorResponse } from '@/_core/helper/http-status/error';
 
 
 const env = config.env;
@@ -82,10 +82,7 @@ export class AppService {
 		const routeDisplay = new RouteDisplay(app);
 		routeDisplay.displayRoutes();
 		app.use ((_req: Request, _res: Response, next: NextFunction) => { //function middleware with 3 arguments
-			const error = new ErrorResponse({
-				message: 'Not found',
-				status: HttpStatusCode.NOT_FOUND
-			})
+			const error = new _ERROR.NotFoundError()
 			next(error)
 		})
 		app.use ((error : ErrorResponse, req: Request, res: Response, _next: NextFunction) => { // function catch error with 4 arguments

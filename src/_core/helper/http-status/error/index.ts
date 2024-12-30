@@ -1,365 +1,222 @@
-import { HttpStatusCode } from "../common/HttpStatusCode";
-import { StatusCodes } from "../common/StatusCodes";
+import { NextFunction, Response } from 'express';
+import { HttpStatusCode } from '../common/HttpStatusCode';
+import { StatusCodes } from '../common/StatusCodes';
+import { RestHandler } from '../common/RestHandler';
 
-// Interface for standardized error response
-export interface ErrorDetails {
-    code: string;
-    message: string;
-    field?: string;
-}
-
-
-// // List error handle
-
-// class BadRequestError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.BAD_REQUEST, statusCode = StatusCodes.BAD_REQUEST) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class UnauthorizedError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.UNAUTHORIZED, statusCode = StatusCodes.UNAUTHORIZED) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class PaymentRequiredError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.PAYMENT_REQUIRED, statusCode = StatusCodes.PAYMENT_REQUIRED) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class ForbiddenError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.FORBIDDEN, statusCode = StatusCodes.FORBIDDEN) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class NotFoundError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.NOT_FOUND, statusCode = StatusCodes.NOT_FOUND) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class MethodNotAllowedError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.METHOD_NOT_ALLOWED, statusCode = StatusCodes.METHOD_NOT_ALLOWED) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class NotAcceptableError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.NOT_ACCEPTABLE, statusCode = StatusCodes.NOT_ACCEPTABLE) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class ProxyAuthenticationRequiredError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.PROXY_AUTHENTICATION_REQUIRED, statusCode = StatusCodes.PROXY_AUTHENTICATION_REQUIRED) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class RequestTimeoutError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.REQUEST_TIMEOUT, statusCode = StatusCodes.REQUEST_TIMEOUT) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class ConflictRequestError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.CONFLICT, statusCode = StatusCodes.CONFLICT) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class GoneError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.GONE, statusCode = StatusCodes.GONE) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class LengthRequiredError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.LENGTH_REQUIRED, statusCode = StatusCodes.LENGTH_REQUIRED) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class PreconditionFailedError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.PRECONDITION_FAILED, statusCode = StatusCodes.PRECONDITION_FAILED) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class RequestTooLongError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.REQUEST_TOO_LONG, statusCode = StatusCodes.REQUEST_TOO_LONG) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class RequestUriTooLongError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.REQUEST_URI_TOO_LONG, statusCode = StatusCodes.REQUEST_URI_TOO_LONG) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class UnsupportedMediaTypeError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.UNSUPPORTED_MEDIA_TYPE, statusCode = StatusCodes.UNSUPPORTED_MEDIA_TYPE) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class RequestedRangeNotSatisfiableError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.REQUESTED_RANGE_NOT_SATISFIABLE, statusCode = StatusCodes.REQUESTED_RANGE_NOT_SATISFIABLE) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class ExpectationFailedError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.EXPECTATION_FAILED, statusCode = StatusCodes.EXPECTATION_FAILED) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class ImATeapotError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.IM_A_TEAPOT, statusCode = StatusCodes.IM_A_TEAPOT) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class InsufficientStorageError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.INSUFFICIENT_SPACE_ON_RESOURCE, statusCode = StatusCodes.INSUFFICIENT_SPACE_ON_RESOURCE) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class MethodFailureError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.METHOD_FAILURE, statusCode = StatusCodes.METHOD_FAILURE) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class MisdirectedRequestError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.MISDIRECTED_REQUEST, statusCode = StatusCodes.MISDIRECTED_REQUEST) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class UnprocessableEntityError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.UNPROCESSABLE_ENTITY, statusCode = StatusCodes.UNPROCESSABLE_ENTITY) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class LockedError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.LOCKED, statusCode = StatusCodes.LOCKED) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class FailedDependencyError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.FAILED_DEPENDENCY, statusCode = StatusCodes.FAILED_DEPENDENCY) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class PreconditionRequiredError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.PRECONDITION_REQUIRED, statusCode = StatusCodes.PRECONDITION_REQUIRED) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class TooManyRequestsError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.TOO_MANY_REQUESTS, statusCode = StatusCodes.TOO_MANY_REQUESTS) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class RequestHeaderFieldsTooLargeError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.REQUEST_HEADER_FIELDS_TOO_LARGE, statusCode = StatusCodes.REQUEST_HEADER_FIELDS_TOO_LARGE) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class UnavailableForLegalReasonsError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.UNAVAILABLE_FOR_LEGAL_REASONS, statusCode = StatusCodes.UNAVAILABLE_FOR_LEGAL_REASONS) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class InternalServerError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.INTERNAL_SERVER_ERROR, statusCode = StatusCodes.INTERNAL_SERVER_ERROR) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class NotImplementedError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.NOT_IMPLEMENTED, statusCode = StatusCodes.NOT_IMPLEMENTED) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class BadGatewayError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.BAD_GATEWAY, statusCode = StatusCodes.BAD_GATEWAY) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class ServiceUnavailableError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.SERVICE_UNAVAILABLE, statusCode = StatusCodes.SERVICE_UNAVAILABLE) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class GatewayTimeoutError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.GATEWAY_TIMEOUT, statusCode = StatusCodes.GATEWAY_TIMEOUT) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// class HttpVersionNotSupportedError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.HTTP_VERSION_NOT_SUPPORTED, statusCode = StatusCodes.HTTP_VERSION_NOT_SUPPORTED) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-
-// class NetworkAuthenticationRequiredError extends ErrorResponse {
-// 	constructor(message = ReasonPhrases.NETWORK_AUTHENTICATION_REQUIRED, statusCode = StatusCodes.NETWORK_AUTHENTICATION_REQUIRED) {
-// 		super(message, statusCode);
-// 	}
-// }
-
-// src/_core/helper/async-handler/error/error.response.ts
-// src/_core/types/error.types.ts
-export class ErrorResponse extends Error {
+export class ErrorResponse {
     success: boolean;
     message: string;
+    error?: any;
     status: HttpStatusCode;
+    metadata: any;
+    options: any;
     errors?: Array<{ field: string; message: string; code?: string }>;
+
     constructor({
         message,
+        error = {},
         status = HttpStatusCode.INTERNAL_SERVER_ERROR,
-        errors,
+        reasonPhrase = StatusCodes[status].phrase,
+		errors,
+        options = {},
     }: {
         message?: string;
+        error?: any;
         status?: HttpStatusCode;
         reasonPhrase?: string;
-        errors?: Array<{ field: string; message: string; code?: string }>;
-        }) {
-        super();
+        metadata?: any;
+		errors?: Array<{ field: string; message: string; code?: string }>;
+        options?: any;
+    }) {
         this.success = false;
+        this.message = message || reasonPhrase;
+        this.error = error;
         this.status = status;
-        this.message = message || StatusCodes[status].phrase;
-        this.errors = errors;
+		this.errors = errors;
+        this.metadata = this.formatMetadata(this.metadata);
+        this.options = options;
+    }
+
+    private formatMetadata(metadata: any) {
+        return {
+            ...metadata,
+        };
+    }
+
+    setStatus(status: number) {
+        this.status = status;
+        this.metadata.code = status;
+        this.metadata.status = RestHandler.getStatusText(status);
+        return this;
+    }
+
+    setMessage(message: string) {
+        this.message = message;
+        return this;
+    }
+
+    setMetadata(metadata: any) {
+        this.metadata = { ...this.metadata, ...metadata };
+        return this;
+    }
+
+    setOptions(options: any) {
+        this.options = options;
+        return this;
+    }
+
+    setResponseTime(startTime?: number) {
+        const responseTime = startTime ? `${Date.now() - startTime}ms` : '0ms';
+        this.metadata.responseTime = responseTime;
+        return this;
+    }
+
+    setHeader(headers: Record<string, string>) {
+        this.options.headers = { ...this.options.headers, ...headers };
+        return this;
+    }
+
+    setError(error: any) {
+        this.error = error;
+        return this;
+    }
+
+    send(res: Response, next?: NextFunction) {
+        try {
+            this.preSendHooks();
+
+            if (res.locals?.startTime) {
+                this.setResponseTime(res.locals.startTime);
+            }
+
+            if (!res.headersSent) {
+                const response = this.formatResponse();
+                res.status(this.status).json(response);
+            } else {
+                console.warn('Attempted to send response after headers were already sent.');
+            }
+
+            this.postSendHooks();
+        } catch (error) {
+            console.error('Error sending response:', error);
+            if (next) {
+                next(error);
+            } else {
+                throw error;
+            }
+        }
+    }
+
+    private preSendHooks() {
+        this.metadata.timestamp = new Date().toISOString();
+    }
+
+    private formatResponse() {
+        const response = {
+            success: this.success,
+            message: this.message,
+            error: this.error,
+            metadata: {
+                ...this.metadata,
+                code: this.status,
+                status: RestHandler.getStatusText(this.status),
+            },
+        };
+
+        if (Object.keys(this.options).length > 0) {
+            Object.assign(response, { options: this.options });
+        }
+
+        return response;
+    }
+
+    private postSendHooks() {
+        console.error(`Error response sent with status: ${this.status}`);
     }
 }
 
-// class BadRequestError extends ErrorResponse {
-//     constructor(data: {        
-//         message?: string;
-//         field?: string;
-//         errors?: Array<{ field: string; message: string; code?: string }>;
-//     }) {
-//        super({
-//             code: data. || HttpStatusCode.BAD_REQUEST,
-//             message: data. HttpStatusCode.BAD_REQUEST,
-//             status: message || StatusCodes[HttpStatusCode.BAD_REQUEST],
-//             code: 'BAD_REQUEST',
-//             field: data.field,
-//             errors: data.errors
-//         });
-//     }
-// }
+class BadRequestError extends ErrorResponse {
+    constructor(params: any = {}) {
+        super({
+            ...params,
+            status: params.status || HttpStatusCode.BAD_REQUEST,
+        });
+    }
+}
 
-// class ValidationError extends ErrorResponse {
-//     constructor(data: {
-//         message?: string;
-//         field?: string;
-//         errors?: Array<{ field: string; message: string; code?: string }>;
-//     }) {
-//         super({
-//             message: data.message || "Validation Error",
-//             status: StatusCodes.CONFLICT,
-//             code: 'VALIDATION_ERROR',
-//             field: data.field,
-//             errors: data.errors
-//         });
-//     }
-// }
+class UnauthorizedError extends ErrorResponse {
+    constructor(params: any = {}) {
+        super({
+            ...params,
+            status: params.status || HttpStatusCode.UNAUTHORIZED,
+        });
+    }
+}
 
-// // Same pattern for other error classes
-// class UnprocessableEntityError extends ErrorResponse {
-//     constructor(data: {
-//         message?: string;
-//         field?: string;
-//         errors?: Array<{ field: string; message: string; code?: string }>;
-//     }) {
-//         super({
-//             message: data.message || ReasonPhrases.UNPROCESSABLE_ENTITY,
-//             status: StatusCodes.UNPROCESSABLE_ENTITY,
-//             code: 'UNPROCESSABLE_ENTITY',
-//             field: data.field,
-//             errors: data.errors
-//         });
-//     }
-// }
+class ForbiddenError extends ErrorResponse {
+    constructor(params: any = {}) {
+        super({
+            ...params,
+            status: params.status || HttpStatusCode.FORBIDDEN,
+        });
+    }
+}
 
-// class NotFoundError extends ErrorResponse {
-//     constructor(data: {
-//         message?: string;
-//         field?: string;
-//         errors?: Array<{ field: string; message: string; code?: string }>;
-//     }) {
-//         super({
-//             message: data.message || ReasonPhrases.NOT_FOUND,
-//             status: StatusCodes.NOT_FOUND,
-//             code: 'NOT_FOUND',
-//             field: data.field,
-//             errors: data.errors
-//         });
-//     }
-// }
+class NotFoundError extends ErrorResponse {
+    constructor(params: any = {}) {
+        super({
+            ...params,
+            status: params.status || HttpStatusCode.NOT_FOUND,
+        });
+    }
+}
 
-// Thêm các lớp lỗi khác theo nhu cầu...
+class ConflictError extends ErrorResponse {
+    constructor(params: any = {}) {
+        super({
+            ...params,
+            status: params.status || HttpStatusCode.CONFLICT,
+        });
+    }
+}
+
+class UnprocessableEntityError extends ErrorResponse {
+    constructor(params: any = {}) {
+        super({
+            ...params,
+            status: params.status || HttpStatusCode.UNPROCESSABLE_ENTITY,
+        });
+    }
+}
+
+class TooManyRequestsError extends ErrorResponse {
+    constructor(params: any = {}) {
+        super({
+            ...params,
+            status: params.status || HttpStatusCode.TOO_MANY_REQUESTS,
+        });
+    }
+}
+
+class InternalServerError extends ErrorResponse {
+    constructor(params: any = {}) {
+        super({
+            ...params,
+            status: params.status || HttpStatusCode.INTERNAL_SERVER_ERROR,
+        });
+    }
+}
 
 const _ERROR = {
-    ErrorResponse
-	// BadRequestError, // 400
-    // ValidationError, // 409
-	// UnauthorizedError, // 401
-	// PaymentRequiredError, // 402
-	// ForbiddenError, // 403
-	// NotFoundError, // 404
-	// MethodNotAllowedError, // 405
-	// NotAcceptableError, // 406
-	// ProxyAuthenticationRequiredError, // 407
-	// RequestTimeoutError, // 408
-	// ConflictRequestError, // 409
-	// GoneError, // 410
-	// LengthRequiredError, // 411
-	// PreconditionFailedError, // 412
-	// RequestTooLongError, // 413
-	// RequestUriTooLongError, // 414
-	// UnsupportedMediaTypeError, // 415
-	// RequestedRangeNotSatisfiableError, // 416
-	// ExpectationFailedError, // 417
-	// ImATeapotError, // 418
-	// InsufficientStorageError, // 419
-	// MethodFailureError, // 420
-	// MisdirectedRequestError, // 421
-	// UnprocessableEntityError, // 422
-	// LockedError, // 423
-	// FailedDependencyError, // 424
-	// PreconditionRequiredError, // 428
-	// TooManyRequestsError, // 429
-	// RequestHeaderFieldsTooLargeError, // 431
-	// UnavailableForLegalReasonsError, // 451
-	// InternalServerError, // 500
-	// NotImplementedError, // 501
-	// BadGatewayError, // 502
-	// ServiceUnavailableError, // 503
-	// GatewayTimeoutError, // 504
-	// HttpVersionNotSupportedError, // 505
-	// NetworkAuthenticationRequiredError // 511
+	ErrorResponse,
+    BadRequestError, // 400
+    UnauthorizedError, // 401
+    ForbiddenError, // 403
+    NotFoundError, // 404
+    ConflictError, // 409
+    UnprocessableEntityError, // 422
+    TooManyRequestsError, // 429
+    InternalServerError, // 500
 };
 
-export default _ERROR ;
+export default _ERROR;

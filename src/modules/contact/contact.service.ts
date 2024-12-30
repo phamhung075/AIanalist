@@ -9,6 +9,10 @@ class ContactService {
     return await this.contactRepository.create(contact);
   }
 
+  async createWithId(id: string, contact: IContact): Promise<IContact> {
+    return await this.contactRepository.createWithId(id, contact);
+  }
+
   async getAllContacts(): Promise<IContact[]> {
     return await this.contactRepository.findAll();
   }

@@ -1,15 +1,15 @@
 // src/_core/auth/services/auth.service.ts
-import ContactRepository from '@/modules/contact/contact.repository';
 import { DecodedIdToken, UserRecord } from 'firebase-admin/auth';
 import { UserCredential } from 'firebase/auth';
 import _ERROR from '../helper/http-status/error';
 import { IRegister } from './auth.interface';
-import { AuthRepository } from './auth.repository';
+import AuthRepository from './auth.repository';
+import ContactService from '@/modules/contact/contact.service';
 
 export class AuthService {
     constructor(
         private authRepository: AuthRepository,
-        private contactRepository: ContactRepository
+        private contactService: ContactService
     ) {}
 
     async register(registerData: IRegister): Promise<UserCredential> {
@@ -17,7 +17,7 @@ export class AuthService {
         
         const userCred = await this.authRepository.createUser({ email, password });
         
-        await this.contactRepository.createWithId(userCred.user.uid, {
+        await this.contactService.createWithId(userCred.user.uid, {
             ...contactData,
             email,
             id: userCred.user.uid

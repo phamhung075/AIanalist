@@ -2,16 +2,13 @@ import _SUCCESS from '@/_core/helper/http-status/success';
 import { RequestHandler, Response } from 'express';
 import _ERROR from '../helper/http-status/error';
 import { CustomRequest } from '../helper/interfaces/CustomRequest.interface';
-import { AuthRepository } from './auth.repository';
 import { AuthService } from './auth.service';
 import { IAuth, IRegister } from './auth.interface';
 
 class AuthController {
-  private authService: AuthService;
-
-  constructor() {
-    const authRepository = new AuthRepository();
-    this.authService = new AuthService(authRepository);
+  constructor(
+    private authService: AuthService,
+  ) {
   }
 
   register: RequestHandler = async (req: CustomRequest, res: Response) => {

@@ -5,7 +5,7 @@ import { DecodedIdToken } from 'firebase-admin/auth';
 import { IAuth } from './auth.interface';
 import _ERROR from '../helper/http-status/error';
 
-export class AuthRepository {
+class AuthRepository {
     async createUser(account: IAuth): Promise<UserCredential> {
         try {
             return await createUserWithEmailAndPassword(firebaseClientAuth, account.email, account.password);
@@ -54,3 +54,5 @@ export class AuthRepository {
         }
     }
 }
+
+export default AuthRepository;

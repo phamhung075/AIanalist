@@ -3,8 +3,8 @@ import ContactController from './contact.controller';
 import ContactService from './contact.service';
 import ContactRepository from './contact.repository';
 
-const contactRepository = new ContactRepository();
-const contactService = new ContactService(contactRepository);
-const contactController = new ContactController(contactService);
+const contactController = new ContactController(
+    new ContactService(new ContactRepository())
+);
 
 export default contactController;

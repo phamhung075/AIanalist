@@ -1,40 +1,82 @@
-import { validateSchema } from "@/_core/helper/validateZodSchema";
+import { validateDTO } from "@/_core/helper/validateZodSchema";
 import { NextFunction, Request, Response } from 'express';
 import { contactController } from "./contact.module";
 import { IdSchema, CreateSchema, UpdateSchema } from "./contact.validation";
 
 
-// Assuming validateSchema is synchronous
-const createHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {    
-    validateSchema(CreateSchema, "body")(req);
-    return contactController.create(req, res, next);
+const validateCreateDTO = validateDTO(CreateSchema, 'body');
+const validateIdDTO = validateDTO(IdSchema, 'body');
+const validateUpdateDTO = validateDTO(UpdateSchema, 'body');
+/**
+ * Create Handler
+ */
+const createHandler = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Validation already happened in middleware
+    await contactController.create(req, res, next);
+  } catch (error) {
+    next(error);
+  }
 };
 
-const getAllsHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {    
-  await contactController.getAll(req, res, next);
+
+
+/**
+ * Get All Handler
+ */
+const getAllsHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+  try {
+    await contactController.getAll(req, res, next);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+
+/**
+ * Get By ID Handler
+ */
+const getByIdHandler = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await contactController.getById(req, res, next);
+  } catch (error) {
+    next(error);
+  }
 }
 
-const getByIdHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {   
-  validateSchema(IdSchema, "params")(req); 
-  await contactController.getById(req, res, next);
+
+/**
+ * Update Handler
+ */
+const updateHandler = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await contactController.update(req, res, next);
+  } catch (error) {
+    next(error);
+  }
 }
 
-const updateHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {    
-  validateSchema(IdSchema, "params")(req); 
-  validateSchema(UpdateSchema, "body")(req); 
-  await contactController.update(req, res, next);
+
+/**
+ * Delete Handler
+ */
+const deleteHandler = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await contactController.delete(req, res, next);
+  } catch (error) {
+    next(error);
+  }
 }
 
-const deleteHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {    
-  validateSchema(IdSchema, "params")(req); 
-  await contactController.delete(req, res, next);
-}
 
 export {
+  validateCreateDTO,
+  validateIdDTO,
+  validateUpdateDTO,
   createHandler,
   deleteHandler,
   getAllsHandler,
   getByIdHandler,
   updateHandler
 };
-

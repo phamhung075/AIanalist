@@ -5,7 +5,10 @@ import {
   deleteHandler,
   getAllsHandler,
   getByIdHandler,
-  updateHandler
+  updateHandler,
+  validateCreateDTO,
+  validateIdDTO,
+  validateUpdateDTO
 } from './contact.handler';
 import { asyncHandler } from '@/_core/helper/asyncHandler';
 import { config } from '@/_core/config/dotenv.config';
@@ -28,10 +31,11 @@ router.use(createHATEOASMiddleware(router, {
 }));
 
 // Define routes without baseApi prefix
-router.post('/', asyncHandler(createHandler));
+router.post('/', validateCreateDTO, asyncHandler(createHandler));
 router.get('/', asyncHandler(getAllsHandler));
-router.get('/:id', asyncHandler(getByIdHandler));
-router.put('/:id', asyncHandler(updateHandler));
-router.delete('/:id', asyncHandler(deleteHandler));
+router.get('/:id', validateIdDTO, asyncHandler(getByIdHandler));
+router.put('/:id', validateIdDTO, validateCreateDTO, asyncHandler(updateHandler));
+router.patch('/:id', validateIdDTO, validateUpdateDTO, asyncHandler(updateHandler));
+router.delete('/:id', validateIdDTO, asyncHandler(deleteHandler));
 
 export = router;

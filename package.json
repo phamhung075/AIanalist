@@ -23,7 +23,7 @@
 		"dotenv": "^16.4.5",
 		"express": "^4.19.2",
 		"express-rate-limit": "^7.5.0",
-		"express-route-tracker": "^2.0.60",
+		"express-route-tracker": "^2.0.62",
 		"firebase": "^10.13.1",
 		"helmet": "^8.0.0",
 		"jsonwebtoken": "^9.0.2",

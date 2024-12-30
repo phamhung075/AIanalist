@@ -145,6 +145,8 @@
 			"@environment/*": ["environment/*"],
 			"@config/*": ["src/_core/config/*"],
 			"@_core/*": ["src/_core/*"],
+			"@auth/*": ["src/_core/auth/*"],
+
 		}
 	},
 	"include": [

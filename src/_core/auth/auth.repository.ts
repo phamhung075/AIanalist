@@ -1,5 +1,6 @@
 import { UserCredential, createUserWithEmailAndPassword } from 'firebase/auth';
 import { firebaseAdminAuth, firebaseClientAuth } from '../database/firebase-admin-sdk';
+import { DecodedIdToken } from 'firebase-admin/auth';
 
 export class AuthRepository {
     /**
@@ -23,7 +24,7 @@ export class AuthRepository {
     /**
      * Verify Firebase Token (Admin SDK)
      */
-    async verifyIdToken(token: string): Promise<any> {
+    async verifyIdToken(token: string): Promise<DecodedIdToken> {
         try {
             const decodedToken = await firebaseAdminAuth.verifyIdToken(token);
             console.log('✅ Token verified successfully');

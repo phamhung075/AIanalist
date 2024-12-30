@@ -1,8 +1,9 @@
 // src/_core/auth/services/auth.service.ts
 // import { DecodedIdToken } from 'firebase-admin/auth';
 // import { UserRecord } from 'firebase-admin/auth';
-import AuthRepository from './auth.repository';
+import { DecodedIdToken } from 'firebase-admin/auth';
 import { UserCredential } from 'firebase/auth';
+import AuthRepository from './auth.repository';
 
 export class AuthService {
     private authRepository: AuthRepository;
@@ -21,14 +22,22 @@ export class AuthService {
         try {
             console.log(`Registering user: ${email}`);
             const userCredential = await this.authRepository.createUser(email, password);
-            console.log(`User registered successfully: ${userCredential.user.uid}`);
+            console.log(`✅ User registered successfully: ${userCredential.user.uid}`);
             return userCredential;
         } catch (error: any) {
-            if (error.code === 'auth/email-already-in-use') {
-                throw new Error('Conflict: Email is already in use');
+            console.error('❌ Registration Error:', error);
+
+            // Handle known Firebase errors explicitly
+            switch (error.code) {
+                case 'auth/email-already-in-use':
+                    throw new Error('Email is already in use');
+                case 'auth/invalid-email':
+                    throw new Error('Invalid email format');
+                case 'auth/weak-password':
+                    throw new Error('Password is too weak');
+                default:
+                    throw new Error('Failed to register user');
             }
-            console.error('Registration Error:', error);
-            throw new Error('Failed to register user');
         }
     }
 
@@ -57,22 +66,22 @@ export class AuthService {
     //     }
     // }
 
-    // /**
-    //  * 🔑 Verify Token
-    //  * @param token - Firebase Auth token
-    //  * @returns Decoded token
-    //  */
-    // async verifyToken(token: string): Promise<DecodedIdToken> {
-    //     try {
-    //         console.log('Verifying token');
-    //         const decodedToken = await this.authRepository.verifyIdToken(token);
-    //         console.log(`Token verified successfully: ${decodedToken.uid}`);
-    //         return decodedToken;
-    //     } catch (error) {
-    //         console.error('Token Verification Error:', error);
-    //         throw new Error('Unauthorized: Invalid or expired token');
-    //     }
-    // }
+    /**
+     * 🔑 Verify Token
+     * @param token - Firebase Auth token
+     * @returns Decoded token
+     */
+    async verifyToken(token: string): Promise<DecodedIdToken> {
+        try {
+            console.log('Verifying token');
+            const decodedToken = await this.authRepository.verifyIdToken(token);
+            console.log(`Token verified successfully: ${decodedToken.uid}`);
+            return decodedToken;
+        } catch (error) {
+            console.error('Token Verification Error:', error);
+            throw new Error('Unauthorized: Invalid or expired token');
+        }
+    }
 
     // /**
     //  * 👤 Get User Details

@@ -307,6 +307,7 @@ Directory structure:
     ├── jest.setup.ts
     ├── package.json
     ├── query
+    ├── readme.md
     ├── src/
     │   ├── __mocks__/
     │   │   ├── contact.firebase.ts
@@ -317,15 +318,25 @@ Directory structure:
     │   │   └── helmet.ts
     │   ├── _core/
     │   │   ├── auth/
+    │   │   │   ├── auth.controller.ts
+    │   │   │   ├── auth.dto.ts
+    │   │   │   ├── auth.handler.ts
+    │   │   │   ├── auth.interface.ts
+    │   │   │   ├── auth.module.ts
+    │   │   │   ├── auth.repository.ts
+    │   │   │   ├── auth.service.ts
+    │   │   │   ├── auth.validation.ts
+    │   │   │   ├── guards/
+    │   │   │   │   └── jwt-auth.guard.ts
+    │   │   │   ├── index.ts
+    │   │   │   └── strategies/
+    │   │   │       └── jwt.strategy.ts
     │   │   ├── config/
-    │   │   │   └── dotenv.config.ts
+    │   │   │   ├── dotenv.config.ts
+    │   │   │   └── firebase-admin.account.ts
     │   │   ├── database/
-    │   │   │   └── firebase/
+    │   │   │   └── firebase-admin-sdk/
     │   │   │       └── index.ts
-    │   │   ├── guard/
-    │   │   │   └── handle-permission/
-    │   │   │       ├── CustomRequest.interface.ts
-    │   │   │       └── user-context.middleware.ts
     │   │   ├── helper/
     │   │   │   ├── asyncHandler/
     │   │   │   │   ├── __tests__/
@@ -355,8 +366,8 @@ Directory structure:
     │   │   │   │   └── success/
     │   │   │   │       └── index.ts
     │   │   │   ├── interfaces/
+    │   │   │   │   ├── CustomRequest.interface.ts
     │   │   │   │   ├── FetchPageResult.interface.ts
-    │   │   │   │   ├── RegisterRoutes.interface.ts
     │   │   │   │   └── rest.interface.ts
     │   │   │   └── validateZodSchema/
     │   │   │       ├── __tests__/
@@ -370,6 +381,7 @@ Directory structure:
     │   │   │   ├── __tests__/
     │   │   │   │   ├── displayRequest.spec.ts
     │   │   │   │   └── responseLogger.spec.ts
+    │   │   │   ├── auth.middleware.ts
     │   │   │   ├── creates-HATEOAS.middleware.txt
     │   │   │   ├── displayRequest.middleware.ts
     │   │   │   └── responseLogger.middleware.ts
@@ -385,13 +397,9 @@ Directory structure:
     │   ├── modules/
     │   │   ├── _base/
     │   │   │   └── crud/
-    │   │   │       ├── baseRepository.controller.abstract.ts
-    │   │   │       └── baseRepository.service.abstract.ts
-    │   │   ├── _express/
-    │   │   │   ├── api.ts
-    │   │   │   └── version/
-    │   │   │       └── GET/
-    │   │   │           └── api.ts
+    │   │   │       ├── BaseController.ts
+    │   │   │       ├── BaseRepository.ts
+    │   │   │       └── BaseService.ts
     │   │   ├── contact/
     │   │   │   ├── __tests__/
     │   │   │   │   ├── contact-controller.spec.ts
@@ -399,57 +407,38 @@ Directory structure:
     │   │   │   │   ├── contact.repository.spec.ts
     │   │   │   │   ├── contact.route.spec.ts
     │   │   │   │   └── contact.service.spec.ts
-    │   │   │   ├── contact.controller.factory.ts
     │   │   │   ├── contact.controller.ts
+    │   │   │   ├── contact.dto.ts
     │   │   │   ├── contact.handler.ts
     │   │   │   ├── contact.interface.ts
+    │   │   │   ├── contact.module.ts
     │   │   │   ├── contact.repository.ts
     │   │   │   ├── contact.service.ts
     │   │   │   ├── contact.validation.ts
     │   │   │   └── index.ts
-    │   │   ├── error/
-    │   │   │   ├── error.controller.factory.ts
-    │   │   │   ├── error.controller.ts
-    │   │   │   ├── error.interface.ts
-    │   │   │   ├── error.middleware.ts
-    │   │   │   ├── error.repository.ts
-    │   │   │   ├── error.route.ts
-    │   │   │   ├── error.service.ts
-    │   │   │   └── error.validation.ts
     │   │   ├── index.ts
-    │   │   ├── info/
-    │   │   │   ├── api.ts
-    │   │   │   ├── index.ts
-    │   │   │   ├── info-controller.service.ts
-    │   │   │   └── info.service.ts
-    │   │   ├── success/
-    │   │   │   ├── api.ts
-    │   │   │   ├── index.ts
-    │   │   │   ├── success-controller.service.ts
-    │   │   │   └── success.service.ts
     │   │   └── trading-economics-new/
-    │   │       ├── api.ts
     │   │       ├── index.ts
-    │   │       ├── trading-economics-new-controller.service.ts
-    │   │       └── trading-economics-new.service.ts
+    │   │       ├── trading-economics-new.controller.ts
+    │   │       ├── trading-economics-new.dto.ts
+    │   │       ├── trading-economics-new.handler.ts
+    │   │       ├── trading-economics-new.interface.ts
+    │   │       ├── trading-economics-new.module.ts
+    │   │       ├── trading-economics-new.repository.ts
+    │   │       ├── trading-economics-new.service.ts
+    │   │       └── trading-economics-new.validation.ts
     │   ├── scripts/
     │   │   ├── bot/
-    │   │   │   ├── __pycache__/
     │   │   │   ├── fetch-html-background.py
     │   │   │   ├── fetch-html.py
     │   │   │   ├── fetch-single-url-html-background.py
     │   │   │   └── test.py
     │   │   ├── openai/
-    │   │   │   ├── __pycache__/
     │   │   │   ├── analyze_news.py
     │   │   │   ├── ask0.py
     │   │   │   └── config/
     │   │   │       └── aianalist-firebase-adminsdk-8gwkb-09a794ac72.json
     │   │   └── test-path-converter.ts
-    │   ├── type/
-    │   │   └── CreatedOrUpdatedBy.ts
-    │   ├── types/
-    │   │   └── response.types.ts
     │   └── utils/
     │       ├── clean-doublon.ts
     │       ├── fetch-content.ts

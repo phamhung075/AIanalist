@@ -1,4 +1,4 @@
-// import { CustomRequest } from "@src/_core/guard/handle-permission/user-context.interface";
+// import { CustomRequest } from "@src/_core/guard/handle-permission/CustomRequest.interface";
 // import { BaseRepositoryService } from "./baseRepository.service.abstract";
 
 

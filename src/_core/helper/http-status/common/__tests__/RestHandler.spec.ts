@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { CustomRequest } from '@/_core/guard/handle-permission/user-context.interface';
+import { CustomRequest } from '@/_core/guard/handle-permission/CustomRequest.interface';
 import { HttpStatusCode } from '../HttpStatusCode';
 import { StatusCodes } from '../StatusCodes';
 import { RestHandler } from '../RestHandler';

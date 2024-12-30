@@ -1,5 +1,5 @@
 // firebase.controller.ts
-import { CustomRequest } from '@/_core/guard/handle-permission/user-context.interface';
+import { CustomRequest } from '@/_core/guard/handle-permission/CustomRequest.interface';
 import { NextFunction, RequestHandler, Response } from 'express';
 import { IFirebase } from './firebase.interface';
 import FirebaseService from './firebase.service';

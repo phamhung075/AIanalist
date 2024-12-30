@@ -1,11 +1,11 @@
 // src/_core/utils/response.handler.ts
-import { CustomRequest } from '@/_core/guard/handle-permission/user-context.interface';
 import { Response } from 'express';
 import { PaginationResult, RestResponse, ValidationError } from '../../interfaces/rest.interface';
 import { logResponse } from '../response-log';
 import { HttpStatusCode } from './HttpStatusCode';
 import { StatusCodes } from './StatusCodes';
 import { HATEOASLinks } from 'express-route-tracker';
+import { CustomRequest } from '../../interfaces/CustomRequest.interface';
 
 export class RestHandler {
     static success<T>(req: CustomRequest, res: Response, {

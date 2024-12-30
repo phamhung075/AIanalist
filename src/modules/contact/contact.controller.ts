@@ -1,11 +1,11 @@
 // contact.controller.ts
-import { CustomRequest } from '@/_core/guard/handle-permission/user-context.interface';
 import { NextFunction, RequestHandler, Response } from 'express';
 import { IContact } from './contact.interface';
 import ContactService from './contact.service';
 import _SUCCESS from '@/_core/helper/http-status/success';
 import { RestHandler } from '@/_core/helper/http-status/common/RestHandler';
 import { HttpStatusCode } from '@/_core/helper/http-status/common/HttpStatusCode';
+import { CustomRequest } from '@/_core/helper/interfaces/CustomRequest.interface';
 
 class ContactController {
   constructor(private contactService: ContactService) { }

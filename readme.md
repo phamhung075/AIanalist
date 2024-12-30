@@ -271,7 +271,7 @@ Directory structure:
     │   │   │       └── index.ts
     │   │   ├── guard/
     │   │   │   └── handle-permission/
-    │   │   │       ├── user-context.interface.ts
+    │   │   │       ├── CustomRequest.interface.ts
     │   │   │       └── user-context.middleware.ts
     │   │   ├── helper/
     │   │   │   ├── asyncHandler/

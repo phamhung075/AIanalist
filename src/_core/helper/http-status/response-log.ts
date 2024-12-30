@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { CustomRequest } from '../../guard/handle-permission/user-context.interface';
 import { config } from '../../config/dotenv.config';
 import { getRequest } from '@/_core/middleware/displayRequest.middleware';
+import { CustomRequest } from '../interfaces/CustomRequest.interface';
 // const appDir = path.dirname(require.main?.filename || '');
 const logDirRoot = config.logDir;
 // import { RestHandler } from './common/RestHandler';

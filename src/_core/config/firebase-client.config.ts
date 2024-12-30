@@ -6,7 +6,7 @@ import { firebaseConfig } from './dotenv.config';
 let firebaseApp: FirebaseApp;
 let firebaseAuth: Auth;
 
-export const initializeFirebaseClient = () => {
+const initializeFirebaseClient = () => {
     // Check if Firebase is already initialized
     if (!getApps().length) {
         if (
@@ -33,16 +33,22 @@ export const initializeFirebaseClient = () => {
 };
 
 // Export Firebase Auth and App for use elsewhere
-export const getFirebaseAuth = () => {
+const getFirebaseAuth = () => {
     if (!firebaseAuth) {
         throw new Error('Firebase Client is not initialized. Call initializeFirebaseClient first.');
     }
     return firebaseAuth;
 };
 
-export const getFirebaseApp = () => {
+const getFirebaseApp = () => {
     if (!firebaseApp) {
         throw new Error('Firebase Client is not initialized. Call initializeFirebaseClient first.');
     }
     return firebaseApp;
+};
+
+export { 
+    initializeFirebaseClient, 
+    getFirebaseAuth, 
+    getFirebaseApp 
 };

@@ -1,11 +1,11 @@
 // contact.controller.ts
-import { CustomRequest } from '@/_core/guard/handle-permission/user-context.interface';
 import { NextFunction, RequestHandler, Response } from 'express';
 import _SUCCESS from '@/_core/helper/http-status/success';
 import { RestHandler } from '@/_core/helper/http-status/common/RestHandler';
 import { HttpStatusCode } from '@/_core/helper/http-status/common/HttpStatusCode';
 import { AuthService } from './auth.service';
 import { IAuth } from './auth.interface';
+import { CustomRequest } from '../helper/interfaces/CustomRequest.interface';
 
 class AuthController {
   constructor(private authService: AuthService) { }
@@ -24,11 +24,10 @@ class AuthController {
       });
     }
     const message = '';
-    // return new _SUCCESS.SuccessResponse({ message, data: contact }).send(res);
     return RestHandler.success(req, res, {
       code: HttpStatusCode.CREATED,
       message,
-      data: account as string
+      data: account
     });
   }
 

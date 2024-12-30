@@ -1,4 +1,4 @@
-import { CustomRequest } from '@/_core/guard/handle-permission/user-context.interface';
+import { CustomRequest } from '@/_core/guard/handle-permission/CustomRequest.interface';
 import _ERROR from '@/_core/helper/async-handler/error';
 import _SUCCESS from '@/_core/helper/async-handler/success';
 import { ControllerMethod } from '@/_core/helper/register-routes';

@@ -17,20 +17,19 @@ export class AuthService {
      * @param password - User password
      * @returns Token string
      */
-    async register(email: string, password: string): Promise<UserCredential | string> {
-        // try {
-        //     console.log(`Registering user: ${email}`);
-        //     const userCredential = await this.authRepository.createUser(email, password);
-        //     console.log(`User registered successfully: ${userCredential.user.uid}`);
-        //     return await userCredential.user.getIdToken();
-        // } catch (error: any) {
-        //     if (error.code === 'auth/email-already-in-use') {
-        //         throw new Error('Conflict: Email is already in use');
-        //     }
-        //     console.error('Registration Error:', error);
-        //     throw new Error('Failed to register user');
-        // }
-        return await this.authRepository.createUser(email, password);
+    async register(email: string, password: string): Promise<UserCredential> {
+        try {
+            console.log(`Registering user: ${email}`);
+            const userCredential = await this.authRepository.createUser(email, password);
+            console.log(`User registered successfully: ${userCredential.user.uid}`);
+            return userCredential;
+        } catch (error: any) {
+            if (error.code === 'auth/email-already-in-use') {
+                throw new Error('Conflict: Email is already in use');
+            }
+            console.error('Registration Error:', error);
+            throw new Error('Failed to register user');
+        }
     }
 
     // /**

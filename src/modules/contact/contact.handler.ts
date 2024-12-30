@@ -7,6 +7,7 @@ import { IdSchema, CreateSchema, UpdateSchema } from "./contact.validation";
 const validateCreateDTO = validateDTO(CreateSchema, 'body');
 const validateIdDTO = validateDTO(IdSchema, 'body');
 const validateUpdateDTO = validateDTO(UpdateSchema, 'body');
+
 /**
  * Create Handler
  */
@@ -19,8 +20,6 @@ const createHandler = async (req: Request, res: Response, next: NextFunction) =>
   }
 };
 
-
-
 /**
  * Get All Handler
  */
@@ -31,8 +30,6 @@ const getAllsHandler = async (req: Request, res: Response, next: NextFunction): 
     next(error);
   }
 };
-
-
 
 /**
  * Get By ID Handler
@@ -45,7 +42,6 @@ const getByIdHandler = async (req: Request, res: Response, next: NextFunction) =
   }
 }
 
-
 /**
  * Update Handler
  */
@@ -57,7 +53,6 @@ const updateHandler = async (req: Request, res: Response, next: NextFunction) =>
   }
 }
 
-
 /**
  * Delete Handler
  */
@@ -68,7 +63,6 @@ const deleteHandler = async (req: Request, res: Response, next: NextFunction) =>
     next(error);
   }
 }
-
 
 export {
   validateCreateDTO,

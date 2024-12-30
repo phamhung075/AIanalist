@@ -1,9 +1,14 @@
 // contact.interface.ts
 export interface IContact {
   id?: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
+  address?: string;
+  postalCode?: string;
+  city?: string;
+  country?: string;
   message?: string;
   createdAt?: Date;
   updatedAt?: Date;

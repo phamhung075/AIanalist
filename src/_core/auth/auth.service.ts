@@ -1,113 +1,74 @@
 // src/_core/auth/services/auth.service.ts
-// import { DecodedIdToken } from 'firebase-admin/auth';
-// import { UserRecord } from 'firebase-admin/auth';
-import { DecodedIdToken } from 'firebase-admin/auth';
+import ContactRepository from '@/modules/contact/contact.repository';
+import { DecodedIdToken, UserRecord } from 'firebase-admin/auth';
 import { UserCredential } from 'firebase/auth';
-import AuthRepository from './auth.repository';
 import _ERROR from '../helper/http-status/error';
+import { IRegister } from './auth.interface';
+import { AuthRepository } from './auth.repository';
 
 export class AuthService {
-    private authRepository: AuthRepository;
+    constructor(
+        private authRepository: AuthRepository,
+        private contactRepository: ContactRepository
+    ) {}
 
-    constructor(authRepository?: AuthRepository) {
-        this.authRepository = authRepository || new AuthRepository();
-    }
+    async register(registerData: IRegister): Promise<UserCredential> {
+        const { email, password, ...contactData } = registerData;
+        
+        const userCred = await this.authRepository.createUser({ email, password });
+        
+        await this.contactRepository.createWithId(userCred.user.uid, {
+            ...contactData,
+            email,
+            id: userCred.user.uid
+        });
+        
+        return userCred;
+     }
 
-    /**
-     * 🔐 User Registration
-     * @param email - User email
-     * @param password - User password
-     * @returns Token string
-     */
-    async register(email: string, password: string): Promise<UserCredential> {
+    async login(email: string, password: string): Promise<string> {
         try {
-            console.log(`Registering user: ${email}`);
-            const userCredential = await this.authRepository.createUser(email, password);
-            console.log(`✅ User registered successfully: ${userCredential.user.uid}`);
-            return userCredential;
+            console.log(`Logging in user: ${email}`);
+            const userCredential = await this.authRepository.loginUser(email, password);
+            console.log(`✅ User logged in successfully: ${userCredential.user.uid}`);
+            return await userCredential.user.getIdToken();
         } catch (error: any) {
-            console.error('❌ Registration Error:', error);
-            // Handle known Firebase errors explicitly
-            switch (error.code) {
-                case 'auth/email-already-in-use':
-                    throw new _ERROR.ConflictError({
-                        message :'Email is already in use'
-                    });
-                case 'auth/invalid-email':
-                    throw new _ERROR.BadRequestError({
-                        message :'Invalid email format'
-                    });
-                case 'auth/weak-password':
-                    throw new _ERROR.BadRequestError({
-                        message :'Password is too weak'
-                    });
-                default:
-                    throw new _ERROR.InternalServerError({
-                        message :'Failed to register user'
-                    });
+            console.error('❌ Login Error:', error);
+            if (['auth/user-not-found', 'auth/wrong-password', 'auth/invalid-credential'].includes(error.code)) {
+                throw new _ERROR.UnauthorizedError({
+                    message: 'Invalid email or password'
+                });
             }
+            throw new _ERROR.UnauthorizedError({
+                message: 'Failed to login'
+            });
         }
     }
 
-
-    // /**
-    //  * 🔐 User Login
-    //  * @param email - User email
-    //  * @param password - User password
-    //  * @returns Token string
-    //  */
-    // async login(email: string, password: string): Promise<string> {
-    //     try {
-    //         console.log(`Logging in user: ${email}`);
-    //         const userCredential = await this.authRepository.signInUser(email, password);
-    //         console.log(`User logged in successfully: ${userCredential.user.uid}`);
-    //         return await userCredential.user.getIdToken();
-    //     } catch (error: any) {
-    //         if (
-    //             error.code === 'auth/user-not-found' ||
-    //             error.code === 'auth/wrong-password' ||
-    //             error.code === 'auth/invalid-credential'
-    //         ) {
-    //             throw new Error('Unauthorized: Invalid email or password');
-    //         }
-    //         console.error('Login Error:', error);
-    //         throw new Error('Failed to login');
-    //     }
-    // }
-
-    /**
-     * 🔑 Verify Token
-     * @param token - Firebase Auth token
-     * @returns Decoded token
-     */
     async verifyToken(token: string): Promise<DecodedIdToken> {
         try {
-            console.log('Verifying token');
             const decodedToken = await this.authRepository.verifyIdToken(token);
-            console.log(`Token verified successfully: ${decodedToken.uid}`);
+            console.log(`✅ Token verified successfully: ${decodedToken.uid}`);
             return decodedToken;
         } catch (error) {
-            console.error('Token Verification Error:', error);
-            throw new Error('Unauthorized: Invalid or expired token');
+            throw new _ERROR.UnauthorizedError({
+                message: 'Invalid or expired token'
+            });
         }
     }
 
-    // /**
-    //  * 👤 Get User Details
-    //  * @param uid - Firebase User UID
-    //  * @returns User record
-    //  */
-    // async getUser(uid: string): Promise<UserRecord> {
-    //     try {
-    //         console.log(`Fetching user details for UID: ${uid}`);
-    //         const userRecord = await this.authRepository.getUserByUid(uid);
-    //         console.log(`User details fetched successfully: ${userRecord.email}`);
-    //         return userRecord;
-    //     } catch (error) {
-    //         console.error('Get User Error:', error);
-    //         throw new Error('Failed to fetch user details');
-    //     }
-    // }
+    async getUser(uid: string): Promise<UserRecord> {
+        try {
+            console.log(`Fetching user details for UID: ${uid}`);
+            const userRecord = await this.authRepository.getUserById(uid);
+            console.log(`✅ User details fetched successfully: ${userRecord.email}`);
+            return userRecord;
+        } catch (error) {
+            throw new _ERROR.UnauthorizedError({
+                message: 'Failed to fetch user details'
+            });
+        }
+    }
 }
 
 export default AuthService;

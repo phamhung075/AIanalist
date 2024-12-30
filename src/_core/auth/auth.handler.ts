@@ -1,15 +1,22 @@
 import { Request, Response, NextFunction } from 'express';
 import authController from './auth.controller.factory';
-import { RegisterSchema } from './auth.validation';
+import { RegisterSchema, LoginSchema } from './auth.validation';
 import { validateSchema } from '../helper/validateZodSchema';
 
-// Assuming validateSchema is synchronous
-const registerAccountHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+export const registerHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
   validateSchema(RegisterSchema)(req);
   return authController.register(req, res, next);
 };
 
+export const loginHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+  validateSchema(LoginSchema)(req);
+  return authController.login(req, res, next);
+};
 
-export {
-  registerAccountHandler,
+export const getCurrentUserHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+  return authController.getCurrentUser(req, res, next);
+};
+
+export const verifyTokenHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+  return authController.verifyToken(req, res, next);
 };

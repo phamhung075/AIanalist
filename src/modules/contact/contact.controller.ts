@@ -13,9 +13,14 @@ class ContactController {
   createContact: RequestHandler = async (req: CustomRequest, res: Response, _next: NextFunction) => {
     const body = req.body;
     const inputData = {
-      name: body.name,
+      firstName: body.firstName,
+      lastName: body.lastName,
       email: body.email,
       phone: body.phone,
+      address: body.address,
+      postalCode: body.postalCode,
+      city: body.city,
+      country: body.country,
       message: body.message,
     } as IContact
     const contact = await this.contactService.createContact(inputData);
@@ -73,15 +78,18 @@ class ContactController {
   };
 
   updateContact = async (req: CustomRequest, res: Response, _next: NextFunction) => {
-
-    const { name, email, phone, message } = req.body;
-
-    const inputData: Partial<IContact> = {
-      name,
-      email,
-      phone,
-      message,
-    };
+    const body = req.body;
+    const inputData = {
+      firstName: body.firstName,
+      lastName: body.lastName,
+      email: body.email,
+      phone: body.phone,
+      address: body.address,
+      postalCode: body.postalCode,
+      city: body.city,
+      country: body.country,
+      message: body.message,
+    } as IContact
 
     const contact = await this.contactService.updateContact(req.params.id, inputData);
 

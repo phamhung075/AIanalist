@@ -4,6 +4,7 @@
 import { DecodedIdToken } from 'firebase-admin/auth';
 import { UserCredential } from 'firebase/auth';
 import AuthRepository from './auth.repository';
+import _ERROR from '../helper/http-status/error';
 
 export class AuthService {
     private authRepository: AuthRepository;
@@ -26,20 +27,28 @@ export class AuthService {
             return userCredential;
         } catch (error: any) {
             console.error('❌ Registration Error:', error);
-
             // Handle known Firebase errors explicitly
             switch (error.code) {
                 case 'auth/email-already-in-use':
-                    throw new Error('Email is already in use');
+                    throw new _ERROR.ConflictError({
+                        message :'Email is already in use'
+                    });
                 case 'auth/invalid-email':
-                    throw new Error('Invalid email format');
+                    throw new _ERROR.BadRequestError({
+                        message :'Invalid email format'
+                    });
                 case 'auth/weak-password':
-                    throw new Error('Password is too weak');
+                    throw new _ERROR.BadRequestError({
+                        message :'Password is too weak'
+                    });
                 default:
-                    throw new Error('Failed to register user');
+                    throw new _ERROR.InternalServerError({
+                        message :'Failed to register user'
+                    });
             }
         }
     }
+
 
     // /**
     //  * 🔐 User Login

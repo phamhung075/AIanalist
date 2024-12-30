@@ -1,10 +1,41 @@
-import { FireBaseUtilsService } from "../../utils/firebase-utils.service";
-import { TradingEconomicsNewCloudService } from "./trading-economics-new-controller.service";
-import { TradingEconomicsNewService } from "./trading-economics-new.service";
+// src\modules\trading-economics-new\index.ts
+import { createHATEOASMiddleware, createRouter } from 'express-route-tracker';
+import {
+  createHandler,
+  deleteHandler,
+  getAllsHandler,
+  getByIdHandler,
+  updateHandler,
+  validateCreateDTO,
+  validateIdDTO,
+  validateUpdateDTO
+} from './trading-economics-new.handler';
+import { asyncHandler } from '@/_core/helper/asyncHandler';
+import { config } from '@/_core/config/dotenv.config';
 
-const fireBaseUtilsService = new FireBaseUtilsService();
-const tradingEconomicsNewService = new TradingEconomicsNewService(fireBaseUtilsService);
-const tradingEconomicsNewCloudService = new TradingEconomicsNewCloudService(tradingEconomicsNewService);
+// Create router with source tracking
+const router = createRouter(__filename);
 
-export { tradingEconomicsNewService, tradingEconomicsNewCloudService };
+router.use(createHATEOASMiddleware(router, {
+  autoIncludeSameRoute: true,
+  baseUrl: config.baseUrl,
+  includePagination: true,
+  customLinks: {
+      documentation: (_req) => ({
+          rel: 'documentation',
+          href: config.baseUrl+'/docs',
+          method: 'GET',
+          'title': 'API Documentation'
+      })
+  }
+}));
 
+// Define routes without baseApi prefix
+router.post('/', validateCreateDTO, asyncHandler(createHandler));
+router.get('/', asyncHandler(getAllsHandler));
+router.get('/:id', validateIdDTO, asyncHandler(getByIdHandler));
+router.put('/:id', validateIdDTO, validateCreateDTO, asyncHandler(updateHandler));
+router.patch('/:id', validateIdDTO, validateUpdateDTO, asyncHandler(updateHandler));
+router.delete('/:id', validateIdDTO, asyncHandler(deleteHandler));
+
+export = router;

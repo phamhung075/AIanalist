@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { authController } from './auth.controller.factory';
 import { RegisterSchema, LoginSchema } from './auth.validation';
 import { validateSchema } from '../helper/validateZodSchema';
+import { authController } from './auth.module';
 
 export const registerHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
   validateSchema(RegisterSchema)(req);

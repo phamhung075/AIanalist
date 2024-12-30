@@ -1,9 +1,11 @@
 // contact.service.ts
 import ContactRepository from './contact.repository';
 import { IContact } from './contact.interface';
+import { Service } from 'typedi';
 
+@Service()
 class ContactService {
-  constructor(private contactRepository: ContactRepository) {}
+  constructor(private readonly contactRepository: ContactRepository) {}
 
   async createContact(contact: IContact): Promise<IContact | false> {
     return await this.contactRepository.create(contact);

@@ -1,7 +1,8 @@
 import { validateSchema } from "@/_core/helper/validateZodSchema";
-import { CreateContactSchema } from "./contact.validation";
 import { NextFunction, Request, Response } from 'express';
-import { contactController } from "./contact.controller.factory";
+import { contactController } from "./contact.module";
+import { CreateContactSchema } from "./contact.validation";
+
 
 // Assuming validateSchema is synchronous
 const createContactHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {    
@@ -26,9 +27,10 @@ const deleteContactHandler = async (req: Request, res: Response, next: NextFunct
 }
 
 export {
-  createContactHandler, 
-  deleteContactHandler, 
+  createContactHandler,
+  deleteContactHandler,
   getAllContactsHandler,
   getContactByIdHandler,
   updateContactHandler
 };
+

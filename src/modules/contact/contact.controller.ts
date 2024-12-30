@@ -7,9 +7,11 @@ import { RestHandler } from '@/_core/helper/http-status/common/RestHandler';
 import { HttpStatusCode } from '@/_core/helper/http-status/common/HttpStatusCode';
 import { CustomRequest } from '@/_core/helper/interfaces/CustomRequest.interface';
 import _ERROR from '@/_core/helper/http-status/error';
+import { Service } from 'typedi';
 
+@Service()
 class ContactController {
-  constructor(private contactService: ContactService) { }
+  constructor(private readonly contactService: ContactService) { }
 
   createContact: RequestHandler = async (req: CustomRequest, res: Response, _next: NextFunction) => {
     const body = req.body;

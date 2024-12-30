@@ -23,7 +23,6 @@ import helmet from '@node_modules/helmet/index.cjs';
 import rateLimit from '@node_modules/express-rate-limit';
 import _ERROR, { ErrorResponse } from '@/_core/helper/http-status/error';
 
-
 const env = config.env;
 const pathToEnvFile = path.resolve(__dirname, `../../../../environment/.env.${env}`);
 const envFile = path.resolve(pathToEnvFile);

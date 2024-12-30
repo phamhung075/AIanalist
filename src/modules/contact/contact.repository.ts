@@ -2,7 +2,9 @@
 import { firestore } from '@/_core/database/firebase-admin-sdk';
 import { IContact } from './contact.interface';
 import _ERROR from '@/_core/helper/http-status/error';
+import { Service } from 'typedi';
 
+@Service()
 class ContactRepository {
   async create(contact: IContact): Promise<IContact> {
     try {

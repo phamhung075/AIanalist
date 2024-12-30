@@ -9,19 +9,20 @@ import { SimpleLogger } from '../../logger/simple-logger'; // Assuming SimpleLog
 // Determine the environment and load the corresponding .env file
 import { config, showConfig } from '@/_core/config/dotenv.config';
 import { testFirestoreAccess } from '@/_core/database/firebase-admin-sdk';
-import { responseLogger } from '@/_core/middleware/responseLogger.middleware';
-import { displayRequest } from '@/_core/middleware/displayRequest.middleware';
-import router from "@modules/index";
-import { isRunningWithNodemon } from '@src/_core/helper/check-nodemon';
-import { blue, green, yellow } from 'colorette';
-import { NextFunction, Request, Response } from 'express';
+import { API_CONFIG } from '@/_core/helper/http-status/common/api-config';
 import { HttpStatusCode } from '@/_core/helper/http-status/common/HttpStatusCode';
 import { RestHandler } from '@/_core/helper/http-status/common/RestHandler';
 import { StatusCodes } from '@/_core/helper/http-status/common/StatusCodes';
+import _ERROR from '@/_core/helper/http-status/error';
+import { displayRequest } from '@/_core/middleware/displayRequest.middleware';
+import { responseLogger } from '@/_core/middleware/responseLogger.middleware';
+import router from "@modules/index";
+import rateLimit from '@node_modules/express-rate-limit';
 import { RouteDisplay } from '@node_modules/express-route-tracker/dist';
 import helmet from '@node_modules/helmet/index.cjs';
-import rateLimit from '@node_modules/express-rate-limit';
-import _ERROR, { ErrorResponse } from '@/_core/helper/http-status/error';
+import { isRunningWithNodemon } from '@src/_core/helper/check-nodemon';
+import { blue, green, yellow } from 'colorette';
+import { NextFunction, Request, Response } from 'express';
 
 const env = config.env;
 const pathToEnvFile = path.resolve(__dirname, `../../../../environment/.env.${env}`);
@@ -72,43 +73,142 @@ export class AppService {
 			windowMs: 15 * 60 * 1000, // 15 minutes
 			max: 100 // limit each IP to 100 requests per windowMs
 		}));
-		app.use(express.json({ limit: '50mb' }));
-		app.use(express.urlencoded({ limit: '50mb', extended: true }));
+		this.setupRateLimit();
+		this.setupJsonParser();
 		app.use(displayRequest);
 		app.use(responseLogger);
 		// Initialize and display routes after loading all modules
 		app.use("/", router);
 		const routeDisplay = new RouteDisplay(app);
 		routeDisplay.displayRoutes();
-		app.use ((_req: Request, _res: Response, _next: NextFunction) => { //function middleware with 3 arguments
-			throw new _ERROR.NotFoundError();
-		})
-		app.use ((error : ErrorResponse, req: Request, res: Response, _next: NextFunction) => { // function catch error with 4 arguments
-			const statusCode = error.status || HttpStatusCode.INTERNAL_SERVER_ERROR //500 if error.status is undefined
+
+		/**
+		 * 🟡 1️⃣ Catch 404 - Not Found Middleware (3 arguments)
+		 * Handles requests to undefined routes.
+		 */
+		app.use((_req: Request, _res: Response, _next: NextFunction) => {
+			throw new _ERROR.NotFoundError({
+				message: 'The requested resource was not found.',
+			});
+		});
+
+		/**
+		 * 🟠 2️⃣ Specific Error Handling Middleware (4 arguments)
+		 * Handles specific known error types.
+		 */
+		app.use((err: any, _req: Request, res: Response, next: NextFunction) => {
+			// 🔹 Malformed JSON in the request body
+			if (err instanceof SyntaxError && err.message.includes('Unexpected')) {
+				return res.status(HttpStatusCode.BAD_REQUEST).json({
+					code: HttpStatusCode.BAD_REQUEST,
+					message: 'Malformed JSON in request body. Please verify your payload.',
+				});
+			}
+
+			// 🔹 Payload Too Large
+			if (err.type === 'entity.too.large') {
+				return res.status(HttpStatusCode.REQUEST_TOO_LONG).json({
+					code: HttpStatusCode.REQUEST_TOO_LONG,
+					message: 'Payload too large. Please reduce the request body size.',
+				});
+			}
+
+			// 🔹 Unauthorized Access
+			if (err.code === 'UNAUTHORIZED') {
+				return res.status(HttpStatusCode.UNAUTHORIZED).json({
+					code: HttpStatusCode.UNAUTHORIZED,
+					message: 'Unauthorized access. Please provide valid credentials.',
+				});
+			}
+
+			// 🔹 Forbidden Access
+			if (err.code === 'FORBIDDEN') {
+				return res.status(HttpStatusCode.FORBIDDEN).json({
+					code: HttpStatusCode.FORBIDDEN,
+					message: 'You do not have permission to access this resource.',
+				});
+			}
+
+			// 🔹 Validation Errors
+			if (err.name === 'ValidationError') {
+				return res.status(HttpStatusCode.BAD_REQUEST).json({
+					code: HttpStatusCode.BAD_REQUEST,
+					message: 'Validation Error. Please check your input fields.',
+					errors: err.errors || [],
+				});
+			}
+
+			// 🔹 Timeout Errors
+			if (err.code === 'ETIMEDOUT') {
+				return res.status(HttpStatusCode.REQUEST_TIMEOUT).json({
+					code: HttpStatusCode.REQUEST_TIMEOUT,
+					message: 'The request timed out. Please try again later.',
+				});
+			}
+
+			// Pass other errors to the global handler
+			next(err);
+		});
+
+		/**
+		 * 🔴 3️⃣ General Error Handling Middleware (4 arguments)
+		 * Handles all uncaught errors and returns a consistent response format.
+		 */
+		app.use((error: any, req: Request, res: Response, _next: NextFunction) => {
+			const statusCode = error.status || HttpStatusCode.INTERNAL_SERVER_ERROR;
+			const message = error.message 
+							|| StatusCodes[error.status as unknown as HttpStatusCode].phrase 
+							|| StatusCodes[HttpStatusCode.INTERNAL_SERVER_ERROR].phrase;
+
 			RestHandler.error(req, res, {
 				code: statusCode,
-				message: error.message || StatusCodes[error.status as unknown as HttpStatusCode].phrase || StatusCodes[HttpStatusCode.INTERNAL_SERVER_ERROR].phrase,
-				errors: error.errors,
-				startTime
-			});			
-		})
+				message,
+				errors: error.errors || [],
+				startTime: startTime
+			});
+		});
+	}
+
+	/**
+	 * Setup Rate Limiting Middleware
+	 */
+	setupRateLimit(): void {
+		app.use(rateLimit({
+			windowMs: API_CONFIG.RATE_LIMIT.WINDOW_MS,
+			max: API_CONFIG.RATE_LIMIT.MAX_REQUESTS,
+			message: 'Too many requests from this IP, please try again later.',
+			standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+			legacyHeaders: false, // Disable `X-RateLimit-*` headers
+		}));
+		console.log('✅ Rate limiting configured successfully.');
+	}
+
+	/**
+	 * Setup JSON Parsing Middleware
+	 */
+	setupJsonParser(): void {
+		app.use(express.json({
+			limit: API_CONFIG.JSON.LIMIT,
+		}));
+		console.log(`✅ JSON body limit set to ${API_CONFIG.JSON.LIMIT}.`);
 	}
 
 	/**
 	 * Setup CORS based on environment
 	 */
 	setupCors(): void {
-		const devOrigin = ['http://localhost:3333'];
-		const prodOrigin = ['http://localhost:3333'];
-
 		const corsOptions = {
-			origin: env === 'development' ? devOrigin : prodOrigin,
-			allowedHeaders: ['Authorization', 'Content-Type', 'X-Requires-Auth'],
-			methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-			credentials: true,
+			origin: (env === 'development'
+				? [...API_CONFIG.CORS.ORIGINS.DEVELOPMENT] // Convert readonly to mutable array
+				: [...API_CONFIG.CORS.ORIGINS.PRODUCTION]
+			) as string[], // Explicitly cast to string[]
+			allowedHeaders: [...API_CONFIG.CORS.ALLOWED_HEADERS], // Convert readonly to mutable array
+			methods: [...API_CONFIG.CORS.METHODS], // Convert readonly to mutable array
+			credentials: API_CONFIG.CORS.CREDENTIALS,
 		};
 
 		app.use(cors(corsOptions));
+		console.log(`✅ CORS configured for ${env} environment.`);
 	}
 
 

@@ -1,13 +1,13 @@
 // contact.controller.ts
+import { HttpStatusCode } from '@/_core/helper/http-status/common/HttpStatusCode';
+import { RestHandler } from '@/_core/helper/http-status/common/RestHandler';
+import _ERROR from '@/_core/helper/http-status/error';
+import { CustomRequest } from '@/_core/helper/interfaces/CustomRequest.interface';
 import { NextFunction, RequestHandler, Response } from 'express';
+import { Service } from 'typedi';
+import { ContactIdInput, CreateContactInput } from './contact.dto';
 import { IContact } from './contact.interface';
 import ContactService from './contact.service';
-import _SUCCESS from '@/_core/helper/http-status/success';
-import { RestHandler } from '@/_core/helper/http-status/common/RestHandler';
-import { HttpStatusCode } from '@/_core/helper/http-status/common/HttpStatusCode';
-import { CustomRequest } from '@/_core/helper/interfaces/CustomRequest.interface';
-import _ERROR from '@/_core/helper/http-status/error';
-import { Service } from 'typedi';
 
 @Service()
 class ContactController {
@@ -25,7 +25,7 @@ class ContactController {
       city: body.city,
       country: body.country,
       message: body.message,
-    } as IContact
+    } as CreateContactInput
     const contact = await this.contactService.createContact(inputData);
     if (!contact) {
       throw new _ERROR.BadRequestError({
@@ -59,7 +59,12 @@ class ContactController {
   };
 
   getContactById = async (req: CustomRequest, res: Response, _next: NextFunction) => {
-    const contact = await this.contactService.getContactById(req.params.id);
+    const params = req.params;
+    const { id } = {
+      id: params.id,
+    } as ContactIdInput
+
+    const contact = await this.contactService.getContactById(id);
     if (!contact) {
       throw new _ERROR.NotFoundError({
         message: 'Contact not found'

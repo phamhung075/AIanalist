@@ -1,13 +1,26 @@
+import { ZodSchema, ZodError } from 'zod';
 import { Request } from 'express';
-import { ZodError, ZodSchema } from 'zod';
-import _ERROR, { ErrorResponse } from '../http-status/error';
-import { HttpStatusCode } from '../http-status/common/HttpStatusCode';
+import { HttpStatusCode } from '@/_core/helper/http-status/common/HttpStatusCode';
+import { ErrorResponse } from '@/_core/helper/http-status/error';
 
-// Assuming validateSchema is synchronous
-export const validateSchema = (schema: ZodSchema) => {
+// Define supported validation types
+type ValidationType = 'body' | 'params' | 'query';
+
+/**
+ * Validates incoming request data based on the specified schema and type.
+ * @param schema ZodSchema for validation
+ * @param type 'body' | 'params' | 'query'
+ */
+export const validateSchema = (schema: ZodSchema, type: ValidationType = 'body') => {
   return (req: Request) => {
     try {
-      schema.parse(req.body);
+      const dataToValidate = {
+        body: req.body,
+        params: req.params,
+        query: req.query,
+      }[type]; // Dynamically pick the validation target
+
+      schema.parse(dataToValidate); // Validate against the schema
     } catch (err) {
       if (err instanceof ZodError) {
         throw new ErrorResponse({
@@ -16,7 +29,7 @@ export const validateSchema = (schema: ZodSchema) => {
           errors: err.issues.map((issue) => ({
             field: issue.path.join('.'),
             message: issue.message,
-          }))
+          })),
         });
       }
       throw err;

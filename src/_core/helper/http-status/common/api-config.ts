@@ -1,91 +1,113 @@
+/**
+ * HTTP Methods used in API routes.
+ * OPTIONS and HEAD are handled automatically by web frameworks.
+ */
+const HTTP_METHODS = {
+    GET: 'GET',
+    POST: 'POST',
+    PUT: 'PUT',
+    DELETE: 'DELETE',
+    PATCH: 'PATCH',
+    OPTION: 'OPTIONS',
+} as const;
 
-
-export const API_CONFIG = {
+const API_CONFIG = {
     VERSION: '1.0.0',
     PREFIX: '/api/v1',
-    TIMEOUT: 30000, // 30 seconds
+    TIMEOUT: 30_000, // 30 seconds
     RATE_LIMIT: {
         WINDOW_MS: 15 * 60 * 1000, // 15 minutes
-        MAX_REQUESTS: 100 // limit each IP to 100 requests per windowMs
+        MAX_REQUESTS: 100, // limit each IP to 100 requests per window
+    },
+    JSON: {
+        LIMIT: '50mb', // Max request body size
     },
     CORS: {
-        ORIGINS: ['http://localhost:3000'],
-        METHODS: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-        ALLOWED_HEADERS: ['Content-Type', 'Authorization'],
-        MAX_AGE: 86400 // 24 hours
+        ORIGINS: {
+            DEVELOPMENT: ['http://localhost:3333'],
+            PRODUCTION: ['https://myapp.com'], // Update with your production URL
+        },
+        ALLOWED_HEADERS: ['Authorization', 'Content-Type', 'X-Requires-Auth'],
+        METHODS: [
+            HTTP_METHODS.GET,
+            HTTP_METHODS.POST,
+            HTTP_METHODS.PUT,
+            HTTP_METHODS.PATCH,
+            HTTP_METHODS.DELETE,
+            HTTP_METHODS.OPTION,
+        ],
+        CREDENTIALS: true,
     },
     COMPRESSION: {
         LEVEL: 6,
-        THRESHOLD: 1024 // bytes
+        THRESHOLD: 1_024, // 1 KB
     },
     PAGINATION: {
         DEFAULT_PAGE: 1,
         DEFAULT_LIMIT: 10,
-        MAX_LIMIT: 100
+        MAX_LIMIT: 100,
     },
     CACHE: {
         TTL: 60 * 60, // 1 hour in seconds
-        MAX: 1000 // maximum number of items in cache
+        MAX: 1_000, // Max items in cache
     },
     SECURITY: {
         JWT: {
             ACCESS_TOKEN_EXPIRE: '1h',
             REFRESH_TOKEN_EXPIRE: '7d',
-            ALGORITHM: 'HS256'
+            ALGORITHM: 'HS256',
         },
         PASSWORD: {
             SALT_ROUNDS: 10,
-            MIN_LENGTH: 8
-        }
+            MIN_LENGTH: 8,
+        },
     },
     LOGS: {
         DIR: 'logs',
         MAX_SIZE: '10m',
-        MAX_FILES: '7d'
-    }
-};
-
-
-
-/*
-OPTIONS and HEAD methods are actually part of the HTTP specification but not typically used in RESTful API route definitions. They are handled automatically by most web servers and frameworks for:
-
-OPTIONS: Used for CORS preflight requests
-HEAD: Automatically handled version of GET that returns only headers
-
-So in your RESTful API route definitions, you should only use:
-
-GET: For retrieving resources
-POST: For creating new resources
-PUT: For complete update/replacement of a resource
-PATCH: For partial update of a resource
-DELETE: For removing resources
-*/
-export const HTTP_METHODS = {
-    GET: 'GET',
-    POST: 'POST',
-    PUT: 'PUT',
-    DELETE: 'DELETE',
-    PATCH: 'PATCH'	
+        MAX_FILES: '7d',
+    },
 } as const;
 
-export const CONTENT_TYPE = {
+
+
+// Type Inference
+export type HttpMethod = keyof typeof HTTP_METHODS;
+
+
+/**
+ * Common HTTP Content-Types used in API requests and responses.
+ */
+const CONTENT_TYPE = {
     JSON: 'application/json',
     FORM: 'application/x-www-form-urlencoded',
     MULTIPART: 'multipart/form-data',
     TEXT: 'text/plain',
     HTML: 'text/html',
     XML: 'application/xml',
-    PDF: 'application/pdf'
+    PDF: 'application/pdf',
 } as const;
 
-export const ERROR_CODES = {
-    VALIDATION_ERROR: 'VALIDATION_ERROR',
-    AUTHENTICATION_ERROR: 'AUTHENTICATION_ERROR',
-    AUTHORIZATION_ERROR: 'AUTHORIZATION_ERROR',
-    RESOURCE_NOT_FOUND: 'RESOURCE_NOT_FOUND',
-    DUPLICATE_RESOURCE: 'DUPLICATE_RESOURCE',
-    INTERNAL_SERVER_ERROR: 'INTERNAL_SERVER_ERROR',
-    BAD_REQUEST: 'BAD_REQUEST',
-    SERVICE_UNAVAILABLE: 'SERVICE_UNAVAILABLE'
-} as const;
+// Type Inference
+export type ContentType = keyof typeof CONTENT_TYPE;
+
+
+function setResponseType(type: ContentType) {
+    return CONTENT_TYPE[type];
+}
+
+function handleRequest(method: HttpMethod) {
+    switch (method) {
+        case HTTP_METHODS.GET:
+            console.log('Handling GET request');
+            break;
+    }
+}
+
+export {
+    HTTP_METHODS,
+    API_CONFIG,
+    CONTENT_TYPE,
+    setResponseType,
+    handleRequest,
+};

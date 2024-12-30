@@ -3,6 +3,8 @@ import { firestore } from '@/_core/database/firebase-admin-sdk';
 import { IContact } from './contact.interface';
 import _ERROR from '@/_core/helper/http-status/error';
 import { Service } from 'typedi';
+import { FetchPageResult, PaginationOptions } from '@/_core/helper/interfaces/FetchPageResult.interface';
+import { createPagination } from '@/_core/helper/http-status/common/create-pagination';
 
 @Service()
 class ContactRepository {
@@ -166,6 +168,69 @@ class ContactRepository {
       throw new _ERROR.InternalServerError({
         message: 'Failed to delete contact',
         error: error.message
+      });
+    }
+  }
+
+  /**
+   * Fetch paginated contacts with optional filters and sorting
+   */
+  async paginator(options: PaginationOptions): Promise<FetchPageResult<IContact>> {
+    try {
+      const {
+        page = 1,
+        limit = 10,
+        filters = [],
+        lastVisible,
+        orderBy,
+        all = false,
+      } = options;
+
+      let query: FirebaseFirestore.Query = firestore.collection('contacts');
+
+      // ✅ Apply filters
+      for (const filter of filters) {
+        query = query.where(
+          filter.key,
+          filter.operator as FirebaseFirestore.WhereFilterOp,
+          filter.value
+        );
+      }
+
+      // ✅ Apply sorting
+      if (orderBy) {
+        query = query.orderBy(orderBy.field, orderBy.direction || 'asc');
+      }
+
+      // ✅ Apply pagination or fetch all records
+      if (!all) {
+        if (lastVisible) {
+          query = query.startAfter(lastVisible);
+        }
+        query = query.limit(limit);
+      }
+
+      // ✅ Execute query
+      const snapshot = await query.get();
+      const data = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as IContact[];
+
+      // ✅ Calculate pagination metadata
+      const totalSnapshot = await firestore.collection('contacts').count().get();
+      const totalItems = totalSnapshot.data().count || 0;
+
+      return createPagination<IContact>(data, totalItems, page, limit);
+    } catch (error: any) {
+      if (error.code === 'permission-denied') {
+        throw new _ERROR.ForbiddenError({
+          message: 'Permission denied to access contacts',
+        });
+      }
+      throw new _ERROR.InternalServerError({
+        message: 'Failed to paginate contacts',
+        error: error.message,
       });
     }
   }

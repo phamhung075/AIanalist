@@ -6,6 +6,7 @@ import { HttpStatusCode } from './HttpStatusCode';
 import { StatusCodes } from './StatusCodes';
 import { HATEOASLinks } from 'express-route-tracker';
 import { CustomRequest } from '../../interfaces/CustomRequest.interface';
+import { HttpMethod } from './api-config';
 
 export class RestHandler {
     static success<T>(req: CustomRequest, res: Response, {
@@ -30,7 +31,7 @@ export class RestHandler {
             metadata: {                
                 timestamp: new Date().toISOString(),
                 statusCode: this.getStatusText(code),
-                methode: res.req.method,
+                methode: res.req.method as HttpMethod,
                 path: res.req.originalUrl,
                 ...(pagination && { pagination }),
                 ...(links && { links }),

@@ -6,6 +6,7 @@ import _SUCCESS from '@/_core/helper/http-status/success';
 import { RestHandler } from '@/_core/helper/http-status/common/RestHandler';
 import { HttpStatusCode } from '@/_core/helper/http-status/common/HttpStatusCode';
 import { CustomRequest } from '@/_core/helper/interfaces/CustomRequest.interface';
+import _ERROR from '@/_core/helper/http-status/error';
 
 class ContactController {
   constructor(private contactService: ContactService) { }
@@ -25,13 +26,12 @@ class ContactController {
     } as IContact
     const contact = await this.contactService.createContact(inputData);
     if (!contact) {
-      return RestHandler.error(req, res, {
-        code: HttpStatusCode.BAD_REQUEST,
+      throw new _ERROR.BadRequestError({
         message: 'Contact creation failed'
       });
     }
+
     const message = 'Contact created successfully';
-    // return new _SUCCESS.SuccessResponse({ message, data: contact }).send(res);
     return RestHandler.success(req, res, {
       code: HttpStatusCode.CREATED,
       message,
@@ -44,10 +44,8 @@ class ContactController {
     const message = 'Get all contacts successfully';
 
     if (!contacts || contacts.length === 0) {
-      return RestHandler.success(req, res, {
-        code: HttpStatusCode.NO_CONTENT,
-        message,
-        data: [],
+      throw new _ERROR.NotFoundError({
+        message: 'Contacts not found'
       });
     }
 
@@ -61,9 +59,8 @@ class ContactController {
   getContactById = async (req: CustomRequest, res: Response, _next: NextFunction) => {
     const contact = await this.contactService.getContactById(req.params.id);
     if (!contact) {
-      return RestHandler.error(req, res, {
-        code: HttpStatusCode.NOT_FOUND,
-        message: 'Contact not found',
+      throw new _ERROR.NotFoundError({
+        message: 'Contact not found'
       });
     }
     const message = contact
@@ -94,9 +91,8 @@ class ContactController {
     const contact = await this.contactService.updateContact(req.params.id, inputData);
 
     if (!contact) {
-      return RestHandler.error(req, res, {
-        code: HttpStatusCode.NOT_FOUND,
-        message: 'Contact not found',
+      throw new _ERROR.NotFoundError({
+        message: 'Contact not found'
       });
     }
 
@@ -114,9 +110,8 @@ class ContactController {
     const result = await this.contactService.deleteContact(req.params.id);
 
     if (!result) {
-      return RestHandler.error(req, res, {
-        code: HttpStatusCode.NOT_FOUND,
-        message: 'Contact not found',
+      throw new _ERROR.NotFoundError({
+        message: 'Contact not found'
       });
     }
 

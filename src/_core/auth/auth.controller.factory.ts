@@ -1,13 +1,10 @@
 // auth.controller.factory.ts
-import ContactService from '@/modules/contact/contact.service';
+import { contactService } from '@/modules/contact/contact.controller.factory';
 import AuthController from './auth.controller';
-import AuthService from './auth.service';
-import ContactRepository from '@/modules/contact/contact.repository';
 import AuthRepository from './auth.repository';
+import AuthService from './auth.service';
 
 const authRepository = new AuthRepository();
-const contactRepository = new ContactRepository();
-const contactService = new ContactService(contactRepository);
 const authService = new AuthService(authRepository, contactService);
 const authController = new AuthController(authService);
 

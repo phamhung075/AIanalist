@@ -7,4 +7,8 @@ const contactRepository = new ContactRepository();
 const contactService = new ContactService(contactRepository);
 const contactController = new ContactController(contactService);
 
-export default contactController;
+export {
+    contactController,
+    contactService, 
+    contactRepository
+}

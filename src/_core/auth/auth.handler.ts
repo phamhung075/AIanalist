@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import authController from './auth.controller.factory';
+import { authController } from './auth.controller.factory';
 import { RegisterSchema, LoginSchema } from './auth.validation';
 import { validateSchema } from '../helper/validateZodSchema';
 

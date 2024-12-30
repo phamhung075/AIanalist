@@ -8,7 +8,11 @@ const authRepository = new AuthRepository();
 const authService = new AuthService(authRepository, contactService);
 const authController = new AuthController(authService);
 
-export default authController;
+export {
+    authController,
+    authService,
+    authRepository
+};
 
 
 /*Use the first approach. It provides better debugging, reusability of instances, and clearer dependency tracking. 

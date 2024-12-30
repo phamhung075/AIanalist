@@ -25,5 +25,4 @@ router.use(createHATEOASMiddleware(router, {
  */
 router.post('/registre', asyncHandler(registerAccountHandler));
 
-
 export = router;

@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import * as admin from 'firebase-admin';
+import { RestHandler } from '../helper/http-status/common/RestHandler';
+import { HttpStatusCode } from '../helper/http-status/common/HttpStatusCode';
 
 // Ensure Firebase is initialized
 if (!admin.apps.length) {
@@ -15,11 +17,11 @@ export async function firebaseAuthMiddleware(req: Request, res: Response, next: 
     const token = req.headers.authorization?.split(' ')[1];
 
     if (!token) {
-        return res.status(401).json({
-            success: false,
-            code: 401,
-            message: 'No token provided',
-        });
+
+        return RestHandler.error(req, res, {
+            code: HttpStatusCode.UNAUTHORIZED,
+            message: 'Unauthorized: No token provided',
+        });        
     }
 
     try {
@@ -28,10 +30,9 @@ export async function firebaseAuthMiddleware(req: Request, res: Response, next: 
         next(); // Proceed to the next middleware or route handler
     } catch (error) {
         console.error('Firebase Auth Error:', error);
-        return res.status(401).json({
-            success: false,
-            code: 401,
+        return RestHandler.error(req, res, {
+            code: HttpStatusCode.UNAUTHORIZED,
             message: 'Unauthorized: Invalid or expired token',
-        });
+        });       
     }
 }

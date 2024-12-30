@@ -5,6 +5,26 @@ import AuthService from './auth.service';
 import ContactRepository from '@/modules/contact/contact.repository';
 import AuthRepository from './auth.repository';
 
+const authRepository = new AuthRepository();
+const contactRepository = new ContactRepository();
+const contactService = new ContactService(contactRepository);
+const authService = new AuthService(authRepository, contactService);
+const authController = new AuthController(authService);
+
+export default authController;
+
+
+/*Use the first approach. It provides better debugging, reusability of instances, and clearer dependency tracking. 
+The small increase in verbosity is worth these benefits in a professional codebase.
+
+// First approach - Multiple lines, clearer dependencies
+const authRepository = new AuthRepository();
+const contactRepository = new ContactRepository();
+const contactService = new ContactService(contactRepository);
+const authService = new AuthService(authRepository, contactService);
+const authController = new AuthController(authService);
+
+// Second approach - Nested instantiation
 const authController = new AuthController(
     new AuthService(
       new AuthRepository(),
@@ -12,4 +32,5 @@ const authController = new AuthController(
     )
 );
 
-export default authController;
+
+*/

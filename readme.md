@@ -391,9 +391,6 @@ Directory structure:
     │   │       │   │   └── app.spec.ts
     │   │       │   └── app.service.ts
     │   │       └── server.ts
-    │   ├── models/
-    │   │   ├── Contact.model.ts
-    │   │   └── TradingEconomicsNew.model.ts
     │   ├── modules/
     │   │   ├── _base/
     │   │   │   └── crud/

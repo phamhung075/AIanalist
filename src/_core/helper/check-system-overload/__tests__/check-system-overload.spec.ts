@@ -1,6 +1,6 @@
 import os from 'os';
 import process from 'process';
-import { database } from '@/_core/database/firebase';
+import { database } from '@/_core/database/firebase-admin-sdk';
 import { checkSystemOverload } from '../check-system-overload';
 
 // ✅ Mock system modules and Firebase

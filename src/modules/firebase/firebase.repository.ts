@@ -1,5 +1,5 @@
 // firebase.repository.ts
-import { firestore } from '@/_core/database/firebase';
+import { firestore } from '@/_core/database/firebase-admin-sdk';
 import { IFirebase } from './firebase.interface';
 
 class FirebaseRepository {

@@ -1,5 +1,5 @@
 // contact.repository.ts
-import { firestore } from '@/_core/database/firebase';
+import { firestore } from '@/_core/database/firebase-admin-sdk';
 import { IContact } from './contact.interface';
 
 class ContactRepository {

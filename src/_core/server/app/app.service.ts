@@ -8,7 +8,7 @@ import { checkSystemOverload } from '../../helper/check-system-overload/check-sy
 import { SimpleLogger } from '../../logger/simple-logger'; // Assuming SimpleLogger is used for logging
 // Determine the environment and load the corresponding .env file
 import { config, showConfig } from '@/_core/config/dotenv.config';
-import { testFirestoreAccess } from '@/_core/database/firebase';
+import { testFirestoreAccess } from '@/_core/database/firebase-admin-sdk';
 import { responseLogger } from '@/_core/middleware/responseLogger.middleware';
 import { displayRequest } from '@/_core/middleware/displayRequest.middleware';
 import router from "@modules/index";

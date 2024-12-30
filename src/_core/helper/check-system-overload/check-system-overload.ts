@@ -1,4 +1,4 @@
-import { database } from '@/_core/database/firebase';
+import { database } from '@/_core/database/firebase-admin-sdk';
 import os from 'os';
 import process from 'process';
 

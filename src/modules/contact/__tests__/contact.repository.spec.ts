@@ -1,6 +1,6 @@
 import ContactRepository from '../contact.repository';
 import { IContact } from '../contact.interface';
-import { firestore } from '@/_core/database/firebase';
+import { firestore } from '@/_core/database/firebase-admin-sdk';
 
 // ✅ Proper Firestore Mocking
 jest.mock('@/_core/database/firebase', () => ({

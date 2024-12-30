@@ -1,47 +1,38 @@
-import { Auth } from 'firebase/auth';
-import { firebaseAdminAuth } from '../config/firebase-admin.config';
-import { initializeFirebaseClient, getFirebaseAuth } from '../config/firebase-client.config';
 import { UserCredential, createUserWithEmailAndPassword } from 'firebase/auth';
+import { firebaseAdminAuth, firebaseClientAuth } from '../database/firebase-admin-sdk';
 
 export class AuthRepository {
-    private firebaseClientAuth: Auth;
-
-    constructor() {
-        // Initialize Firebase Client if not already initialized
-        initializeFirebaseClient();
-        this.firebaseClientAuth = getFirebaseAuth();
-
-        console.log('✅ Firebase Client Auth ready');
-    }
-
     /**
-     * Create new user in Firebase
+     * Create new user in Firebase Authentication (Client SDK)
      */
     async createUser(email: string, password: string): Promise<UserCredential> {
         try {
             const userCredential = await createUserWithEmailAndPassword(
-                this.firebaseClientAuth,
+                firebaseClientAuth,
                 email,
                 password
             );
             console.log(`✅ User created: ${userCredential.user.uid}`);
             return userCredential;
         } catch (error: any) {
-            console.error('Firebase Create User Error:', error.message || error);
+            console.error('❌ Firebase Create User Error:', error.message || error);
             throw error;
         }
     }
 
     /**
-     * Verify Firebase Token
+     * Verify Firebase Token (Admin SDK)
      */
     async verifyIdToken(token: string): Promise<any> {
         try {
-            return await firebaseAdminAuth.verifyIdToken(token);
+            const decodedToken = await firebaseAdminAuth.verifyIdToken(token);
+            console.log('✅ Token verified successfully');
+            return decodedToken;
         } catch (error: any) {
-            console.error('Erreur de vérification du jeton Firebase:', error.message || error);
+            console.error('❌ Firebase Token Verification Error:', error.message || error);
             throw error;
         }
     }
 }
+
 export default AuthRepository;

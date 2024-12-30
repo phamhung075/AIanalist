@@ -1,6 +1,6 @@
 import { get, orderByChild, push, query, ref, serverTimestamp, set, startAt } from 'firebase/database';
 import fs from 'fs';
-import { database } from '@/_core/database/firebase'; // Import Firebase config
+import { database } from '@/_core/database/firebase-admin-sdk'; // Import Firebase config
 import { getLastProcessedData } from './get-data';
 import { getLatestFile } from './get-latest-file';
 

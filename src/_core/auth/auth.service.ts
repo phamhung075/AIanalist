@@ -25,12 +25,18 @@ export class AuthService {
         return userCred;
      }
 
-    async login(email: string, password: string): Promise<string> {
+     async login(email: string, password: string): Promise<{ token: string; refreshToken: string }> {
         try {
             console.log(`Logging in user: ${email}`);
             const userCredential = await this.authRepository.loginUser(email, password);
-            console.log(`✅ User logged in successfully: ${userCredential.user.uid}`);
-            return await userCredential.user.getIdToken();
+            
+            const user = userCredential.user;
+            console.log(`✅ User logged in successfully: ${user.uid}`);
+    
+            const token = await user.getIdToken();
+            const refreshToken = user.refreshToken; // Retrieve the refresh token
+    
+            return { token, refreshToken };
         } catch (error: any) {
             console.error('❌ Login Error:', error);
             if (['auth/user-not-found', 'auth/wrong-password', 'auth/invalid-credential'].includes(error.code)) {
@@ -43,6 +49,7 @@ export class AuthService {
             });
         }
     }
+    
 
     async verifyToken(token: string): Promise<DecodedIdToken> {
         try {

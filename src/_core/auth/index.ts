@@ -2,7 +2,7 @@
 import { createHATEOASMiddleware, createRouter } from 'express-route-tracker';
 import { config } from '@config/dotenv.config';
 import { asyncHandler } from '../helper/asyncHandler';
-import { registerHandler } from './auth.handler';
+import { registerHandler, validateRegisterDTO } from './auth.handler';
 
 const router = createRouter(__filename);
 
@@ -23,6 +23,6 @@ router.use(createHATEOASMiddleware(router, {
 /**
  * 🔐 User Registration
  */
-router.post('/registre', asyncHandler(registerHandler));
+router.post('/registre', validateRegisterDTO, asyncHandler(registerHandler));
 
 export = router;

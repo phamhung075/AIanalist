@@ -12,37 +12,25 @@ class AuthController {
   }
 
   register: RequestHandler = async (req: CustomRequest, res: Response) => {
-    const body = req.body;
-    const inputData = {
-      email: body.email,
-      password: body.password,
-      firstName: body.firstName,
-      lastName: body.lastName,
-      phone: body.phone,
-      address: body.address,
-      postalCode: body.postalCode,
-      city: body.city,
-      country: body.country,
-    } as IRegister
-    
-    const result = await this.authService.register(inputData);
-    new _SUCCESS.CreatedSuccess({ 
+    const body = req.body as IRegister;
+    const result = await this.authService.register(body);
+    new _SUCCESS.CreatedSuccess({
       message: 'User registered successfully',
-      data: result 
+      data: result
     })
-    .setResponseTime(req.startTime)
-    .send(res);
+      .setResponseTime(req.startTime)
+      .send(res);
   }
 
   login: RequestHandler = async (req: CustomRequest, res: Response) => {
     const { email, password } = req.body as IAuth;
     const result = await this.authService.login(email, password);
-    new _SUCCESS.OkSuccess({ 
+    new _SUCCESS.OkSuccess({
       message: 'User logged in successfully',
-      data: result 
+      data: result
     })
-    .setResponseTime(req.startTime)
-    .send(res);
+      .setResponseTime(req.startTime)
+      .send(res);
   }
 
   getCurrentUser: RequestHandler = async (req: CustomRequest, res: Response) => {
@@ -52,23 +40,23 @@ class AuthController {
       });
     }
     const result = await this.authService.getUser(req.user.uid);
-    new _SUCCESS.OkSuccess({ 
+    new _SUCCESS.OkSuccess({
       message: 'User fetched successfully',
-      data: result 
+      data: result
     })
-    .setResponseTime(req.startTime)
-    .send(res);
+      .setResponseTime(req.startTime)
+      .send(res);
   }
 
   verifyToken: RequestHandler = async (req: CustomRequest, res: Response) => {
     const token = req.headers.authorization?.split(' ')[1] || '';
     const result = await this.authService.verifyToken(token);
-    new _SUCCESS.OkSuccess({ 
+    new _SUCCESS.OkSuccess({
       message: 'Token verified successfully',
-      data: result 
+      data: result
     })
-    .setResponseTime(req.startTime)
-    .send(res);
+      .setResponseTime(req.startTime)
+      .send(res);
   }
 }
 

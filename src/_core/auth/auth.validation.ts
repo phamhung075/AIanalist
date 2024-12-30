@@ -29,5 +29,4 @@ export const RegisterSchema = z.object({
   country: z.string().min(1, 'Country is required')
 });
 
-export type LoginInput = z.infer<typeof LoginSchema>;
-export type RegisterInput = z.infer<typeof RegisterSchema>;
+

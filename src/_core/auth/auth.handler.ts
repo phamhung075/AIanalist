@@ -1,22 +1,51 @@
 import { Request, Response, NextFunction } from 'express';
 import { RegisterSchema, LoginSchema } from './auth.validation';
-import { validateSchema } from '../helper/validateZodSchema';
 import { authController } from './auth.module';
+import { validateDTO } from '../helper/validateZodSchema';
 
-export const registerHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
-  validateSchema(RegisterSchema)(req);
-  return authController.register(req, res, next);
+const validateRegisterDTO = validateDTO(RegisterSchema, 'body');
+const validateLoginDTO = validateDTO(LoginSchema, 'body');
+
+const registerHandler = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Validation already happened in middleware
+    await authController.register(req, res, next);
+  } catch (error) {
+    next(error);
+  }
 };
 
-export const loginHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
-  validateSchema(LoginSchema)(req);
-  return authController.login(req, res, next);
+
+const loginHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+  try {
+    // Validation already happened in middleware
+    await authController.login(req, res, next);
+  } catch (error) {
+    next(error);
+  }
 };
 
-export const getCurrentUserHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
-  return authController.getCurrentUser(req, res, next);
+const getCurrentUserHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+  try {
+    await authController.getCurrentUser(req, res, next);
+  } catch (error) {
+    next(error);
+  }
 };
 
-export const verifyTokenHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
-  return authController.verifyToken(req, res, next);
-};
+const verifyTokenHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+  try {
+    await authController.verifyToken(req, res, next);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export {
+  validateRegisterDTO,
+  validateLoginDTO,
+  registerHandler,
+  loginHandler,
+  getCurrentUserHandler,
+  verifyTokenHandler
+}

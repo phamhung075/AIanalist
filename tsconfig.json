@@ -131,6 +131,8 @@
 		"checkJs": false, // Do not check JavaScript files
 		"incremental": true, // Enable incremental compilation for faster builds
 		"baseUrl": ".",
+		"emitDecoratorMetadata": true,
+    	"experimentalDecorators": true,
 		"outDir": "dist",
 		"paths": {	
 			"@/*": ["src/*"],

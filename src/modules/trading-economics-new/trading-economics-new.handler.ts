@@ -5,7 +5,7 @@ import { tradingEconomicsNewController } from "./trading-economics-new.module";
 
 
 const validateCreateDTO = validateDTO(CreateSchema, 'body');
-const validateIdDTO = validateDTO(IdSchema, 'body');
+const validateIdDTO = validateDTO(IdSchema, 'params');
 const validateUpdateDTO = validateDTO(UpdateSchema, 'body');
 
 /**

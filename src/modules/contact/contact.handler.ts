@@ -5,7 +5,7 @@ import { IdSchema, CreateSchema, UpdateSchema } from "./contact.validation";
 
 
 const validateCreateDTO = validateDTO(CreateSchema, 'body');
-const validateIdDTO = validateDTO(IdSchema, 'body');
+const validateIdDTO = validateDTO(IdSchema, 'params');
 const validateUpdateDTO = validateDTO(UpdateSchema, 'body');
 
 /**

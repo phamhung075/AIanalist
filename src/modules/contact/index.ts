@@ -1,11 +1,11 @@
 // src\modules\contact\index.ts
 import { createHATEOASMiddleware, createRouter } from 'express-route-tracker';
 import {
-  createContactHandler,
-  deleteContactHandler,
-  getAllContactsHandler,
-  getContactByIdHandler,
-  updateContactHandler
+  createHandler,
+  deleteHandler,
+  getAllsHandler,
+  getByIdHandler,
+  updateHandler
 } from './contact.handler';
 import { asyncHandler } from '@/_core/helper/asyncHandler';
 import { config } from '@/_core/config/dotenv.config';
@@ -28,10 +28,10 @@ router.use(createHATEOASMiddleware(router, {
 }));
 
 // Define routes without baseApi prefix
-router.post('/', asyncHandler(createContactHandler));
-router.get('/', asyncHandler(getAllContactsHandler));
-router.get('/:id', asyncHandler(getContactByIdHandler));
-router.put('/:id', asyncHandler(updateContactHandler));
-router.delete('/:id', asyncHandler(deleteContactHandler));
+router.post('/', asyncHandler(createHandler));
+router.get('/', asyncHandler(getAllsHandler));
+router.get('/:id', asyncHandler(getByIdHandler));
+router.put('/:id', asyncHandler(updateHandler));
+router.delete('/:id', asyncHandler(deleteHandler));
 
 export = router;

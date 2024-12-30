@@ -1,7 +1,7 @@
 // contact.validation.ts
 import { z } from 'zod';
 
-export const CreateContactSchema = z.object({
+export const CreateSchema = z.object({
   firstName: z.string().min(1, 'First name is required'),
   lastName: z.string().min(1, 'Last name is required'),
   email: z.string().email('Invalid email format'),
@@ -13,7 +13,7 @@ export const CreateContactSchema = z.object({
   message: z.string().optional(),
 });
 
-export const UpdateContactSchema = z.object({
+export const UpdateSchema = z.object({
   firstName: z.string().min(1, 'First name is required').optional(),
   lastName: z.string().min(1, 'Last name is required').optional(),
   email: z.string().email('Invalid email format').optional(),
@@ -25,7 +25,7 @@ export const UpdateContactSchema = z.object({
   message: z.string().optional(),
 });
 
-export const ContactIdSchema = z.object({
+export const IdSchema = z.object({
   id: z.string().min(1, 'ID is required'),
 });
 

@@ -20,7 +20,6 @@ export class AuthService {
         await this.contactService.createWithId(userCred.user.uid, {
             ...contactData,
             email,
-            id: userCred.user.uid
         });
         
         return userCred;

@@ -1,40 +1,40 @@
 import { validateSchema } from "@/_core/helper/validateZodSchema";
 import { NextFunction, Request, Response } from 'express';
 import { contactController } from "./contact.module";
-import { ContactIdSchema, CreateContactSchema, UpdateContactSchema } from "./contact.validation";
+import { IdSchema, CreateSchema, UpdateSchema } from "./contact.validation";
 
 
 // Assuming validateSchema is synchronous
-const createContactHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {    
-    validateSchema(CreateContactSchema, "body")(req);
-    return contactController.createContact(req, res, next);
+const createHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {    
+    validateSchema(CreateSchema, "body")(req);
+    return contactController.create(req, res, next);
 };
 
-const getAllContactsHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {    
-  await contactController.getAllContacts(req, res, next);
+const getAllsHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {    
+  await contactController.getAll(req, res, next);
 }
 
-const getContactByIdHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {   
-  validateSchema(ContactIdSchema, "params")(req); 
-  await contactController.getContactById(req, res, next);
+const getByIdHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {   
+  validateSchema(IdSchema, "params")(req); 
+  await contactController.getById(req, res, next);
 }
 
-const updateContactHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {    
-  validateSchema(ContactIdSchema, "params")(req); 
-  validateSchema(UpdateContactSchema, "body")(req); 
-  await contactController.updateContact(req, res, next);
+const updateHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {    
+  validateSchema(IdSchema, "params")(req); 
+  validateSchema(UpdateSchema, "body")(req); 
+  await contactController.update(req, res, next);
 }
 
-const deleteContactHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {    
-  validateSchema(ContactIdSchema, "params")(req); 
-  await contactController.deleteContact(req, res, next);
+const deleteHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {    
+  validateSchema(IdSchema, "params")(req); 
+  await contactController.delete(req, res, next);
 }
 
 export {
-  createContactHandler,
-  deleteContactHandler,
-  getAllContactsHandler,
-  getContactByIdHandler,
-  updateContactHandler
+  createHandler,
+  deleteHandler,
+  getAllsHandler,
+  getByIdHandler,
+  updateHandler
 };
 

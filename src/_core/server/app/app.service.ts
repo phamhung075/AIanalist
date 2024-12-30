@@ -81,9 +81,8 @@ export class AppService {
 		app.use("/", router);
 		const routeDisplay = new RouteDisplay(app);
 		routeDisplay.displayRoutes();
-		app.use ((_req: Request, _res: Response, next: NextFunction) => { //function middleware with 3 arguments
-			const error = new _ERROR.NotFoundError()
-			next(error)
+		app.use ((_req: Request, _res: Response, _next: NextFunction) => { //function middleware with 3 arguments
+			throw new _ERROR.NotFoundError();
 		})
 		app.use ((error : ErrorResponse, req: Request, res: Response, _next: NextFunction) => { // function catch error with 4 arguments
 			const statusCode = error.status || HttpStatusCode.INTERNAL_SERVER_ERROR //500 if error.status is undefined

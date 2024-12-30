@@ -2,7 +2,7 @@
 import { createHATEOASMiddleware, createRouter } from 'express-route-tracker';
 import { config } from '@config/dotenv.config';
 import { asyncHandler } from '../helper/asyncHandler';
-import { registerHandler, validateRegisterDTO } from './auth.handler';
+import { getCurrentUserHandler, loginHandler, registerHandler, validateLoginDTO, validateRegisterDTO, verifyTokenHandler } from './auth.handler';
 
 const router = createRouter(__filename);
 
@@ -24,5 +24,8 @@ router.use(createHATEOASMiddleware(router, {
  * 🔐 User Registration
  */
 router.post('/registre', validateRegisterDTO, asyncHandler(registerHandler));
+router.post('/login', validateLoginDTO, asyncHandler(loginHandler));
+router.get('/current', asyncHandler(getCurrentUserHandler));
+router.get('/verify', asyncHandler(verifyTokenHandler));
 
 export = router;

@@ -49,7 +49,7 @@ export abstract class BaseController<
     /**
      * ✅ Get all entities
      */
-    async getAll(req: Request, res: Response, _next: NextFunction) {
+    async getAll(req: CustomRequest<any>, res: Response, _next: NextFunction) {
         try {
             const entities = await this.service.getAll();
 
@@ -63,6 +63,7 @@ export abstract class BaseController<
                 code: HttpStatusCode.OK,
                 message: 'Fetched all entities successfully',
                 data: entities,
+                startTime: req.startTime,
             });
         } catch (error) {
             _next(error);
@@ -72,7 +73,7 @@ export abstract class BaseController<
     /**
      * ✅ Get entity by ID
      */
-    async getById(req: Request, res: Response, _next: NextFunction) {
+    async getById(req: CustomRequest<any>, res: Response, _next: NextFunction) {
         try {
             const { id } = req.params;
             const entity = await this.service.getById(id);
@@ -87,6 +88,7 @@ export abstract class BaseController<
                 code: HttpStatusCode.OK,
                 message: 'Fetched entity by ID successfully',
                 data: entity,
+                startTime: req.startTime,
             });
         } catch (error) {
             _next(error);
@@ -96,28 +98,34 @@ export abstract class BaseController<
     /**
      * ✅ Update an entity by ID
      */
-    async update(req: Request, res: Response, _next: NextFunction) {
+    async update(req: CustomRequest<UpdateDTO>, res: Response, _next: NextFunction) {
         try {
             const { id } = req.params;
             const inputData: UpdateDTO = req.body;
-
-            const entity = await this.service.update(id, inputData as any);
-
+    
+            const entity = await this.service.update(id, inputData as unknown as Partial<T>);
+    
             if (!entity) {
                 throw new _ERROR.NotFoundError({
                     message: 'Entity not found',
                 });
             }
-
+    
             return RestHandler.success(req, res, {
                 code: HttpStatusCode.OK,
                 message: 'Entity updated successfully',
-                data: entity,
+                data: entity as unknown as UpdateDTO,
+                startTime: req.startTime,
             });
         } catch (error) {
             _next(error);
         }
     }
+    
+    
+    
+    
+    
 
     /**
      * ✅ Delete an entity by ID

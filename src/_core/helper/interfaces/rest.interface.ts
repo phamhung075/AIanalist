@@ -11,18 +11,16 @@ export interface PaginationParams {
 
 export interface PaginationResult<T> {
     data: Partial<T>[]; // Ensure it's always an array
-    meta: {
-        page: number;
-        limit: number;
-        totalItems?: number;
-        totalPages?: number;
-        hasNext?: boolean;
-        hasPrev?: boolean;
-    };
+    page: number;
+    limit: number;
+    totalItems?: number;
+    totalPages?: number;
+    hasNext?: boolean;
+    hasPrev?: boolean;
 }
 
 
-export interface MetaData {   
+export interface MetaData {
     timestamp: string;
     statusCode?: string;
     path?: string;

@@ -2,6 +2,7 @@ import { NextFunction, Response } from 'express';
 import { HttpStatusCode } from '../common/HttpStatusCode';
 import { StatusCodes } from '../common/StatusCodes';
 import { RestHandler } from '../common/RestHandler';
+import { PaginationResult } from '../../interfaces/rest.interface';
 
 
 class SuccessResponse {
@@ -11,12 +12,14 @@ class SuccessResponse {
     status: HttpStatusCode;
     metadata: any;
     options: any;
+    pagination?: PaginationResult<any>;
 
     constructor({
         message,
         data = {},
         status = HttpStatusCode.OK,
         reasonPhrase = StatusCodes[status].phrase,
+        pagination,
         options = {},
     }: {
         message?: string;
@@ -24,6 +27,7 @@ class SuccessResponse {
         status?: HttpStatusCode;
         reasonPhrase?: string;
         metadata?: any;
+        pagination?: PaginationResult<any>;
         options?: any;
     }) {
         this.success = true;
@@ -32,6 +36,7 @@ class SuccessResponse {
         this.status = status;
         this.metadata = this.formatMetadata(this.metadata);
         this.options = options;
+        this.pagination = pagination;
     }
 
     /**
@@ -199,12 +204,14 @@ class OkSuccess extends SuccessResponse {
         metadata = {},
         options = {},
         data = {},
+        pagination,
     }: {
         message?: string;
         status?: HttpStatusCode;
         metadata?: any;
         options?: any;
         data?: any;
+        pagination?: PaginationResult<any>;
     }) {
         super({
             message,
@@ -212,6 +219,7 @@ class OkSuccess extends SuccessResponse {
             status : status || HttpStatusCode.OK,
             metadata,
             options,
+            pagination,
         });
     }
 }

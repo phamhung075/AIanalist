@@ -1,9 +1,8 @@
-import { HttpStatusCode } from '@/_core/helper/http-status/common/HttpStatusCode';
-import { RestHandler } from '@/_core/helper/http-status/common/RestHandler';
 import _ERROR from '@/_core/helper/http-status/error';
+import _SUCCESS from '@/_core/helper/http-status/success';
 import { CustomRequest } from '@/_core/helper/interfaces/CustomRequest.interface';
 import { FetchPageResult, PaginationOptions } from '@/_core/helper/interfaces/FetchPageResult.interface';
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import { Service } from 'typedi';
 import { BaseService } from './BaseService';
 
@@ -34,17 +33,17 @@ export abstract class BaseController<
                 });
             }
 
-            return RestHandler.success(req, res, {
-                code: HttpStatusCode.CREATED,
+            new _SUCCESS.CreatedSuccess({
                 message: 'Entity created successfully',
                 data: entity,
-                startTime: req.startTime,
-            });
+            })
+            .setResponseTime(req.startTime)
+            .send(res);
         } catch (error) {
             _next(error);
         }
     }
-    
+
 
     /**
      * ✅ Get all entities
@@ -59,12 +58,12 @@ export abstract class BaseController<
                 });
             }
 
-            return RestHandler.success(req, res, {
-                code: HttpStatusCode.OK,
-                message: 'Fetched all entities successfully',
+            new _SUCCESS.OkSuccess({
+                message: 'Entity fetched successfully',
                 data: entities,
-                startTime: req.startTime,
-            });
+            })
+            .setResponseTime(req.startTime)
+            .send(res);
         } catch (error) {
             _next(error);
         }
@@ -84,12 +83,12 @@ export abstract class BaseController<
                 });
             }
 
-            return RestHandler.success(req, res, {
-                code: HttpStatusCode.OK,
-                message: 'Fetched entity by ID successfully',
+            new _SUCCESS.OkSuccess({
+                message: 'Entity fetched successfully',
                 data: entity,
-                startTime: req.startTime,
-            });
+            })
+            .setResponseTime(req.startTime)
+            .send(res);
         } catch (error) {
             _next(error);
         }
@@ -102,35 +101,35 @@ export abstract class BaseController<
         try {
             const { id } = req.params;
             const inputData: UpdateDTO = req.body;
-    
+
             const entity = await this.service.update(id, inputData as unknown as Partial<T>);
-    
+
             if (!entity) {
                 throw new _ERROR.NotFoundError({
                     message: 'Entity not found',
                 });
             }
-    
-            return RestHandler.success(req, res, {
-                code: HttpStatusCode.OK,
+
+            new _SUCCESS.OkSuccess({
                 message: 'Entity updated successfully',
-                data: entity as unknown as UpdateDTO,
-                startTime: req.startTime,
-            });
+                data: entity,
+            })
+            .setResponseTime(req.startTime)
+            .send(res);
         } catch (error) {
             _next(error);
         }
     }
-    
-    
-    
-    
-    
+
+
+
+
+
 
     /**
      * ✅ Delete an entity by ID
      */
-    async delete(req: Request, res: Response, _next: NextFunction) {
+    async delete(req: CustomRequest<any>, res: Response, _next: NextFunction) {
         try {
             const { id } = req.params;
             const result = await this.service.delete(id);
@@ -141,10 +140,12 @@ export abstract class BaseController<
                 });
             }
 
-            return RestHandler.success(req, res, {
-                code: HttpStatusCode.OK,
+            new _SUCCESS.OkSuccess({
                 message: 'Entity deleted successfully',
-            });
+                data: true,
+            })
+            .setResponseTime(req.startTime)
+            .send(res);
         } catch (error) {
             _next(error);
         }
@@ -153,7 +154,7 @@ export abstract class BaseController<
     /**
      * ✅ Paginated Query
      */
-    async paginator(req: Request, res: Response, _next: NextFunction) {
+    async paginator(req: CustomRequest<any>, res: Response, _next: NextFunction) {
         try {
             const { page = '1', limit = '10', all = 'false' } = req.query;
             const options: PaginationOptions = {
@@ -164,11 +165,12 @@ export abstract class BaseController<
 
             const paginationResult: FetchPageResult<T> = await this.service.paginator(options);
 
-            return RestHandler.success(req, res, {
-                code: HttpStatusCode.OK,
-                message: 'Fetched paginated entities successfully',
-                data: paginationResult,
-            });
+            new _SUCCESS.OkSuccess({
+                message: 'Entity deleted successfully',                
+                pagination: paginationResult,
+            })
+            .setResponseTime(req.startTime)
+            .send(res);
         } catch (error) {
             _next(error);
         }

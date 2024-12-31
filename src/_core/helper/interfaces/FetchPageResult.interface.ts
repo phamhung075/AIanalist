@@ -12,13 +12,13 @@ export interface FetchPageResult<T> {
 	count: number;
 
 	/** Current page number (if paginated) */
-	page?: number;
+	page: number;
 
 	/** Total number of pages (if paginated) */
-	totalPages?: number;
+	totalPages: number;
 
 	/** Items per page (if paginated) */
-	limit?: number;
+	limit: number;
 
 	/** Indicates whether there is a next page */
 	hasNext?: boolean;

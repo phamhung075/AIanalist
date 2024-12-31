@@ -1,7 +1,6 @@
 //src\modules\index.ts
 import { firebaseAuthMiddleware } from '@/_core/middleware/auth.middleware';
-import { Request, Response, NextFunction } from 'express';
-import { Router } from 'express';
+import { NextFunction, Request, Response, Router } from 'express';
 
 const router = Router();
 router.post('/', (_req: Request, res: Response, _next: NextFunction) => {

@@ -23,6 +23,7 @@ import helmet from '@node_modules/helmet/index.cjs';
 import { isRunningWithNodemon } from '@src/_core/helper/check-nodemon';
 import { blue, green, yellow } from 'colorette';
 import { NextFunction, Request, Response } from 'express';
+import { startTimeAddOnRequest } from '@/_core/middleware/start-time.middleware';
 
 const env = config.env;
 const pathToEnvFile = path.resolve(__dirname, `../../../../environment/.env.${env}`);
@@ -66,7 +67,7 @@ export class AppService {
 	 * Initialize middleware and settings
 	 */
 	private async init(): Promise<void> {
-		const startTime = Date.now();
+		app.use(startTimeAddOnRequest);
 		this.setupCors();
 		app.use(helmet());
 		app.use(rateLimit({
@@ -164,7 +165,6 @@ export class AppService {
 				code: statusCode,
 				message,
 				errors: error.errors || [],
-				startTime: startTime
 			});
 		});
 	}

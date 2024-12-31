@@ -24,7 +24,12 @@ export abstract class BaseService<T extends { id?: string }> {
   }
 
   async getById(id: string): Promise<T | null> {
-    return await this.repository.findById(id);
+    try {
+      return await this.repository.findById(id);
+    } catch (error) {
+      console.error(`Error getting with ID ${id}:`, error);
+      throw error;
+    }
   }
 
   async update(id: string, updates: Partial<T>): Promise<T | null> {

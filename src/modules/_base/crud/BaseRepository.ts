@@ -5,7 +5,7 @@ import { FetchPageResult, PaginationOptions } from '@/_core/helper/interfaces/Fe
 import { Query } from 'firebase-admin/firestore';
 
 /**
- * Generic Firestore Repository
+ * ✅ Generic Firestore Repository
  */
 export abstract class BaseRepository<T extends { id?: string }> {
     protected collectionName: string;
@@ -73,13 +73,25 @@ export abstract class BaseRepository<T extends { id?: string }> {
      */
     async findById(id: string): Promise<T | null> {
         try {
-            const doc = await this.collection.doc(id).get();
+            console.log(`🔍 Fetching document with ID: ${id}`);
+
+            const docRef = this.collection.doc(id);
+            const doc = await docRef.get();
+
+            console.log(`📄 Document Snapshot Exists: ${doc.exists}`);
+
             if (!doc.exists) {
-                throw new _ERROR.NotFoundError({ message: `Document with id ${id} not found` });
+                console.warn(`⚠️ Document with ID: ${id} does not exist`);
+                throw new _ERROR.NotFoundError({ message: `Document with ID ${id} not found` });
             }
+
+            console.log(`✅ Document found:`, doc.data());
             return { id: doc.id, ...doc.data() } as T;
         } catch (error: any) {
-            this.handleFirestoreError(error, `Failed to fetch document with id ${id}`);
+            if (error instanceof _ERROR.NotFoundError) {
+                throw error;
+            }
+            this.handleFirestoreError(error, `Failed to fetch document with ID ${id}`);
         }
     }
 
@@ -92,7 +104,8 @@ export abstract class BaseRepository<T extends { id?: string }> {
             const doc = await docRef.get();
 
             if (!doc.exists) {
-                throw new _ERROR.NotFoundError({ message: `Document with id ${id} not found` });
+                console.warn(`⚠️ Document with ID: ${id} does not exist`);
+                throw new _ERROR.NotFoundError({ message: `Document with ID ${id} not found` });
             }
 
             await docRef.update({
@@ -103,7 +116,10 @@ export abstract class BaseRepository<T extends { id?: string }> {
             const updatedDoc = await docRef.get();
             return { id: updatedDoc.id, ...updatedDoc.data() } as T;
         } catch (error: any) {
-            this.handleFirestoreError(error, `Failed to update document with id ${id}`);
+            if (error instanceof _ERROR.NotFoundError) {
+                throw error;
+            }
+            this.handleFirestoreError(error, `Failed to update document with ID ${id}`);
         }
     }
 
@@ -112,15 +128,21 @@ export abstract class BaseRepository<T extends { id?: string }> {
      */
     async delete(id: string): Promise<boolean> {
         try {
-            const doc = await this.collection.doc(id).get();
+            const docRef = this.collection.doc(id);
+            const doc = await docRef.get();
+
             if (!doc.exists) {
-                throw new _ERROR.NotFoundError({ message: `Document with id ${id} not found` });
+                console.warn(`⚠️ Document with ID: ${id} does not exist`);
+                throw new _ERROR.NotFoundError({ message: `Document with ID ${id} not found` });
             }
 
-            await this.collection.doc(id).delete();
+            await docRef.delete();
             return true;
         } catch (error: any) {
-            this.handleFirestoreError(error, `Failed to delete document with id ${id}`);
+            if (error instanceof _ERROR.NotFoundError) {
+                throw error;
+            }
+            this.handleFirestoreError(error, `Failed to delete document with ID ${id}`);
         }
     }
 
@@ -173,13 +195,26 @@ export abstract class BaseRepository<T extends { id?: string }> {
         }
     }
 
+    /**
+     * ✅ Unified Error Handling
+     */
     private handleFirestoreError(error: any, defaultMessage: string): never {
-        if (error.code === 'permission-denied') {
-            throw new _ERROR.ForbiddenError({ message: 'Permission denied' });
+        console.error('❌ Firestore Error:', error);
+
+        if (error instanceof _ERROR.NotFoundError) {
+            throw error;
         }
-        if (error.code === 'not-found') {
-            throw new _ERROR.NotFoundError({ message: 'Resource not found' });
+
+        switch (error.code) {
+            case 'permission-denied':
+                throw new _ERROR.ForbiddenError({ message: 'Permission denied' });
+            case 'not-found':
+                throw new _ERROR.NotFoundError({ message: 'Resource not found' });
+            default:
+                throw new _ERROR.InternalServerError({
+                    message: defaultMessage,
+                    error: error.message || 'Unknown Firestore error',
+                });
         }
-        throw new _ERROR.InternalServerError({ message: defaultMessage, error: error.message });
     }
 }

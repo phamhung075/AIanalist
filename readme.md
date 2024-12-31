@@ -454,3 +454,6 @@ By following these guidelines, you'll have a scalable and efficient RESTful API 
 
 **Happy Coding! 🧑‍💻**
 
+
+📃 License
+This project is licensed under the MIT License.

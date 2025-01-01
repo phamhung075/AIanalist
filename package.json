@@ -18,6 +18,8 @@
 	"dependencies": {
 		"aianalist": "file:",
 		"cli-table3": "^0.6.5",
+		"codesnap": "^0.0.4",
+		"codesnap-analyzer": "^1.0.2",
 		"colorette": "^2.0.20",
 		"cors": "^2.8.5",
 		"dotenv": "^16.4.5",

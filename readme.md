@@ -1,5 +1,5 @@
 # RESTful API Implementation Guide with Node.js, Express.js, and TypeScript
-(i recommende to pass on bun for better performance and full compatible with typescript)
+(I recommend switching to Bun for better performance and full compatibility with TypeScript. As for Node.js, I decided to stop using it because I find Bun to be a better option.)
 [AIanalist-bun-express
 ](https://github.com/phamhung075/AIanalist-bun-express)
 ## 📚 **Project Foundation and Tools**

@@ -1,7 +1,17 @@
+
+Here's an improved and more impactful version of your statement for the README.md:
+
+🚀 Why Bun? Why I Switched from Node.js
+I made the decision to completely stop using Node.js in favor of Bun due to its superior performance, native TypeScript support, and faster dependency management. Bun significantly outperforms Node.js in speed, efficiency, and modern development capabilities.
+
+With Bun's built-in HTTP server and @bun-express/core, you get the power of Express.js with better performance and full TypeScript compatibility—without the usual overhead of Node.js.
+
+👉 GitHub: [AIanalist-bun-express](https://github.com/phamhung075/AIanalist-bun-express)
+
+This project is built entirely with Bun, leveraging its blazing-fast execution and optimized API performance. If you're still using Node.js, it's time to upgrade to Bun and experience the difference! 🚀🔥
+
 # RESTful API Implementation Guide with Node.js, Express.js, and TypeScript
-(I recommend switching to Bun for better performance and full compatibility with TypeScript. As for Node.js, I decided to stop using it because I find Bun to be a better option.)
-[AIanalist-bun-express
-](https://github.com/phamhung075/AIanalist-bun-express)
+
 ## 📚 **Project Foundation and Tools**
 - **Node.js & Express.js:** Web server framework for handling HTTP requests.
 - **TypeScript:** Strong typing and better development experience.

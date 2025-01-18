@@ -1,5 +1,7 @@
 # RESTful API Implementation Guide with Node.js, Express.js, and TypeScript
-(on progress)
+(i recommende to pass on bun for better performance and full compatible with typescript)
+[AIanalist-bun-express
+](https://github.com/phamhung075/AIanalist-bun-express)
 ## 📚 **Project Foundation and Tools**
 - **Node.js & Express.js:** Web server framework for handling HTTP requests.
 - **TypeScript:** Strong typing and better development experience.

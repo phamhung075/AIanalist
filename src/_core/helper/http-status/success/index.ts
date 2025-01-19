@@ -1,5 +1,6 @@
 import type { NextFunction, Response } from "express";
 import { PaginationResult } from "../../interfaces/rest.interface";
+import { getStatusText } from "../common/api-config";
 import { HttpStatusCode } from "../common/HttpStatusCode";
 import { StatusCodes } from "../common/StatusCodes";
 

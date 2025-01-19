@@ -1,9 +1,10 @@
-import { NextFunction, Response } from 'express';
-import { HttpStatusCode } from '../common/HttpStatusCode';
-import { StatusCodes } from '../common/StatusCodes';
-import { RestHandler } from '../common/RestHandler';
+import type { NextFunction, Response } from "express";
+import { HttpStatusCode } from "../common/HttpStatusCode";
+import { StatusCodes } from "../common/StatusCodes";
+import { getStatusText } from "../common/api-config";
 
-export class ErrorResponse {
+
+export class ErrorResponse  {
     success: boolean;
     message: string;
     error?: any;
@@ -11,34 +12,40 @@ export class ErrorResponse {
     metadata: any;
     options: any;
     errors?: Array<{ field: string; message: string; code?: string }>;
-
+    reasonPhrase ?: string;
     constructor({
         message,
-        error = {},
-        status = HttpStatusCode.INTERNAL_SERVER_ERROR,
-        reasonPhrase = StatusCodes[status].phrase,
-		errors,
+        status,
+        reasonPhrase,
+        metadata = {},
+        errors,
         options = {},
     }: {
         message?: string;
-        error?: any;
         status?: HttpStatusCode;
         reasonPhrase?: string;
         metadata?: any;
-		errors?: Array<{ field: string; message: string; code?: string }>;
+        errors?: Array<{ field: string; message: string; code?: string }>;
         options?: any;
     }) {
         this.success = false;
-        this.message = message || reasonPhrase;
-        this.error = error;
-        this.status = status;
-		this.errors = errors;
-        this.metadata = this.formatMetadata(this.metadata);
+        this.message = message || StatusCodes[status || HttpStatusCode.INTERNAL_SERVER_ERROR]?.phrase;
+        this.error = true;
+        this.status = status || HttpStatusCode.INTERNAL_SERVER_ERROR;
+        this.reasonPhrase = reasonPhrase || StatusCodes[status || HttpStatusCode.INTERNAL_SERVER_ERROR]?.phrase;
+        this.errors = errors;
+        this.metadata = this.formatMetadata(metadata);
         this.options = options;
+
+        console.log('ErrorResponse', this.status);
     }
 
     private formatMetadata(metadata: any) {
+        const description = StatusCodes[this.status]?.description;
+        const documentation = StatusCodes[this.status]?.documentation;
         return {
+            description,
+            documentation,
             ...metadata,
         };
     }
@@ -46,7 +53,7 @@ export class ErrorResponse {
     setStatus(status: number) {
         this.status = status;
         this.metadata.code = status;
-        this.metadata.status = RestHandler.getStatusText(status);
+        this.metadata.status = getStatusText(status);
         return this;
     }
 
@@ -85,12 +92,16 @@ export class ErrorResponse {
         try {
             this.preSendHooks();
 
+            // Set Response Time if startTime exists on res.locals
             if (res.locals?.startTime) {
                 this.setResponseTime(res.locals.startTime);
             }
 
+            this.handleHeaders(res);
+
             if (!res.headersSent) {
                 const response = this.formatResponse();
+                // console.log('Sending ErrorResponse:', response);
                 res.status(this.status).json(response);
             } else {
                 console.warn('Attempted to send response after headers were already sent.');
@@ -111,29 +122,53 @@ export class ErrorResponse {
         this.metadata.timestamp = new Date().toISOString();
     }
 
+    private handleHeaders(res: Response) {
+        if (this.options?.headers) {
+            let cookieHeaders: string[] = [];
+            
+            Object.entries(this.options.headers).forEach(([key, value]) => {
+                const normalizedKey = this.normalizeHeaderKey(key);
+                
+                if (normalizedKey === 'set-cookie') {
+                    if (Array.isArray(value)) {
+                        cookieHeaders.push(...value);
+                    } else {
+                        cookieHeaders.push(value as string);
+                    }
+                } else {
+                    res.setHeader(key, value as any);
+                }
+            });
+            
+            if (cookieHeaders.length > 0) {
+                res.setHeader('Set-Cookie', cookieHeaders);
+            }
+        }
+    }
+
+    private normalizeHeaderKey(key: string): string {
+        return key.toLowerCase();
+    }
+
     private formatResponse() {
-        const response = {
+        return {
             success: this.success,
             message: this.message,
             error: this.error,
             metadata: {
                 ...this.metadata,
                 code: this.status,
-                status: RestHandler.getStatusText(this.status),
+                status: getStatusText(this.status),
             },
+            errors: this.errors,
         };
-
-        if (Object.keys(this.options).length > 0) {
-            Object.assign(response, { options: this.options });
-        }
-
-        return response;
     }
 
     private postSendHooks() {
         console.error(`Error response sent with status: ${this.status}`);
     }
 }
+
 
 class BadRequestError extends ErrorResponse {
     constructor(params: any = {}) {
@@ -168,6 +203,7 @@ class NotFoundError extends ErrorResponse {
             ...params,
             status: params.status || HttpStatusCode.NOT_FOUND,
         });
+        console.log('NotFoundError', params.status);
     }
 }
 

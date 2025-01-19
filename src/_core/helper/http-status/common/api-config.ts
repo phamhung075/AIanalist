@@ -1,3 +1,5 @@
+import { HttpStatusCode } from "./HttpStatusCode";
+
 /**
  * HTTP Methods used in API routes.
  * OPTIONS and HEAD are handled automatically by web frameworks.
@@ -24,10 +26,11 @@ const API_CONFIG = {
     },
     CORS: {
         ORIGINS: {
-            DEVELOPMENT: ['http://localhost:3333'],
-            PRODUCTION: ['https://myapp.com'], // Update with your production URL
+            DEVELOPMENT: ['http://localhost:3333', 'http://localhost:4444'],
+            PRODUCTION: ['http://localhost:3333', 'http://localhost:4444', 'http://192.168.0.21:4444'], // Update with your production URL
         },
-        ALLOWED_HEADERS: ['Authorization', 'Content-Type', 'X-Requires-Auth'],
+        ALLOWED_HEADERS: ['Authorization', 'Content-Type', 'X-Requires-Auth', 'Origin'],
+        EXPOSED_HEADERS: ['Content-Range', 'X-Content-Range', 'set-cookie'],
         METHODS: [
             HTTP_METHODS.GET,
             HTTP_METHODS.POST,
@@ -36,8 +39,8 @@ const API_CONFIG = {
             HTTP_METHODS.DELETE,
             HTTP_METHODS.OPTION,
         ],
-        CREDENTIALS: true,
-    },
+        CREDENTIALS: true, // Allow cookies to be sent
+    },    
     COMPRESSION: {
         LEVEL: 6,
         THRESHOLD: 1_024, // 1 KB
@@ -104,10 +107,13 @@ function handleRequest(method: HttpMethod) {
     }
 }
 
+function getStatusText(code: number): string {
+    return Object.entries(HttpStatusCode)
+        .find(([_, value]) => value === code)?.[0] || 'UNKNOWN_STATUS';
+}
+
 export {
-    HTTP_METHODS,
+    getStatusText,
     API_CONFIG,
-    CONTENT_TYPE,
-    setResponseType,
-    handleRequest,
+    CONTENT_TYPE, handleRequest, HTTP_METHODS, setResponseType
 };

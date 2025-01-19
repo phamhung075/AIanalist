@@ -131,6 +131,7 @@
 		"incremental": true, // Enable incremental compilation for faster builds
 		"emitDecoratorMetadata": true,
     	"experimentalDecorators": true,
+		"noEmit": true, // Added this line to fix the error
 		"allowImportingTsExtensions": true, // Cette option nécessite que 'noEmit' ou 'emitDeclarationOnly' soit défini.
 		"outDir": "dist",
 		"rootDir": ".",

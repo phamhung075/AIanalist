@@ -1,8 +1,9 @@
-import { NextFunction, Response } from 'express';
-import { HttpStatusCode } from '../common/HttpStatusCode';
-import { StatusCodes } from '../common/StatusCodes';
-import { RestHandler } from '../common/RestHandler';
-import { PaginationResult } from '../../interfaces/rest.interface';
+import type { NextFunction, Response } from "express";
+import { PaginationResult } from "../../interfaces/rest.interface";
+import { HttpStatusCode } from "../common/HttpStatusCode";
+import { StatusCodes } from "../common/StatusCodes";
+
+
 
 
 class SuccessResponse {
@@ -43,7 +44,11 @@ class SuccessResponse {
      * Format Metadata
      */
     private formatMetadata(metadata: any) {
+        const description = StatusCodes[this.status]?.description;
+        const documentation = StatusCodes[this.status]?.documentation;
         return {
+            description,
+            documentation,
             ...metadata,
         };
     }
@@ -54,7 +59,7 @@ class SuccessResponse {
     setStatus(status: number) {
         this.status = status;
         this.metadata.code = status;
-        this.metadata.status = RestHandler.getStatusText(status);
+        this.metadata.status = getStatusText(status);
         return this;
     }
 
@@ -94,9 +99,39 @@ class SuccessResponse {
     /**
      * Set Custom Headers
      */
-    setHeader(headers: Record<string, string>) {
-        this.options.headers = { ...this.options.headers, ...headers };
+    setHeader(headers: Record<string, string | string[]>) {
+        if (!this.options.headers) {
+            this.options.headers = {};
+        }
+    
+        Object.entries(headers).forEach(([key, value]) => {
+            const normalizedKey = this.normalizeHeaderKey(key);
+            
+            if (normalizedKey === 'set-cookie') {
+                if (!this.options.headers['Set-Cookie']) {
+                    this.options.headers['Set-Cookie'] = [];
+                }
+                
+                if (Array.isArray(this.options.headers['Set-Cookie'])) {
+                    const newCookies = Array.isArray(value) ? value : [value];
+                    this.options.headers['Set-Cookie'] = [
+                        ...this.options.headers['Set-Cookie'],
+                        ...newCookies
+                    ];
+                } else {
+                    this.options.headers['Set-Cookie'] = Array.isArray(value) ? value : [value];
+                }
+            } else {
+                this.options.headers[key] = value;
+            }
+        });
+    
         return this;
+    }
+    
+    // Helper method to normalize header keys
+    private normalizeHeaderKey(key: string): string {
+        return key.toLowerCase();
     }
 
     /**
@@ -115,6 +150,7 @@ class SuccessResponse {
             this.preSendHooks();
 
             // Set Response Time if startTime exists on res.locals
+            
             if (res.locals?.startTime) {
                 this.setResponseTime(res.locals.startTime);
             }
@@ -159,7 +195,7 @@ class SuccessResponse {
             metadata: {
                 ...this.metadata,
                 code: this.status,
-                status: RestHandler.getStatusText(this.status),
+                status: getStatusText(this.status),
             },
         };
 

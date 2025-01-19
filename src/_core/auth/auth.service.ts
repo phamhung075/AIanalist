@@ -25,27 +25,23 @@ export class AuthService {
         return userCred;
      }
 
-     async login(email: string, password: string): Promise<{ token: string; refreshToken: string }> {
+     async login(email: string, password: string): Promise<{ idToken: string; refreshToken: string }> {
         try {
-            console.log(`Logging in user: ${email}`);
-            const userCredential = await this.authRepository.loginUser(email, password);
-            
-            const user = userCredential.user;
-            console.log(`✅ User logged in successfully: ${user.uid}`);
-    
-            const token = await user.getIdToken();
-            const refreshToken = user.refreshToken; // Retrieve the refresh token
-    
-            return { token, refreshToken };
+            console.log(`🔄 Logging in user: ${email}`);
+
+            // Call the repository to perform login
+            return await this.authRepository.loginUser(email, password) as { idToken: string; refreshToken: string };
         } catch (error: any) {
             console.error('❌ Login Error:', error);
+
             if (['auth/user-not-found', 'auth/wrong-password', 'auth/invalid-credential'].includes(error.code)) {
                 throw new _ERROR.UnauthorizedError({
-                    message: 'Invalid email or password'
+                    message: 'Invalid email or password',
                 });
             }
-            throw new _ERROR.UnauthorizedError({
-                message: 'Failed to login'
+
+            throw new _ERROR.InternalServerError({
+                message: 'Failed to login due to an unexpected error.',
             });
         }
     }
@@ -72,6 +68,18 @@ export class AuthService {
         } catch (error) {
             throw new _ERROR.UnauthorizedError({
                 message: 'Failed to fetch user details'
+            });
+        }
+    }
+
+    async refreshToken(token: string): Promise<{ idToken: string; refreshToken: string }> {
+        console.log(`Refreshing token: ${token}`);
+        try {
+            const decodedToken = await this.authRepository.refreshToken(token);
+            return decodedToken;
+        } catch (error) {
+            throw new _ERROR.UnauthorizedError({
+                message: 'Invalid or expired token'
             });
         }
     }

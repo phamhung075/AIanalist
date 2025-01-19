@@ -1,8 +1,12 @@
+import { createHATEOASMiddleware, createRouter } from "express-route-tracker";
+import { config } from "../config/dotenv.config.ts";
+import { asyncHandler } from "../helper/asyncHandler/index.ts";
+import { firebaseAuthMiddleware } from "../middleware/auth.middleware.ts";
+import { validateRegisterDTO, registerHandler, validateLoginDTO, loginHandler, getCurrentUserHandler, refreshTokenHandler } from "./auth.handler.ts";
+
 // import { config } from '../config/dotenv.config';
-import { createHATEOASMiddleware, createRouter } from 'express-route-tracker';
-import { config } from '@config/dotenv.config';
-import { asyncHandler } from '../helper/asyncHandler';
-import { getCurrentUserHandler, loginHandler, registerHandler, validateLoginDTO, validateRegisterDTO, verifyTokenHandler } from './auth.handler';
+require("express-route-tracker")
+
 
 const router = createRouter(__filename);
 
@@ -25,7 +29,9 @@ router.use(createHATEOASMiddleware(router, {
  */
 router.post('/registre', validateRegisterDTO, asyncHandler(registerHandler));
 router.post('/login', validateLoginDTO, asyncHandler(loginHandler));
-router.get('/current', asyncHandler(getCurrentUserHandler));
-router.get('/verify', asyncHandler(verifyTokenHandler));
+router.get('/current', firebaseAuthMiddleware, asyncHandler(getCurrentUserHandler));
+router.get('/verify', firebaseAuthMiddleware, asyncHandler(getCurrentUserHandler));
+router.get('/refreshtoken', firebaseAuthMiddleware, asyncHandler(refreshTokenHandler));
 
-export = router;
+
+export default router;

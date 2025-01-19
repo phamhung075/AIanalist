@@ -1,19 +1,17 @@
 // contact.service.ts
-import ContactRepository from './contact.repository';
-import { IContact } from './contact.interface';
+
 import { Service } from 'typedi';
 import { BaseService } from '../_base/crud/BaseService';
+import { IContact } from './contact.interface';
+import ContactRepository from './contact.repository';
 
-@Service()
+
+
+@Service('ContactService')
 class ContactService extends BaseService<IContact> {
-  constructor(repository: ContactRepository) {
-    super(repository);
-  }
-
-  // ✅ You can add Contact-specific methods here
-  // async getContactsByStatus(status: string): Promise<IContact[]> {
-  //   const allContacts = await this.getAll();
-  //   return allContacts.filter((contact) => contact.status === status);
+    constructor(contactRepository: ContactRepository) {
+        super(contactRepository);
+    }
 }
 
 export default ContactService;

@@ -1,17 +1,11 @@
-// src\modules\contact\index.ts
-import { createHATEOASMiddleware, createRouter } from 'express-route-tracker';
-import {
-  createHandler,
-  deleteHandler,
-  getAllsHandler,
-  getByIdHandler,
-  updateHandler,
-  validateCreateDTO,
-  validateIdDTO,
-  validateUpdateDTO
-} from './contact.handler';
+
+
 import { asyncHandler } from '@/_core/helper/asyncHandler';
+import { firebaseAuthMiddleware } from '@/_core/middleware/auth.middleware';
+import { createHATEOASMiddleware, createRouter } from 'express-route-tracker';
+import { validateCreateDTO, createHandler, getAllsHandler, validateIdDTO, getByIdHandler, updateHandler, validateUpdateDTO, deleteHandler } from './contact.handler';
 import { config } from '@/_core/config/dotenv.config';
+
 
 // Create router with source tracking
 const router = createRouter(__filename);
@@ -33,9 +27,9 @@ router.use(createHATEOASMiddleware(router, {
 // Define routes without baseApi prefix
 router.post('/', validateCreateDTO, asyncHandler(createHandler));
 router.get('/', asyncHandler(getAllsHandler));
-router.get('/:id', validateIdDTO, asyncHandler(getByIdHandler));
-router.put('/:id', validateIdDTO, validateCreateDTO, asyncHandler(updateHandler));
-router.patch('/:id', validateIdDTO, validateUpdateDTO, asyncHandler(updateHandler));
-router.delete('/:id', validateIdDTO, asyncHandler(deleteHandler));
+router.get('/:id', firebaseAuthMiddleware, validateIdDTO, asyncHandler(getByIdHandler));
+router.put('/:id', firebaseAuthMiddleware,validateIdDTO, validateCreateDTO, asyncHandler(updateHandler));
+router.patch('/:id', firebaseAuthMiddleware, validateIdDTO, validateUpdateDTO, asyncHandler(updateHandler));
+router.delete('/:id', firebaseAuthMiddleware, validateIdDTO, asyncHandler(deleteHandler));
 
-export = router;
+export default router;

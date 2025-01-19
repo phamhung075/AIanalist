@@ -56,7 +56,7 @@ export abstract class BaseRepository<T extends { id?: string }> {
     /**
      * ✅ Fetch all documents
      */
-    async findAll(): Promise<T[]> {
+    async getAll(): Promise<T[]> {
         try {
             const snapshot = await this.collection.get();
             return snapshot.docs.map((doc) => ({
@@ -69,9 +69,9 @@ export abstract class BaseRepository<T extends { id?: string }> {
     }
 
     /**
-     * ✅ Find a document by ID
+     * ✅ get a document by ID
      */
-    async findById(id: string): Promise<T | null> {
+    async getById(id: string): Promise<T | null> {
         try {
             console.log(`🔍 Fetching document with ID: ${id}`);
 
@@ -85,7 +85,7 @@ export abstract class BaseRepository<T extends { id?: string }> {
                 throw new _ERROR.NotFoundError({ message: `Document with ID ${id} not found` });
             }
 
-            console.log(`✅ Document found:`, doc.data());
+            // console.log(`✅ Document found:`, doc.data());
             return { id: doc.id, ...doc.data() } as T;
         } catch (error: any) {
             if (error instanceof _ERROR.NotFoundError) {

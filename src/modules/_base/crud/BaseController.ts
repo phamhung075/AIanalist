@@ -1,6 +1,5 @@
-import { HttpStatusCode } from '@/_core/helper/http-status/common/HttpStatusCode';
-import { RestHandler } from '@/_core/helper/http-status/common/RestHandler';
 import _ERROR from '@/_core/helper/http-status/error';
+import _SUCCESS from '@/_core/helper/http-status/success';
 import { CustomRequest } from '@/_core/helper/interfaces/CustomRequest.interface';
 import { FetchPageResult, PaginationOptions } from '@/_core/helper/interfaces/FetchPageResult.interface';
 import { NextFunction, Response } from 'express';
@@ -33,13 +32,10 @@ export abstract class BaseController<
                     message: 'Creation failed',
                 });
             }
-
-            return RestHandler.success(req, res, {
-                code: HttpStatusCode.CREATED,
+            return new _SUCCESS.CreatedSuccess({
                 message: 'Entity created successfully',
                 data: entity,
-                startTime: req.startTime,
-            });
+            }).send(res, _next);
         } catch (error) {
             _next(error);
         }
@@ -49,7 +45,7 @@ export abstract class BaseController<
     /**
      * ✅ Get all entities
      */
-    async getAll(req: CustomRequest, res: Response, _next: NextFunction) {
+    async getAll(_req: CustomRequest, res: Response, _next: NextFunction) {
         try {
             const entities = await this.service.getAll();
 
@@ -59,12 +55,10 @@ export abstract class BaseController<
                 });
             }
 
-            return RestHandler.success(req, res, {
-                code: HttpStatusCode.OK,
+            return new _SUCCESS.OkSuccess({
                 message: 'Fetched all entities successfully',
                 data: entities,
-                startTime: req.startTime,
-            });
+            }).send(res, _next);
         } catch (error) {
             _next(error);
         }
@@ -84,12 +78,10 @@ export abstract class BaseController<
                 });
             }
 
-            return RestHandler.success(req, res, {
-                code: HttpStatusCode.OK,
+            return new _SUCCESS.OkSuccess({
                 message: 'Fetched entity by ID successfully',
                 data: entity,
-                startTime: req.startTime,
-            });
+            }).send(res, _next);
         } catch (error) {
             _next(error);
         }
@@ -111,12 +103,10 @@ export abstract class BaseController<
                 });
             }
     
-            return RestHandler.success(req, res, {
-                code: HttpStatusCode.OK,
+            return new _SUCCESS.OkSuccess({
                 message: 'Entity updated successfully',
                 data: entity as unknown as UpdateDTO,
-                startTime: req.startTime,
-            });
+            }).send(res, _next);
         } catch (error) {
             _next(error);
         }
@@ -141,11 +131,9 @@ export abstract class BaseController<
                 });
             }
 
-            return RestHandler.success(req, res, {
-                code: HttpStatusCode.OK,
-                message: 'Entity deleted successfully',
-                startTime: req.startTime,
-            });
+            return new _SUCCESS.OkSuccess({
+                message: 'Entity deleted successfully'
+            }).send(res, _next);
         } catch (error) {
             _next(error);
         }
@@ -156,23 +144,31 @@ export abstract class BaseController<
      */
     async paginator(req: CustomRequest, res: Response, _next: NextFunction) {
         try {
-            const { page = '1', limit = '10', all = 'false' } = req.query;
-            const options: PaginationOptions = {
-                page: Number(page),
-                limit: Number(limit),
-                all: all === 'true',
-            };
-
-            const paginationResult: FetchPageResult<T> = await this.service.paginator(options);
-
-            return RestHandler.success(req, res, {
-                code: HttpStatusCode.OK,
-                message: 'Fetched paginated entities successfully',
-                data: paginationResult,
-                startTime: req.startTime,
+          const { page = '1', limit = '10', all = 'false' } = req.query;
+      
+          const pageNumber = Number(page);
+          const limitNumber = Number(limit);
+      
+          if (isNaN(pageNumber) || isNaN(limitNumber)) {
+            throw new _ERROR.BadRequestError({
+              message: 'Invalid page or limit parameters',
             });
+          }
+      
+          const options: PaginationOptions = {
+            page: pageNumber,
+            limit: limitNumber,
+            all: all === 'true',
+          };
+      
+          const paginationResult: FetchPageResult<T> = await this.service.paginator(options);
+      
+          return new _SUCCESS.OkSuccess({
+              message: 'Fetched paginated entities successfully',
+              pagination: paginationResult,
+          }).send(res, _next);
         } catch (error) {
-            _next(error);
+          _next(error);
         }
-    }
+      }
 }

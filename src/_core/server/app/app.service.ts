@@ -17,13 +17,14 @@ import _ERROR from '@/_core/helper/http-status/error';
 import { displayRequest } from '@/_core/middleware/displayRequest.middleware';
 import { responseLogger } from '@/_core/middleware/responseLogger.middleware';
 import router from "@modules/index";
-import rateLimit from '@node_modules/express-rate-limit';
-import { RouteDisplay } from '@node_modules/express-route-tracker/dist';
-import helmet from '@node_modules/helmet/index.cjs';
-import { isRunningWithNodemon } from '@src/_core/helper/check-nodemon';
+
 import { blue, green, yellow } from 'colorette';
 import { NextFunction, Request, Response } from 'express';
 import { startTimeAddOnRequest } from '@/_core/middleware/start-time.middleware';
+import { isRunningWithNodemon } from '@/_core/helper/check-nodemon';
+import rateLimit from 'express-rate-limit';
+import { RouteDisplay } from 'express-route-tracker';
+import helmet from 'helmet';
 
 const env = config.env;
 const pathToEnvFile = path.resolve(__dirname, `../../../../environment/.env.${env}`);

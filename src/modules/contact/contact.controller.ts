@@ -1,14 +1,16 @@
 import { Service } from 'typedi';
-import ContactService from './contact.service';
-import { IContact } from './contact.interface';
-import { CreateInput, UpdateInput } from './contact.dto';
 import { BaseController } from '../_base/crud/BaseController';
+import { CreateInput, UpdateInput } from './contact.dto';
+import { IContact } from './contact.interface';
+import ContactService from './contact.service';
 
-@Service()
+
+
+@Service('ContactController')
 class ContactController extends BaseController<IContact, CreateInput, UpdateInput> {
-  constructor(service: ContactService) {
-    super(service);
-  }  
+    constructor(contactService: ContactService) {
+        super(contactService);
+    }
 }
 
 export default ContactController;

@@ -35,11 +35,19 @@ const getCurrentUserHandler = async (req: Request, res: Response, next: NextFunc
 
 const verifyTokenHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
   try {
-    await authController.verifyToken(req, res, next);
+    await authController.getCurrentUser(req, res, next);
   } catch (error) {
     next(error);
   }
 }
+
+const refreshTokenHandler = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+  try {
+    await authController.refreshToken(req, res, next);
+  } catch (error) {
+    next(error);
+  }
+};
 
 export {
   validateRegisterDTO,
@@ -47,5 +55,6 @@ export {
   registerHandler,
   loginHandler,
   getCurrentUserHandler,
+  refreshTokenHandler,
   verifyTokenHandler
 }

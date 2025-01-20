@@ -8,7 +8,7 @@ With Bun's built-in HTTP server and @bun-express/core, you get the power of Expr
 
 This project is built entirely with Bun, leveraging its blazing-fast execution and optimized API performance. If you're still using Node.js, it's time to upgrade to Bun and experience the difference! 🚀🔥
 
-`
+```
 Key Performance Metrics:
 
 - 89% less heap memory usage
@@ -84,7 +84,7 @@ I will consider Node.js or NestJs when project requirements demand it, such as:
 - Team expertise considerations
 
 - Client technology preferences
-`
+```
 
 # RESTful API Implementation Guide with Node.js, Express.js, and TypeScript
 

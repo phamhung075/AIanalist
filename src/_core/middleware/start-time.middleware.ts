@@ -1,8 +1,12 @@
-import { NextFunction, Response } from "express";
-import { CustomRequest } from "../helper/interfaces/CustomRequest.interface";
+import type { NextFunction, Request, Response, RequestHandler } from "express";
+import type { CustomRequest } from "../helper/interfaces/CustomRequest.interface";
 
-
-export const startTimeAddOnRequest = (req: CustomRequest, _res: Response, next: NextFunction) => {
-	req.startTime = Date.now();
-	next();
-}
+export const startTimeAddOnRequest: RequestHandler = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  (req as CustomRequest).startTime = Date.now();
+  (res as any).locals.startTime = (req as CustomRequest).startTime;
+  next();
+};

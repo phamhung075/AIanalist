@@ -23,6 +23,7 @@ import rateLimit from "express-rate-limit";
 import { RouteDisplay } from "express-route-tracker";
 import helmet from "helmet";
 import { errorMiddleware } from "@/_core/middleware/errorHandler";
+import { resourceUsageMiddleware } from "@/_core/middleware/resourceUsageMiddleware";
 
 const env = config.env;
 const pathToEnvFile = path.resolve(
@@ -85,6 +86,8 @@ export class AppService {
     app.use(displayRequest);
     app.use(responseLogger);
     // Initialize and display routes after loading all modules
+	app.use(resourceUsageMiddleware); // Add the middleware to your app
+
     app.use("/", router);
     const routeDisplay = new RouteDisplay(app);
     routeDisplay.displayRoutes();

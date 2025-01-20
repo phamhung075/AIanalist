@@ -11,6 +11,7 @@ import * as path from "path";
 import { checkSystemOverload } from "../../helper/check-system-overload/check-system-overload";
 import { SimpleLogger } from "../../logger/simple-logger"; // Assuming SimpleLogger is used for logging
 
+import { errorMiddleware } from "@/_core/middleware/errorHandler";
 import router from "@/modules";
 import { testFirestoreAccess } from "@database/firebase-admin-sdk";
 import { API_CONFIG } from "@helper/http-status/common/api-config";
@@ -22,8 +23,6 @@ import { responseLogger } from "@middleware/responseLogger.middleware";
 import rateLimit from "express-rate-limit";
 import { RouteDisplay } from "express-route-tracker";
 import helmet from "helmet";
-import { errorMiddleware } from "@/_core/middleware/errorHandler";
-import { resourceUsageMiddleware } from "@/_core/middleware/resourceUsageMiddleware";
 
 const env = config.env;
 const pathToEnvFile = path.resolve(
@@ -86,7 +85,7 @@ export class AppService {
     app.use(displayRequest);
     app.use(responseLogger);
     // Initialize and display routes after loading all modules
-	app.use(resourceUsageMiddleware); // Add the middleware to your app
+	// app.use(resourceUsageMiddleware);
 
     app.use("/", router);
     const routeDisplay = new RouteDisplay(app);
@@ -267,3 +266,4 @@ export class AppService {
 const appService = AppService.getInstance();
 const app = appService.app; // Export the Express app for testing
 export { app, appService };
+

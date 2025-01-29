@@ -1,35 +1,22 @@
+import { Container } from 'typedi';
+import ContactController from './contact.controller';
+import ContactRepository from './contact.repository';
+import ContactService from './contact.service';
 
+// Créer des instances avec une injection de dépendance appropriée
+const contactRepository = new ContactRepository();
+Container.set(ContactRepository, contactRepository);
 
-import { asyncHandler } from '@/_core/helper/asyncHandler';
-import { firebaseAuthMiddleware } from '@/_core/middleware/auth.middleware';
-import { createHATEOASMiddleware, createRouter } from 'express-route-tracker';
-import { validateCreateDTO, createHandler, getAllsHandler, validateIdDTO, getByIdHandler, updateHandler, validateUpdateDTO, deleteHandler } from './contact.handler';
-import { config } from '@/_core/config/dotenv.config';
+const contactService = new ContactService(contactRepository);
+Container.set(ContactService, contactService);
 
+const contactController = new ContactController(contactService);
+Container.set(ContactController, contactController);
 
-// Create router with source tracking
-const router = createRouter(__filename);
-
-router.use(createHATEOASMiddleware(router, {
-  autoIncludeSameRoute: true,
-  baseUrl: config.baseUrl,
-  includePagination: true,
-  customLinks: {
-      documentation: (_req) => ({
-          rel: 'documentation',
-          href: config.baseUrl+'/docs',
-          method: 'GET',
-          'title': 'API Documentation'
-      })
-  }
-}));
-
-// Define routes without baseApi prefix
-router.post('/', validateCreateDTO, asyncHandler(createHandler));
-router.get('/', asyncHandler(getAllsHandler));
-router.get('/:id', firebaseAuthMiddleware, validateIdDTO, asyncHandler(getByIdHandler));
-router.put('/:id', firebaseAuthMiddleware,validateIdDTO, validateCreateDTO, asyncHandler(updateHandler));
-router.patch('/:id', firebaseAuthMiddleware, validateIdDTO, validateUpdateDTO, asyncHandler(updateHandler));
-router.delete('/:id', firebaseAuthMiddleware, validateIdDTO, asyncHandler(deleteHandler));
-
-export default router;
+// Exporter les instances
+export { contactService, contactController, contactRepository };
+// Also export the types/classes for type usage
+export { default as ContactController } from './contact.controller';
+export { default as ContactRepository } from './contact.repository';
+export { default as ContactService } from './contact.service';
+export type { Contact, IContact } from './contact.interface';

@@ -1,26 +1,24 @@
-import { Request } from "express";
-import { DecodedIdToken } from "firebase-admin/auth";
+import type { Request } from 'express';
+import type { DecodedIdToken } from "firebase-admin/auth";
 
-// Interface pour représenter les détails de l'utilisateur if not use firebase
-// export interface UserContext {
-//     contactDetails?: any; // Représente les détails du contact récupérés depuis Supabase
-//     user?: any;
-// }
-
-// Étendre la requête Express pour inclure le contexte utilisateur
-export interface ExtendedUserContextRequest extends Request {
+// Interface de base pour le contexte utilisateur
+export interface UserContext {
     user?: DecodedIdToken;
 }
 
-// Étendre la requête pour inclure les paramètres supplémentaires
-// Default case if no type is specified
+// Extension de Request avec le contexte utilisateur
+export interface ExtendedUserContextRequest extends Request, UserContext {}
+
+// Type par défaut si aucun type n'est spécifié
 type FallbackBody = { [key: string]: any };
 
-// Generic CustomRequest Interface
-export interface CustomRequest<T = FallbackBody> extends ExtendedUserContextRequest {
+// Interface CustomRequest générique
+export interface CustomRequest<T = FallbackBody> extends Omit<ExtendedUserContextRequest, 'body'> {
     startTime?: number;
     timestamp?: string;
     path: string;
     body: T;
 }
 
+// Type d'aide pour créer une requête typée
+export type TypedRequest<T> = CustomRequest<T>;

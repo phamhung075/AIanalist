@@ -1,174 +1,162 @@
 import _ERROR from '@/_core/helper/http-status/error';
 import _SUCCESS from '@/_core/helper/http-status/success';
 import { CustomRequest } from '@/_core/helper/interfaces/CustomRequest.interface';
-import { FetchPageResult, PaginationOptions } from '@/_core/helper/interfaces/FetchPageResult.interface';
+import { PaginationOptions } from '@/_core/helper/interfaces/PaginationServer.interface';
+import { PaginationInput } from '@/_core/helper/validateZodSchema/Pagination.validation';
 import { NextFunction, Response } from 'express';
 import { Service } from 'typedi';
 import { BaseService } from './BaseService';
 
 /**
- * Generic Controller Class for CRUD and Pagination Operations
+ * Generic Controller Class for CRUD Operations
  */
 @Service()
 export abstract class BaseController<
-    T extends CreateDTO & { id?: string },
-    CreateDTO,
-    UpdateDTO
+	T extends { [key: string]: any },
+	CreateDTO = T,
+	UpdateDTO = Partial<T>
 > {
-    protected service: BaseService<T>;
+	constructor(protected service: BaseService<T>) {}
 
-    constructor(service: BaseService<T>) {
-        this.service = service;
-    }
+	async create(
+		req: CustomRequest<CreateDTO>,
+		res: Response,
+		_next: NextFunction
+	) {
+		try {
+			const inputData = req.body;
+			const entity = await this.service.create(inputData as Omit<T, 'id'>);
 
-    async create(req: CustomRequest<CreateDTO>, res: Response, _next: NextFunction) {
-        try {
-            const inputData: CreateDTO = req.body;
+			if (!entity) {
+				throw new _ERROR.BadRequestError({
+					message: 'Creation failed',
+				});
+			}
 
-            const entity = await this.service.create(inputData as Omit<T, 'id'>);
+			return new _SUCCESS.CreatedSuccess({
+				message: 'Entity created successfully',
+				data: entity,
+			}).send(res, _next);
+		} catch (error) {
+			_next(error);
+		}
+	}
 
-            if (!entity) {
-                throw new _ERROR.BadRequestError({
-                    message: 'Creation failed',
-                });
-            }
-            return new _SUCCESS.CreatedSuccess({
-                message: 'Entity created successfully',
-                data: entity,
-            }).send(res, _next);
-        } catch (error) {
-            _next(error);
-        }
-    }
-    
+	async getAll(req: CustomRequest, res: Response, _next: NextFunction) {
+		try {
+			const pagination: PaginationInput = {
+				page: Number(req.query.page) || 1,
+				limit: Number(req.query.limit) || 10,
+				sort: (req.query.sort as string) || 'createdAt',
+				order: (req.query.order as 'asc' | 'desc') || 'desc',
+			};
 
-    /**
-     * ✅ Get all entities
-     */
-    async getAll(_req: CustomRequest, res: Response, _next: NextFunction) {
-        try {
-            const entities = await this.service.getAll();
+			const results = await this.service.getAll(pagination);
 
-            if (!entities || entities.length === 0) {
-                throw new _ERROR.NotFoundError({
-                    message: 'No entities found',
-                });
-            }
+			return new _SUCCESS.OkSuccess({
+				message: 'Fetched entities successfully',
+				pagination: results,
+			}).send(res, _next);
+		} catch (error) {
+			_next(error);
+		}
+	}
 
-            return new _SUCCESS.OkSuccess({
-                message: 'Fetched all entities successfully',
-                data: entities,
-            }).send(res, _next);
-        } catch (error) {
-            _next(error);
-        }
-    }
+	async getById(req: CustomRequest, res: Response, _next: NextFunction) {
+		try {
+			const { id } = req.params;
+			const entity = await this.service.getById(id);
 
-    /**
-     * ✅ Get entity by ID
-     */
-    async getById(req: CustomRequest, res: Response, _next: NextFunction) {
-        try {
-            const { id } = req.params;
-            const entity = await this.service.getById(id);
+			if (!entity) {
+				throw new _ERROR.NotFoundError({
+					message: 'Entity not found',
+				});
+			}
 
-            if (!entity) {
-                throw new _ERROR.NotFoundError({
-                    message: 'Entity not found',
-                });
-            }
+			return new _SUCCESS.OkSuccess({
+				message: 'Fetched entity by ID successfully',
+				data: entity,
+			}).send(res, _next);
+		} catch (error) {
+			_next(error);
+		}
+	}
 
-            return new _SUCCESS.OkSuccess({
-                message: 'Fetched entity by ID successfully',
-                data: entity,
-            }).send(res, _next);
-        } catch (error) {
-            _next(error);
-        }
-    }
+	async update(
+		req: CustomRequest<UpdateDTO>,
+		res: Response,
+		_next: NextFunction
+	) {
+		try {
+			const { id } = req.params;
+			const inputData = req.body;
 
-    /**
-     * ✅ Update an entity by ID
-     */
-    async update(req: CustomRequest<UpdateDTO>, res: Response, _next: NextFunction) {
-        try {
-            const { id } = req.params;
-            const inputData: UpdateDTO = req.body;
-    
-            const entity = await this.service.update(id, inputData as unknown as Partial<T>);
-    
-            if (!entity) {
-                throw new _ERROR.NotFoundError({
-                    message: 'Entity not found',
-                });
-            }
-    
-            return new _SUCCESS.OkSuccess({
-                message: 'Entity updated successfully',
-                data: entity as unknown as UpdateDTO,
-            }).send(res, _next);
-        } catch (error) {
-            _next(error);
-        }
-    }
-    
-    
-    
-    
-    
+			const entity = await this.service.update(
+				id,
+				inputData as unknown as Partial<T>
+			);
 
-    /**
-     * ✅ Delete an entity by ID
-     */
-    async delete(req: CustomRequest, res: Response, _next: NextFunction) {
-        try {
-            const { id } = req.params;
-            const result = await this.service.delete(id);
+			if (!entity) {
+				throw new _ERROR.NotFoundError({
+					message: 'Entity not found',
+				});
+			}
 
-            if (!result) {
-                throw new _ERROR.NotFoundError({
-                    message: 'Entity not found',
-                });
-            }
+			return new _SUCCESS.OkSuccess({
+				message: 'Entity updated successfully',
+				data: entity,
+			}).send(res, _next);
+		} catch (error) {
+			_next(error);
+		}
+	}
 
-            return new _SUCCESS.OkSuccess({
-                message: 'Entity deleted successfully'
-            }).send(res, _next);
-        } catch (error) {
-            _next(error);
-        }
-    }
+	async delete(req: CustomRequest, res: Response, _next: NextFunction) {
+		try {
+			const { id } = req.params;
+			const result = await this.service.delete(id);
 
-    /**
-     * ✅ Paginated Query
-     */
-    async paginator(req: CustomRequest, res: Response, _next: NextFunction) {
-        try {
-          const { page = '1', limit = '10', all = 'false' } = req.query;
-      
-          const pageNumber = Number(page);
-          const limitNumber = Number(limit);
-      
-          if (isNaN(pageNumber) || isNaN(limitNumber)) {
-            throw new _ERROR.BadRequestError({
-              message: 'Invalid page or limit parameters',
-            });
-          }
-      
-          const options: PaginationOptions = {
-            page: pageNumber,
-            limit: limitNumber,
-            all: all === 'true',
-          };
-      
-          const paginationResult: FetchPageResult<T> = await this.service.paginator(options);
-      
-          return new _SUCCESS.OkSuccess({
-              message: 'Fetched paginated entities successfully',
-              pagination: paginationResult,
-          }).send(res, _next);
-        } catch (error) {
-          _next(error);
-        }
-      }
+			if (!result) {
+				throw new _ERROR.NotFoundError({
+					message: 'Entity not found',
+				});
+			}
+
+			return new _SUCCESS.OkSuccess({
+				message: 'Entity deleted successfully',
+			}).send(res, _next);
+		} catch (error) {
+			_next(error);
+		}
+	}
+
+	async paginator(req: CustomRequest, res: Response, _next: NextFunction) {
+		try {
+			const { page = '1', limit = '10', all = 'false' } = req.query;
+
+			const pageNumber = Number(page);
+			const limitNumber = Number(limit);
+
+			if (isNaN(pageNumber) || isNaN(limitNumber)) {
+				throw new _ERROR.BadRequestError({
+					message: 'Invalid page or limit parameters',
+				});
+			}
+
+			const options: PaginationOptions = {
+				page: pageNumber,
+				limit: limitNumber,
+				all: all === 'true',
+			};
+
+			const paginationResult = await this.service.paginator(options);
+
+			return new _SUCCESS.OkSuccess({
+				message: 'Fetched paginated entities successfully',
+				pagination: paginationResult,
+			}).send(res, _next);
+		} catch (error) {
+			_next(error);
+		}
+	}
 }

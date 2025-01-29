@@ -103,9 +103,7 @@
 		/* Language and environment settings */
 		"target": "ES2020", // Modern JavaScript version
 		"module": "commonjs", // CommonJS module system for Node.js
-		"lib": [
-			"ES2020"
-		], // Use modern JavaScript library features
+		"lib": ["ES2020"], // Use modern JavaScript library features
 		"moduleResolution": "node", // Resolve modules in Node.js style
 		"esModuleInterop": true, // Ensures compatibility with CommonJS and ES modules
 		"allowSyntheticDefaultImports": true, // Allows default imports from non-ES6 modules
@@ -130,32 +128,32 @@
 		"checkJs": false, // Do not check JavaScript files
 		"incremental": true, // Enable incremental compilation for faster builds
 		"emitDecoratorMetadata": true,
-    	"experimentalDecorators": true,
+		"experimentalDecorators": true,
 		"noEmit": true, // Added this line to fix the error
 		"allowImportingTsExtensions": true, // Cette option nécessite que 'noEmit' ou 'emitDeclarationOnly' soit défini.
 		"outDir": "dist",
 		"rootDir": ".",
 		"baseUrl": ".",
 		"paths": {
-		  "@/*": ["src/*"],
-		  "@environment/*": ["environment/*"],
-		  "@core/*": ["src/_core/*"],
-		  "@config/*": ["src/_core/config/*"],
-		  "@database/*": ["src/_core/database/*"],
-		  "@modules/*": ["src/modules/*"],
-		  "@helper/*": ["src/_core/helper/*"],
-		  "@middleware/*": ["src/_core/middleware/*"],
-		  "@auth/*": ["src/_core/auth/*"],
-		  "@types/*": ["src/types/*"],
-		  "@logger/*": ["src/_core/logger/*"],
-		  "@server/*": ["src/_core/server/*"]
-		},
+			"@/*": ["src/*"],
+			"@environment/*": ["environment/*"],
+			"@core/*": ["src/_core/*"],
+			"@config/*": ["src/_core/config/*"],
+			"@database/*": ["src/_core/database/*"],
+			"@modules/*": ["src/modules/*"],
+			"@helper/*": ["src/_core/helper/*"],
+			"@middleware/*": ["src/_core/middleware/*"],
+			"@auth/*": ["src/_core/auth/*"],
+			"@types/*": ["src/types/*"],
+			"@logger/*": ["src/_core/logger/*"],
+			"@server/*": ["src/_core/server/*"]
+		}
 	},
 	"include": [
-		"src/**/*"
+		"src/**/*",
+		"environment/**/*",
+		"environment/**/*.json",
+		"check-dirs.js"
 	],
-	"exclude": [
-		"node_modules",
-		"dist"
-	]
+	"exclude": ["node_modules"]
 }

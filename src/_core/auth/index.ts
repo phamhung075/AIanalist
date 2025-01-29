@@ -1,37 +1,25 @@
-import { createHATEOASMiddleware, createRouter } from "express-route-tracker";
-import { config } from "../config/dotenv.config.ts";
-import { asyncHandler } from "../helper/asyncHandler/index.ts";
-import { firebaseAuthMiddleware } from "../middleware/auth.middleware.ts";
-import { validateRegisterDTO, registerHandler, validateLoginDTO, loginHandler, getCurrentUserHandler, refreshTokenHandler } from "./auth.handler.ts";
+import { Container } from 'typedi';
+import AuthController from './auth.controller';
+import AuthRepository from './auth.repository';
+import AuthService from './auth.service';
+import { contactService } from '@/modules/contact';
 
-// import { config } from '../config/dotenv.config';
-require("express-route-tracker")
+// Create instances with proper dependency injection
+const authRepository = new AuthRepository();
+Container.set(AuthRepository, authRepository);
 
+const authService = new AuthService(authRepository, contactService);
+Container.set(AuthService, authService);
 
-const router = createRouter(__filename);
+const authController = new AuthController(authService);
+Container.set(AuthController, authController);
 
-router.use(createHATEOASMiddleware(router, {
-  autoIncludeSameRoute: true,
-  baseUrl: config.baseUrl,
-  includePagination: true,
-  customLinks: {
-      documentation: (_req) => ({
-          rel: 'documentation',
-          href: config.baseUrl+'/docs',
-          method: 'GET',
-          'title': 'API Documentation'
-      })
-  }
-}));
+// Export the instances
+export { authService, authController, authRepository };
 
-/**
- * 🔐 User Registration
- */
-router.post('/registre', validateRegisterDTO, asyncHandler(registerHandler));
-router.post('/login', validateLoginDTO, asyncHandler(loginHandler));
-router.get('/current', firebaseAuthMiddleware, asyncHandler(getCurrentUserHandler));
-router.get('/verify', firebaseAuthMiddleware, asyncHandler(getCurrentUserHandler));
-router.get('/refreshtoken', firebaseAuthMiddleware, asyncHandler(refreshTokenHandler));
+// Also export the types/classes for type usage
+export { default as AuthController } from './auth.controller';
+export { default as AuthRepository } from './auth.repository';
+export { default as AuthService } from './auth.service';
 
-
-export default router;
+export type { AuthTokens, IAuth, IRegister } from './auth.interface';

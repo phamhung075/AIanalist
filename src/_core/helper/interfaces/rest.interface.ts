@@ -1,6 +1,7 @@
-import { HATEOASLinks } from "express-route-tracker";
-import { HttpStatusCode } from "../http-status/common/HttpStatusCode";
-import { HttpMethod } from "../http-status/common/api-config";
+import type { HATEOASLinks } from "express-route-tracker";
+import type { HttpMethod } from "../http-status/common/api-config";
+import type { HttpStatusCode } from "../http-status/common/HttpStatusCode";
+
 
 export interface PaginationParams {
     page?: number;
@@ -15,8 +16,8 @@ export interface PaginationResult<T> {
     limit: number;
     totalItems?: number;
     totalPages?: number;
-    hasNext?: boolean;
-    hasPrev?: boolean;
+    hasNextPage?: boolean;
+    hasPrevPage?: boolean;
 }
 
 

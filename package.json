@@ -16,6 +16,10 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"@langchain/core": "^0.3.37",
+		"@langchain/openai": "^0.4.2",
+		"@langchain/pinecone": "^0.1.3",
+		"@pinecone-database/pinecone": "^4.1.0",
 		"aianalist": "file:",
 		"cli-table3": "^0.6.5",
 		"codesnap-analyzer": "^1.0.2",

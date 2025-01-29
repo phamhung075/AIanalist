@@ -12,8 +12,9 @@ router.post('/', (_req: Request, res: Response, _next: NextFunction) => {
 
 // Auth routes - these should be protected except login/register
 router.use(API_CONFIG.PREFIX + '/auth', require('../_core/auth/route').default);
-
 router.use(API_CONFIG.PREFIX + '/contact', require('./contact/route').default);
+router.use(API_CONFIG.PREFIX + '/ai', require('./ai/route').default);
+
 // router.use('/api/trading-economics-new', firebaseAuthMiddleware, require('./trading-economics-new'));
 
 // router.use('/v1/api/error', require('./error'));

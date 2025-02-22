@@ -2,7 +2,7 @@ import { Service } from 'typedi';
 import { Pinecone } from '@pinecone-database/pinecone';
 import { Document } from '@langchain/core/documents';
 import { OpenAIEmbeddings } from '@langchain/openai';
-import { PineconeStore } from '@langchain/pinecone';
+import { PineconeStore, PineconeStoreParams } from '@langchain/pinecone';
 
 @Service()
 class PineconeService {
@@ -60,10 +60,10 @@ class PineconeService {
 		const index = await this.getOrCreateIndex();
 
 		return await PineconeStore.fromExistingIndex(this.embeddings, {
-			pineconeIndex: index,
+			pineconeIndex: index as any,
 			namespace: this.namespace,
 			textKey: 'text',
-		});
+		} as PineconeStoreParams);
 	}
 
 	async addDocument(text: string, metadata: Record<string, any> = {}) {

@@ -4,10 +4,15 @@ import { API_CONFIG } from '@/_core/helper/http-status/common/api-config';
 import { NextFunction, Request, Response, Router } from 'express';
 
 const router = Router();
-router.post('/', (_req: Request, res: Response, _next: NextFunction) => {
-	return res.status(200).json({
-		message: 'Welcome to AIAnalyst!',
-	});
+
+router.post('/', (_req: Request, res: Response, next: NextFunction) => {
+	try {
+		res.status(200).json({
+			message: 'Bienvenue chez AIAnalyst!',
+		});
+	} catch (error) {
+		next(error);
+	}
 });
 
 // Auth routes - these should be protected except login/register
